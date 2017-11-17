@@ -1,45 +1,50 @@
 # Kriging functionality for CTFS
 
-# At the top level, simply calling the function GetKrigedSoil will calculate
-# a "best" semivariogram to use and krige the soil data without any other input
 
 
-
-# GetKrigedSoil
-#
-# Kriges the soil data from "df.soil" using soil variable "var",
-# following the methodology of the John et al. (2007) paper.
-#
-# By default the best kriging parameters found via the geoR variogram
-# function are used, but specified parameters can by used via the
-# "krigeParams" argument
-# geoR has two main kriging functions: ksLine and krige.conv. The
-# argument "useKsLine" specifies whether to use the ksline function or not.
-#
-# Parameters:
-#   df.soil: the data frame with the points, coords specified in the
-#            columns gx, gy.
-#   var: the variable/column in df.soil to krige
-#   gridSize: points are kriged to the centre points of a grid of this size
-#   krigeParams: if you want to pass specified kriging parameters; see
-#                GetAutomatedKrigeParams for each parameter
-#   xSize: X size/length of the plot
-#   ySize: Y size/length of the plot
-#   breaks: breaks/intervals used to calculate the semivariogram, which only
-#           happens if krigeParams=NULL (default)
-#   useKsLine: see above
-#
-# Returns a list with the following items:
-#   df: data frame of kriged values (column z) at each grid point (x, y)
-#   df.poly: data frame of the polynomial surface fitted to the raw data
-#   lambda: the "lambda" value used in the Box-Cox transform of the raw data
-#   vg: the variogram parameters used for the kriging
-#   vm: minimum loss value returned from the geoR variofit function
-GetKrigedSoil <- function( df.soil, var="P", gridSize=20,
-                           krigeParams=NULL, xSize=1000, ySize=500,
-                           breaks=ExpList( 2, 320, 30 ),
-                           useKsLine=T )
-{
+#' Krige soil data following the methodology of the John et al. (2007).
+#'
+#' If called without inputs, `GetKrigedSoil()` calculates a "best" semivariogram
+#' to use and krige the soil data.
+#'
+#' By default the best kriging parameters (found via variogram functions in the
+#' __geoR__ package) are used, but specified parameters can be used via the
+#' `krigeParams` argument geoR has two main kriging functions: [geoR::ksline()]
+#' and [geoR::krige.conv()]. The argument `useKsLine` specifies whether to use
+#' the [geoR::ksline()] function or not.
+#'
+#' @param df.soil The data frame with the points, coords specified in the
+#'   columns `gx`, `gy`.
+#' @param var The variable/column in `df.soil` to krige.
+#' @param gridSize Points are kriged to the centre points of a grid of this
+#'   size.
+#' @param krigeParams If you want to pass specified kriging parameters; see
+#'   [GetAutomatedKrigeParams()] for each parameter.
+#' @param xSize,ySize X and Y size/length of the plot.
+#' @param breaks Breaks/intervals used to calculate the semivariogram, which
+#'   only happens if `krigeParams = NULL` (default).
+#' @param useKsLine See above.
+#' @return A list with the following items:
+#'   * `df`: Data frame of kriged values (column z) at each grid point (x, y).
+#'   * `df.poly`: Data frame of the polynomial surface fitted to the raw data.
+#'   * `lambda`: The "lambda" value used in the Box-Cox transform of the raw
+#'     data.
+#'   * `vg`: The variogram parameters used for the kriging.
+#'   * `vm`: Minimum loss value returned from [geoR::variofit()].
+#' @seealso [geoR::variofit()], [geoR::variog()], [geoR::as.geodata()],
+#'   [geoR::ksline()], [geoR::krige.conv()], [geoR::krige.control()].
+#'
+#' @examples
+#'
+#' @export
+GetKrigedSoil <- function(df.soil,
+                          var = "P",
+                          gridSize = 20,
+                          krigeParams = NULL,
+                          xSize = 1000,
+                          ySize = 500,
+                          breaks = ExpList(2, 320, 30),
+                          useKsLine = TRUE){
   df <- df.soil[ , c("gx", "gy", var) ]
   names( df )[ 3 ] <- "z"
 
@@ -108,7 +113,8 @@ GetKrigedSoil <- function( df.soil, var="P", gridSize=20,
                 lambda=bc$lambda, vg=params$vg, vm=params$minVM ) )
 }
 
-###############
+
+
 # ExpList
 #
 # Returns a list of n values which exponentially
@@ -125,7 +131,8 @@ ExpList <- function( first, last, n )
   v
 }
 
-##############
+
+
 # GetAutomatedKrigeParams
 #
 # Uses the geoR function variofit, with a range of variogram models, to
@@ -163,7 +170,8 @@ GetAutomatedKrigeParams <- function( geod, trend="cte", breaks=ExpList( 2, 320, 
                 minVM=minVM, vg=vg ) )
 }
 
-################
+
+
 # GetPolynomialFit
 #
 # Given a data frame, df, with columns specifying the x, y coordinates
@@ -193,7 +201,8 @@ GetPolynomialFit <- function( df, gridSize=20, xSize=1000, ySize=500 )
   return( list( df.orig=df, df.interpolated=df.locations, mod=model ) )
 }
 
-################
+
+
 # PolynomialSurfaceOrder2
 #
 # Returns a polynomial 2nd order surface (x,y) defined by the parameters a to f
@@ -202,7 +211,7 @@ PolynomialSurfaceOrder2 <- function( x, y, a, b, c, d, e, f )
   a + b*x + c*y + d*x*y + e*x^2 + f*y^2
 }
 
-# BoxCoxTransformSoil
+#
 # Finds the optimal Box-Cox transform parameters for the data in data
 # frame, df, with columns specifying the x, y coordinates
 # and a quantity at each coord, whilst restricting the lambda value
