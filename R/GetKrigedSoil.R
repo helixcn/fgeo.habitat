@@ -371,11 +371,14 @@ BoxCoxTransformSoil <- function(df) {
 #'
 #' @keywords internal
 #' @noRd
-InvBoxCoxTransformSoil <- function( df, lambda, delta )
-{
-  if ( lambda == 0 ) {
-    df$z <- exp( df$z )
-  } else if ( lambda == 0.5 ) df$z <- df$z ^ 2
+InvBoxCoxTransformSoil <- function(df, lambda, delta) {
+  if (lambda == 0) {
+    df$z <- exp(df$z)
+  } else {
+    if (lambda == 0.5) {
+      df$z <- df$z ^ 2
+    }
+  }
   # Take away the delta offset
   df$z <- df$z - delta
 
