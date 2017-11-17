@@ -302,9 +302,8 @@ GetPolynomialFit <- function(df, gridSize = 20, xSize = 1000, ySize = 500) {
 #'
 #' @keywords internal
 #' @noRd
-PolynomialSurfaceOrder2 <- function( x, y, a, b, c, d, e, f )
-{
-  a + b*x + c*y + d*x*y + e*x^2 + f*y^2
+PolynomialSurfaceOrder2 <- function(x, y, a, b, c, d, e, f) {
+  a + b * x + c * y + d * x * y + e * x ^ 2 + f * y ^ 2
 }
 
 
