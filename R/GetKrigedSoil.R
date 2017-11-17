@@ -136,12 +136,14 @@ GetKrigedSoil <- function(df.soil,
                 lambda=bc$lambda, vg=params$vg, vm=params$minVM ) )
 }
 
-
-
-# ExpList
-#
-# Returns a list of n values which exponentially
-# increases from first to last
+#' List of n values which exponentially increases from first to last.
+#'
+#' @param first Xxx.
+#' @param last Xxx.
+#' @param n Xxx.
+#'
+#' @noRd
+#' @keywords internal
 ExpList <- function( first, last, n )
 {
   v <- vector()
@@ -154,16 +156,20 @@ ExpList <- function( first, last, n )
   v
 }
 
-
-
-# GetAutomatedKrigeParams
-#
-# Uses the geoR function variofit, with a range of variogram models, to
-# find the "best" variogram parameters for the given geodata object
-#
-# Returns a list of the best fitted variogram parameters:
-#   nugget, sill, range, kappa, model
-#   and the minimum fit error, minVM, and the variogram, vg
+#' Find the "best" variogram parameters for a given geodata object.
+#'
+#' Uses the [geoR::variofit()] with a range of variogram models.
+#'
+#' @return A list of the best fitted variogram parameters:
+#'   * nugget: Xxxx.
+#'   * sill: Xxxx.
+#'   * range: Xxxx.
+#'   * kappa: Xxxx.
+#'   * model: Xxxx.
+#'   * minVM: The minimum fit error.
+#'   * vg: The variogram.
+#' @noRd
+#' @keywords internal
 GetAutomatedKrigeParams <- function( geod, trend="cte", breaks=ExpList( 2, 320, 30 ) )
 {
 
@@ -194,17 +200,26 @@ GetAutomatedKrigeParams <- function( geod, trend="cte", breaks=ExpList( 2, 320, 
 }
 
 
-
-# GetPolynomialFit
-#
-# Given a data frame, df, with columns specifying the x, y coordinates
-# and a quantity at each coord, a 2D polynomial surface is fitted to the
-# df and the values at grid location (specified by gridSize) are interpolated
-# using nls.
-# Returns a list of the original df, the interpolated values at each grid point,
-#         and the nls model, if the nls fit succeeded
-# No interpolated locations are returned if nls failed to model the surface,
-# in which case the model attribute is set to NULL
+#' Fit a 2D polynomial surface.
+#'
+#' Fit a 2D polynomial surface from the following inputs:
+#' * A dataframe with columns specifying the x, y coordinates and a quantity at
+#'   each coord; and
+#' * A grid of locations (specified by gridSize), which are interpolated using
+#'   nls.
+#'
+#' @return A list of the original df, the interpolated values at each grid
+#'   point, and the nls model, if the nls fit succeeded. No interpolated
+#'   locations are returned if nls failed to model the surface, in which case
+#'   the model attribute is set to `NULL.`
+#'
+#' @param df Xxxx.
+#' @param gridSize Xxxx.
+#' @param xSize Xxxx.
+#' @param ySize Xxxx.
+#'
+#' @noRd
+#' @keywords internal
 GetPolynomialFit <- function( df, gridSize=20, xSize=1000, ySize=500 )
 {
   # The data frame is assumed to be x, y, z
@@ -226,24 +241,39 @@ GetPolynomialFit <- function( df, gridSize=20, xSize=1000, ySize=500 )
 
 
 
-# PolynomialSurfaceOrder2
-#
-# Returns a polynomial 2nd order surface (x,y) defined by the parameters a to f
+#' Return a polynomial 2nd order surface (x,y) defined by the parameters a to f
+#'
+#' @param x Xxx.
+#' @param y Xxx.
+#' @param a Xxx.
+#' @param b Xxx.
+#' @param c Xxx.
+#' @param d Xxx.
+#' @param e Xxx.
+#' @param f Xxx.
+#'
+#' @keywords internal
+#' @noRd
 PolynomialSurfaceOrder2 <- function( x, y, a, b, c, d, e, f )
 {
   a + b*x + c*y + d*x*y + e*x^2 + f*y^2
 }
 
-#
-# Finds the optimal Box-Cox transform parameters for the data in data
-# frame, df, with columns specifying the x, y coordinates
-# and a quantity at each coord, whilst restricting the lambda value
-# to 0, 0.5 and 1. Only data >=0 can be transformed. Values = 0 are
-# handled by adding a small value, delta, which if used is returned
-# as the delta argument.
-# Returns a list of the original df, the delta value
-#         and the the delta value
-#
+
+#' Find the optimal Box-Cox transform parameters.
+#'
+#' Finds the optimal Box-Cox transform parameters for the data in data frame,
+#' df, with columns specifying the x, y coordinates and a quantity at each
+#' coord, whilst restricting the lambda value to 0, 0.5 and 1. Only data >=0 can
+#' be transformed. Values = 0 are handled by adding a small value, delta, which
+#' if used is returned as the delta argument.
+#'
+#' @return A list of the original df, the delta value and the the delta value.
+#'
+#' @param df Xxxx.
+#'
+#' @keywords internal
+#' @noRd
 BoxCoxTransformSoil <- function( df )
 {
   lambda <- 1
@@ -273,10 +303,19 @@ BoxCoxTransformSoil <- function( df )
   list( df=df, lambda=lambda, delta=delta )
 }
 
-# InvBoxCoxTransformSoil
-# Performed the inverse of the Box-Cox transform given the data, df,
-# the lambda value and and delta added to the data
-# Return the df with the transformed data, from the z column
+#' Perform the inverse of the Box-Cox transform.
+#'
+#' Performed the inverse of the Box-Cox transform given the data, df,
+#' the lambda value and and delta added to the data
+#'
+#' @param lambda Xxx.
+#' @param df Xxx.
+#' @param delta Xxx.
+#'
+#' @return The df with the transformed data, from the z column.
+#'
+#' @keywords internal
+#' @noRd
 InvBoxCoxTransformSoil <- function( df, lambda, delta )
 {
   if ( lambda == 0 ) {
@@ -287,4 +326,3 @@ InvBoxCoxTransformSoil <- function( df, lambda, delta )
 
   df
 }
-
