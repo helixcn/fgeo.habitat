@@ -4,14 +4,13 @@
 
 #' Krige soil data following the methodology of the John et al. (2007).
 #'
+#' @description
 #' If called without inputs, `GetKrigedSoil()` calculates a "best" semivariogram
-#' to use and krige the soil data.
-#'
-#' By default the best kriging parameters (found via variogram functions in the
-#' __geoR__ package) are used, but specified parameters can be used via the
-#' `krigeParams` argument geoR has two main kriging functions: [geoR::ksline()]
-#' and [geoR::krige.conv()]. The argument `useKsLine` specifies whether to use
-#' the [geoR::ksline()] function or not.
+#' to use and krige the soil data. By default the best kriging parameters (found
+#' via variogram functions in the __geoR__ package) are used, but specified
+#' parameters can be used via the `krigeParams` argument. __geoR__ has two main
+#' kriging functions: [geoR::ksline()] and [geoR::krige.conv()]. The argument
+#' `useKsLine` specifies whether to use the [geoR::ksline()] function or not.
 #'
 #' @param df.soil The data frame with the points, coords specified in the
 #'   columns `gx`, `gy`.
@@ -29,7 +28,7 @@
 #'   * `df.poly`: Data frame of the polynomial surface fitted to the raw data.
 #'   * `lambda`: The "lambda" value used in the Box-Cox transform of the raw
 #'     data.
-#'   * `vg`: The variogram parameters used for the kriging.
+#'   * `vg`: A list giving the variogram parameters used for the kriging.
 #'   * `vm`: Minimum loss value returned from [geoR::variofit()].
 #' @seealso [geoR::variofit()], [geoR::variog()], [geoR::as.geodata()],
 #'   [geoR::ksline()], [geoR::krige.conv()], [geoR::krige.control()].
