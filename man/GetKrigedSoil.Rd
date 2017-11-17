@@ -10,42 +10,41 @@ GetKrigedSoil(df.soil, var = "P", gridSize = 20, krigeParams = NULL,
 }
 \arguments{
 \item{df.soil}{The data frame with the points, coords specified in the
-columns `gx`, `gy`.}
+columns \code{gx}, \code{gy}.}
 
-\item{var}{The variable/column in `df.soil` to krige.}
+\item{var}{The variable/column in \code{df.soil} to krige.}
 
 \item{gridSize}{Points are kriged to the centre points of a grid of this
 size.}
 
 \item{krigeParams}{If you want to pass specified kriging parameters; see
-[GetAutomatedKrigeParams()] for each parameter.}
+\code{\link[=GetAutomatedKrigeParams]{GetAutomatedKrigeParams()}} for each parameter.}
 
 \item{xSize, ySize}{X and Y size/length of the plot.}
 
 \item{breaks}{Breaks/intervals used to calculate the semivariogram, which
-only happens if `krigeParams = NULL` (default).}
+only happens if \code{krigeParams = NULL} (default).}
 
 \item{useKsLine}{See above.}
 }
 \value{
 A list with the following items:
-  * `df`: Data frame of kriged values (column z) at each grid point (x, y).
-  * `df.poly`: Data frame of the polynomial surface fitted to the raw data.
-  * `lambda`: The "lambda" value used in the Box-Cox transform of the raw
-    data.
-  * `vg`: The variogram parameters used for the kriging.
-  * `vm`: Minimum loss value returned from [geoR::variofit()].
+\itemize{
+\item \code{df}: Data frame of kriged values (column z) at each grid point (x, y).
+\item \code{df.poly}: Data frame of the polynomial surface fitted to the raw data.
+\item \code{lambda}: The "lambda" value used in the Box-Cox transform of the raw
+data.
+\item \code{vg}: A list giving the variogram parameters used for the kriging.
+\item \code{vm}: Minimum loss value returned from \code{\link[geoR:variofit]{geoR::variofit()}}.
+}
 }
 \description{
-If called without inputs, `GetKrigedSoil()` calculates a "best" semivariogram
-to use and krige the soil data.
-}
-\details{
-By default the best kriging parameters (found via variogram functions in the
-__geoR__ package) are used, but specified parameters can be used via the
-`krigeParams` argument geoR has two main kriging functions: [geoR::ksline()]
-and [geoR::krige.conv()]. The argument `useKsLine` specifies whether to use
-the [geoR::ksline()] function or not.
+If called without inputs, \code{GetKrigedSoil()} calculates a "best" semivariogram
+to use and krige the soil data. By default the best kriging parameters (found
+via variogram functions in the \strong{geoR} package) are used, but specified
+parameters can be used via the \code{krigeParams} argument. \strong{geoR} has two main
+kriging functions: \code{\link[geoR:ksline]{geoR::ksline()}} and \code{\link[geoR:krige.conv]{geoR::krige.conv()}}. The argument
+\code{useKsLine} specifies whether to use the \code{\link[geoR:ksline]{geoR::ksline()}} function or not.
 }
 \examples{
 \dontrun{
@@ -56,24 +55,32 @@ df <- krig::soil_random
 str(df)
 
 # Krige with automated parameters
-kriged <- GetKrigedSoil( df, var="M3Al" )
+kriged <- GetKrigedSoil(df, var = "M3Al")
 str(kriged)
 
 # Krige with specified parameters - these example params are rather arbitrary
 # but are loosely based on what was chosen from the automated kriging
-params <- list( model="circular", range=100, nugget=1000, sill=46000, kappa=0.5 )
-kriged.2 <- GetKrigedSoil( df, var="M3Al", krigeParams=params )
+params <- list(
+  model = "circular",
+  range = 100,
+  nugget = 1000,
+  sill = 46000,
+  kappa = 0.5
+)
+kriged.2 <- GetKrigedSoil(df, var = "M3Al", krigeParams = params)
 
 # Have a look at the differences
-g <- ggplot( kriged$df, aes( x=x, y=y, fill=z ) )
-g <- g + geom_tile() + coord_equal()
-g2 <- ggplot( kriged.2$df, aes( x=x, y=y, fill=z ) )
-g2 <- g2 + geom_tile() + coord_equal()
+g <- ggplot(kriged$df, aes(x = x, y = y, fill = z)) +
+  geom_tile() +
+  coord_equal()
+g2 <- ggplot(kriged.2$df, aes(x = x, y = y, fill = z)) +
+  geom_tile() +
+  coord_equal()
 g
 g2
 }
 }
 \seealso{
-[geoR::variofit()], [geoR::variog()], [geoR::as.geodata()],
-  [geoR::ksline()], [geoR::krige.conv()], [geoR::krige.control()].
+\code{\link[geoR:variofit]{geoR::variofit()}}, \code{\link[geoR:variog]{geoR::variog()}}, \code{\link[geoR:as.geodata]{geoR::as.geodata()}},
+\code{\link[geoR:ksline]{geoR::ksline()}}, \code{\link[geoR:krige.conv]{geoR::krige.conv()}}, \code{\link[geoR:krige.control]{geoR::krige.control()}}.
 }
