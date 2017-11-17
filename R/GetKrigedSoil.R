@@ -192,9 +192,9 @@ ExpList <- function(first, last, n) {
 #'   * vg: The variogram.
 #' @noRd
 #' @keywords internal
-GetAutomatedKrigeParams <- function( geod, trend="cte", breaks=ExpList( 2, 320, 30 ) )
-{
-
+GetAutomatedKrigeParams <- function(geod,
+                                    trend = "cte",
+                                    breaks = ExpList(2, 320, 30)) {
   # The default breaks argument is set to have more points where the curve
   # rises the most and exponentially fewer at large distances
   # This means that the curve fitting is not overly biased by points
@@ -202,25 +202,34 @@ GetAutomatedKrigeParams <- function( geod, trend="cte", breaks=ExpList( 2, 320, 
 
   # Several different models are tested; the one with the lowest least
   # squares error is chosen
-  vg <- geoR::variog( geod, breaks=breaks, pairs.min=5, trend=trend )
-  varModels <- c( "exponential", "circular", "cauchy", "gaussian" ) #, "wave" )
+  vg <- geoR::variog(geod, breaks = breaks, pairs.min = 5, trend = trend)
+  varModels <- c("exponential", "circular", "cauchy", "gaussian") #, "wave" )
   minValue <- NULL
   minVM <- NULL
-  startRange <- max( breaks ) / 2
-  initialVal <- max( vg$v ) / 2
-  for ( i in 1:length(varModels) ) {
-    vm <- geoR::variofit( vg, ini.cov.pars=c( initialVal, startRange ),
-                    nugget=initialVal, cov.model=varModels[i] )
-    if ( is.null(minValue) || vm$value < minValue ) {
+  startRange <- max(breaks) / 2
+  initialVal <- max(vg$v) / 2
+  for (i in 1:length(varModels)) {
+    vm <- geoR::variofit(
+      vg,
+      ini.cov.pars = c(initialVal, startRange),
+      nugget = initialVal,
+      cov.model = varModels[i]
+    )
+    if (is.null(minValue) || vm$value < minValue) {
       minValue <- vm$value
       minVM <- vm
     }
   }
-  return( list( nugget=minVM$nugget, sill=minVM$cov.pars[1],
-                range=minVM$cov.pars[2], kappa=minVM$kappa, model=minVM$cov.model,
-                minVM=minVM, vg=vg ) )
+  list(
+    nugget = minVM$nugget,
+    sill = minVM$cov.pars[1],
+    range = minVM$cov.pars[2],
+    kappa = minVM$kappa,
+    model = minVM$cov.model,
+    minVM = minVM,
+    vg = vg
+  )
 }
-
 
 #' Fit a 2D polynomial surface.
 #'
