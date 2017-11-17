@@ -151,7 +151,7 @@ GetAutomatedKrigeParams <- function( geod, trend="cte", breaks=ExpList( 2, 320, 
   startRange <- max( breaks ) / 2
   initialVal <- max( vg$v ) / 2
   for ( i in 1:length(varModels) ) {
-    vm <- variofit( vg, ini.cov.pars=c( initialVal, startRange ),
+    vm <- geoR::variofit( vg, ini.cov.pars=c( initialVal, startRange ),
                     nugget=initialVal, cov.model=varModels[i] )
     if ( is.null(minValue) || vm$value < minValue ) {
       minValue <- vm$value
@@ -223,14 +223,13 @@ BoxCoxTransformSoil <- function( df )
       names(df)[1:3] <- c("gx", "gy", "z")
     }
 
-    require(MASS)
     if ( min( df$z ) >= 0 ) { # boxcox will complain about -ve values
       if ( min( df$z ) == 0 ) {
         # add a small amount to allow transforms to work
         delta = 0.00001
         df$z <- df$z + delta
       }
-      bc <- boxcox( z ~ gx + gy, data=df, lambda=c(0, 0.5, 1), plotit=F)
+      bc <- MASS::boxcox( z ~ gx + gy, data=df, lambda=c(0, 0.5, 1), plotit=F)
       lambda <- bc$x[ which( bc$y == max(bc$y) ) ]
       lambda <- round( lambda / 0.5 ) * 0.5  # Get lambda in multiples of 0.5
       if ( lambda == 0 ) {
