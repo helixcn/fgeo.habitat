@@ -1,12 +1,25 @@
 context("test-getkrigedsoil.R")
 
 df <- krig::soil_random[1:10, ]
+result <- suppressWarnings(GetKrigedSoil(df, var="M3Al"))
 
 test_that("GetKrigedSoil() returns silently.", {
   expect_silent(GetKrigedSoil(df, var="M3Al"))
 })
 
 test_that("GetKrigedSoil() passes regression test", {
-  res <- suppressWarnings(GetKrigedSoil(df, var="M3Al"))
-  expect_known_output(res, "ref-GetKrigedSoil.rds")
+  expect_known_output(result, "ref-GetKrigedSoil.rds")
+})
+
+test_that("GetKrigedSoil() returns the expected value.", {
+  expect_type(result, "list")
+  nms <- c("df", "df.poly", "lambda", "vg", "vm")
+  expect_named(result, nms)
+  expect_is(result$df, "data.frame")
+  expect_is(result$df.poly, "data.frame")
+  expect_is(result$lambda, "numeric")
+  expect_type(result$vg, "list")
+  expect_named(result$vg)
+  expect_is(result$vm, "variomodel")
+  expect_is(result$vm, "variofit")
 })
