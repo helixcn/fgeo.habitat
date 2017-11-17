@@ -36,6 +36,8 @@
 #'
 #' @examples
 #' \dontrun{
+#' library(ggplot2)
+#'
 #' # Use randomized data set for examples (invalid for reaserch).
 #' df <- krig::soil_random
 #' str(df)
