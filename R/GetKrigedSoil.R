@@ -251,23 +251,40 @@ GetAutomatedKrigeParams <- function(geod,
 #'
 #' @noRd
 #' @keywords internal
-GetPolynomialFit <- function( df, gridSize=20, xSize=1000, ySize=500 )
-{
+GetPolynomialFit <- function(df, gridSize = 20, xSize = 1000, ySize = 500) {
   # The data frame is assumed to be x, y, z
   names(df) <- c("gx", "gy", "z")
 
   model <- NULL
-  tryCatch( model <- nls( z ~ PolynomialSurfaceOrder2(gx, gy, a, b, c, d, e, f ),
-                          data=df, start=list(a=0.1, b=0.1, c=0.1, d=0.1, e=0.1, f=0.1),
-                          trace=F, control=nls.control(maxiter=200,minFactor=1/4096) ),
-            error = function(e) {} )
+  tryCatch(
+    model <- nls(
+      z ~ PolynomialSurfaceOrder2(gx, gy, a, b, c, d, e, f),
+      data = df,
+      start = list(
+        a = 0.1,
+        b = 0.1,
+        c = 0.1,
+        d = 0.1,
+        e = 0.1,
+        f = 0.1
+      ),
+      trace = FALSE,
+      control = nls.control(maxiter = 200, minFactor = 1 / 4096)
+    ),
+    error = function(e) {
+    }
+  )
 
-  halfGrid <- gridSize/2
-  df.locations <- expand.grid( gx=seq( halfGrid, xSize-halfGrid, by=gridSize ),
-                               gy=seq( halfGrid, ySize-halfGrid, by=gridSize ) )
-  if ( !is.null(model) ) df.locations$z <- predict( model, newdata=df.locations )
+  halfGrid <- gridSize / 2
+  df.locations <- expand.grid(
+    gx = seq(halfGrid, xSize - halfGrid, by = gridSize),
+    gy = seq(halfGrid, ySize - halfGrid, by = gridSize)
+  )
+  if (!is.null(model)) {
+    df.locations$z <- predict(model, newdata = df.locations)
+  }
 
-  return( list( df.orig=df, df.interpolated=df.locations, mod=model ) )
+  list(df.orig = df, df.interpolated = df.locations, mod = model)
 }
 
 
