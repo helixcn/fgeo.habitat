@@ -14,9 +14,10 @@ Imports:
     geoR,
     MASS,
     stats
-Encoding: UTF-8
-LazyData: true
-RoxygenNote: 6.0.1
 Suggests: 
     ggplot2,
     testthat
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.0.1
