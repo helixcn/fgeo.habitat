@@ -33,6 +33,7 @@
 #' @seealso [geoR::variofit()], [geoR::variog()], [geoR::as.geodata()],
 #'   [geoR::ksline()], [geoR::krige.conv()], [geoR::krige.control()].
 #'
+#' @export
 #' @examples
 #' \dontrun{
 #' library(ggplot2)
@@ -66,7 +67,6 @@
 #' g
 #' g2
 #' }
-#' @export
 GetKrigedSoil <- function(df.soil,
                           var = "P",
                           gridSize = 20,
@@ -172,8 +172,9 @@ GetKrigedSoil <- function(df.soil,
 #' @param last Xxx.
 #' @param n Xxx.
 #'
-#' @noRd
-#' @keywords internal
+#' @export
+#' @examples
+#' ExpList(2, 320, 30)
 ExpList <- function(first, last, n) {
   v <- vector()
   m <- 1 / (n - 1)
@@ -190,6 +191,8 @@ ExpList <- function(first, last, n) {
 #'
 #' Uses the [geoR::variofit()] with a range of variogram models.
 #'
+#' @param geod,trend,breaks Passed to [geoR::variog()].
+#'
 #' @return A list of the best fitted variogram parameters:
 #'   * nugget: Xxxx.
 #'   * sill: Xxxx.
@@ -198,8 +201,12 @@ ExpList <- function(first, last, n) {
 #'   * model: Xxxx.
 #'   * minVM: The minimum fit error.
 #'   * vg: The variogram.
-#' @noRd
-#' @keywords internal
+#'
+#' @export
+#' @examples
+#' \dontrun{
+#' # See examples in geoR::variog().
+#' }
 GetAutomatedKrigeParams <- function(geod,
                                     trend = "cte",
                                     breaks = ExpList(2, 320, 30)) {
