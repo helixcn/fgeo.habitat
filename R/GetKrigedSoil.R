@@ -82,12 +82,12 @@ GetKrigedSoil <- function( df.soil, var="P", gridSize=20,
 
   # Do the kriging
   if ( useKsLine ) {
-    krig <- ksline( geod, locations=polyfit$df.interpolated[,c("gx","gy")],
+    krig <- geoR::ksline( geod, locations=polyfit$df.interpolated[,c("gx","gy")],
                     cov.pars=c(params$sill, params$range), cov.model=params$model,
                     nugget=params$nugget, kappa=params$kappa, lambda=1 )
   } else {
-    krig <- krige.conv( geod, locations=polyfit$df.interpolated[,c("gx","gy")],
-                        krige=krige.control(cov.pars=c(params$sill, params$range), cov.model=params$model,
+    krig <- geoR::krige.conv( geod, locations=polyfit$df.interpolated[,c("gx","gy")],
+                        krige=geoR::krige.control(cov.pars=c(params$sill, params$range), cov.model=params$model,
                                             nugget=params$nugget, kappa=params$kappa, lambda=1, aniso.pars=NULL) )
   }
   # Add the kriged results to the trend if necessary
