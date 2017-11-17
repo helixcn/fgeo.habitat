@@ -306,7 +306,6 @@ PolynomialSurfaceOrder2 <- function(x, y, a, b, c, d, e, f) {
   a + b * x + c * y + d * x * y + e * x ^ 2 + f * y ^ 2
 }
 
-
 #' Find the optimal Box-Cox transform parameters.
 #'
 #' Finds the optimal Box-Cox transform parameters for the data in data frame,
@@ -321,33 +320,42 @@ PolynomialSurfaceOrder2 <- function(x, y, a, b, c, d, e, f) {
 #'
 #' @keywords internal
 #' @noRd
-BoxCoxTransformSoil <- function( df )
-{
+BoxCoxTransformSoil <- function(df) {
   lambda <- 1
   delta <- 0
 
-  if ( ncol(df) >= 3 ) {
+  if (ncol(df) >= 3) {
     # Sanity checking and enforcement of the structure
-    if ( !identical( names(df)[1:3], c("gx", "gy", "z") ) ) {
+    if (!identical(names(df)[1:3], c("gx", "gy", "z"))) {
       names(df)[1:3] <- c("gx", "gy", "z")
     }
 
-    if ( min( df$z ) >= 0 ) { # boxcox will complain about -ve values
-      if ( min( df$z ) == 0 ) {
+    if (min(df$z) >= 0) {
+      # boxcox will complain about -ve values
+      if (min(df$z) == 0) {
         # add a small amount to allow transforms to work
         delta = 0.00001
         df$z <- df$z + delta
       }
-      bc <- MASS::boxcox( z ~ gx + gy, data=df, lambda=c(0, 0.5, 1), plotit=F)
-      lambda <- bc$x[ which( bc$y == max(bc$y) ) ]
-      lambda <- round( lambda / 0.5 ) * 0.5  # Get lambda in multiples of 0.5
-      if ( lambda == 0 ) {
-        df$z <- log( df$z )
-      } else if ( lambda == 0.5 ) df$z <- sqrt( df$z )
+      bc <- MASS::boxcox(
+        z ~ gx + gy,
+        data = df,
+        lambda = c(0, 0.5, 1),
+        plotit = F
+      )
+      lambda <- bc$x[which(bc$y == max(bc$y))]
+      lambda <- round(lambda / 0.5) * 0.5  # Get lambda in multiples of 0.5
+      if (lambda == 0) {
+        df$z <- log(df$z)
+      } else {
+        if (lambda == 0.5) {
+          df$z <- sqrt(df$z)
+        }
+      }
     }
   }
   # Return the data and the parameters
-  list( df=df, lambda=lambda, delta=delta )
+  list(df = df, lambda = lambda, delta = delta)
 }
 
 #' Perform the inverse of the Box-Cox transform.
