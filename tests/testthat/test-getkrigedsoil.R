@@ -10,7 +10,7 @@ test_that("GetKrigedSoil() outputs no warning.", {
 })
 
 test_that("GetKrigedSoil() passes regression test", {
-  expect_known_output(result, "ref-GetKrigedSoil.rds")
+  expect_equal_to_reference(result, "ref-GetKrigedSoil.rds")
 })
 
 test_that("GetKrigedSoil() returns the expected value.", {
