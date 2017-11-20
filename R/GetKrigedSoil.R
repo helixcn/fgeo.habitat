@@ -120,7 +120,7 @@ GetKrigedSoil <- function(df.soil,
 
   # Do the kriging
   if (useKsLine) {
-    krig <- geoR::ksline(
+    krig <- krig_ksline(
       geod,
       locations = polyfit$df.interpolated[, c("gx", "gy")],
       cov.pars = c(params$sill, params$range),

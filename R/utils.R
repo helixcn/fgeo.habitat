@@ -1,6 +1,6 @@
 # See https://goo.gl/EBoRQZ
 
-#' @importFrom stats nls
+#' @import geoR
 #' @importFrom stats nls.control
 #' @importFrom stats predict
 #' @importFrom stats resid
