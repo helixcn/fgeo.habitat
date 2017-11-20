@@ -90,7 +90,7 @@ GetKrigedSoil <- function(df.soil,
   # The lambda for the box-cox transform is restricted to 0, 0.5 and 1.
   # Data with 0's in there are handled by the addition of a small constant
   # in the regression
-  bc <- BoxCoxTransformSoil(df)
+  bc <- boxcoxTransformSoil(df)
   df <- bc$df
 
   polyfit <- GetPolynomialFit(
@@ -109,7 +109,7 @@ GetKrigedSoil <- function(df.soil,
     df.krig <- cbind(polyfit$df.orig[, c("gx", "gy")], z = resid(polyfit$mod))
   }
 
-  geod <- geoR::as.geodata(df.krig)
+  geod <- as.geodata(df.krig)
   if (is.null(krigeParams)) {
     params <- GetAutomatedKrigeParams(geod, breaks = breaks)
   } else {
@@ -130,10 +130,10 @@ GetKrigedSoil <- function(df.soil,
       lambda = 1
     )
   } else {
-    krig <- geoR::krige.conv(
+    krig <- krige.conv(
       geod,
       locations = polyfit$df.interpolated[, c("gx", "gy")],
-      krige = geoR::krige.control(
+      krige = krige.control(
         cov.pars = c(params$sill, params$range),
         cov.model = params$model,
         nugget = params$nugget,
@@ -152,7 +152,7 @@ GetKrigedSoil <- function(df.soil,
   }
 
   # Back transform (if required)
-  df.pred <- InvBoxCoxTransformSoil(df.pred, bc$lambda, bc$delta)
+  df.pred <- InvboxcoxTransformSoil(df.pred, bc$lambda, bc$delta)
 
   names(df.pred) <- c("x", "y", "z")
 
@@ -217,14 +217,14 @@ GetAutomatedKrigeParams <- function(geod,
 
   # Several different models are tested; the one with the lowest least
   # squares error is chosen
-  vg <- geoR::variog(geod, breaks = breaks, pairs.min = 5, trend = trend)
+  vg <- variog(geod, breaks = breaks, pairs.min = 5, trend = trend)
   varModels <- c("exponential", "circular", "cauchy", "gaussian") #, "wave" )
   minValue <- NULL
   minVM <- NULL
   startRange <- max(breaks) / 2
   initialVal <- max(vg$v) / 2
   for (i in 1:length(varModels)) {
-    vm <- geoR::variofit(
+    vm <- variofit(
       vg,
       ini.cov.pars = c(initialVal, startRange),
       nugget = initialVal,
@@ -352,7 +352,7 @@ BoxCoxTransformSoil <- function(df) {
         delta = 0.00001
         df$z <- df$z + delta
       }
-      bc <- MASS::boxcox(
+      bc <- boxcox(
         z ~ gx + gy,
         data = df,
         lambda = c(0, 0.5, 1),
@@ -386,7 +386,7 @@ BoxCoxTransformSoil <- function(df) {
 #'
 #' @keywords internal
 #' @noRd
-InvBoxCoxTransformSoil <- function(df, lambda, delta) {
+InvboxcoxTransformSoil <- function(df, lambda, delta) {
   if (lambda == 0) {
     df$z <- exp(df$z)
   } else {

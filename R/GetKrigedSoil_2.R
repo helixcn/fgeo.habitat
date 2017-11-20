@@ -37,7 +37,7 @@
 #   vm: minimum loss value returned from the geoR variofit function
 GetKrigedSoil_2 <- function( df.soil, var="P", gridSize=20,
   krigeParams=NULL, xSize=1000, ySize=500,
-  breaks=ExpList( 2, 320, 30 ),
+  breaks=ExpList_2( 2, 320, 30 ),
   useKsLine=T )
 {
   df <- df.soil[ , c("gx", "gy", var) ]
@@ -55,10 +55,10 @@ GetKrigedSoil_2 <- function( df.soil, var="P", gridSize=20,
   # The lambda for the box-cox transform is restricted to 0, 0.5 and 1.
   # Data with 0's in there are handled by the addition of a small constant
   # in the regression
-  bc <- BoxCoxTransformSoil( df )
+  bc <- BoxCoxTransformSoil_2( df )
   df <- bc$df
 
-  polyfit <- GetPolynomialFit( df, gridSize=gridSize, xSize=xSize, ySize=ySize )
+  polyfit <- GetPolynomialFit_2( df, gridSize=gridSize, xSize=xSize, ySize=ySize )
 
   # Get the variogram parameters
   # If a polynomial fit was possible then the parameters come from
@@ -75,7 +75,7 @@ GetKrigedSoil_2 <- function( df.soil, var="P", gridSize=20,
   require( geoR )
   geod <- as.geodata( df.krig )
   if ( is.null( krigeParams ) ) {
-    params <- GetAutomatedKrigeParams( geod, breaks=breaks )
+    params <- GetAutomatedKrigeParams_2( geod, breaks=breaks )
   } else {
     params <- krigeParams
     if ( !("kappa" %in% names(params)) ) params$kappa <- 0
@@ -100,7 +100,7 @@ GetKrigedSoil_2 <- function( df.soil, var="P", gridSize=20,
   }
 
   # Back transform (if required)
-  df.pred <- InvBoxCoxTransformSoil( df.pred, bc$lambda, bc$delta )
+  df.pred <- InvBoxCoxTransformSoil_2( df.pred, bc$lambda, bc$delta )
 
   names( df.pred ) <- c( "x", "y", "z" )
 
@@ -135,7 +135,7 @@ ExpList_2 <- function( first, last, n )
 # Returns a list of the best fitted variogram parameters:
 #   nugget, sill, range, kappa, model
 #   and the minimum fit error, minVM, and the variogram, vg
-GetAutomatedKrigeParams_2 <- function( geod, trend="cte", breaks=ExpList( 2, 320, 30 ) )
+GetAutomatedKrigeParams_2 <- function( geod, trend="cte", breaks=ExpList_2( 2, 320, 30 ) )
 {
   require(geoR)
 

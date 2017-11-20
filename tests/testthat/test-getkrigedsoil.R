@@ -3,6 +3,12 @@ context("test-getkrigedsoil.R")
 df <- krig::soil_random[1:10, ]
 result <- suppressWarnings(GetKrigedSoil(df, var="M3Al"))
 
+test_that("GetKrigedSoil() outputs the same as the original kriging funs", {
+  original <- suppressWarnings(GetKrigedSoil_2(df, var="M3Al"))
+  expect_equal(result, original)
+})
+
+
 test_that("GetKrigedSoil() outputs no warning.", {
   expect_error(
     expect_warning(GetKrigedSoil(df, var="M3Al"))
