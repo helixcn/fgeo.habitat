@@ -1,3 +1,7 @@
+# This file hosts an original copy of all functions for regression tests.
+# It should be removed before release.
+
+
 ##################################
 # Kriging functionality for CTFS
 #

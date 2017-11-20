@@ -3,10 +3,20 @@ context("test-getkrigedsoil.R")
 df <- krig::soil_random[1:10, ]
 result <- suppressWarnings(GetKrigedSoil(df, var="M3Al"))
 
+
+# TO REMOVE BEFORE RELEASE
+# The following two tests should be removed before resease. They use a
+# copy of the original funcitons.
 test_that("GetKrigedSoil() outputs the same as the original kriging funs", {
   original <- suppressWarnings(GetKrigedSoil_2(df, var="M3Al"))
   expect_equal(result, original)
 })
+test_that("GetKrigedSoil() outputs equal with geoR::ksline and krig_ksline", {
+  edited <- GetKrigedSoil(df, var = "M3Al")
+  original <- suppressWarnings(GetKrigedSoil_2(df, var = "M3Al"))
+  expect_equal(edited, original)
+})
+
 
 
 test_that("GetKrigedSoil() outputs no warning.", {
@@ -30,11 +40,4 @@ test_that("GetKrigedSoil() returns the expected value.", {
   expect_named(result$vg)
   expect_is(result$vm, "variomodel")
   expect_is(result$vm, "variofit")
-})
-
-test_that("GetKrigedSoil() outputs equal with geoR::ksline and krig_ksline", {
-  source("getkrigedsoil_original.R")
-  edited <- GetKrigedSoil(df, var = "M3Al")
-  original <- suppressWarnings(GetKrigedSoil_original(df, var = "M3Al"))
-  expect_equal(edited, original)
 })
