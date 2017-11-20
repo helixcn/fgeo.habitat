@@ -90,7 +90,7 @@ GetKrigedSoil <- function(df.soil,
   # The lambda for the box-cox transform is restricted to 0, 0.5 and 1.
   # Data with 0's in there are handled by the addition of a small constant
   # in the regression
-  bc <- boxcoxTransformSoil(df)
+  bc <- BoxCoxTransformSoil(df)
   df <- bc$df
 
   polyfit <- GetPolynomialFit(
@@ -152,7 +152,7 @@ GetKrigedSoil <- function(df.soil,
   }
 
   # Back transform (if required)
-  df.pred <- InvboxcoxTransformSoil(df.pred, bc$lambda, bc$delta)
+  df.pred <- InvBoxCoxTransformSoil(df.pred, bc$lambda, bc$delta)
 
   names(df.pred) <- c("x", "y", "z")
 
@@ -386,7 +386,7 @@ BoxCoxTransformSoil <- function(df) {
 #'
 #' @keywords internal
 #' @noRd
-InvboxcoxTransformSoil <- function(df, lambda, delta) {
+InvBoxCoxTransformSoil <- function(df, lambda, delta) {
   if (lambda == 0) {
     df$z <- exp(df$z)
   } else {
