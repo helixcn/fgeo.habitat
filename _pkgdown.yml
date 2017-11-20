@@ -1,0 +1,32 @@
+template:
+  params:
+    bootswatch: united
+
+
+
+home:
+  links:
+  - text: Learn more
+    href: http://www.forestgeo.si.edu/
+
+
+
+reference:
+  - title: "Main Function"
+    contents:
+      - GetKrigedSoil
+  - title: "Helper Functions"
+    contents:
+      - ExpList
+      - GetAutomatedKrigeParams
+  - title: "Dataset Set"
+    contents:
+      - soil_random
+
+
+
+navbar:
+  type: default
+  left:
+    - text: Functions Index
+      href: reference/index.html

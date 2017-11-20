@@ -29,3 +29,16 @@ You can install krig from github with:
 # install.packages("devtools")
 devtools::install_github("forestgeo/krig", auth_token = "abc")
 ```
+
+## Example
+
+```{r}
+library(krig)
+
+# Using a randomized data set; useful for examples but not for research.
+df <- krig::soil_random
+
+result <- GetKrigedSoil(df, var = "M3Al")
+lapply(result, head)
+```
+
