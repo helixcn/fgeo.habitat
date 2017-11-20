@@ -25,3 +25,10 @@ test_that("GetKrigedSoil() returns the expected value.", {
   expect_is(result$vm, "variomodel")
   expect_is(result$vm, "variofit")
 })
+
+test_that("GetKrigedSoil() outputs equal with geoR::ksline and krig_ksline", {
+  source("getkrigedsoil_original.R")
+  edited <- GetKrigedSoil(df, var = "M3Al")
+  original <- suppressWarnings(GetKrigedSoil_original(df, var = "M3Al"))
+  expect_equal(edited, original)
+})
