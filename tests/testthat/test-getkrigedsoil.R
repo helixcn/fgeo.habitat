@@ -24,15 +24,6 @@ test_that("GetKrigedSoil() passes regression test", {
 #   expect_equal(edited, original)
 # })
 
-
-
-
-test_that("GetKrigedSoil() outputs no warning.", {
-  expect_error(
-    expect_warning(GetKrigedSoil(df, var="M3Al"))
-  )
-})
-
 test_that("GetKrigedSoil() returns the expected value.", {
   expect_type(result, "list")
   nms <- c("df", "df.poly", "lambda", "vg", "vm")
