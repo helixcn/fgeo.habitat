@@ -2,7 +2,8 @@
 #'
 #' See https://github.com/forestgeo/krig/issues/9.
 #' @seealso [geoR::ksline()]
-#' @export
+#' @keywords internal
+#' @noRd
 krig_ksline <- function (geodata, coords = geodata$coords, data = geodata$data,
     locations, borders = NULL, cov.model = "matern", cov.pars = stop("covariance parameters (sigmasq and phi) needed"),
     kappa = 0.5, nugget = 0, micro.scale = 0, lambda = 1, m0 = "ok",
