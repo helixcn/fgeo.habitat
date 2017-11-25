@@ -1,0 +1,193 @@
+---
+title: "Explore Data With GetKrigedSoil"
+runtime: shiny
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    theme: united
+    vertical_layout: fill
+    source_code: embed
+    social: menu
+    logo: logo.png
+---
+
+```{r setup, message=FALSE}
+library(krig)
+library(ggplot2)
+library(flexdashboard)
+
+library(dygraphs)
+library(DT)
+library(lubridate)
+```
+
+
+```{r}
+# Use randomized data set for examples (invalid for reaserch).
+df <- krig::soil_random
+head(df)
+
+# Krige with automated parameters
+kriged <- GetKrigedSoil(df, var = "M3Al")
+str(kriged)
+
+# Krige with specified parameters - these example params are rather arbitrary
+# but are loosely based on what was chosen from the automated kriging
+params <- list(
+  model = "circular",
+  range = 100,
+  nugget = 1000,
+  sill = 46000,
+  kappa = 0.5
+)
+kriged.2 <- GetKrigedSoil(df, var = "M3Al", krigeParams = params)
+
+# Have a look at the differences
+g <- ggplot(kriged$df, aes(x = x, y = y, fill = z)) +
+  geom_tile() +
+  coord_equal()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Universal Sidebar {.sidebar}
+=======================================================================
+
+```{r}
+helpText("See cheetsheets")
+br()
+
+fileInput("file_input", "Choose csv file", value)
+
+
+    inFile <- input$file1
+
+    if (is.null(inFile))
+      return(NULL)
+
+    readr::read_csv(inFile$datapath)
+
+    
+    
+    
+    
+
+textInput("inputID", "Insert text")
+
+dateInput("inputID", "label", 
+          min = lubridate::today() - 365, max = lubridate::today(),
+          value = lubridate::today()
+)
+
+selectInput("inputID", "label",
+            choices = c("one", "two", "three"), selected = "one"
+)
+
+# insert space
+br()
+helpText("Inserting space")
+br()
+
+helpText("Help text")
+fluidRow(
+  column(
+    5,
+    sliderInput("inputID",
+                "label",
+                min = 1,
+                max = 50,
+                value = 10
+    )
+  ),
+  column(
+    4,
+    sliderInput("inputID",
+                "label",
+                min = 1,
+                max = 50,
+                value = 10
+    )
+  )
+)
+
+actionButton("go", "Go")
+```
+
+Page1
+=======================================================================
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Chart A
+
+```{r}
+renderPlot({
+  plot(1:10)
+})
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
+renderDygraph({
+  dygraph(data.frame(x = 1:10, y = 1:10))
+})
+```
+
+### Chart C
+
+```{r}
+renderDygraph({
+  dygraph(data.frame(x = 1:10, y = 1:10, z = 1:2))
+})
+```
+
+Page2
+=======================================================================
+
+### Text input
+
+Text.
+
+### Chart A
+
+```{r}
+renderValueBox({
+  valueBox(value = 10, icon = "fa-line-chart", color = "primary")
+})
+```
+
+Page3
+=======================================================================
+
+### Table
+
+```{r}
+renderDataTable({
+  DT::datatable(data.frame(x = 1:10, y = 1:10))
+})
+```
+
+
+
+
