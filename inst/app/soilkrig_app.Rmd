@@ -1,5 +1,5 @@
 ---
-title: "soilkrig_app"
+title: "GetKrigedSoil()"
 runtime: shiny
 output:
   flexdashboard::flex_dashboard:
@@ -8,63 +8,38 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-files <- c("GetKrigedSoil.R", "krig_versions_of_geoR.R")
-lapply(paste0("R/", files), source)
-load("R/sysdata.rda")
-
 library(flexdashboard)
-library(DT)
 library(shiny)
+library(krig)
+library(dplyr)
+library(ggplot2)
 
-soil_random <- readr::read_csv("soil_random.csv")
+options(dplyr.print_min = 6, dplyr.print_max = 6)
 
-toy_data <- soil_random[1:10, ]
-
-choose_best_file <- function(x) {
-  in_file <- x
-  if (is.null(in_file)) {
-    in_file <- toy_data
-  } else {
-  in_file <- readr::read_csv(in_file$datapath)
-  }
-  in_file
-}
+toy_data <- krig::soil_random
 ```
 
 Inputs {.sidebar}
 =======================================================================
 
 ```{r}
-actionButton("goButton", "Go!")
-
-fileInput("file_id", "Use default data, or upload a .csv.",
-  accept = c(
-    "text/csv",
-    "text/comma-separated-values,text/plain",
-    ".csv"
+fluidRow(
+  # column(5, actionButton("goButton", "Go!")), 
+  column(
+    5, textInput("var_id", "var", value = "M3Al")
   )
 )
-textInput("var_id", "var: Name of variable to krig.", value = "M3Al")
-numericInput("gridSize_id", "gridSize", value = 20)
+fluidRow(
+  column(5, numericInput("gridSize_id", "gridSize", value = 20)),
+  column(5, selectInput(
+      "useKsLine_id", "useKsLine", choices = c(TRUE, FALSE), selected = TRUE
+    )
+  )
+)
 fluidRow(
   column(5, numericInput("xSize_id", "xSize", value = 1000)),
   column(5, numericInput("ySize_id", "ySize", value =  500))
 )
-selectInput("useKsLine_id", "useKsLine", 
-  choices = c(TRUE, FALSE), selected = TRUE
-)
-
-hr()
-helpText("krigeParams")
-fluidRow(
-  column(5, textInput("model_id", "model", value = "circular")),
-  column(5, numericInput("range_id", "range", value = 100))
-)
-fluidRow(
-  column(5, numericInput("nugget_id", "nugget", value = 1000)),
-  column(5, numericInput("sill_id", "sill", value = 46000))
-)
-numericInput("kappa_id", "kappa", value = 0.5)
 
 hr()
 helpText("breaks")
@@ -73,54 +48,69 @@ fluidRow(
   column(5, numericInput("last_id", "Last", value = 320))
 )
 numericInput("n_id", "n", value = 30)
+
+hr()
+hr()
+numericInput("head_id", "head(x, n = ???)", value = 6)
 ```
 
-Data
+Overview
 =======================================================================
 
+Column {data-width=40}
+-----------------------------------------------------------------------
+
+### Data
+
 ```{r}
-renderTable(choose_best_file(input$file_id))
+renderPrint(print(as_tibble(toy_data), n = input$head_id))
 ```
 
-Result
-=======================================================================
+### Plot
 
 ```{r}
-get_result <- function(x) {
-  if (!grepl("[^a-zA-z]", x)) {
-    cat("Provide `var`.")
-  } else {
-    z <- choose_best_file(input$file_id)
-    GetKrigedSoil(
-      z, 
-      var = x,
-      xSize = input$xSize_id,
-      ySize = input$ySize_id,
-      useKsLine = input$useKsLine_id,
-      krigeParams = list(
-        model = input$model_id,
-        range = input$range_id,
-        nugget = input$nugget_id,
-        sill = input$sill_id,
-        kappa = input$kappa_id
-      ),
-      breaks = ExpList(
-        input$first_id, 
-        input$last_id, 
-        input$n_id
-      )
+renderPlot({
+  result <- GetKrigedSoil(
+    toy_data, 
+    var = input$var_id,
+    xSize = input$xSize_id,
+    ySize = input$ySize_id,
+    useKsLine = input$useKsLine_id,
+    krigeParams = NULL,
+    breaks = ExpList(
+      input$first_id, 
+      input$last_id, 
+      input$n_id
     )
-  }
-}
-
-# renderPrint(
-renderPrint({
-  input$goButton
-  result <- isolate(get_result(input$var_id))
-  lapply(result, head)
+  )
+  ggplot(result$df, aes(x, y, fill = z)) + 
+    geom_tile() +
+    coord_equal() +
+    theme(legend.position = "top")
 })
 ```
 
+Column {data-width=60}
+-----------------------------------------------------------------------
 
+### Result {data-height=97}
 
-
+```{r}
+renderPrint({
+  input$goButton
+  result <- GetKrigedSoil(
+    toy_data, 
+    var = input$var_id,
+    xSize = input$xSize_id,
+    ySize = input$ySize_id,
+    useKsLine = input$useKsLine_id,
+    krigeParams = NULL,
+    breaks = ExpList(
+      input$first_id, 
+      input$last_id, 
+      input$n_id
+    )
+  )
+  lapply(result, head, input$head_id)
+})
+```
