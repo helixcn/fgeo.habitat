@@ -7,28 +7,97 @@ output:
     theme: united
 ---
 
-```{r setup, include=FALSE}
+```{r global, include=FALSE}
 library(flexdashboard)
-library(shiny)
+# library(shiny)
 library(krig)
 library(dplyr)
 library(ggplot2)
-
-options(dplyr.print_min = 6, dplyr.print_max = 6)
-
-toy_data <- krig::soil_random
+library(tibble)
 ```
 
-Inputs {.sidebar}
+Start here (defaults settings) {data.width=700}
 =======================================================================
 
+--- INPUTS {.sidebar data-width=250}
+-----------------------------------------------------------------------
+
+```{r data}
+h4("1. Choose data")
+helpText("Upload a .csv file:")
+fileInput("dataset", NULL)
+active_df <- reactive({
+  req(input$dataset)
+  readr::read_csv(input$dataset$datapath)
+})
+helpText("Example data set:")
+print(as.tibble(krig::soil_random), n = 3)
+```
+
 ```{r}
-fluidRow(
-  # column(5, actionButton("goButton", "Go!")), 
-  column(
-    5, textInput("var_id", "var", value = "M3Al")
-  )
-)
+h4("2. Which is soil column?")
+helpText("Type the name of a column:")
+fluidRow(column(5, textInput("var_id", NULL, value = "M3Al")))
+```
+
+```{r}
+h4("3. Wait")
+helpText("Depending on the size of the data set, results may take several seconds to appear and refresh.")
+```
+
+--- DATA {data-width=400}
+-----------------------------------------------------------------------
+
+### Data
+
+```{r}
+shiny::numericInput("print_n", "How many rows to show?", 3)
+renderPrint({
+  head(active_df(), input$print_n)
+})
+```
+
+### Plot
+
+```{r}
+renderPlot({
+  result <- GetKrigedSoil(active_df(), var = input$var_id)
+  ggplot(result$df, aes(x, y, fill = z)) + 
+    geom_tile() +
+    coord_equal() +
+    theme(legend.position = "top")
+})
+```
+
+--- RESULTS {data-width=400}
+-----------------------------------------------------------------------
+
+### Result {data-height=97}
+
+```{r}
+shiny::numericInput("print_n2", "How many elements of each result to show?", 6)
+renderPrint({
+  result <- GetKrigedSoil(active_df(), var = input$var_id)
+  lapply(result, head, input$print_n2)
+})
+```
+
+Continue here (custom settings)
+=======================================================================
+
+--- INPUTS {.sidebar data-width=250}
+-----------------------------------------------------------------------
+
+```{r}
+h4("4. CUstomize parameters")
+helpText("Click for help:")
+```
+
+#### [`?GetKrigedSoil()`](https://goo.gl/MAkNBV)
+
+```{r}
+hr()
+
 fluidRow(
   column(5, numericInput("gridSize_id", "gridSize", value = 20)),
   column(5, selectInput(
@@ -41,48 +110,40 @@ fluidRow(
   column(5, numericInput("ySize_id", "ySize", value =  500))
 )
 
-hr()
 helpText("breaks")
 fluidRow(
   column(5, numericInput("first_id", "First", value = 2)),
   column(5, numericInput("last_id", "Last", value = 320))
 )
 numericInput("n_id", "n", value = 30)
-
-hr()
-hr()
-numericInput("head_id", "head(x, n = ???)", value = 6)
 ```
 
-Overview
-=======================================================================
+```{r}
+h4("5. Wait")
+helpText("Depending on the size of the data set, results may take several seconds to appear and refresh.")
+```
 
-Column {data-width=40}
+
+
+
+
+--- DATA {data-width=400}
 -----------------------------------------------------------------------
 
 ### Data
 
 ```{r}
-renderPrint(print(as_tibble(toy_data), n = input$head_id))
+shiny::numericInput("print_n", "How many rows to show?", 3)
+renderPrint({
+  head(active_df(), input$print_n)
+})
 ```
 
 ### Plot
 
 ```{r}
 renderPlot({
-  result <- GetKrigedSoil(
-    toy_data, 
-    var = input$var_id,
-    xSize = input$xSize_id,
-    ySize = input$ySize_id,
-    useKsLine = input$useKsLine_id,
-    krigeParams = NULL,
-    breaks = ExpList(
-      input$first_id, 
-      input$last_id, 
-      input$n_id
-    )
-  )
+  result <- GetKrigedSoil(active_df(), var = input$var_id)
   ggplot(result$df, aes(x, y, fill = z)) + 
     geom_tile() +
     coord_equal() +
@@ -90,16 +151,17 @@ renderPlot({
 })
 ```
 
-Column {data-width=60}
+
+--- RESULTS {data-width=400}
 -----------------------------------------------------------------------
 
 ### Result {data-height=97}
 
 ```{r}
+shiny::numericInput("print_n2", "How many elements of each result to show?", 6)
 renderPrint({
-  input$goButton
   result <- GetKrigedSoil(
-    toy_data, 
+    active_df(), 
     var = input$var_id,
     xSize = input$xSize_id,
     ySize = input$ySize_id,
@@ -111,6 +173,11 @@ renderPrint({
       input$n_id
     )
   )
-  lapply(result, head, input$head_id)
+  lapply(result, head, input$print_n2)
 })
 ```
+
+
+
+
+
