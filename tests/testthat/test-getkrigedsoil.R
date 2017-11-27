@@ -36,3 +36,28 @@ test_that("GetKrigedSoil() returns the expected value.", {
   expect_is(result$vm, "variomodel")
   expect_is(result$vm, "variofit")
 })
+
+# Checks ------------------------------------------------------------------
+
+test_that("check_GetKrigSoil() fails with wrong input", {
+  numeric_input <- as.matrix(df)
+  expect_error(
+    GetKrigedSoil(numeric_input, var="M3Al"),
+    "is not of class 'data.frame'"
+  )
+
+  rnm <- dplyr::rename(df, x = gx, y = gy)
+  expect_error(
+    GetKrigedSoil(rnm, var="M3Al"),
+    "Ensure your data set has these variables:"
+  )
+
+  cero_row <- data.frame(gx = numeric(0), gy = numeric(0))
+  expect_error(
+    GetKrigedSoil(cero_row, var ="M3Al"),
+    "Ensure `df.soil` has one or more rows"
+  )
+})
+
+
+

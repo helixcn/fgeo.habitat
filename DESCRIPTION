@@ -13,7 +13,8 @@ Depends:
 Imports: 
     geoR,
     MASS,
-    stats
+    stats,
+    assertive
 Suggests: 
     ggplot2,
     testthat

@@ -75,6 +75,11 @@ GetKrigedSoil <- function(df.soil,
                           ySize = 500,
                           breaks = ExpList(2, 320, 30),
                           useKsLine = TRUE) {
+  # xxx add assertions
+  check_GetKrigedSoil(df.soil = df.soil)
+
+
+
   df <- df.soil[ , c("gx", "gy", var)]
   names(df)[3] <- "z"
 
