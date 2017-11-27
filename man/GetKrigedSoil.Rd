@@ -4,7 +4,7 @@
 \alias{GetKrigedSoil}
 \title{Krige soil data following the methodology of the John et al. (2007).}
 \usage{
-GetKrigedSoil(df.soil, var = "P", gridSize = 20, krigeParams = NULL,
+GetKrigedSoil(df.soil, var, gridSize = 20, krigeParams = NULL,
   xSize = 1000, ySize = 500, breaks = ExpList(2, 320, 30),
   useKsLine = TRUE)
 }
@@ -12,7 +12,7 @@ GetKrigedSoil(df.soil, var = "P", gridSize = 20, krigeParams = NULL,
 \item{df.soil}{The data frame with the points, coords specified in the
 columns \code{gx}, \code{gy}.}
 
-\item{var}{The variable/column in \code{df.soil} to krige.}
+\item{var}{A text string giving the variable/column in \code{df.soil} to krige.}
 
 \item{gridSize}{Points are kriged to the centre points of a grid of this
 size.}

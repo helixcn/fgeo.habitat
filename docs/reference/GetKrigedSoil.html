@@ -99,7 +99,7 @@ kriging functions: <code><a href='http://www.rdocumentation.org/packages/geoR/to
 <code>useKsLine</code> specifies whether to use the <code><a href='http://www.rdocumentation.org/packages/geoR/topics/ksline'>geoR::ksline()</a></code> function or not.</p>
     
 
-    <pre class="usage"><span class='fu'>GetKrigedSoil</span>(<span class='no'>df.soil</span>, <span class='kw'>var</span> <span class='kw'>=</span> <span class='st'>"P"</span>, <span class='kw'>gridSize</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>krigeParams</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+    <pre class="usage"><span class='fu'>GetKrigedSoil</span>(<span class='no'>df.soil</span>, <span class='no'>var</span>, <span class='kw'>gridSize</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>krigeParams</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>xSize</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>ySize</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='ExpList.html'>ExpList</a></span>(<span class='fl'>2</span>, <span class='fl'>320</span>, <span class='fl'>30</span>),
   <span class='kw'>useKsLine</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
@@ -113,7 +113,7 @@ columns <code>gx</code>, <code>gy</code>.</p></td>
     </tr>
     <tr>
       <th>var</th>
-      <td><p>The variable/column in <code>df.soil</code> to krige.</p></td>
+      <td><p>A text string giving the variable/column in <code>df.soil</code> to krige.</p></td>
     </tr>
     <tr>
       <th>gridSize</th>
