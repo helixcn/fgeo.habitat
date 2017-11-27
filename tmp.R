@@ -4,6 +4,8 @@ library(ggplot2)
 df <- soilkrig::soil_random
 head(df)
 
+
+
 # Krige with automated parameters
 kriged <- GetKrigedSoil(df, var = "M3Al")
 str(kriged)
