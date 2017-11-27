@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Krig Soil Data • krig</title>
+<title>Krig Soil Data • soilkrig</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/united/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
@@ -24,7 +24,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">krig</a>
+      <a class="navbar-brand" href="index.html">soilkrig</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -32,7 +32,27 @@
   <a href="reference/index.html">Functions Index</a>
 </li>
       </ul>
-<ul class="nav navbar-nav navbar-right"></ul>
+<ul class="nav navbar-nav navbar-right">
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-link"></span>
+     
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="https://bookdown.org/forestgeoguest/soilkrig_app/">App</a>
+    </li>
+    <li>
+      <a href="https://github.com/forestgeo/soilkrig">
+        <span class="fa fa-github"></span>
+         
+      </a>
+    </li>
+  </ul>
+</li>
+      </ul>
 </div>
 <!--/.nav-collapse -->
   </div>
@@ -49,28 +69,28 @@
     
 <div class="contents">
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-<div id="krig" class="section level1">
+<div id="soilkrig" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#krig" class="anchor"></a>krig</h1></div>
-<p>The goal of krig is to krig soil data as per John et al. (2007).</p>
+<a href="#soilkrig" class="anchor"></a>soilkrig</h1></div>
+<p>The goal of <strong>soilkrig</strong> is to krig soil data as per John et al. (2007).</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install krig from github with:</p>
+<p>You can install soilkrig from github with:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># To install from a private repo, use auth_token with a token</span>
 <span class="co"># from https://github.com/settings/tokens. You only need the</span>
 <span class="co"># repo scope. Best practice is to save your PAT in env var called</span>
 <span class="co"># GITHUB_PAT.</span>
 <span class="co"># install.packages("devtools")</span>
-devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"forestgeo/krig"</span>, <span class="dt">auth_token =</span> <span class="st">"abc"</span>)</code></pre></div>
+devtools<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"forestgeo/soilkrig"</span>, <span class="dt">auth_token =</span> <span class="st">"abc"</span>)</code></pre></div>
 </div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(krig)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(soilkrig)
 
 <span class="co"># Using a randomized data set; useful for examples but not for research.</span>
-df &lt;-<span class="st"> </span>krig<span class="op">::</span>soil_random
+df &lt;-<span class="st"> </span>soilkrig<span class="op">::</span>soil_random
 
 result &lt;-<span class="st"> </span><span class="kw"><a href="reference/GetKrigedSoil.html">GetKrigedSoil</a></span>(df, <span class="dt">var =</span> <span class="st">"M3Al"</span>)
 <span class="co">#&gt; variog: computing omnidirectional variogram</span>

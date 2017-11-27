@@ -1,6 +1,6 @@
 context("test-getkrigedsoil.R")
 
-df <- krig::soil_random[1:10, ]
+df <- soilkrig::soil_random[1:10, ]
 result <- suppressWarnings(GetKrigedSoil(df, var="M3Al"))
 
 

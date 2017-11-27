@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Krige soil data following the methodology of the John et al. (2007). — GetKrigedSoil â€¢ krig</title>
+<title>Krige soil data following the methodology of the John et al. (2007). — GetKrigedSoil â€¢ soilkrig</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -47,7 +47,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="../index.html">krig</a>
+      <a class="navbar-brand" href="../index.html">soilkrig</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -57,7 +57,25 @@
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-link"></span>
+     
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="https://bookdown.org/forestgeoguest/soilkrig_app/">App</a>
+    </li>
+    <li>
+      <a href="https://github.com/forestgeo/soilkrig">
+        <span class="fa fa-github"></span>
+         
+      </a>
+    </li>
+  </ul>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -145,7 +163,7 @@ data.</p></li>
 <span class='fu'>library</span>(<span class='no'>ggplot2</span>)
 
 <span class='co'># Use randomized data set for examples (invalid for reaserch).</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>krig</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/krig/topics/soil_random'>soil_random</a></span>
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>soilkrig</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/soilkrig/topics/soil_random'>soil_random</a></span>
 <span class='fu'>str</span>(<span class='no'>df</span>)
 
 <span class='co'># Krige with automated parameters</span>

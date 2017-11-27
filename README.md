@@ -1,14 +1,14 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-krig
-====
+soilkrig
+========
 
-The goal of krig is to krig soil data as per John et al. (2007).
+The goal of **soilkrig** is to krig soil data as per John et al. (2007).
 
 Installation
 ------------
 
-You can install krig from github with:
+You can install soilkrig from github with:
 
 ``` r
 # To install from a private repo, use auth_token with a token
@@ -16,17 +16,17 @@ You can install krig from github with:
 # repo scope. Best practice is to save your PAT in env var called
 # GITHUB_PAT.
 # install.packages("devtools")
-devtools::install_github("forestgeo/krig", auth_token = "abc")
+devtools::install_github("forestgeo/soilkrig", auth_token = "abc")
 ```
 
 Example
 -------
 
 ``` r
-library(krig)
+library(soilkrig)
 
 # Using a randomized data set; useful for examples but not for research.
-df <- krig::soil_random
+df <- soilkrig::soil_random
 
 result <- GetKrigedSoil(df, var = "M3Al")
 #> variog: computing omnidirectional variogram

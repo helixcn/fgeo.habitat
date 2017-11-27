@@ -30,3 +30,11 @@ navbar:
   left:
     - text: Functions Index
       href: reference/index.html
+  right:
+    - icon: fa-link
+      menu:
+      - text: App
+        href: https://bookdown.org/forestgeoguest/soilkrig_app/
+      - icon: fa-github
+        href: https://github.com/forestgeo/soilkrig
+

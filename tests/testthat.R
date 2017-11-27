@@ -1,4 +1,4 @@
 library(testthat)
-library(krig)
+library(soilkrig)
 
-test_check("krig")
+test_check("soilkrig")
