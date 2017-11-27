@@ -4,7 +4,7 @@
 \name{krig-package}
 \alias{krig}
 \alias{krig-package}
-\title{Krig soil data as per John et al. (2007).}
+\title{krig: Krig Soil Data}
 \description{
 Krig soil data as per John et al. (2007).
 }

@@ -5,18 +5,24 @@ output:
   flexdashboard::flex_dashboard:
     orientation: columns
     theme: united
+    social: menu
+    source_code: embed
+    navbar:
+      - {title: "Code", href: "https://github.com/maurolepore", align: right, 
+        icon: fa-user}
+      - {title: "App", href: "https://github.com/maurolepore", align: right, 
+        icon: fa-user}
 ---
 
 ```{r global, include=FALSE}
 library(flexdashboard)
-# library(shiny)
 library(krig)
 library(dplyr)
 library(ggplot2)
 library(tibble)
 ```
 
-Start here (defaults settings) {data.width=700}
+Start (defaults settings) {data.width=700}
 =======================================================================
 
 --- INPUTS {.sidebar data-width=250}
@@ -42,7 +48,10 @@ fluidRow(column(5, textInput("var_id", NULL, value = "M3Al")))
 
 ```{r}
 h4("3. Wait")
-helpText("Depending on the size of the data set, results may take several seconds to appear and refresh.")
+helpText(
+  "Depending on the size of the data set, results may take several",
+  "seconds to appear and refresh."
+)
 ```
 
 --- DATA {data-width=400}
@@ -51,7 +60,7 @@ helpText("Depending on the size of the data set, results may take several second
 ### Data
 
 ```{r}
-shiny::numericInput("print_n", "How many rows to show?", 3)
+numericInput("print_n", "How many rows to show?", 3)
 renderPrint({
   head(active_df(), input$print_n)
 })
@@ -75,14 +84,14 @@ renderPlot({
 ### Result {data-height=97}
 
 ```{r}
-shiny::numericInput("print_n2", "How many elements of each result to show?", 6)
+numericInput("print_n2", "How many elements of each result to show?", 6)
 renderPrint({
   result <- GetKrigedSoil(active_df(), var = input$var_id)
   lapply(result, head, input$print_n2)
 })
 ```
 
-Continue here (custom settings)
+Finish (custom settings)
 =======================================================================
 
 --- INPUTS {.sidebar data-width=250}
@@ -120,12 +129,11 @@ numericInput("n_id", "n", value = 30)
 
 ```{r}
 h4("5. Wait")
-helpText("Depending on the size of the data set, results may take several seconds to appear and refresh.")
+helpText(
+  "Depending on the size of the data set, results may take several",
+  "seconds to appear and refresh."
+)
 ```
-
-
-
-
 
 --- DATA {data-width=400}
 -----------------------------------------------------------------------
@@ -133,7 +141,7 @@ helpText("Depending on the size of the data set, results may take several second
 ### Data
 
 ```{r}
-shiny::numericInput("print_n", "How many rows to show?", 3)
+numericInput("print_n", "How many rows to show?", 3)
 renderPrint({
   head(active_df(), input$print_n)
 })
@@ -151,14 +159,13 @@ renderPlot({
 })
 ```
 
-
 --- RESULTS {data-width=400}
 -----------------------------------------------------------------------
 
 ### Result {data-height=97}
 
 ```{r}
-shiny::numericInput("print_n2", "How many elements of each result to show?", 6)
+numericInput("print_n2", "How many elements of each result to show?", 6)
 renderPrint({
   result <- GetKrigedSoil(
     active_df(), 
@@ -176,8 +183,3 @@ renderPrint({
   lapply(result, head, input$print_n2)
 })
 ```
-
-
-
-
-
