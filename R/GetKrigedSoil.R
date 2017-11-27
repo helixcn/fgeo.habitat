@@ -1,6 +1,6 @@
 # Kriging functionality for CTFS
 
-
+# Do ----------------------------------------------------------------------
 
 #' Krige soil data following the methodology of the John et al. (2007).
 #'
@@ -14,7 +14,7 @@
 #'
 #' @param df.soil The data frame with the points, coords specified in the
 #'   columns `gx`, `gy`.
-#' @param var The variable/column in `df.soil` to krige.
+#' @param var A text string giving the variable/column in `df.soil` to krige.
 #' @param gridSize Points are kriged to the centre points of a grid of this
 #'   size.
 #' @param krigeParams If you want to pass specified kriging parameters; see
@@ -68,17 +68,18 @@
 #' g2
 #' }
 GetKrigedSoil <- function(df.soil,
-                          var = "P",
+                          var,
                           gridSize = 20,
                           krigeParams = NULL,
                           xSize = 1000,
                           ySize = 500,
                           breaks = ExpList(2, 320, 30),
                           useKsLine = TRUE) {
-  # xxx add assertions
-  check_GetKrigedSoil(df.soil = df.soil)
-
-
+  check_GetKrigedSoil(
+    df.soil = df.soil, var = var, gridSize = gridSize, xSize = xSize,
+    ySize = ySize, breaks = breaks, krigeParams = krigeParams,
+    useKsLine = useKsLine
+  )
 
   df <- df.soil[ , c("gx", "gy", var)]
   names(df)[3] <- "z"
@@ -403,4 +404,58 @@ InvBoxCoxTransformSoil <- function(df, lambda, delta) {
   df$z <- df$z - delta
 
   df
+}
+
+
+
+# Check -------------------------------------------------------------------
+
+check_GetKrigedSoil <- function(df.soil,
+  var,
+  gridSize,
+  krigeParams,
+  xSize,
+  ySize,
+  breaks,
+  useKsLine) {
+  assertive::assert_is_data.frame(df.soil)
+  assertive::assert_is_not_null(df.soil)
+  if (!dim(df.soil)[[1]] > 0) {
+    stop(
+      "df.soil has cero rows\n",
+      "  * Ensure `df.soil` has one or more rows",
+      call. = FALSE
+    )
+  }
+  check_crucial_names(df.soil, c("gx", "gy"))
+  assertive::assert_is_character(var)
+  assertive::assert_all_are_non_missing_nor_empty_character(var)
+  if (!var %in% names(df.soil)) {
+    stop(
+      "The variable-name passed to `var` isn't in your data\n",
+      "  * Check the possible options with `names(your_data)`",
+      call. = FALSE
+    )
+  }
+  assertive::assert_is_numeric(gridSize)
+  assertive::assert_is_numeric(xSize)
+  assertive::assert_is_numeric(ySize)
+  assertive::assert_is_numeric(breaks)
+  if (!is.null(krigeParams)) {
+    assertive::assert_is_list(krigeParams)
+  }
+  assertive::assert_is_logical(useKsLine)
+}
+
+check_crucial_names <- function(x, nms) {
+  are_names_expected <- all(nms %in% names(x))
+  if (are_names_expected) {
+    return(invisible())
+  } else {
+    stop(
+      "Ensure your data set has these variables:\n",
+      paste0(nms, collapse = ", "),
+      call. = FALSE
+    )
+  }
 }

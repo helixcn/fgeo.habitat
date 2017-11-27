@@ -3,7 +3,6 @@ context("test-getkrigedsoil.R")
 df <- soilkrig::soil_random[1:10, ]
 result <- suppressWarnings(GetKrigedSoil(df, var="M3Al"))
 
-
 test_that("GetKrigedSoil() passes regression test", {
   expect_equal_to_reference(result, "ref-GetKrigedSoil.rds")
 })
@@ -51,13 +50,48 @@ test_that("check_GetKrigSoil() fails with wrong input", {
     GetKrigedSoil(rnm, var="M3Al"),
     "Ensure your data set has these variables:"
   )
-
   cero_row <- data.frame(gx = numeric(0), gy = numeric(0))
   expect_error(
     GetKrigedSoil(cero_row, var ="M3Al"),
     "Ensure `df.soil` has one or more rows"
   )
+  expect_error(
+    GetKrigedSoil(df, var = "non-existent-var"),
+    "The variable-name passed to `var` isn't in your data"
+  )
+  expect_error(
+    GetKrigedSoil(df, var = 888),
+    "var is not of class 'character'"
+  )
+  expect_error(
+    GetKrigedSoil(df),
+    "argument \"var\" is missing"
+  )
+  expect_error(
+    GetKrigedSoil(df, var = "M3Al", gridSize = "3"),
+    "gridSize is not of class 'numeric'"
+  )
+  expect_error(
+    GetKrigedSoil(df, var = "M3Al", xSize = "3"),
+    "xSize is not of class 'numeric'"
+  )
+  expect_error(
+    GetKrigedSoil(df, var = "M3Al", ySize = "3"),
+    "ySize is not of class 'numeric'"
+  )
+  wrong_type <- 1
+  expect_error(
+    GetKrigedSoil(df, var = "M3Al", krigeParams = wrong_type),
+    "krigeParams is not of class 'list'"
+  )
+  bad_not_a_number <- "a"
+  expect_error(
+    GetKrigedSoil(df, var = "M3Al", breaks = bad_not_a_number),
+    "breaks is not of class 'numeric'"
+  )
+  bad_not_logical <- "a"
+  expect_error(
+    GetKrigedSoil(df, var = "M3Al", useKsLine = bad_not_logical),
+    "useKsLine is not of class 'logical'"
+  )
 })
-
-
-
