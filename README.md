@@ -3,6 +3,8 @@
 soilkrig: krig soil data <img src="https://i.imgur.com/39pvr4n.png" align="right" height=44 />
 ==============================================================================================
 
+[![Travis build status](https://travis-ci.org/forestgeo/soilkrig.svg?branch=master)](https://travis-ci.org/forestgeo/soilkrig)
+
 Installation
 ------------
 
