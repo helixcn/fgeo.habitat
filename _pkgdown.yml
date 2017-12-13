@@ -1,8 +1,14 @@
+url: https://forestgeo.github.io/soilkrig/
+
+authors:
+  Mauro Lepore:
+    href: https://github.com/maurolepore
+  CTFS-ForestGEO:
+    href: http://www.forestgeo.si.edu/
+
 template:
   params:
     bootswatch: united
-
-
 
 home:
   links:
@@ -11,30 +17,46 @@ home:
 
 
 
+navbar:
+
+  type: default
+
+  left:
+    - text: Functions Index
+      href: reference/index.html
+
+  right:
+    - text: Tutorials
+      href: articles/index.html
+
+    - text: Apps
+      menu:
+      - text: Krig soil data
+        href: https://github.com/forestgeo/soilkrig
+
+    - text: News
+      href: news/index.html
+
+    - icon: fa-gavel
+      href: https://github.com/maurolepore
+
+    - icon: fa-github
+      href: https://github.com/forestgeo/soilkrig
+
+    - text: fgeo
+      href: https://forestgeo.github.io/fgeo/
+
+
+
 reference:
   - title: "Main Function"
     contents:
       - GetKrigedSoil
-  - title: "Helper Functions"
+  - title: "Helpers"
     contents:
       - ExpList
       - GetAutomatedKrigeParams
-  - title: "Dataset Set"
+  - title: "Data Set"
     contents:
       - soil_random
-
-
-
-navbar:
-  type: default
-  left:
-    - text: Functions Index
-      href: reference/index.html
-  right:
-    - icon: fa-link
-      menu:
-      - text: App
-        href: https://bookdown.org/forestgeoguest/soilkrig_app/
-      - icon: fa-github
-        href: https://github.com/forestgeo/soilkrig
 
