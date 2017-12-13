@@ -1,9 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-soilkrig
-========
-
-The goal of **soilkrig** is to krig soil data as per John et al. (2007).
+soilkrig: krig soil data <img src="https://i.imgur.com/39pvr4n.png" align="right" height=44 />
+==============================================================================================
 
 Installation
 ------------
