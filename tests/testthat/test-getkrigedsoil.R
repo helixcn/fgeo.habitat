@@ -45,9 +45,9 @@ test_that("check_GetKrigSoil() fails with wrong input", {
     "is not of class 'data.frame'"
   )
 
-  rnm <- dplyr::rename(df, x = gx, y = gy)
+  rnm <- stats::setNames(df, c("wrong_x", "wrong_gy", "M3Al"))
   expect_error(
-    GetKrigedSoil(rnm, var="M3Al"),
+    GetKrigedSoil(rnm, var = "M3Al"),
     "Ensure your data set has these variables:"
   )
   cero_row <- data.frame(gx = numeric(0), gy = numeric(0))
