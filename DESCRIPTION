@@ -11,14 +11,14 @@ License: GPL-3
 Depends: 
     R (>= 3.1.2)
 Imports: 
+    assertive.types,
     geoR,
     MASS,
-    stats,
-    assertive
+    stats
 Suggests: 
+    covr,
     ggplot2,
-    testthat,
-    covr
+    testthat
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

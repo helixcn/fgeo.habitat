@@ -9,3 +9,4 @@
 ^_pkgdown\.yml$
 ^inst/app$
 ^\.travis\.yml$
+^codecov\.yml$

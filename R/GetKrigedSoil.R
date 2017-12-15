@@ -419,7 +419,7 @@ check_GetKrigedSoil <- function(df.soil,
   breaks,
   useKsLine) {
   assertive::assert_is_data.frame(df.soil)
-  assertive::assert_is_not_null(df.soil)
+  stopifnot(!is.null(df.soil))
   if (!dim(df.soil)[[1]] > 0) {
     stop(
       "df.soil has cero rows\n",
@@ -429,7 +429,11 @@ check_GetKrigedSoil <- function(df.soil,
   }
   check_crucial_names(df.soil, c("gx", "gy"))
   assertive::assert_is_character(var)
-  assertive::assert_all_are_non_missing_nor_empty_character(var)
+  stopifnot(length(var) != 0)
+  stopifnot(!missing(var))
+
+
+
   if (!var %in% names(df.soil)) {
     stop(
       "The variable-name passed to `var` isn't in your data\n",
