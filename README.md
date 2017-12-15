@@ -3,7 +3,7 @@
 soilkrig: krig soil data <img src="https://i.imgur.com/39pvr4n.png" align="right" height=44 />
 ==============================================================================================
 
-[![Travis build status](https://travis-ci.org/forestgeo/soilkrig.svg?branch=master)](https://travis-ci.org/forestgeo/soilkrig)
+[![Travis build status](https://travis-ci.org/forestgeo/soilkrig.svg?branch=master)](https://travis-ci.org/forestgeo/soilkrig) [![Coverage status](https://coveralls.io/repos/github/forestgeo/soilkrig/badge.svg)](https://coveralls.io/r/forestgeo/soilkrig?branch=master) [![CRAN status](http://www.r-pkg.org/badges/version/soilkrig)](https://cran.r-project.org/package=soilkrig)
 
 Installation
 ------------
