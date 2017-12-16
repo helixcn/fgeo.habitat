@@ -40,10 +40,7 @@ test_that("GetKrigedSoil() returns the expected value.", {
 
 test_that("check_GetKrigSoil() fails with wrong input", {
   numeric_input <- as.matrix(df)
-  expect_error(
-    GetKrigedSoil(numeric_input, var="M3Al"),
-    "is not of class 'data.frame'"
-  )
+  expect_error(GetKrigedSoil(numeric_input, var="M3Al"))
 
   rnm <- stats::setNames(df, c("wrong_x", "wrong_gy", "M3Al"))
   expect_error(
@@ -59,39 +56,18 @@ test_that("check_GetKrigSoil() fails with wrong input", {
     GetKrigedSoil(df, var = "non-existent-var"),
     "The variable-name passed to `var` isn't in your data"
   )
-  expect_error(
-    GetKrigedSoil(df, var = 888),
-    "var is not of class 'character'"
-  )
+  expect_error(GetKrigedSoil(df, var = 888))
   expect_error(
     GetKrigedSoil(df),
     "argument \"var\" is missing"
   )
-  expect_error(
-    GetKrigedSoil(df, var = "M3Al", gridSize = "3"),
-    "gridSize is not of class 'numeric'"
-  )
-  expect_error(
-    GetKrigedSoil(df, var = "M3Al", xSize = "3"),
-    "xSize is not of class 'numeric'"
-  )
-  expect_error(
-    GetKrigedSoil(df, var = "M3Al", ySize = "3"),
-    "ySize is not of class 'numeric'"
-  )
+  expect_error(GetKrigedSoil(df, var = "M3Al", gridSize = "3"))
+  expect_error(GetKrigedSoil(df, var = "M3Al", xSize = "3"))
+  expect_error(GetKrigedSoil(df, var = "M3Al", ySize = "3"))
   wrong_type <- 1
-  expect_error(
-    GetKrigedSoil(df, var = "M3Al", krigeParams = wrong_type),
-    "krigeParams is not of class 'list'"
-  )
+  expect_error(GetKrigedSoil(df, var = "M3Al", krigeParams = wrong_type))
   bad_not_a_number <- "a"
-  expect_error(
-    GetKrigedSoil(df, var = "M3Al", breaks = bad_not_a_number),
-    "breaks is not of class 'numeric'"
-  )
+  expect_error(GetKrigedSoil(df, var = "M3Al", breaks = bad_not_a_number))
   bad_not_logical <- "a"
-  expect_error(
-    GetKrigedSoil(df, var = "M3Al", useKsLine = bad_not_logical),
-    "useKsLine is not of class 'logical'"
-  )
+  expect_error(GetKrigedSoil(df, var = "M3Al", useKsLine = bad_not_logical))
 })
