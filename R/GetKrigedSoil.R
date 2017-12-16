@@ -411,13 +411,13 @@ InvBoxCoxTransformSoil <- function(df, lambda, delta) {
 # Check -------------------------------------------------------------------
 
 check_GetKrigedSoil <- function(df.soil,
-  var,
-  gridSize,
-  krigeParams,
-  xSize,
-  ySize,
-  breaks,
-  useKsLine) {
+                                var,
+                                gridSize,
+                                krigeParams,
+                                xSize,
+                                ySize,
+                                breaks,
+                                useKsLine) {
   assertive.types::assert_is_data.frame(df.soil)
   stopifnot(!is.null(df.soil))
   if (!dim(df.soil)[[1]] > 0) {
