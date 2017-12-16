@@ -418,7 +418,7 @@ check_GetKrigedSoil <- function(df.soil,
                                 ySize,
                                 breaks,
                                 useKsLine) {
-  assertive.types::assert_is_data.frame(df.soil)
+  stopifnot(is.data.frame(df.soil))
   stopifnot(!is.null(df.soil))
   if (!dim(df.soil)[[1]] > 0) {
     stop(
@@ -428,7 +428,7 @@ check_GetKrigedSoil <- function(df.soil,
     )
   }
   check_crucial_names(df.soil, c("gx", "gy"))
-  assertive.types::assert_is_character(var)
+  stopifnot(is.character(var))
   stopifnot(length(var) != 0)
   stopifnot(!missing(var))
 
@@ -441,14 +441,14 @@ check_GetKrigedSoil <- function(df.soil,
       call. = FALSE
     )
   }
-  assertive.types::assert_is_numeric(gridSize)
-  assertive.types::assert_is_numeric(xSize)
-  assertive.types::assert_is_numeric(ySize)
-  assertive.types::assert_is_numeric(breaks)
+  stopifnot(is.numeric(gridSize))
+  stopifnot(is.numeric(xSize))
+  stopifnot(is.numeric(ySize))
+  stopifnot(is.numeric(breaks))
   if (!is.null(krigeParams)) {
-    assertive.types::assert_is_list(krigeParams)
+    stopifnot(is.list(krigeParams))
   }
-  assertive.types::assert_is_logical(useKsLine)
+  stopifnot(is.logical(useKsLine))
 }
 
 check_crucial_names <- function(x, nms) {
