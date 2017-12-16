@@ -36,6 +36,12 @@
 #' @export
 #' @examples
 #' \dontrun{
+#' # You need ggplot2
+#' if (!requireNamespace("ggplot2", quietly = TRUE)) {
+#'   stop("ggplot2 needed for this example to work. Please install it.",
+#'     call. = FALSE)
+#' }
+#'
 #' library(ggplot2)
 #'
 #' # Use randomized data set for examples (invalid for reaserch).
