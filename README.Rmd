@@ -24,12 +24,8 @@ knitr::opts_chunk$set(
 You can install soilkrig from github with:
 
 ```R
-# To install from a private repo, use auth_token with a token
-# from https://github.com/settings/tokens. You only need the
-# repo scope. Best practice is to save your PAT in env var called
-# GITHUB_PAT.
-# install.packages("devtools")
-devtools::install_github("forestgeo/soilkrig", auth_token = "abc")
+# install.packages("remotes")
+remotes::install_github("forestgeo/soilkrig")
 ```
 
 ## Example
