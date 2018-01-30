@@ -3,6 +3,7 @@
 export(ExpList)
 export(GetAutomatedKrigeParams)
 export(GetKrigedSoil)
+export(dist_in_torus)
 import(geoR)
 importFrom(MASS,boxcox)
 importFrom(stats,nls)
