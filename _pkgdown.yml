@@ -26,9 +26,6 @@ navbar:
       href: reference/index.html
 
   right:
-    - text: Tutorials
-      href: articles/index.html
-
     - text: Apps
       menu:
       - text: Krig soil data
