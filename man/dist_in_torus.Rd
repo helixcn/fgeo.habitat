@@ -7,18 +7,22 @@
 dist_in_torus(x, lower = rep(-Inf, ncol(x)), upper = rep(Inf, ncol(x)))
 }
 \arguments{
-\item{x}{The matrix with the coordinates of the points. \link[=xxx The data
-  sould contain exclusively the coordinates, right? If so it may be better
-  to restrict the data to a matrix -- dataframes can mix vectors of different
-  types which may fail.]{xxx The data
+\item{x}{The matrix with the coordinates of the points. [xxx The data
 sould contain exclusively the coordinates, right? If so it may be better
 to restrict the data to a matrix -- dataframes can mix vectors of different
-types which may fail.}}
+types which may fail.]
+
+[xxx The data
+sould contain exclusively the coordinates, right? If so it may be better
+to restrict the data to a matrix -- dataframes can mix vectors of different
+types which may fail.]: R:xxx%20The%20data%0A%20%20sould%20contain%20exclusively%20the%20coordinates,%20right?%20If%20so%20it%20may%20be%20better%0A%20%20to%20restrict%20the%20data%20to%20a%20matrix%20--%20dataframes%20can%20mix%20vectors%20of%20different%0A%20%20types%20which%20may%20fail.%5C}
 
 \item{lower, upper}{The minimum and maximum possible values of the coordinates
-along each dimension. \link[=xxx should these always be vectors of length 2? --
-  as shown in the example?]{xxx should these always be vectors of length 2? --
-as shown in the example?}}
+along each dimension. [xxx should these always be vectors of length 2? --
+as shown in the example?]
+
+[xxx should these always be vectors of length 2? --
+as shown in the example?]: R:xxx%20should%20these%20always%20be%20vectors%20of%20length%202?%20--%0A%20%20as%20shown%20in%20the%20example?%5C}
 }
 \value{
 A numeric matrix.
@@ -27,7 +31,9 @@ A numeric matrix.
 By default, this function returns the distance in the Euclidean space
 by assuming borders infinitely apart (i.e. points in a small portion
 of an infinitely large toroid).
-\link{xxx What happens if you change the default?}
+[xxx What happens if you change the default?]
+
+[xxx What happens if you change the default?]: R:xxx%20What%20happens%20if%20you%20change%20the%20default?%5C
 }
 \details{
 The shortest distance in the toroid is the hypotenuse of the smallest
@@ -37,7 +43,7 @@ borders, going around. There are only two ways of measuring distance along
 each dimension.
 }
 \examples{
-# [xxx can you add] an example in more than 2 dimensions?]
+# \\[xxx can you add\\] an example in more than 2 dimensions?\\]
 
 x <- data.frame(runif(10, min = 3, max = 5), runif(10, min = 13, max = 15))
 
@@ -56,7 +62,7 @@ plot(c(d0), c(as.dist(d2)), main = "finite toroid")
 abline(0, 1)
 
 
-# [xxx Is this behaviour OK?]
+# \\[xxx Is this behaviour OK?\\]
 # # Passes
 # dist_in_torus(matrix(c(NaN, NaN)))
 # dist_in_torus(matrix(c(NA, NA)))
@@ -70,7 +76,7 @@ abline(0, 1)
 # dist_in_torus(matrix(a = c(1)))
 # dist_in_torus(matrix(c(NULL, NULL)))
 # 
-# # [xxx What known outputs would be useful for tests? For example:
+# # \\[xxx What known outputs would be useful for tests? For example:
 # library(testthat)
 # v1 <- c(0, 1, 1, 0)
 # expect_equal(c(dist_in_torus(matrix(c(1, 2)))), v1)
