@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Krig Soil Data • soilkrig</title>
+<title>Habitat Analyses • fgeo.habitat</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/united/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
@@ -24,7 +24,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">soilkrig</a>
+      <a class="navbar-brand" href="index.html">fgeo.habitat</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -44,7 +44,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="https://github.com/forestgeo/soilkrig">Krig soil data</a>
+      <a href="https://github.com/forestgeo/fgeo.habitat">Krig soil data</a>
     </li>
   </ul>
 </li>
@@ -58,7 +58,7 @@
   </a>
 </li>
 <li>
-  <a href="https://github.com/forestgeo/soilkrig">
+  <a href="https://github.com/forestgeo/fgeo.habitat">
     <span class="fa fa-github"></span>
      
   </a>
@@ -83,25 +83,25 @@
     
 <div class="contents">
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-<div id="soilkrig-krig-soil-data" class="section level1">
+<div id="fgeo-habitat-habitat-analyses" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#soilkrig-krig-soil-data" class="anchor"></a>soilkrig: krig soil data <img src="https://i.imgur.com/39pvr4n.png" align="right" height="44">
+<a href="#fgeo-habitat-habitat-analyses" class="anchor"></a>fgeo.habitat: Habitat Analyses <img src="https://i.imgur.com/39pvr4n.png" align="right" height="44">
 </h1></div>
 
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install soilkrig from github with:</p>
+<p>You can install fgeo.habitat from github with:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("remotes")</span>
-remotes<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/remotes/topics/install_github">install_github</a></span>(<span class="st">"forestgeo/soilkrig"</span>)</code></pre></div>
+remotes<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/remotes/topics/install_github">install_github</a></span>(<span class="st">"forestgeo/fgeo.habitat"</span>)</code></pre></div>
 </div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(soilkrig)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(fgeo.habitat)
 
 <span class="co"># Using a randomized data set; useful for examples but not for research.</span>
-df &lt;-<span class="st"> </span>soilkrig<span class="op">::</span>soil_random
+df &lt;-<span class="st"> </span>fgeo.habitat<span class="op">::</span>soil_random
 
 result &lt;-<span class="st"> </span><span class="kw"><a href="reference/GetKrigedSoil.html">GetKrigedSoil</a></span>(df, <span class="dt">var =</span> <span class="st">"M3Al"</span>)
 <span class="co">#&gt; variog: computing omnidirectional variogram</span>
@@ -231,9 +231,9 @@ result &lt;-<span class="st"> </span><span class="kw"><a href="reference/GetKrig
 </ul>
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://travis-ci.org/forestgeo/soilkrig"><img src="https://travis-ci.org/forestgeo/soilkrig.svg?branch=master" alt="Travis build status"></a></li>
-<li><a href="https://coveralls.io/r/forestgeo/soilkrig?branch=master"><img src="https://coveralls.io/repos/github/forestgeo/soilkrig/badge.svg" alt="Coverage status"></a></li>
-<li><a href="https://cran.r-project.org/package=soilkrig"><img src="http://www.r-pkg.org/badges/version/soilkrig" alt="CRAN status"></a></li>
+<li><a href="https://travis-ci.org/forestgeo/fgeo.habitat"><img src="https://travis-ci.org/forestgeo/fgeo.habitat.svg?branch=master" alt="Travis build status"></a></li>
+<li><a href="https://coveralls.io/r/forestgeo/fgeo.habitat?branch=master"><img src="https://coveralls.io/repos/github/forestgeo/fgeo.habitat/badge.svg" alt="Coverage status"></a></li>
+<li><a href="https://cran.r-project.org/package=fgeo.habitat"><embed src="http://www.r-pkg.org/badges/version/fgeo.habitat"></embed></a></li>
 </ul>
 </div>
 

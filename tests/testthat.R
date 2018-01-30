@@ -1,4 +1,4 @@
 library(testthat)
-library(soilkrig)
+library(fgeo.habitat)
 
-test_check("soilkrig")
+test_check("fgeo.habitat")

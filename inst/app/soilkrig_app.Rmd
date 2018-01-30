@@ -16,7 +16,7 @@ output:
 
 ```{r global, include=FALSE}
 library(flexdashboard)
-library(soilkrig)
+library(fgeo.habitat)
 library(dplyr)
 library(ggplot2)
 library(tibble)
@@ -37,7 +37,7 @@ active_df <- reactive({
   readr::read_csv(input$dataset$datapath)
 })
 helpText("Example data set:")
-print(as.tibble(soilkrig::soil_random), n = 3)
+print(as.tibble(fgeo.habitat::soil_random), n = 3)
 ```
 
 ```{r}

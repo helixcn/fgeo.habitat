@@ -1,7 +1,7 @@
 library(ggplot2)
 
 # Use randomized data set for examples (invalid for reaserch).
-df <- soilkrig::soil_random
+df <- fgeo.habitat::soil_random
 head(df)
 
 

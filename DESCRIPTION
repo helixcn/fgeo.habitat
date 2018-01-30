@@ -1,12 +1,12 @@
-Package: soilkrig
-Title: Krig Soil Data
-Version: 0.0.0.9000
+Package: fgeo.habitat
+Title: Habitat Analyses
+Version: 0.0.0.9001
 Authors@R: c(
     person("Graham", "Zemunik", , "grah.zem@@gmail.com", role = c("aut")),
     person("Mauro", "Lepore", , "leporem@si.edu", role = c("aut", "ctr", "cre")),
     person("CTFS-ForestGEO", , , "ForestGEO@si.edu", role = c("cph", "fnd"))
     )
-Description: Krig soil data as per John et al. (2007).
+Description: Habitat analyses.
 License: GPL-3
 Depends: 
     R (>= 3.1.2)

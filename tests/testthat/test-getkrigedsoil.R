@@ -1,6 +1,6 @@
 context("test-getkrigedsoil.R")
 
-df <- soilkrig::soil_random[1:10, ]
+df <- fgeo.habitat::soil_random[1:10, ]
 result <- suppressWarnings(GetKrigedSoil(df, var="M3Al"))
 
 test_that("GetKrigedSoil() passes regression test", {
