@@ -49,6 +49,7 @@ reference:
   - title: "Main Function"
     contents:
       - GetKrigedSoil
+      - dist_in_torus
   - title: "Helpers"
     contents:
       - ExpList

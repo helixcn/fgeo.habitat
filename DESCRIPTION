@@ -13,7 +13,8 @@ Depends:
 Imports: 
     geoR,
     MASS,
-    stats
+    stats,
+    rlang
 Suggests: 
     covr,
     ggplot2,

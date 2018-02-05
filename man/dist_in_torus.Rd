@@ -7,35 +7,20 @@
 dist_in_torus(x, lower = rep(-Inf, ncol(x)), upper = rep(Inf, ncol(x)))
 }
 \arguments{
-\item{x}{The matrix with the coordinates of the points. [xxx The data
-sould contain exclusively the coordinates, right? If so it may be better
-to restrict the data to a matrix -- dataframes can mix vectors of different
-types which may fail.]
+\item{x}{A numeric matrix giving the coordinates (positions) of the points.}
 
-[xxx The data
-sould contain exclusively the coordinates, right? If so it may be better
-to restrict the data to a matrix -- dataframes can mix vectors of different
-types which may fail.]: R:xxx%20The%20data%0A%20%20sould%20contain%20exclusively%20the%20coordinates,%20right?%20If%20so%20it%20may%20be%20better%0A%20%20to%20restrict%20the%20data%20to%20a%20matrix%20--%20dataframes%20can%20mix%20vectors%20of%20different%0A%20%20types%20which%20may%20fail.%5C}
-
-\item{lower, upper}{The minimum and maximum possible values of the coordinates
-along each dimension. [xxx should these always be vectors of length 2? --
-as shown in the example?]
-
-[xxx should these always be vectors of length 2? --
-as shown in the example?]: R:xxx%20should%20these%20always%20be%20vectors%20of%20length%202?%20--%0A%20%20as%20shown%20in%20the%20example?%5C}
+\item{lower, upper}{Numeric vectors of length \code{ncol(x)}. The minimum and
+maximum possible values of the coordinates along each dimension.}
 }
 \value{
 A numeric matrix.
 }
 \description{
-By default, this function returns the distance in the Euclidean space
-by assuming borders infinitely apart (i.e. points in a small portion
-of an infinitely large toroid).
-[xxx What happens if you change the default?]
+By default (i.e. if the arguments \code{lower} and \code{upper} are not provided), this
+function returns the distance in the Euclidean space by assuming borders
+infinitely apart (i.e. points in a small portion of an infinitely large
+toroid).
 
-[xxx What happens if you change the default?]: R:xxx%20What%20happens%20if%20you%20change%20the%20default?%5C
-}
-\details{
 The shortest distance in the toroid is the hypotenuse of the smallest
 hyper-triangle. The 'internal' distance is the typical distance based on the
 coordinates, as in the Euclidean space. The 'external' distance is crossing
@@ -43,14 +28,13 @@ borders, going around. There are only two ways of measuring distance along
 each dimension.
 }
 \examples{
-# \\[xxx can you add\\] an example in more than 2 dimensions?\\]
-
-x <- data.frame(runif(10, min = 3, max = 5), runif(10, min = 13, max = 15))
+numeric_vector <- c(runif(10, min = 3, max = 5), runif(10, min = 13, max = 15))
+x <- matrix(numeric_vector, ncol = 2)
 
 # Euclidean distances
-d0 <- dist(x) 
+d0 <- dist(x)
 # default behaviour
-d1 <- dist_in_torus(x) 
+d1 <- dist_in_torus(x)
 # distances in the toroid
 d2 <- dist_in_torus(x, lower = c(3, 13), upper = c(5, 15))
 
@@ -61,28 +45,9 @@ abline(0, 1)
 plot(c(d0), c(as.dist(d2)), main = "finite toroid")
 abline(0, 1)
 
-
-# \\[xxx Is this behaviour OK?\\]
-# # Passes
-# dist_in_torus(matrix(c(NaN, NaN)))
-# dist_in_torus(matrix(c(NA, NA)))
-# dist_in_torus(matrix(c(Inf, Inf)))
-# dist_in_torus(matrix(c(1, 1)))
-# dist_in_torus(matrix(c(-1, -1)))
-# dist_in_torus(matrix(c(1, 1)))
-# dist_in_torus(data.frame(a = c(1, 1)))
-# 
-# # Fails
-# dist_in_torus(matrix(a = c(1)))
-# dist_in_torus(matrix(c(NULL, NULL)))
-# 
-# # \\[xxx What known outputs would be useful for tests? For example:
-# library(testthat)
-# v1 <- c(0, 1, 1, 0)
-# expect_equal(c(dist_in_torus(matrix(c(1, 2)))), v1)
-# expect_equal(c(dist_in_torus(matrix(c(0, 1)))), v1)
-# # ...
-
+# `upper` and `lower` must be as long as `ncol(x)`
+x <- matrix(runif(9), ncol = 3)
+dist_in_torus(x, lower = c(0, 0, 0), upper = c(1, 1, 1))
 }
 \author{
 Gabriel Arellano

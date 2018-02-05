@@ -1,6 +1,8 @@
 #' @keywords internal
 "_PACKAGE"
 
+
+
 # Suppress R CMD check note
 
 #' @import geoR
@@ -13,3 +15,5 @@
 #' @importFrom stats resid
 NULL
 
+#' @import rlang
+NULL
