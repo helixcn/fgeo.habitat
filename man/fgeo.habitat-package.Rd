@@ -4,9 +4,9 @@
 \name{fgeo.habitat-package}
 \alias{fgeo.habitat}
 \alias{fgeo.habitat-package}
-\title{fgeo.habitat: Habitat Analyses}
+\title{fgeo.habitat: Analize Soil Data}
 \description{
-Habitat analyses.
+Analize soil data.
 }
 \author{
 \strong{Maintainer}: Mauro Lepore \email{leporem@si.edu} [contractor]

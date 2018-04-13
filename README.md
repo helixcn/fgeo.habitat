@@ -1,12 +1,16 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-fgeo.habitat: Habitat Analyses <img src="https://i.imgur.com/39pvr4n.png" align="right" height=44 />
-====================================================================================================
 
-[![Travis build status](https://travis-ci.org/forestgeo/fgeo.habitat.svg?branch=master)](https://travis-ci.org/forestgeo/fgeo.habitat) [![Coverage status](https://coveralls.io/repos/github/forestgeo/fgeo.habitat/badge.svg)](https://coveralls.io/r/forestgeo/fgeo.habitat?branch=master) [![CRAN status](http://www.r-pkg.org/badges/version/fgeo.habitat)](https://cran.r-project.org/package=fgeo.habitat)
+# <img src="https://i.imgur.com/m8FNhQR.png" align="right" height=88 /> fgeo.habitat: Analize soil data
 
-Installation
-------------
+[![Travis build
+status](https://travis-ci.org/forestgeo/fgeo.habitat.svg?branch=master)](https://travis-ci.org/forestgeo/fgeo.habitat)
+[![Coverage
+status](https://coveralls.io/repos/github/forestgeo/fgeo.habitat/badge.svg)](https://coveralls.io/r/forestgeo/fgeo.habitat?branch=master)
+[![CRAN
+status](http://www.r-pkg.org/badges/version/fgeo.habitat)](https://cran.r-project.org/package=fgeo.habitat)
+
+## Installation
 
 You can install fgeo.habitat from github with:
 
@@ -15,8 +19,7 @@ You can install fgeo.habitat from github with:
 remotes::install_github("forestgeo/fgeo.habitat")
 ```
 
-Example
--------
+## Example
 
 ``` r
 library(fgeo.habitat)

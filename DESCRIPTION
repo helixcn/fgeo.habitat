@@ -1,12 +1,12 @@
 Package: fgeo.habitat
-Title: Habitat Analyses
+Title: Analize Soil Data
 Version: 0.0.0.9001
 Authors@R: c(
     person("Graham", "Zemunik", , "grah.zem@@gmail.com", role = c("aut")),
     person("Mauro", "Lepore", , "leporem@si.edu", role = c("aut", "ctr", "cre")),
     person("CTFS-ForestGEO", , , "ForestGEO@si.edu", role = c("cph", "fnd"))
     )
-Description: Habitat analyses.
+Description: Analize soil data.
 License: GPL-3
 Depends: 
     R (>= 3.1.2)
