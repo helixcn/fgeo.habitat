@@ -1,12 +1,12 @@
 Package: fgeo.habitat
-Title: Analize Soil Data
+Title: Analize Soils and Tree-Habitat Data
 Version: 0.0.0.9001
 Authors@R: c(
     person("Graham", "Zemunik", , "grah.zem@@gmail.com", role = c("aut")),
     person("Mauro", "Lepore", , "leporem@si.edu", role = c("aut", "ctr", "cre")),
     person("CTFS-ForestGEO", , , "ForestGEO@si.edu", role = c("cph", "fnd"))
     )
-Description: Analize soil data.
+Description: Analize soils and tree-habitat data.
 License: GPL-3
 Depends: 
     R (>= 3.1.2)
@@ -18,8 +18,11 @@ Imports:
 Suggests: 
     covr,
     ggplot2,
-    testthat
+    testthat,
+    knitr,
+    rmarkdown
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1
+VignetteBuilder: knitr

@@ -1,8 +1,9 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# <img src="https://i.imgur.com/m8FNhQR.png" align="right" height=88 /> fgeo.habitat: Analize soil data
+# <img src="https://i.imgur.com/m8FNhQR.png" align="right" height=88 /> fgeo.habitat: Analize soils and tree-habitat data
 
+[![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Travis build
 status](https://travis-ci.org/forestgeo/fgeo.habitat.svg?branch=master)](https://travis-ci.org/forestgeo/fgeo.habitat)
 [![Coverage

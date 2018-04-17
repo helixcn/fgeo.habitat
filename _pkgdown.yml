@@ -21,18 +21,11 @@ navbar:
 
   type: default
 
-  left:
-    - text: Functions Index
-      href: reference/index.html
-
   right:
     - text: Apps
       menu:
       - text: Krig soil data
         href: https://bookdown.org/forestgeoguest/soilkrig_app/
-
-    - text: News
-      href: news/index.html
 
     - icon: fa-gavel
       href: https://github.com/maurolepore
@@ -46,10 +39,11 @@ navbar:
 
 
 reference:
-  - title: "Main Function"
+  - title: "Main Functions"
     contents:
       - GetKrigedSoil
       - dist_in_torus
+      - torusonesp.all
   - title: "Helpers"
     contents:
       - ExpList

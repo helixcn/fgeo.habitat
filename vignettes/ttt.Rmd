@@ -1,0 +1,90 @@
+---
+title: "Torus translation test"
+author: "Mauro Lepore"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Torus translation test}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+This article show how to use the function `torusonesp.all()` by Sabrina Russo, Daniel Zuleta, Matteo Detto. For more information see `?torusonesp.all()`.
+
+Setup.
+
+```{r}
+library(fgeo.habitat)
+```
+
+Example dataset from Pasoh (you should use your own data).
+
+```{r}
+census <- pasoh::pasoh_3spp
+str(census)
+
+habitat <- pasoh::pasoh_hab_index20
+head(habitat)
+```
+
+To use YOUR OWN DATA, you may run something like this:
+
+```
+load("<PATH>/<CENSUS_DATA>.rdata")
+census_data <- <CENSUS_DATA>
+
+load("<PATH>/<HABITAT_DATA>.rdata")
+habitat_data <- <HABITAT_DATA>
+```
+
+Abundance per quadrat.
+
+```{r}
+abundance_per_quadrat <- abundanceperquad(
+  census,
+  plotdim = c(1000, 500),
+  gridsize = 20,
+  type = 'abund'
+)$abund
+
+abundance_per_quadrat[1:10]
+dim(abundance_per_quadrat)
+```
+
+Torus translation for one species.
+
+```{r}
+result_one <- torusonesp.all(
+  species = "GIROPA",
+  hab.index20 = habitat,
+  allabund20 = abundance_per_quadrat,
+  plotdim = c(1000, 500),
+  gridsize = 20
+)
+result_one
+```
+
+Iterate over all (or a subset of) species.
+```{r}
+all_species <- unique(census$sp)
+
+result_all <- lapply(
+  all_species, 
+  torusonesp.all,
+  hab.index20 = habitat,
+  allabund20 = abundance_per_quadrat,
+  plotdim = c(1000, 500),
+  gridsize = 20
+)
+
+# Make the output easier to view
+t(Reduce(rbind, result_all))
+```
+

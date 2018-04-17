@@ -3,3 +3,4 @@
 .RData
 git.R
 tmp.R
+inst/doc
