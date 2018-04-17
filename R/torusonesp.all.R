@@ -17,11 +17,11 @@
 #'   calculated
 #'
 #' @author Sabrina Russo, Daniel Zuletta, Matteo Detto.
+#' 
+#' @seealso Example at \url{https://bookdown.org/fgeocomm/ttt/}.
 #'
 #' @return
 #' @export
-#'
-#' @examples
 torusonesp.all <- function(species, hab.index20, allabund20, plotdim, gridsize) {
   plotdimqx = plotdim[1]/gridsize  		# Calculates no. of x-axis quadrats of plot. (x is the long axis of plot in the case of Pasoh)
   plotdimqy = plotdim[2]/gridsize  		# Calculates no. of y-axis quadrats of plot.

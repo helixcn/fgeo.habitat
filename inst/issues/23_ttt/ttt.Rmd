@@ -2,11 +2,7 @@
 title: "Torus translation test"
 author: "Mauro Lepore"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Torus translation test}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+output: github_document
 ---
 
 ```{r setup, include = FALSE}
@@ -16,9 +12,17 @@ knitr::opts_chunk$set(
 )
 ```
 
-This article show how to use the function `torusonesp.all()` by Sabrina Russo, Daniel Zuleta, Matteo Detto. For more information see `?torusonesp.all()`.
+This article shows how to use the function `torusonesp.all()`, by Sabrina Russo, Daniel Zuleta, Matteo Detto. For more information see `?torusonesp.all()`. Although the core of this function will remain largely the same, the interface to this function is in development and you can expect it to change rapidly. 
 
 Setup.
+
+```R
+# Install the development branch 23_ttt of the package fgeo.habitat
+# install.packages("remotes")
+remotes::install_github("forestgeo/fgeo.habitat@23_ttt")
+```
+
+For details on how to install packages from GitHub, see [this article](https://goo.gl/dQKEeg).
 
 ```{r}
 library(fgeo.habitat)

@@ -29,6 +29,9 @@ You should only try to determine the habitat association for sufficiently
 abundant species - in a 50-ha plot, a minimum abundance of 50 trees/species
 has been used.
 }
+\seealso{
+Example at \url{https://bookdown.org/fgeocomm/ttt/}.
+}
 \author{
 Sabrina Russo, Daniel Zuletta, Matteo Detto.
 }

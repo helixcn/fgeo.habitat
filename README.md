@@ -13,12 +13,13 @@ status](http://www.r-pkg.org/badges/version/fgeo.habitat)](https://cran.r-projec
 
 ## Installation
 
-You can install fgeo.habitat from github with:
-
 ``` r
 # install.packages("remotes")
 remotes::install_github("forestgeo/fgeo.habitat")
 ```
+
+For details on how to install packages from GitHub, see [this
+article](https://goo.gl/dQKEeg).
 
 ## Example
 
