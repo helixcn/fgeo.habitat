@@ -105,12 +105,19 @@ torusonesp.all <- function(species, hab.index20, allabund20, plotdim, gridsize) 
           Torspstcnthab[i] = sum(spmat[newhab==i])    # Determines tot. no. stems for focal sp. per habitat of the focal torus-based map.
         }
         
-        Torspprophab = Torspstcnthab/Tortotstcnthab   # Calculates relative stem density of focal sp. per habitat of the focal torus-based map.  
+        # This division can result in invalid values of Torspprophab
+        Torspprophab = Torspstcnthab/Tortotstcnthab   # Calculates relative stem density of focal sp. per habitat of the focal torus-based map.
         
+        invalid <- any(is.nan(Torspprophab))
+          if (invalid) {
+            msg <- "Invalid stem density of focal sp per habitat of focal map\n"
+            value <- paste0("Torspprophab = ", collapse(Torspprophab), "\n")
+            hint <- "  * Does the dataset have two or more species?"
+            rlang::abort(paste0(msg, value, hint))
+          }
         
         for(i in 1:num.habs)
         {
-          
           if(spprophab[i] > Torspprophab[i])          # If rel. dens. of focal sp. in focal habitat of true map is greater than rel. dens. of focal sp. in focal habitat of torus-based map, then add one to "greater than" count. 		
             GrLsEq[1,(6*i)-4] = GrLsEq[1,(6*i)-4]+1  
           

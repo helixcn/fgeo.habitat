@@ -13,7 +13,5 @@
 #' @importFrom stats nls.control
 #' @importFrom stats predict
 #' @importFrom stats resid
-NULL
-
 #' @import rlang
 NULL
