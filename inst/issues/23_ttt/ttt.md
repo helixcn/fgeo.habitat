@@ -1,7 +1,7 @@
 Torus translation test
 ================
 Mauro Lepore
-2018-04-17
+2018-04-23
 
 This article shows how to use the function `torusonesp.all()`, by
 Sabrina Russo, Daniel Zuleta, Matteo Detto. For more information see

@@ -1,112 +1,50 @@
-# Census data
-# For a small example, choosing only three species from BCI
-census <- bciex::bci12t7mini
-some_species <- c("hybapr", "faraoc", "des2pa")
-census <- with(census, census[sp %in% some_species, ])
-head(census)
-
-# Habitat data
-habitat <- bciex::bci_habitat
-# Small fix to unexpected name in the example dataset
-names(habitat)[3] <- "habitats"
-head(habitat)
-
-# Abundance data
-abundance_per_quadrat <- abundanceperquad(
-  census,
-  plotdim = c(1000, 500),
-  gridsize = 20,
-  type = 'abund'
-)$abund
-
-# Better
 library(dplyr)
-census <- filter(
-  census, 
-  # Alive trees
-  status == "A", 
-  # drop missing values of dbh
-  !is.na(dbh), 
-  # Keep trees at or over the minimum size
-  dbh >= 10
-)
 
-abundance <- count(census, quadrat, sp)
-abundance <- abundance %>% 
+cns <- fgeo.data::luquillo_tree6_1ha
+
+cns %>% 
+  filter(status == "A") %>% 
+  count(sp) %>% 
   arrange(desc(n)) %>% 
-  filter(sp == "faraoc") %>% 
-  pull(n)
+  top_n(3) %>% 
+  pull(sp)
 
-abundance_per_quadrat[1:10]
-dim(abundance_per_quadrat)
+cns %>% count(sp) %>% fgeo.tool::row_top(n, 3)
 
-result <- torusonesp.all(
-  species = "faraoc",
-  hab.index20 = habitat,
-  # allabund20 = abundance,
-  allabund20 = abundance_per_quadrat,
-  plotdim = c(1000, 500),
-  gridsize = 20
-)
-
-# Iterate over all (or a subset of) species
-all_species <- unique(census$sp)
-
-lapply(
-  all_species, 
-  torusonesp.all,
-  hab.index20 = habitat,
-  allabund20 = abundance_per_quadrat,
-  plotdim = c(1000, 500),
-  gridsize = 20
-)
+cns %>% fgeo.tool::row_top("sp", 3) %>% select(sp)
 
 
-
-
-
-
-
-
-
-
-
-census <- pasoh::pasoh_3spp
-head(census)
-
-habitat <- pasoh::pasoh_hab_index20
-head(habitat)
-
-abundance_per_quadrat <- ctfs::abundanceperquad(
-  census,
-  plotdim = c(1000, 500),
-  gridsize = 20,
-  type = 'abund'
-)$abund
-
-abundance_per_quadrat[1:10]
-dim(abundance_per_quadrat)
-
-result_one <- torusonesp.all(
-  species = "GIROPA",
-  hab.index20 = habitat,
-  allabund20 = abundance_per_quadrat,
-  plotdim = c(1000, 500),
-  gridsize = 20
-)
-result_one
-
-# Iterate over all (or a subset of) species
-all_species <- unique(census$sp)
-
-result_all <- lapply(
-  all_species, 
-  torusonesp.all,
-  hab.index20 = habitat,
-  allabund20 = abundance_per_quadrat,
-  plotdim = c(1000, 500),
-  gridsize = 20
-)
-
-# Make the output easier to view
-Reduce(cbind, lapply(result_all, t))
+test_that("regression with Luquillo", {
+  # skip_if_not_installed("fgeo.data")
+  cns <- fgeo.data::luquillo_tree6_random
+  hab <- fgeo.data::luquillo_habitat
+  # Via extract_plotdim()
+  # See also https://forestgeo.si.edu/sites/north-america/luquillo
+  pdim <- c(320, 500)
+  # Via extract_gridsize()
+  gsize <- 5
+  abun_quad <- abundanceperquad(
+    cns,
+    plotdim = pdim,
+    gridsize = gsize,
+    type = 'abund'
+  )$abund
+  
+  sp_alive_3most_abun <- c("PREMON", "CASARB", "SLOBER")
+  sp_alive_1most_abun <- sp_alive_abundant[[1]]
+  out_onesp <- torusonesp.all(
+    species = "PREMON",
+    hab.index20 = hab,
+    allabund20 = abun_quad,
+    plotdim = pdim,
+    gridsize = gsize
+  )
+  
+  # one_sp_pasoh <- t(out_onesp)
+  # expect_known_output(
+  #   one_sp_pasoh,
+  #   "ref-one_sp_pasoh",
+  #   print = TRUE,
+  #   update = TRUE
+  # )
+})
