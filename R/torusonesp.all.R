@@ -108,16 +108,18 @@ torusonesp.all <- function(species, hab.index20, allabund20, plotdim, gridsize) 
         # This division can result in invalid values of Torspprophab
         Torspprophab = Torspstcnthab/Tortotstcnthab   # Calculates relative stem density of focal sp. per habitat of the focal torus-based map.
         
-        invalid <- any(is.nan(Torspprophab))
-          if (invalid) {
-            msg <- "Invalid stem density of focal sp per habitat of focal map\n"
-            value <- paste0("Torspprophab = ", collapse(Torspprophab), "\n")
-            hint <- "  * Does the dataset have two or more species?"
-            rlang::abort(paste0(msg, value, hint))
-          }
         
         for(i in 1:num.habs)
         {
+          invalid_comparison <- is.na(spprophab[i] > Torspprophab[i])
+          if (invalid_comparison) {
+            warn_invalid_comparison(spprophab[i], Torspprophab[i])
+            spprophab[i] <- ifelse(is.nan(spprophab[i]), 0, spprophab[i])
+            Torspprophab[i] <- ifelse(
+              is.nan(Torspprophab[i]), 0, Torspprophab[i]
+            )
+          }
+          
           if(spprophab[i] > Torspprophab[i])          # If rel. dens. of focal sp. in focal habitat of true map is greater than rel. dens. of focal sp. in focal habitat of torus-based map, then add one to "greater than" count. 		
             GrLsEq[1,(6*i)-4] = GrLsEq[1,(6*i)-4]+1  
           
@@ -146,3 +148,13 @@ torusonesp.all <- function(species, hab.index20, allabund20, plotdim, gridsize) 
   
   return(GrLsEq)
 } 
+
+warn_invalid_comparison <- function(spp, torus) {
+  msg1 <- "Values can't be compared:\n"
+  value <- paste0(
+    "spprophab = ", spp, " vs. ",
+    "Torspprophab = ", torus, "\n"
+  )
+  msg2 <- "Replacing NaN with 0."
+  rlang::warn(paste0(msg1, value, msg2))
+}
