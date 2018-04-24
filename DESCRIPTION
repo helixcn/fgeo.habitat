@@ -21,7 +21,8 @@ Suggests:
     ggplot2,
     knitr,
     rmarkdown,
-    testthat
+    testthat,
+    dplyr
 VignetteBuilder: knitr
 Encoding: UTF-8
 LazyData: true
