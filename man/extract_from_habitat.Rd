@@ -24,6 +24,7 @@ quadrat.}
 Extract plot dimensions from habitat data.
 }
 \examples{
-extract_plotdim(bci_habitat)
-extract_gridsize(bci_habitat)
+library(fgeo.data)
+extract_plotdim(luquillo_habitat)
+extract_gridsize(luquillo_habitat)
 }

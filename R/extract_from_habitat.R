@@ -9,44 +9,41 @@
 #' * [extract_gridsize()]: `gridsize` (scalar).
 #'
 #' @examples
-#' extract_plotdim(bci_habitat)
-#' extract_gridsize(bci_habitat)
+#' library(fgeo.data)
+#' extract_plotdim(luquillo_habitat)
+#' extract_gridsize(luquillo_habitat)
 NULL
 
 #' @rdname extract_from_habitat
 #' @export
 extract_gridsize <- function(habitats) {
-  # assert_are_names_matching(habitats, c("x", "y"))
+  check_crucial_names(habitats, c("x", "y"))
   
   grid_x <- difference_among_grid_steps(habitats$x)
   grid_y <- difference_among_grid_steps(habitats$y)
   gridsize <- unique(grid_x, grid_y)
-  gridsize
+  as.integer(gridsize)
 }
 
 #' @rdname extract_from_habitat
 #' @export
 extract_plotdim <- function(habitats) {
-  # assert_are_names_matching(habitats, c("x", "y"))
+  check_crucial_names(habitats, c("x", "y"))
   
   gridsize <- extract_gridsize(habitats)
   plotdim <- unlist(
     lapply(habitats[c("x", "y")], function(.x){max(.x) + gridsize})
   )
-  unname(plotdim)
+  as.integer(unname(plotdim))
 }
 
 #' From x and y columns of habitat data, get difference between grid steps.
 #'
-#' @param habitat_x_or_y Column x or y of habitat data, e.g. bci_habitat$x.
+#' @param habitat_x_or_y Column x or y of habitat data, e.g. luquillo_habitat$x.
 #'
 #' @return A non negative scalar
 #' @noRd
 difference_among_grid_steps <- function(habitat_x_or_y) {
-  # assertive::assert_is_non_empty(habitat_x_or_y)
-  # assertive::assert_is_vector(habitat_x_or_y)
-  # assertive::assert_all_are_non_negative(habitat_x_or_y)
-  
   grid_steps <- unique(habitat_x_or_y)
   difference_among_grid_steps <- unique(diff(grid_steps))
   

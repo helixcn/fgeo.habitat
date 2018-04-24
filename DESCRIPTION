@@ -11,18 +11,20 @@ License: GPL-3
 Depends: 
     R (>= 3.1.2)
 Imports: 
+    fgeo.data,
     geoR,
     MASS,
-    stats,
-    rlang
+    rlang,
+    stats
 Suggests: 
     covr,
     ggplot2,
-    testthat,
     knitr,
-    rmarkdown
+    rmarkdown,
+    testthat
+VignetteBuilder: knitr
 Encoding: UTF-8
 LazyData: true
+Remotes: forestgeo/fgeo.data
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1
-VignetteBuilder: knitr

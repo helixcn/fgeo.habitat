@@ -4,7 +4,35 @@ context("torusonesp.all.R")
 set.seed(123)
 library(dplyr)
 
+# Small dataset from Luquillo
+cns_luq <- fgeo.data::luquillo_tree6_random
+sp_top3 <- cns_luq %>%
+  count(sp) %>%
+  arrange(desc(n)) %>%
+  top_n(3) %>%
+  pull(sp)
+cns_3sp_luq <- filter(cns_luq, status == "A", sp  %in% sp_top3)
+this_sp_luq <- first(sp_top3)
+hab_luq <- fgeo.data::luquillo_habitat
+pdim_luq <- c(320, 500)
+gsize_luq <- 20
 
+abun_quad_luq <- abundanceperquad(
+  cns_3sp_luq, plotdim = pdim_luq, gridsize = gsize_luq, type = 'abund'
+)$abund
+
+test_that("works with luquillo", {
+  expect_silent({
+    out <- torusonesp.all(
+      species = this_sp_luq,
+      hab.index20 = hab_luq,
+      allabund20 = abun_quad_luq,
+      plotdim = pdim_luq,
+      gridsize = gsize_luq
+    )
+  })
+  expect_known_output(out, "ref-luq_top3_premon", print = TRUE, update = TRUE)
+})
 
 # Pasoh -------------------------------------------------------------------
 
