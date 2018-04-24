@@ -16,6 +16,7 @@ pdim_luq <- c(320, 500)
 gsize_luq <- 20
 this_sp_luq <- first(sp_top3)
 
+# Functions to reduce duplication
 abundance_sp <- function(n) {
   .cns <- filter(cns_luq, status == "A", sp  %in% sp_top3[1:n])
   abundanceperquad(
@@ -33,6 +34,7 @@ expect_silent_with_n <- function(n) {
     )
   })
 }
+
 test_that("works with luquillo", {
   out <- expect_silent_with_n(3)
   expect_known_output(out, "ref-luq_top3_premon", print = TRUE, update = TRUE)
@@ -87,16 +89,19 @@ test_that("tests with Pasoh", {
   abun_quad <- abundanceperquad(
     cns_1sp, plotdim = pdim, gridsize = gsize, type = 'abund'
   )$abund
-  expect_warning(
-    torusonesp.all(
-      species = this_sp,
-      hab.index20 = hab,
-      allabund20 = abun_quad,
-      plotdim = pdim,
-      gridsize = gsize
-    ), 
-    "Values can't be compared:"
-  )
+
+  expect_error({
+    expect_warning(
+      torusonesp.all(
+        species = this_sp,
+        hab.index20 = hab,
+        allabund20 = abun_quad,
+        plotdim = pdim,
+        gridsize = gsize
+      ),
+      "Values can't be compared:"
+    )
+  })
   
   # PASSES WITH A TWO-SPECIES DATASET
   cns_2sp <- cns_tiny %>% filter(sp %in% sample(cns_tiny$sp, 2))
