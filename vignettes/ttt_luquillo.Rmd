@@ -1,0 +1,183 @@
+---
+title: "Habitat-species associations"
+author: "Mauro Lepore"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{Habitat-species associations}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+set.seed(1014)
+options(digits = 3)
+
+knitr::opts_chunk$set(
+  echo = TRUE,
+  comment = "#>",
+  collapse = TRUE,
+  cache = FALSE,
+  out.width = "70%",
+  fig.align = "center",
+  fig.width = 6,
+  fig.asp = 0.618,  # 1 / phi
+  fig.show = "hold",
+  warning = FALSE
+)
+```
+
+Given a number of species and habitat types in a plot, is each species significantly aggregated within habitats?
+
+We'll answer this question with the function [`torusonesp.all()`](https://forestgeo.github.io/fgeo.habitat/reference/torusonesp.all.html), developed by Sabrina Russo, Daniel Zuleta, Matteo Detto, and Kyle Harms.
+
+### Setup
+
+```R
+# install.packages("remotes")
+remotes::install_github("forestgeo/fgeo.habitat")
+```
+
+For details on how to install packages from GitHub, see [this article](https://fgeo.netlify.com/2018/02/05/2018-02-05-installing-packages-from-github/).
+
+```{r}
+library(fgeo.habitat)
+# General purpose functions
+library(dplyr)
+library(ggplot2)
+```
+
+### Load census and habitat data
+
+This example uses a small dataset from Luquillo.
+
+```{r}
+census_data <- luquillo_top3_sp
+str(census_data)
+```
+
+The habitat data is based on measurements of elevation every 20 meters. (You may create habitats data with `fgeo.tool::create_habitat()`).
+
+```{r}
+habitat_data <- luquillo_habitat
+
+# Must have
+names(habitat_data)
+
+str(habitat_data)
+```
+
+To load your own data, you may run something like this:
+
+```R
+load("<PATH>/<CENSUS_DATA>.rdata")
+census_data <- <CENSUS_DATA>
+
+load("<PATH>/<HABITAT_DATA>.rdata")
+habitat_data <- <HABITAT_DATA>
+```
+
+### Pick data
+
+Let's pick alive trees, of 10 mm or more, and of sufficiently abundant species.
+
+```{r}
+# Use the pipe %>% to avoid saving temporary intermediary objects
+pick <- census_data %>% 
+  # Keep only alive
+  filter(status == "A") %>% 
+  # Keep dbh of 10 mm or more (drops missing dbh)
+  filter(dbh >= 10) %>% 
+  # Keep sufficiently abundant trees
+  add_count(sp) %>% 
+  filter(n > 50)
+
+# View
+unique(select(pick, sp, n))
+```
+
+The habitat data suggests the plot dimensions and grid size we should use ([details](https://forestgeo.si.edu/sites/north-america/luquillo)).
+
+```{r}
+lapply(habitat_data, range)
+
+plot_dimensions <- c(320, 500)
+grid_size <- 20
+```
+
+### Abundance per quadrat
+
+`torusonesp.all()` requires abundance per quadrat in a particular format, as calculated with [`abundanceperquad()`](https://s.si.edu/2JtN94p) from the original CTFSRPackage.
+
+```{r}
+# WARNING: Default keeps only trees which dbh > 10 mm, which drops missing dbh.
+# We did such selection explicitely above, but keep this in mind. For details
+# see ?abundanceperquad. 
+abundance_per_quadrat <- abundanceperquad(
+  pick,
+  plotdim = plot_dimensions,
+  gridsize = grid_size,
+  type = 'abund'
+)$abund
+
+str(abundance_per_quadrat, list.len = 5)
+```
+
+Now we have all we need to run `torusonesp.all()` for one and multiple species.
+
+```{r}
+one_species <- unique(pick$sp)[[1]]
+out_one <- torusonesp.all(
+  species = one_species,
+  hab.index20 = habitat_data,
+  allabund20 = abundance_per_quadrat,
+  plotdim = plot_dimensions,
+  gridsize = grid_size
+)
+
+# Friendly view
+t(out_one)
+```
+
+To iterate over multiple species you may write a for loop, or use a functional such as `lapply()`.
+
+```{r}
+all_species <- unique(pick$sp)
+out_all <- lapply(
+  all_species,
+  torusonesp.all,
+  hab.index20 = habitat_data,
+  allabund20 = abundance_per_quadrat,
+  plotdim = plot_dimensions,
+  gridsize = grid_size
+)
+
+# Friendly view
+t(Reduce(rbind, out_all))
+```
+
+### Map
+
+Let's see the distribution of species by habitat type.
+
+```{r map-one-sp, out.width = "100%"}
+offset <- 20 / 2
+habitat_centered <- mutate(
+  habitat_data, 
+  # Center species and habitat data
+  x = x + offset, 
+  y = y + offset,
+  # From continuous to categorical
+  habitats = as.factor(habitats)
+)
+
+ggplot(census_data, aes(x = gx, y = gy)) +
+  geom_point() +
+  geom_raster(data = habitat_centered, aes(x, y, fill = habitats), alpha = 1/2) + 
+  coord_fixed() +
+  facet_wrap(~sp) +
+  labs(fill = "Habitat")
+```
+

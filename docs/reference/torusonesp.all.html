@@ -73,6 +73,18 @@ species. Based on code written by Kyle Harms." />
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/ttt_luquillo.html">Habitat-species associations</a>
+    </li>
+  </ul>
+</li>
 <li>
   <a href="../news/index.html">Changelog</a>
 </li>
@@ -196,31 +208,31 @@ has been used.</p>
   <span class='kw'>plotdim</span> <span class='kw'>=</span> <span class='no'>plot_dimensions</span>,
   <span class='kw'>gridsize</span> <span class='kw'>=</span> <span class='no'>grid_size</span>
 )
-<span class='fu'>t</span>(<span class='no'>out_one</span>)</div><div class='output co'>#&gt;                     CASARB
-#&gt; N.Hab.1          25.000000
-#&gt; Gr.Hab.1       1489.000000
-#&gt; Ls.Hab.1        109.000000
-#&gt; Eq.Hab.1          2.000000
-#&gt; Rep.Agg.Neut.1    0.000000
-#&gt; Obs.Quantile.1    0.930625
-#&gt; N.Hab.2          12.000000
-#&gt; Gr.Hab.2        168.000000
-#&gt; Ls.Hab.2       1431.000000
-#&gt; Eq.Hab.2          1.000000
-#&gt; Rep.Agg.Neut.2    0.000000
-#&gt; Obs.Quantile.2    0.105000
-#&gt; N.Hab.3          14.000000
-#&gt; Gr.Hab.3        567.000000
-#&gt; Ls.Hab.3       1029.000000
-#&gt; Eq.Hab.3          4.000000
-#&gt; Rep.Agg.Neut.3    0.000000
-#&gt; Obs.Quantile.3    0.354375
-#&gt; N.Hab.4          15.000000
-#&gt; Gr.Hab.4        934.000000
-#&gt; Ls.Hab.4        661.000000
-#&gt; Eq.Hab.4          5.000000
-#&gt; Rep.Agg.Neut.4    0.000000
-#&gt; Obs.Quantile.4    0.583750</div><div class='input'>
+<span class='fu'>t</span>(<span class='no'>out_one</span>)</div><div class='output co'>#&gt;                  CASARB
+#&gt; N.Hab.1          25.000
+#&gt; Gr.Hab.1       1489.000
+#&gt; Ls.Hab.1        109.000
+#&gt; Eq.Hab.1          2.000
+#&gt; Rep.Agg.Neut.1    0.000
+#&gt; Obs.Quantile.1    0.931
+#&gt; N.Hab.2          12.000
+#&gt; Gr.Hab.2        168.000
+#&gt; Ls.Hab.2       1431.000
+#&gt; Eq.Hab.2          1.000
+#&gt; Rep.Agg.Neut.2    0.000
+#&gt; Obs.Quantile.2    0.105
+#&gt; N.Hab.3          14.000
+#&gt; Gr.Hab.3        567.000
+#&gt; Ls.Hab.3       1029.000
+#&gt; Eq.Hab.3          4.000
+#&gt; Rep.Agg.Neut.3    0.000
+#&gt; Obs.Quantile.3    0.354
+#&gt; N.Hab.4          15.000
+#&gt; Gr.Hab.4        934.000
+#&gt; Ls.Hab.4        661.000
+#&gt; Eq.Hab.4          5.000
+#&gt; Rep.Agg.Neut.4    0.000
+#&gt; Obs.Quantile.4    0.584</div><div class='input'>
 <span class='co'># Iterate over multiple species</span>
 <span class='no'>all_species</span> <span class='kw'>&lt;-</span> <span class='fu'>unique</span>(<span class='no'>census_data</span>$<span class='no'>sp</span>)
 <span class='no'>out_all</span> <span class='kw'>&lt;-</span> <span class='fu'>lapply</span>(
@@ -233,31 +245,31 @@ has been used.</p>
   <span class='kw'>gridsize</span> <span class='kw'>=</span> <span class='no'>grid_size</span>
 )
 <span class='co'># Compact view</span>
-<span class='fu'>t</span>(<span class='fu'>Reduce</span>(<span class='no'>rbind</span>, <span class='no'>out_all</span>))</div><div class='output co'>#&gt;                     CASARB      PREMON      SLOBER
-#&gt; N.Hab.1          25.000000   59.000000   14.000000
-#&gt; Gr.Hab.1       1489.000000  389.000000  492.000000
-#&gt; Ls.Hab.1        109.000000 1208.000000 1092.000000
-#&gt; Eq.Hab.1          2.000000    3.000000   16.000000
-#&gt; Rep.Agg.Neut.1    0.000000    0.000000    0.000000
-#&gt; Obs.Quantile.1    0.930625    0.243125    0.307500
-#&gt; N.Hab.2          12.000000   75.000000   16.000000
-#&gt; Gr.Hab.2        168.000000 1562.000000  473.000000
-#&gt; Ls.Hab.2       1431.000000   37.000000 1125.000000
-#&gt; Eq.Hab.2          1.000000    1.000000    2.000000
-#&gt; Rep.Agg.Neut.2    0.000000    1.000000    0.000000
-#&gt; Obs.Quantile.2    0.105000    0.976250    0.295625
-#&gt; N.Hab.3          14.000000   56.000000   19.000000
-#&gt; Gr.Hab.3        567.000000  632.000000 1181.000000
-#&gt; Ls.Hab.3       1029.000000  963.000000  415.000000
-#&gt; Eq.Hab.3          4.000000    5.000000    4.000000
-#&gt; Rep.Agg.Neut.3    0.000000    0.000000    0.000000
-#&gt; Obs.Quantile.3    0.354375    0.395000    0.738125
-#&gt; N.Hab.4          15.000000   44.000000   17.000000
-#&gt; Gr.Hab.4        934.000000  222.000000 1151.000000
-#&gt; Ls.Hab.4        661.000000 1375.000000  440.000000
-#&gt; Eq.Hab.4          5.000000    3.000000    9.000000
-#&gt; Rep.Agg.Neut.4    0.000000    0.000000    0.000000
-#&gt; Obs.Quantile.4    0.583750    0.138750    0.719375</div></pre>
+<span class='fu'>t</span>(<span class='fu'>Reduce</span>(<span class='no'>rbind</span>, <span class='no'>out_all</span>))</div><div class='output co'>#&gt;                  CASARB   PREMON   SLOBER
+#&gt; N.Hab.1          25.000   59.000   14.000
+#&gt; Gr.Hab.1       1489.000  389.000  492.000
+#&gt; Ls.Hab.1        109.000 1208.000 1092.000
+#&gt; Eq.Hab.1          2.000    3.000   16.000
+#&gt; Rep.Agg.Neut.1    0.000    0.000    0.000
+#&gt; Obs.Quantile.1    0.931    0.243    0.307
+#&gt; N.Hab.2          12.000   75.000   16.000
+#&gt; Gr.Hab.2        168.000 1562.000  473.000
+#&gt; Ls.Hab.2       1431.000   37.000 1125.000
+#&gt; Eq.Hab.2          1.000    1.000    2.000
+#&gt; Rep.Agg.Neut.2    0.000    1.000    0.000
+#&gt; Obs.Quantile.2    0.105    0.976    0.296
+#&gt; N.Hab.3          14.000   56.000   19.000
+#&gt; Gr.Hab.3        567.000  632.000 1181.000
+#&gt; Ls.Hab.3       1029.000  963.000  415.000
+#&gt; Eq.Hab.3          4.000    5.000    4.000
+#&gt; Rep.Agg.Neut.3    0.000    0.000    0.000
+#&gt; Obs.Quantile.3    0.354    0.395    0.738
+#&gt; N.Hab.4          15.000   44.000   17.000
+#&gt; Gr.Hab.4        934.000  222.000 1151.000
+#&gt; Ls.Hab.4        661.000 1375.000  440.000
+#&gt; Eq.Hab.4          5.000    3.000    9.000
+#&gt; Rep.Agg.Neut.4    0.000    0.000    0.000
+#&gt; Obs.Quantile.4    0.584    0.139    0.719</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
