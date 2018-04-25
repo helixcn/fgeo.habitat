@@ -84,7 +84,7 @@ habitat_data <- <HABITAT_DATA>
 Let's pick alive trees, of 10 mm or more, and of sufficiently abundant species.
 
 ```{r}
-# Use the pipe %>% to avoid saving temporary intermediary objects
+# The pipe (`%>%`) helps to avoid saving temporary intermediary objects
 pick <- census_data %>% 
   # Keep only alive
   filter(status == "A") %>% 
