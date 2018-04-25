@@ -3,22 +3,19 @@ context("torusonesp.all.R")
 # Ensure consistent values accross runs
 set.seed(123)
 library(dplyr)
+library(fgeo.habitat)
 
 # Small dataset from Luquillo
-cns_luq <- fgeo.data::luquillo_tree6_random
-sp_top3 <- cns_luq %>%
-  count(sp) %>%
-  arrange(desc(n)) %>%
-  top_n(3) %>%
-  pull(sp)
-hab_luq <- fgeo.data::luquillo_habitat
+cns_luq <- luquillo_top3_sp
+sp_top3_luq <- unique(cns_luq$sp)
+hab_luq <- luquillo_habitat
 pdim_luq <- c(320, 500)
 gsize_luq <- 20
-this_sp_luq <- first(sp_top3)
+sp_top1_luq <- first(sp_top3_luq)
 
 # Functions to reduce duplication
 abundance_sp <- function(n) {
-  .cns <- filter(cns_luq, status == "A", sp  %in% sp_top3[1:n])
+  .cns <- filter(cns_luq, status == "A", sp  %in% sp_top3_luq[1:n])
   abundanceperquad(
     .cns, plotdim = pdim_luq, gridsize = gsize_luq, type = 'abund'
   )$abund
@@ -26,7 +23,7 @@ abundance_sp <- function(n) {
 expect_silent_with_n <- function(n) {
   expect_silent({
     torusonesp.all(
-      species = this_sp_luq,
+      species = sp_top1_luq,
       hab.index20 = hab_luq,
       allabund20 = abundance_sp(n),
       plotdim = pdim_luq,
@@ -36,13 +33,48 @@ expect_silent_with_n <- function(n) {
 }
 
 test_that("works with luquillo", {
+  # Use data with 3 species but get torus translation for only one.
   out <- expect_silent_with_n(3)
-  expect_known_output(out, "ref-luq_top3_premon", print = TRUE, update = TRUE)
+  expect_true(is.numeric(out))
+  expect_true(is.matrix(out))
 })
 
 test_that("outputs silently with a 1- and 2- species dataset from Luquillo", {
   expect_silent_with_n(1)
   expect_silent_with_n(2)
+})
+
+test_that("regression: outputs equal to known output", {
+  # One species
+  out_one <- expect_silent_with_n(3)
+  expect_known_output(
+    out_one, "ref-luq_top3_premon", print = TRUE, update = TRUE
+  )
+  
+  # Multiple species
+  census_data <- luquillo_top3_sp
+  alive_trees <- census_data[census_data$status == "A", ]
+  habitat_data <- luquillo_habitat
+  plot_dimensions <- c(320, 500)
+  grid_size <- 20
+  abundance_per_quadrat <- abundanceperquad(
+    alive_trees,
+    plotdim = plot_dimensions,
+    gridsize = grid_size,
+    type = 'abund'
+  )$abund
+  all_species <- unique(census_data$sp)
+  out_all <- lapply(
+    X = all_species,
+    FUN = torusonesp.all,
+    # Other arguments passed to torusonesp.all
+    hab.index20 = habitat_data,
+    allabund20 = abundance_per_quadrat,
+    plotdim = plot_dimensions,
+    gridsize = grid_size
+  )
+  out_all <- Reduce(rbind, out_all)
+  expect_known_output(out_all, "ref-luq_3sp", print = TRUE, update = TRUE)
 })
 
 

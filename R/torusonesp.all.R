@@ -51,7 +51,6 @@
 #' 
 #' # Iterate over multiple species
 #' all_species <- unique(census_data$sp)
-#' 
 #' out_all <- lapply(
 #'   X = all_species,
 #'   FUN = torusonesp.all,
