@@ -39,16 +39,20 @@ navbar:
 
 
 reference:
-  - title: "Main Functions"
+  - title: "Soils"
     contents:
       - GetKrigedSoil
-      - dist_in_torus
-      - torusonesp.all
-  - title: "Helpers"
+  - title: "Soils: Helpers"
     contents:
       - ExpList
       - GetAutomatedKrigeParams
-  - title: "Data Set"
-    contents:
       - soil_random
-
+  - title: "Torus translation"
+    contents:
+      - torusonesp.all
+      - dist_in_torus
+  - title: "Torus translation: Helpers"
+    contents:
+      - abundanceperquad
+      - extract_plotdim
+      - extract_gridsize

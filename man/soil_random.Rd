@@ -15,4 +15,7 @@ soil_random
 This data set is based on data from Barro Colorado Island, but the variable
 \code{M3Al} has been randomized. It is useful for examples but not for research.
 }
+\examples{
+str(soil_random, give.attr = FALSE)
+}
 \keyword{datasets}
