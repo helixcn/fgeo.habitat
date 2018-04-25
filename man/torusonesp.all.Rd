@@ -20,6 +20,9 @@ quadrat.}
 gridsize on which the habitats are defined and the abundances were
 calculated}
 }
+\value{
+A numeric matrix.
+}
 \description{
 Torus Translation Test (TT test) to determine habitat associations of tree
 species. Based on code written by Kyle Harms.
@@ -28,6 +31,47 @@ species. Based on code written by Kyle Harms.
 You should only try to determine the habitat association for sufficiently
 abundant species - in a 50-ha plot, a minimum abundance of 50 trees/species
 has been used.
+}
+\examples{
+# Small dataset from Luquillo
+census_data <- luquillo_top3_sp
+alive_trees <- census_data[census_data$status == "A", ]
+
+habitat_data <- luquillo_habitat
+plot_dimensions <- c(320, 500)
+grid_size <- 20
+
+abundance_per_quadrat <- abundanceperquad(
+  alive_trees,
+  plotdim = plot_dimensions,
+  gridsize = grid_size,
+  type = 'abund'
+)$abund
+
+one_species <- unique(census_data$sp)[[1]]
+out_one <- torusonesp.all(
+  species = one_species,
+  hab.index20 = habitat_data,
+  allabund20 = abundance_per_quadrat,
+  plotdim = plot_dimensions,
+  gridsize = grid_size
+)
+t(out_one)
+
+# Iterate over multiple species
+all_species <- unique(census_data$sp)
+
+out_all <- lapply(
+  X = all_species,
+  FUN = torusonesp.all,
+  # Other arguments passed to torusonesp.all
+  hab.index20 = habitat_data,
+  allabund20 = abundance_per_quadrat,
+  plotdim = plot_dimensions,
+  gridsize = grid_size
+)
+# Compact view
+t(Reduce(rbind, out_all))
 }
 \seealso{
 Example at \url{https://bookdown.org/fgeocomm/ttt/}.

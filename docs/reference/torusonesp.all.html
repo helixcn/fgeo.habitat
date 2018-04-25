@@ -157,6 +157,10 @@ calculated</p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A numeric matrix.</p>
+    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>You should only try to determine the habitat association for sufficiently
@@ -168,16 +172,107 @@ has been used.</p>
     <p>Example at <a href='https://bookdown.org/fgeocomm/ttt/'>https://bookdown.org/fgeocomm/ttt/</a>.</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># Small dataset from Luquillo</span>
+<span class='no'>census_data</span> <span class='kw'>&lt;-</span> <span class='no'>luquillo_top3_sp</span>
+<span class='no'>alive_trees</span> <span class='kw'>&lt;-</span> <span class='no'>census_data</span>[<span class='no'>census_data</span>$<span class='no'>status</span> <span class='kw'>==</span> <span class='st'>"A"</span>, ]
+
+<span class='no'>habitat_data</span> <span class='kw'>&lt;-</span> <span class='no'>luquillo_habitat</span>
+<span class='no'>plot_dimensions</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='fl'>320</span>, <span class='fl'>500</span>)
+<span class='no'>grid_size</span> <span class='kw'>&lt;-</span> <span class='fl'>20</span>
+
+<span class='no'>abundance_per_quadrat</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='abundanceperquad.html'>abundanceperquad</a></span>(
+  <span class='no'>alive_trees</span>,
+  <span class='kw'>plotdim</span> <span class='kw'>=</span> <span class='no'>plot_dimensions</span>,
+  <span class='kw'>gridsize</span> <span class='kw'>=</span> <span class='no'>grid_size</span>,
+  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>'abund'</span>
+)$<span class='no'>abund</span>
+
+<span class='no'>one_species</span> <span class='kw'>&lt;-</span> <span class='fu'>unique</span>(<span class='no'>census_data</span>$<span class='no'>sp</span>)<span class='kw'>[[</span><span class='fl'>1</span>]]
+<span class='no'>out_one</span> <span class='kw'>&lt;-</span> <span class='fu'>torusonesp.all</span>(
+  <span class='kw'>species</span> <span class='kw'>=</span> <span class='no'>one_species</span>,
+  <span class='kw'>hab.index20</span> <span class='kw'>=</span> <span class='no'>habitat_data</span>,
+  <span class='kw'>allabund20</span> <span class='kw'>=</span> <span class='no'>abundance_per_quadrat</span>,
+  <span class='kw'>plotdim</span> <span class='kw'>=</span> <span class='no'>plot_dimensions</span>,
+  <span class='kw'>gridsize</span> <span class='kw'>=</span> <span class='no'>grid_size</span>
+)
+<span class='fu'>t</span>(<span class='no'>out_one</span>)</div><div class='output co'>#&gt;                     CASARB
+#&gt; N.Hab.1          25.000000
+#&gt; Gr.Hab.1       1489.000000
+#&gt; Ls.Hab.1        109.000000
+#&gt; Eq.Hab.1          2.000000
+#&gt; Rep.Agg.Neut.1    0.000000
+#&gt; Obs.Quantile.1    0.930625
+#&gt; N.Hab.2          12.000000
+#&gt; Gr.Hab.2        168.000000
+#&gt; Ls.Hab.2       1431.000000
+#&gt; Eq.Hab.2          1.000000
+#&gt; Rep.Agg.Neut.2    0.000000
+#&gt; Obs.Quantile.2    0.105000
+#&gt; N.Hab.3          14.000000
+#&gt; Gr.Hab.3        567.000000
+#&gt; Ls.Hab.3       1029.000000
+#&gt; Eq.Hab.3          4.000000
+#&gt; Rep.Agg.Neut.3    0.000000
+#&gt; Obs.Quantile.3    0.354375
+#&gt; N.Hab.4          15.000000
+#&gt; Gr.Hab.4        934.000000
+#&gt; Ls.Hab.4        661.000000
+#&gt; Eq.Hab.4          5.000000
+#&gt; Rep.Agg.Neut.4    0.000000
+#&gt; Obs.Quantile.4    0.583750</div><div class='input'>
+<span class='co'># Iterate over multiple species</span>
+<span class='no'>all_species</span> <span class='kw'>&lt;-</span> <span class='fu'>unique</span>(<span class='no'>census_data</span>$<span class='no'>sp</span>)
+
+<span class='no'>out_all</span> <span class='kw'>&lt;-</span> <span class='fu'>lapply</span>(
+  <span class='kw'>X</span> <span class='kw'>=</span> <span class='no'>all_species</span>,
+  <span class='kw'>FUN</span> <span class='kw'>=</span> <span class='no'>torusonesp.all</span>,
+  <span class='co'># Other arguments passed to torusonesp.all</span>
+  <span class='kw'>hab.index20</span> <span class='kw'>=</span> <span class='no'>habitat_data</span>,
+  <span class='kw'>allabund20</span> <span class='kw'>=</span> <span class='no'>abundance_per_quadrat</span>,
+  <span class='kw'>plotdim</span> <span class='kw'>=</span> <span class='no'>plot_dimensions</span>,
+  <span class='kw'>gridsize</span> <span class='kw'>=</span> <span class='no'>grid_size</span>
+)
+<span class='co'># Compact view</span>
+<span class='fu'>t</span>(<span class='fu'>Reduce</span>(<span class='no'>rbind</span>, <span class='no'>out_all</span>))</div><div class='output co'>#&gt;                     CASARB      PREMON      SLOBER
+#&gt; N.Hab.1          25.000000   59.000000   14.000000
+#&gt; Gr.Hab.1       1489.000000  389.000000  492.000000
+#&gt; Ls.Hab.1        109.000000 1208.000000 1092.000000
+#&gt; Eq.Hab.1          2.000000    3.000000   16.000000
+#&gt; Rep.Agg.Neut.1    0.000000    0.000000    0.000000
+#&gt; Obs.Quantile.1    0.930625    0.243125    0.307500
+#&gt; N.Hab.2          12.000000   75.000000   16.000000
+#&gt; Gr.Hab.2        168.000000 1562.000000  473.000000
+#&gt; Ls.Hab.2       1431.000000   37.000000 1125.000000
+#&gt; Eq.Hab.2          1.000000    1.000000    2.000000
+#&gt; Rep.Agg.Neut.2    0.000000    1.000000    0.000000
+#&gt; Obs.Quantile.2    0.105000    0.976250    0.295625
+#&gt; N.Hab.3          14.000000   56.000000   19.000000
+#&gt; Gr.Hab.3        567.000000  632.000000 1181.000000
+#&gt; Ls.Hab.3       1029.000000  963.000000  415.000000
+#&gt; Eq.Hab.3          4.000000    5.000000    4.000000
+#&gt; Rep.Agg.Neut.3    0.000000    0.000000    0.000000
+#&gt; Obs.Quantile.3    0.354375    0.395000    0.738125
+#&gt; N.Hab.4          15.000000   44.000000   17.000000
+#&gt; Gr.Hab.4        934.000000  222.000000 1151.000000
+#&gt; Ls.Hab.4        661.000000 1375.000000  440.000000
+#&gt; Eq.Hab.4          5.000000    3.000000    9.000000
+#&gt; Rep.Agg.Neut.4    0.000000    0.000000    0.000000
+#&gt; Obs.Quantile.4    0.583750    0.138750    0.719375</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
+      <li><a href="#value">Value</a></li>
+
       <li><a href="#details">Details</a></li>
 
       <li><a href="#see-also">See also</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
     <h2>Author</h2>
     

@@ -14,3 +14,8 @@ check_crucial_names <- function (x, nms) {
       collapse = ", "), call. = FALSE)
   }
 }
+
+get_datasets <- function (package) {
+  dinfo <- data(package = package)
+  dinfo[["results"]][, "Item"]
+}
