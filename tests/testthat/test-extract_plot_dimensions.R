@@ -1,7 +1,5 @@
 context("extract_plot_dimensions")
 
-library(fgeo.data)
-
 test_that("with habitats = luquillo_habitat gridsize value is 20", {
   expect_equal(extract_gridsize(luquillo_habitat), 20)
   expect_equal(extract_gridsize(luquillo_habitat), 20)

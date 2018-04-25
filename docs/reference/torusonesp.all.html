@@ -223,7 +223,6 @@ has been used.</p>
 #&gt; Obs.Quantile.4    0.583750</div><div class='input'>
 <span class='co'># Iterate over multiple species</span>
 <span class='no'>all_species</span> <span class='kw'>&lt;-</span> <span class='fu'>unique</span>(<span class='no'>census_data</span>$<span class='no'>sp</span>)
-
 <span class='no'>out_all</span> <span class='kw'>&lt;-</span> <span class='fu'>lapply</span>(
   <span class='kw'>X</span> <span class='kw'>=</span> <span class='no'>all_species</span>,
   <span class='kw'>FUN</span> <span class='kw'>=</span> <span class='no'>torusonesp.all</span>,

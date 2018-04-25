@@ -16,6 +16,6 @@ check_crucial_names <- function (x, nms) {
 }
 
 get_datasets <- function (package) {
-  dinfo <- data(package = package)
+  dinfo <- utils::data(package = package)
   dinfo[["results"]][, "Item"]
 }
