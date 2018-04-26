@@ -1,14 +1,22 @@
-# Check links in vignette.
-# Explain VIGNETTE
-# Ensure authors in each function
+# TEST
+# Run with bciex, based on habitat data with create_habitat
+# Test regression agains pure version of torousonesp.all
+
+# OTHER PACKAGES
+# map: Write function to map raster
+# abundance: Write function to calculate abundance per quadrat
+
+
+
+# TODO
 # Improve function names in all the package
 # Adress FIXME
-# Add tt_ prefix
-# Run with bciex, based on habitat data with create_habitat
-# Show spp-habitat map for many spp, wrapped with ggplot2.
-# Update functions index on fgeo
 
-# Write function to map raster
+# Update functions index on fgeo
+# update README.
+
+
+
 
 
 # From .R send to terminal: control + alt + enter
