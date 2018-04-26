@@ -1,67 +1,131 @@
 #' Torus Translation Test to determine habitat associations of tree species.
 #' 
 #' Torus Translation Test (TT test) to determine habitat associations of tree
-#' species. Based on code written by Kyle Harms.
+#' species.
 #' 
 #' You should only try to determine the habitat association for sufficiently
 #' abundant species - in a 50-ha plot, a minimum abundance of 50 trees/species
 #' has been used.
-#'
-#' @param species Character sting giving the name of one species.
-#' @param hab.index20 Object giving the habitat designation for each 20x20
-#'   quadrat.
-#' @param allabund20 Abundance per quadrat.
+#' 
+#' The wrapper `tt_test()` uses `abundanceperquad()` internaly which is slow.
+#' You may calculate abundance per quadrat independently, feed it to the
+#' argument `allabund20` of `tt_test_one()`, and reformat the output with
+#' `tt_gather()`. See Examples to iterate over multiple species.
+#' 
+#' @param sp,species Character sting giving species names. `tt_test_one()` can 
+#'   take only one species; `tt_test()` can take any number of species.
+#' @param census A dataframe; a ForestGEO census.
+#' @param habitat,hab.index20 Object giving the habitat designation for each 
+#'   plot partition defined by `gridsize`.
 #' @param plotdim Plot dimensions.
-#' @param gridsize Grid size. Make sure the gridsize entered here matches the
+#' @param gridsize Grid size. If using `tt_test_one()`, ensure it matches the
 #'   gridsize on which the habitats are defined and the abundances were
-#'   calculated
+#'   calculated.
+#' @param allabund20 The output of `abundanceperquadrat()`.
+#' @param ttt Result of a tt_test().
 #'
-#' @author Sabrina Russo, Daniel Zuletta, Matteo Detto.
+#' @author Sabrina Russo, Daniel Zuletta, Matteo Detto, and Kyle Harms.
 #' 
 #' @seealso Example at \url{https://bookdown.org/fgeocomm/ttt/}.
-#'
+#' 
 #' @return A numeric matrix.
+#' 
 #' @export
-#' 
 #' @examples
-#' # Small dataset from Luquillo
-#' census_data <- luquillo_top3_sp
-#' alive_trees <- census_data[census_data$status == "A", ]
+#' # Not crucial but makes data wranging more succint and easier to understand
+#' library(dplyr)
 #' 
-#' habitat_data <- luquillo_habitat
-#' plot_dimensions <- c(320, 500)
-#' grid_size <- 20
+#' # Example data
+#' hab <- luquillo_habitat
+#' cns <- luquillo_top3_sp
 #' 
-#' abundance_per_quadrat <- abundanceperquad(
-#'   alive_trees,
-#'   plotdim = plot_dimensions,
-#'   gridsize = grid_size,
-#'   type = 'abund'
+#' # Pick alive trees, of 10 mm or more
+#' pick <- filter(cns, status == "A", dbh >= 10)
+#' # Pick sufficiently abundant trees
+#' pick <- add_count(pick, sp)
+#' pick <- filter(pick, n > 50)
+#' 
+#' spp <- unique(pick$sp)
+#' 
+#' # Test with a wrapper
+#' out <- tt_test(spp, cns, hab)
+#' # For a view with filtering feature use View(out)
+#' out
+#' 
+#' # Test without the wrapper
+#' pdim <- c(320, 500)
+#' gsize <- 20
+#' n_quad <- abundanceperquad(
+#'   pick, plotdim = pdim, gridsize = gsize, mindbh = 0
 #' )$abund
-#' 
-#' one_species <- unique(census_data$sp)[[1]]
-#' out_one <- tt_test_one(
-#'   species = one_species,
-#'   hab.index20 = habitat_data,
-#'   allabund20 = abundance_per_quadrat,
-#'   plotdim = plot_dimensions,
-#'   gridsize = grid_size
+#' out2 <- lapply(
+#'   spp, tt_test_one, 
+#'   hab.index20 = hab, 
+#'   allabund20 = n_quad, 
+#'   plotdim = pdim,
+#'   gridsize = gsize
 #' )
-#' t(out_one)
-#' 
-#' # Iterate over multiple species
-#' all_species <- unique(census_data$sp)
-#' out_all <- lapply(
-#'   X = all_species,
-#'   FUN = tt_test_one,
-#'   # Other arguments passed to tt_test_one
-#'   hab.index20 = habitat_data,
-#'   allabund20 = abundance_per_quadrat,
-#'   plotdim = plot_dimensions,
-#'   gridsize = grid_size
-#' )
-#' # Compact view
-#' t(Reduce(rbind, out_all))
+#' out2
+#' # Nicer view
+#' tt_gather(out2)
+tt_test <- function(sp, 
+                    census, 
+                    habitat, 
+                    plotdim = extract_plotdim(habitat), 
+                    gridsize = extract_gridsize(habitat)) {
+  tt_mat <- tt_test_ply(
+    sp = sp, 
+    census = census, 
+    habitat = habitat, 
+    plotdim = plotdim, 
+    gridsize = gridsize
+  )
+  tt_gather(tt_mat)
+}
+
+#' @export
+#' @name tt_test
+tt_gather <- function(ttt) {
+  UseMethod("tt_gather")
+}
+
+#' @export
+tt_gather.list <- function(ttt) {
+  flip <- t(Reduce(rbind, ttt))
+  mat_enframe(flip, "metric", "sp", "value")
+}
+#' @export
+tt_gather.matrix <- function(ttt) {
+  flip <- t(ttt)
+  mat_enframe(flip, "metric", "sp", "value")
+}
+#' @export
+tt_gather.default <- function(ttt) {
+  rlang::abort(paste0("Can't deal with data of class ", class(ttt), "."))
+}
+
+
+
+#' Returns a list of results for each species.
+#' @keywords internal
+#' @export
+tt_test_ply <- function(sp, census, habitat, plotdim, gridsize) {
+  n_index <- abundanceperquad(
+    censdata = census, plotdim = plotdim, gridsize = gridsize, mindbh = 0
+  )$abund
+  
+  lapply(
+    X = sp, 
+    FUN = tt_test_one,
+    allabund20 = n_index,
+    hab.index20 = habitat,
+    plotdim = plotdim,
+    gridsize = gridsize
+  )
+}
+
+#' @rdname tt_test
+#' @export
 tt_test_one <- function(species, hab.index20, allabund20, plotdim, gridsize) {
   plotdimqx = plotdim[1]/gridsize  		# Calculates no. of x-axis quadrats of plot. (x is the long axis of plot in the case of Pasoh)
   plotdimqy = plotdim[2]/gridsize  		# Calculates no. of y-axis quadrats of plot.
