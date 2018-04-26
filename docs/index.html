@@ -52,7 +52,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/ttt_luquillo.html">Habitat-species associations</a>
+      <a href="articles/tt_test.html">Habitat-species associations</a>
     </li>
   </ul>
 </li>
@@ -105,9 +105,9 @@
     
 <div class="contents">
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-<div id="fgeo-habitat-analize-soils-and-tree-habitat-data" class="section level1">
+<div id="analize-soils-and-tree-habitat-associations" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#fgeo-habitat-analize-soils-and-tree-habitat-data" class="anchor"></a><img src="https://i.imgur.com/m8FNhQR.png" align="right" height="88"> fgeo.habitat: Analize soils and tree-habitat data</h1></div>
+<a href="#analize-soils-and-tree-habitat-associations" class="anchor"></a><img src="https://i.imgur.com/m8FNhQR.png" align="right" height="88"> Analize soils and tree-habitat associations</h1></div>
 
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
@@ -119,115 +119,208 @@
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(fgeo.habitat)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co"># Using a randomized data set; useful for examples but not for research.</span></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">df &lt;-<span class="st"> </span>fgeo.habitat<span class="op">::</span>soil_random</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">result &lt;-<span class="st"> </span><span class="kw"><a href="reference/GetKrigedSoil.html">GetKrigedSoil</a></span>(df, <span class="dt">var =</span> <span class="st">"M3Al"</span>)</a>
-<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt; variog: computing omnidirectional variogram</span></a>
-<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">#&gt; variofit: covariance model used is exponential </span></a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt; variofit: weights used: npairs </span></a>
-<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt; variofit: minimisation function used: optim </span></a>
-<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">#&gt; variofit: covariance model used is circular </span></a>
-<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">#&gt; variofit: weights used: npairs </span></a>
-<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">#&gt; variofit: minimisation function used: optim </span></a>
-<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt; variofit: covariance model used is cauchy </span></a>
-<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt; variofit: weights used: npairs </span></a>
-<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt; variofit: minimisation function used: optim </span></a>
-<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">#&gt; variofit: covariance model used is gaussian </span></a>
-<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="co">#&gt; variofit: weights used: npairs </span></a>
-<a class="sourceLine" id="cb2-19" data-line-number="19"><span class="co">#&gt; variofit: minimisation function used: optim </span></a>
-<a class="sourceLine" id="cb2-20" data-line-number="20"><span class="co">#&gt; ksline: kriging location:  1 out of 1250 </span></a>
-<a class="sourceLine" id="cb2-21" data-line-number="21"><span class="co">#&gt; ksline: kriging location:  101 out of 1250 </span></a>
-<a class="sourceLine" id="cb2-22" data-line-number="22"><span class="co">#&gt; ksline: kriging location:  201 out of 1250 </span></a>
-<a class="sourceLine" id="cb2-23" data-line-number="23"><span class="co">#&gt; ksline: kriging location:  301 out of 1250 </span></a>
-<a class="sourceLine" id="cb2-24" data-line-number="24"><span class="co">#&gt; ksline: kriging location:  401 out of 1250 </span></a>
-<a class="sourceLine" id="cb2-25" data-line-number="25"><span class="co">#&gt; ksline: kriging location:  501 out of 1250 </span></a>
-<a class="sourceLine" id="cb2-26" data-line-number="26"><span class="co">#&gt; ksline: kriging location:  601 out of 1250 </span></a>
-<a class="sourceLine" id="cb2-27" data-line-number="27"><span class="co">#&gt; ksline: kriging location:  701 out of 1250 </span></a>
-<a class="sourceLine" id="cb2-28" data-line-number="28"><span class="co">#&gt; ksline: kriging location:  801 out of 1250 </span></a>
-<a class="sourceLine" id="cb2-29" data-line-number="29"><span class="co">#&gt; ksline: kriging location:  901 out of 1250 </span></a>
-<a class="sourceLine" id="cb2-30" data-line-number="30"><span class="co">#&gt; ksline: kriging location:  1001 out of 1250 </span></a>
-<a class="sourceLine" id="cb2-31" data-line-number="31"><span class="co">#&gt; ksline: kriging location:  1101 out of 1250 </span></a>
-<a class="sourceLine" id="cb2-32" data-line-number="32"><span class="co">#&gt; ksline: kriging location:  1201 out of 1250 </span></a>
-<a class="sourceLine" id="cb2-33" data-line-number="33"><span class="co">#&gt; ksline: kriging location:  1250 out of 1250 </span></a>
-<a class="sourceLine" id="cb2-34" data-line-number="34"><span class="co">#&gt; Kriging performed using global neighbourhood</span></a>
-<a class="sourceLine" id="cb2-35" data-line-number="35"><span class="kw">lapply</span>(result, head)</a>
-<a class="sourceLine" id="cb2-36" data-line-number="36"><span class="co">#&gt; $df</span></a>
-<a class="sourceLine" id="cb2-37" data-line-number="37"><span class="co">#&gt;     x  y        z</span></a>
-<a class="sourceLine" id="cb2-38" data-line-number="38"><span class="co">#&gt; 1  10 10 824.5186</span></a>
-<a class="sourceLine" id="cb2-39" data-line-number="39"><span class="co">#&gt; 2  30 10 825.5012</span></a>
-<a class="sourceLine" id="cb2-40" data-line-number="40"><span class="co">#&gt; 3  50 10 826.4549</span></a>
-<a class="sourceLine" id="cb2-41" data-line-number="41"><span class="co">#&gt; 4  70 10 827.3795</span></a>
-<a class="sourceLine" id="cb2-42" data-line-number="42"><span class="co">#&gt; 5  90 10 828.2749</span></a>
-<a class="sourceLine" id="cb2-43" data-line-number="43"><span class="co">#&gt; 6 110 10 829.1410</span></a>
-<a class="sourceLine" id="cb2-44" data-line-number="44"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-45" data-line-number="45"><span class="co">#&gt; $df.poly</span></a>
-<a class="sourceLine" id="cb2-46" data-line-number="46"><span class="co">#&gt;    gx gy        z</span></a>
-<a class="sourceLine" id="cb2-47" data-line-number="47"><span class="co">#&gt; 1  10 10 824.9970</span></a>
-<a class="sourceLine" id="cb2-48" data-line-number="48"><span class="co">#&gt; 2  30 10 825.9262</span></a>
-<a class="sourceLine" id="cb2-49" data-line-number="49"><span class="co">#&gt; 3  50 10 826.8312</span></a>
-<a class="sourceLine" id="cb2-50" data-line-number="50"><span class="co">#&gt; 4  70 10 827.7119</span></a>
-<a class="sourceLine" id="cb2-51" data-line-number="51"><span class="co">#&gt; 5  90 10 828.5683</span></a>
-<a class="sourceLine" id="cb2-52" data-line-number="52"><span class="co">#&gt; 6 110 10 829.4005</span></a>
-<a class="sourceLine" id="cb2-53" data-line-number="53"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-54" data-line-number="54"><span class="co">#&gt; $lambda</span></a>
-<a class="sourceLine" id="cb2-55" data-line-number="55"><span class="co">#&gt; [1] 1</span></a>
-<a class="sourceLine" id="cb2-56" data-line-number="56"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-57" data-line-number="57"><span class="co">#&gt; $vg</span></a>
-<a class="sourceLine" id="cb2-58" data-line-number="58"><span class="co">#&gt; $vg$u</span></a>
-<a class="sourceLine" id="cb2-59" data-line-number="59"><span class="co">#&gt;  [1]  25.39513  30.25204  36.03784  42.93020  51.14075  60.92159  72.57304</span></a>
-<a class="sourceLine" id="cb2-60" data-line-number="60"><span class="co">#&gt;  [8]  86.45288 102.98729 122.68395 146.14767 174.09890 207.39590 247.06106</span></a>
-<a class="sourceLine" id="cb2-61" data-line-number="61"><span class="co">#&gt; [15] 294.31232</span></a>
-<a class="sourceLine" id="cb2-62" data-line-number="62"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-63" data-line-number="63"><span class="co">#&gt; $vg$v</span></a>
-<a class="sourceLine" id="cb2-64" data-line-number="64"><span class="co">#&gt;  [1] 52791.00 54636.41 65741.80 58003.72 49141.59 58165.96 40611.67</span></a>
-<a class="sourceLine" id="cb2-65" data-line-number="65"><span class="co">#&gt;  [8] 56683.03 57253.77 56038.20 55323.08 57468.67 57094.51 57525.14</span></a>
-<a class="sourceLine" id="cb2-66" data-line-number="66"><span class="co">#&gt; [15] 57029.48</span></a>
-<a class="sourceLine" id="cb2-67" data-line-number="67"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-68" data-line-number="68"><span class="co">#&gt; $vg$n</span></a>
-<a class="sourceLine" id="cb2-69" data-line-number="69"><span class="co">#&gt;  [1]    66  1110    73  1101    61  3215    56  4179  2115  5790  6424</span></a>
-<a class="sourceLine" id="cb2-70" data-line-number="70"><span class="co">#&gt; [12]  8768 11157 17373 16571</span></a>
-<a class="sourceLine" id="cb2-71" data-line-number="71"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-72" data-line-number="72"><span class="co">#&gt; $vg$sd</span></a>
-<a class="sourceLine" id="cb2-73" data-line-number="73"><span class="co">#&gt;  [1] 64846.88 75752.81 89508.82 79156.84 63290.60 78722.09 56903.37</span></a>
-<a class="sourceLine" id="cb2-74" data-line-number="74"><span class="co">#&gt;  [8] 77464.93 77752.94 76617.91 76455.77 76468.92 77257.41 77679.91</span></a>
-<a class="sourceLine" id="cb2-75" data-line-number="75"><span class="co">#&gt; [15] 76192.99</span></a>
-<a class="sourceLine" id="cb2-76" data-line-number="76"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-77" data-line-number="77"><span class="co">#&gt; $vg$bins.lim</span></a>
-<a class="sourceLine" id="cb2-78" data-line-number="78"><span class="co">#&gt;  [1] 1.000000e-12 2.000000e+00 2.382507e+00 2.838169e+00 3.380978e+00</span></a>
-<a class="sourceLine" id="cb2-79" data-line-number="79"><span class="co">#&gt;  [6] 4.027602e+00 4.797894e+00 5.715508e+00 6.808618e+00 8.110789e+00</span></a>
-<a class="sourceLine" id="cb2-80" data-line-number="80"><span class="co">#&gt; [11] 9.662004e+00 1.150990e+01 1.371120e+01 1.633351e+01 1.945735e+01</span></a>
-<a class="sourceLine" id="cb2-81" data-line-number="81"><span class="co">#&gt; [16] 2.317864e+01 2.761163e+01 3.289245e+01 3.918324e+01 4.667716e+01</span></a>
-<a class="sourceLine" id="cb2-82" data-line-number="82"><span class="co">#&gt; [21] 5.560433e+01 6.623884e+01 7.890724e+01 9.399852e+01 1.119761e+02</span></a>
-<a class="sourceLine" id="cb2-83" data-line-number="83"><span class="co">#&gt; [26] 1.333918e+02 1.589035e+02 1.892943e+02 2.254975e+02 2.686246e+02</span></a>
-<a class="sourceLine" id="cb2-84" data-line-number="84"><span class="co">#&gt; [31] 3.200000e+02</span></a>
-<a class="sourceLine" id="cb2-85" data-line-number="85"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-86" data-line-number="86"><span class="co">#&gt; $vg$ind.bin</span></a>
-<a class="sourceLine" id="cb2-87" data-line-number="87"><span class="co">#&gt;  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></a>
-<a class="sourceLine" id="cb2-88" data-line-number="88"><span class="co">#&gt; [12] FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE</span></a>
-<a class="sourceLine" id="cb2-89" data-line-number="89"><span class="co">#&gt; [23]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE</span></a>
-<a class="sourceLine" id="cb2-90" data-line-number="90"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-91" data-line-number="91"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-92" data-line-number="92"><span class="co">#&gt; $vm</span></a>
-<a class="sourceLine" id="cb2-93" data-line-number="93"><span class="co">#&gt; $vm$nugget</span></a>
-<a class="sourceLine" id="cb2-94" data-line-number="94"><span class="co">#&gt; [1] 56607</span></a>
-<a class="sourceLine" id="cb2-95" data-line-number="95"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-96" data-line-number="96"><span class="co">#&gt; $vm$cov.pars</span></a>
-<a class="sourceLine" id="cb2-97" data-line-number="97"><span class="co">#&gt; [1] 40008.481  1532.595</span></a>
-<a class="sourceLine" id="cb2-98" data-line-number="98"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-99" data-line-number="99"><span class="co">#&gt; $vm$cov.model</span></a>
-<a class="sourceLine" id="cb2-100" data-line-number="100"><span class="co">#&gt; [1] "cauchy"</span></a>
-<a class="sourceLine" id="cb2-101" data-line-number="101"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-102" data-line-number="102"><span class="co">#&gt; $vm$kappa</span></a>
-<a class="sourceLine" id="cb2-103" data-line-number="103"><span class="co">#&gt; [1] 0.5</span></a>
-<a class="sourceLine" id="cb2-104" data-line-number="104"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-105" data-line-number="105"><span class="co">#&gt; $vm$value</span></a>
-<a class="sourceLine" id="cb2-106" data-line-number="106"><span class="co">#&gt; [1] 63795822341</span></a>
-<a class="sourceLine" id="cb2-107" data-line-number="107"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-108" data-line-number="108"><span class="co">#&gt; $vm$trend</span></a>
-<a class="sourceLine" id="cb2-109" data-line-number="109"><span class="co">#&gt; [1] "cte"</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(fgeo.habitat)</a></code></pre></div>
+<p>Habitat-species associations.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># Example data (see ?luquillo_habitat and ?luquillo_top3_sp)</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">plot_dimensions &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">320</span>, <span class="dv">500</span>)</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">grid_size &lt;-<span class="st"> </span><span class="dv">20</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">habitat_data &lt;-<span class="st"> </span>luquillo_habitat</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">census_data &lt;-<span class="st"> </span>luquillo_top3_sp</a>
+<a class="sourceLine" id="cb3-6" data-line-number="6">alive_trees &lt;-<span class="st"> </span>census_data[census_data<span class="op">$</span>status <span class="op">==</span><span class="st"> "A"</span>, ]</a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8">abundance_per_quadrat &lt;-<span class="st"> </span><span class="kw"><a href="reference/abundanceperquad.html">abundanceperquad</a></span>(</a>
+<a class="sourceLine" id="cb3-9" data-line-number="9">  alive_trees,</a>
+<a class="sourceLine" id="cb3-10" data-line-number="10">  <span class="dt">plotdim =</span> plot_dimensions,</a>
+<a class="sourceLine" id="cb3-11" data-line-number="11">  <span class="dt">gridsize =</span> grid_size,</a>
+<a class="sourceLine" id="cb3-12" data-line-number="12">  <span class="dt">type =</span> <span class="st">'abund'</span></a>
+<a class="sourceLine" id="cb3-13" data-line-number="13">)<span class="op">$</span>abund</a>
+<a class="sourceLine" id="cb3-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb3-15" data-line-number="15">one_species &lt;-<span class="st"> </span><span class="kw">unique</span>(census_data<span class="op">$</span>sp)[[<span class="dv">1</span>]]</a>
+<a class="sourceLine" id="cb3-16" data-line-number="16">one_species</a>
+<a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">#&gt; [1] "CASARB"</span></a>
+<a class="sourceLine" id="cb3-18" data-line-number="18"></a>
+<a class="sourceLine" id="cb3-19" data-line-number="19">out_one &lt;-<span class="st"> </span><span class="kw"><a href="reference/torusonesp.all.html">torusonesp.all</a></span>(</a>
+<a class="sourceLine" id="cb3-20" data-line-number="20">  <span class="dt">species =</span> one_species,</a>
+<a class="sourceLine" id="cb3-21" data-line-number="21">  <span class="dt">hab.index20 =</span> habitat_data,</a>
+<a class="sourceLine" id="cb3-22" data-line-number="22">  <span class="dt">allabund20 =</span> abundance_per_quadrat,</a>
+<a class="sourceLine" id="cb3-23" data-line-number="23">  <span class="dt">plotdim =</span> plot_dimensions,</a>
+<a class="sourceLine" id="cb3-24" data-line-number="24">  <span class="dt">gridsize =</span> grid_size</a>
+<a class="sourceLine" id="cb3-25" data-line-number="25">)</a>
+<a class="sourceLine" id="cb3-26" data-line-number="26">out_one</a>
+<a class="sourceLine" id="cb3-27" data-line-number="27"><span class="co">#&gt;        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1</span></a>
+<a class="sourceLine" id="cb3-28" data-line-number="28"><span class="co">#&gt; CASARB      25     1489      109        2              0       0.930625</span></a>
+<a class="sourceLine" id="cb3-29" data-line-number="29"><span class="co">#&gt;        N.Hab.2 Gr.Hab.2 Ls.Hab.2 Eq.Hab.2 Rep.Agg.Neut.2 Obs.Quantile.2</span></a>
+<a class="sourceLine" id="cb3-30" data-line-number="30"><span class="co">#&gt; CASARB      12      168     1431        1              0          0.105</span></a>
+<a class="sourceLine" id="cb3-31" data-line-number="31"><span class="co">#&gt;        N.Hab.3 Gr.Hab.3 Ls.Hab.3 Eq.Hab.3 Rep.Agg.Neut.3 Obs.Quantile.3</span></a>
+<a class="sourceLine" id="cb3-32" data-line-number="32"><span class="co">#&gt; CASARB      14      567     1029        4              0       0.354375</span></a>
+<a class="sourceLine" id="cb3-33" data-line-number="33"><span class="co">#&gt;        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4</span></a>
+<a class="sourceLine" id="cb3-34" data-line-number="34"><span class="co">#&gt; CASARB      15      934      661        5              0        0.58375</span></a>
+<a class="sourceLine" id="cb3-35" data-line-number="35"></a>
+<a class="sourceLine" id="cb3-36" data-line-number="36">multiple_species &lt;-<span class="st"> </span><span class="kw">unique</span>(census_data<span class="op">$</span>sp)</a>
+<a class="sourceLine" id="cb3-37" data-line-number="37">multiple_species</a>
+<a class="sourceLine" id="cb3-38" data-line-number="38"><span class="co">#&gt; [1] "CASARB" "PREMON" "SLOBER"</span></a>
+<a class="sourceLine" id="cb3-39" data-line-number="39"></a>
+<a class="sourceLine" id="cb3-40" data-line-number="40">out_multiple &lt;-<span class="st"> </span><span class="kw">lapply</span>(</a>
+<a class="sourceLine" id="cb3-41" data-line-number="41">  multiple_species,</a>
+<a class="sourceLine" id="cb3-42" data-line-number="42">  torusonesp.all,</a>
+<a class="sourceLine" id="cb3-43" data-line-number="43">  <span class="dt">hab.index20 =</span> habitat_data,</a>
+<a class="sourceLine" id="cb3-44" data-line-number="44">  <span class="dt">allabund20 =</span> abundance_per_quadrat,</a>
+<a class="sourceLine" id="cb3-45" data-line-number="45">  <span class="dt">plotdim =</span> plot_dimensions,</a>
+<a class="sourceLine" id="cb3-46" data-line-number="46">  <span class="dt">gridsize =</span> grid_size</a>
+<a class="sourceLine" id="cb3-47" data-line-number="47">)</a>
+<a class="sourceLine" id="cb3-48" data-line-number="48"></a>
+<a class="sourceLine" id="cb3-49" data-line-number="49">nicer_view &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">Reduce</span>(rbind, out_multiple))</a>
+<a class="sourceLine" id="cb3-50" data-line-number="50">nicer_view</a>
+<a class="sourceLine" id="cb3-51" data-line-number="51"><span class="co">#&gt;                     CASARB      PREMON      SLOBER</span></a>
+<a class="sourceLine" id="cb3-52" data-line-number="52"><span class="co">#&gt; N.Hab.1          25.000000   59.000000   14.000000</span></a>
+<a class="sourceLine" id="cb3-53" data-line-number="53"><span class="co">#&gt; Gr.Hab.1       1489.000000  389.000000  492.000000</span></a>
+<a class="sourceLine" id="cb3-54" data-line-number="54"><span class="co">#&gt; Ls.Hab.1        109.000000 1208.000000 1092.000000</span></a>
+<a class="sourceLine" id="cb3-55" data-line-number="55"><span class="co">#&gt; Eq.Hab.1          2.000000    3.000000   16.000000</span></a>
+<a class="sourceLine" id="cb3-56" data-line-number="56"><span class="co">#&gt; Rep.Agg.Neut.1    0.000000    0.000000    0.000000</span></a>
+<a class="sourceLine" id="cb3-57" data-line-number="57"><span class="co">#&gt; Obs.Quantile.1    0.930625    0.243125    0.307500</span></a>
+<a class="sourceLine" id="cb3-58" data-line-number="58"><span class="co">#&gt; N.Hab.2          12.000000   75.000000   16.000000</span></a>
+<a class="sourceLine" id="cb3-59" data-line-number="59"><span class="co">#&gt; Gr.Hab.2        168.000000 1562.000000  473.000000</span></a>
+<a class="sourceLine" id="cb3-60" data-line-number="60"><span class="co">#&gt; Ls.Hab.2       1431.000000   37.000000 1125.000000</span></a>
+<a class="sourceLine" id="cb3-61" data-line-number="61"><span class="co">#&gt; Eq.Hab.2          1.000000    1.000000    2.000000</span></a>
+<a class="sourceLine" id="cb3-62" data-line-number="62"><span class="co">#&gt; Rep.Agg.Neut.2    0.000000    1.000000    0.000000</span></a>
+<a class="sourceLine" id="cb3-63" data-line-number="63"><span class="co">#&gt; Obs.Quantile.2    0.105000    0.976250    0.295625</span></a>
+<a class="sourceLine" id="cb3-64" data-line-number="64"><span class="co">#&gt; N.Hab.3          14.000000   56.000000   19.000000</span></a>
+<a class="sourceLine" id="cb3-65" data-line-number="65"><span class="co">#&gt; Gr.Hab.3        567.000000  632.000000 1181.000000</span></a>
+<a class="sourceLine" id="cb3-66" data-line-number="66"><span class="co">#&gt; Ls.Hab.3       1029.000000  963.000000  415.000000</span></a>
+<a class="sourceLine" id="cb3-67" data-line-number="67"><span class="co">#&gt; Eq.Hab.3          4.000000    5.000000    4.000000</span></a>
+<a class="sourceLine" id="cb3-68" data-line-number="68"><span class="co">#&gt; Rep.Agg.Neut.3    0.000000    0.000000    0.000000</span></a>
+<a class="sourceLine" id="cb3-69" data-line-number="69"><span class="co">#&gt; Obs.Quantile.3    0.354375    0.395000    0.738125</span></a>
+<a class="sourceLine" id="cb3-70" data-line-number="70"><span class="co">#&gt; N.Hab.4          15.000000   44.000000   17.000000</span></a>
+<a class="sourceLine" id="cb3-71" data-line-number="71"><span class="co">#&gt; Gr.Hab.4        934.000000  222.000000 1151.000000</span></a>
+<a class="sourceLine" id="cb3-72" data-line-number="72"><span class="co">#&gt; Ls.Hab.4        661.000000 1375.000000  440.000000</span></a>
+<a class="sourceLine" id="cb3-73" data-line-number="73"><span class="co">#&gt; Eq.Hab.4          5.000000    3.000000    9.000000</span></a>
+<a class="sourceLine" id="cb3-74" data-line-number="74"><span class="co">#&gt; Rep.Agg.Neut.4    0.000000    0.000000    0.000000</span></a>
+<a class="sourceLine" id="cb3-75" data-line-number="75"><span class="co">#&gt; Obs.Quantile.4    0.583750    0.138750    0.719375</span></a></code></pre></div>
+<p>Krige soil data.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># Randomized data -- not for research. See ?soil_random.</span></a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">df &lt;-<span class="st"> </span>soil_random</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4">result &lt;-<span class="st"> </span><span class="kw"><a href="reference/GetKrigedSoil.html">GetKrigedSoil</a></span>(df, <span class="dt">var =</span> <span class="st">"M3Al"</span>)</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt; variog: computing omnidirectional variogram</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt; variofit: covariance model used is exponential </span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; variofit: weights used: npairs </span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; variofit: minimisation function used: optim </span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt; variofit: covariance model used is circular </span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; variofit: weights used: npairs </span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; variofit: minimisation function used: optim </span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; variofit: covariance model used is cauchy </span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; variofit: weights used: npairs </span></a>
+<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt; variofit: minimisation function used: optim </span></a>
+<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; variofit: covariance model used is gaussian </span></a>
+<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt; variofit: weights used: npairs </span></a>
+<a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">#&gt; variofit: minimisation function used: optim </span></a>
+<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt; ksline: kriging location:  1 out of 1250 </span></a>
+<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">#&gt; ksline: kriging location:  101 out of 1250 </span></a>
+<a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co">#&gt; ksline: kriging location:  201 out of 1250 </span></a>
+<a class="sourceLine" id="cb4-21" data-line-number="21"><span class="co">#&gt; ksline: kriging location:  301 out of 1250 </span></a>
+<a class="sourceLine" id="cb4-22" data-line-number="22"><span class="co">#&gt; ksline: kriging location:  401 out of 1250 </span></a>
+<a class="sourceLine" id="cb4-23" data-line-number="23"><span class="co">#&gt; ksline: kriging location:  501 out of 1250 </span></a>
+<a class="sourceLine" id="cb4-24" data-line-number="24"><span class="co">#&gt; ksline: kriging location:  601 out of 1250 </span></a>
+<a class="sourceLine" id="cb4-25" data-line-number="25"><span class="co">#&gt; ksline: kriging location:  701 out of 1250 </span></a>
+<a class="sourceLine" id="cb4-26" data-line-number="26"><span class="co">#&gt; ksline: kriging location:  801 out of 1250 </span></a>
+<a class="sourceLine" id="cb4-27" data-line-number="27"><span class="co">#&gt; ksline: kriging location:  901 out of 1250 </span></a>
+<a class="sourceLine" id="cb4-28" data-line-number="28"><span class="co">#&gt; ksline: kriging location:  1001 out of 1250 </span></a>
+<a class="sourceLine" id="cb4-29" data-line-number="29"><span class="co">#&gt; ksline: kriging location:  1101 out of 1250 </span></a>
+<a class="sourceLine" id="cb4-30" data-line-number="30"><span class="co">#&gt; ksline: kriging location:  1201 out of 1250 </span></a>
+<a class="sourceLine" id="cb4-31" data-line-number="31"><span class="co">#&gt; ksline: kriging location:  1250 out of 1250 </span></a>
+<a class="sourceLine" id="cb4-32" data-line-number="32"><span class="co">#&gt; Kriging performed using global neighbourhood</span></a>
+<a class="sourceLine" id="cb4-33" data-line-number="33"><span class="kw">lapply</span>(result, head)</a>
+<a class="sourceLine" id="cb4-34" data-line-number="34"><span class="co">#&gt; $df</span></a>
+<a class="sourceLine" id="cb4-35" data-line-number="35"><span class="co">#&gt;     x  y        z</span></a>
+<a class="sourceLine" id="cb4-36" data-line-number="36"><span class="co">#&gt; 1  10 10 824.5186</span></a>
+<a class="sourceLine" id="cb4-37" data-line-number="37"><span class="co">#&gt; 2  30 10 825.5012</span></a>
+<a class="sourceLine" id="cb4-38" data-line-number="38"><span class="co">#&gt; 3  50 10 826.4549</span></a>
+<a class="sourceLine" id="cb4-39" data-line-number="39"><span class="co">#&gt; 4  70 10 827.3795</span></a>
+<a class="sourceLine" id="cb4-40" data-line-number="40"><span class="co">#&gt; 5  90 10 828.2749</span></a>
+<a class="sourceLine" id="cb4-41" data-line-number="41"><span class="co">#&gt; 6 110 10 829.1410</span></a>
+<a class="sourceLine" id="cb4-42" data-line-number="42"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb4-43" data-line-number="43"><span class="co">#&gt; $df.poly</span></a>
+<a class="sourceLine" id="cb4-44" data-line-number="44"><span class="co">#&gt;    gx gy        z</span></a>
+<a class="sourceLine" id="cb4-45" data-line-number="45"><span class="co">#&gt; 1  10 10 824.9970</span></a>
+<a class="sourceLine" id="cb4-46" data-line-number="46"><span class="co">#&gt; 2  30 10 825.9262</span></a>
+<a class="sourceLine" id="cb4-47" data-line-number="47"><span class="co">#&gt; 3  50 10 826.8312</span></a>
+<a class="sourceLine" id="cb4-48" data-line-number="48"><span class="co">#&gt; 4  70 10 827.7119</span></a>
+<a class="sourceLine" id="cb4-49" data-line-number="49"><span class="co">#&gt; 5  90 10 828.5683</span></a>
+<a class="sourceLine" id="cb4-50" data-line-number="50"><span class="co">#&gt; 6 110 10 829.4005</span></a>
+<a class="sourceLine" id="cb4-51" data-line-number="51"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb4-52" data-line-number="52"><span class="co">#&gt; $lambda</span></a>
+<a class="sourceLine" id="cb4-53" data-line-number="53"><span class="co">#&gt; [1] 1</span></a>
+<a class="sourceLine" id="cb4-54" data-line-number="54"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb4-55" data-line-number="55"><span class="co">#&gt; $vg</span></a>
+<a class="sourceLine" id="cb4-56" data-line-number="56"><span class="co">#&gt; $vg$u</span></a>
+<a class="sourceLine" id="cb4-57" data-line-number="57"><span class="co">#&gt;  [1]  25.39513  30.25204  36.03784  42.93020  51.14075  60.92159  72.57304</span></a>
+<a class="sourceLine" id="cb4-58" data-line-number="58"><span class="co">#&gt;  [8]  86.45288 102.98729 122.68395 146.14767 174.09890 207.39590 247.06106</span></a>
+<a class="sourceLine" id="cb4-59" data-line-number="59"><span class="co">#&gt; [15] 294.31232</span></a>
+<a class="sourceLine" id="cb4-60" data-line-number="60"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb4-61" data-line-number="61"><span class="co">#&gt; $vg$v</span></a>
+<a class="sourceLine" id="cb4-62" data-line-number="62"><span class="co">#&gt;  [1] 52791.00 54636.41 65741.80 58003.72 49141.59 58165.96 40611.67</span></a>
+<a class="sourceLine" id="cb4-63" data-line-number="63"><span class="co">#&gt;  [8] 56683.03 57253.77 56038.20 55323.08 57468.67 57094.51 57525.14</span></a>
+<a class="sourceLine" id="cb4-64" data-line-number="64"><span class="co">#&gt; [15] 57029.48</span></a>
+<a class="sourceLine" id="cb4-65" data-line-number="65"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb4-66" data-line-number="66"><span class="co">#&gt; $vg$n</span></a>
+<a class="sourceLine" id="cb4-67" data-line-number="67"><span class="co">#&gt;  [1]    66  1110    73  1101    61  3215    56  4179  2115  5790  6424</span></a>
+<a class="sourceLine" id="cb4-68" data-line-number="68"><span class="co">#&gt; [12]  8768 11157 17373 16571</span></a>
+<a class="sourceLine" id="cb4-69" data-line-number="69"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb4-70" data-line-number="70"><span class="co">#&gt; $vg$sd</span></a>
+<a class="sourceLine" id="cb4-71" data-line-number="71"><span class="co">#&gt;  [1] 64846.88 75752.81 89508.82 79156.84 63290.60 78722.09 56903.37</span></a>
+<a class="sourceLine" id="cb4-72" data-line-number="72"><span class="co">#&gt;  [8] 77464.93 77752.94 76617.91 76455.77 76468.92 77257.41 77679.91</span></a>
+<a class="sourceLine" id="cb4-73" data-line-number="73"><span class="co">#&gt; [15] 76192.99</span></a>
+<a class="sourceLine" id="cb4-74" data-line-number="74"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb4-75" data-line-number="75"><span class="co">#&gt; $vg$bins.lim</span></a>
+<a class="sourceLine" id="cb4-76" data-line-number="76"><span class="co">#&gt;  [1] 1.000000e-12 2.000000e+00 2.382507e+00 2.838169e+00 3.380978e+00</span></a>
+<a class="sourceLine" id="cb4-77" data-line-number="77"><span class="co">#&gt;  [6] 4.027602e+00 4.797894e+00 5.715508e+00 6.808618e+00 8.110789e+00</span></a>
+<a class="sourceLine" id="cb4-78" data-line-number="78"><span class="co">#&gt; [11] 9.662004e+00 1.150990e+01 1.371120e+01 1.633351e+01 1.945735e+01</span></a>
+<a class="sourceLine" id="cb4-79" data-line-number="79"><span class="co">#&gt; [16] 2.317864e+01 2.761163e+01 3.289245e+01 3.918324e+01 4.667716e+01</span></a>
+<a class="sourceLine" id="cb4-80" data-line-number="80"><span class="co">#&gt; [21] 5.560433e+01 6.623884e+01 7.890724e+01 9.399852e+01 1.119761e+02</span></a>
+<a class="sourceLine" id="cb4-81" data-line-number="81"><span class="co">#&gt; [26] 1.333918e+02 1.589035e+02 1.892943e+02 2.254975e+02 2.686246e+02</span></a>
+<a class="sourceLine" id="cb4-82" data-line-number="82"><span class="co">#&gt; [31] 3.200000e+02</span></a>
+<a class="sourceLine" id="cb4-83" data-line-number="83"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb4-84" data-line-number="84"><span class="co">#&gt; $vg$ind.bin</span></a>
+<a class="sourceLine" id="cb4-85" data-line-number="85"><span class="co">#&gt;  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></a>
+<a class="sourceLine" id="cb4-86" data-line-number="86"><span class="co">#&gt; [12] FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE</span></a>
+<a class="sourceLine" id="cb4-87" data-line-number="87"><span class="co">#&gt; [23]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE</span></a>
+<a class="sourceLine" id="cb4-88" data-line-number="88"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb4-89" data-line-number="89"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb4-90" data-line-number="90"><span class="co">#&gt; $vm</span></a>
+<a class="sourceLine" id="cb4-91" data-line-number="91"><span class="co">#&gt; $vm$nugget</span></a>
+<a class="sourceLine" id="cb4-92" data-line-number="92"><span class="co">#&gt; [1] 56607</span></a>
+<a class="sourceLine" id="cb4-93" data-line-number="93"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb4-94" data-line-number="94"><span class="co">#&gt; $vm$cov.pars</span></a>
+<a class="sourceLine" id="cb4-95" data-line-number="95"><span class="co">#&gt; [1] 40008.481  1532.595</span></a>
+<a class="sourceLine" id="cb4-96" data-line-number="96"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb4-97" data-line-number="97"><span class="co">#&gt; $vm$cov.model</span></a>
+<a class="sourceLine" id="cb4-98" data-line-number="98"><span class="co">#&gt; [1] "cauchy"</span></a>
+<a class="sourceLine" id="cb4-99" data-line-number="99"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb4-100" data-line-number="100"><span class="co">#&gt; $vm$kappa</span></a>
+<a class="sourceLine" id="cb4-101" data-line-number="101"><span class="co">#&gt; [1] 0.5</span></a>
+<a class="sourceLine" id="cb4-102" data-line-number="102"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb4-103" data-line-number="103"><span class="co">#&gt; $vm$value</span></a>
+<a class="sourceLine" id="cb4-104" data-line-number="104"><span class="co">#&gt; [1] 63795822341</span></a>
+<a class="sourceLine" id="cb4-105" data-line-number="105"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb4-106" data-line-number="106"><span class="co">#&gt; $vm$trend</span></a>
+<a class="sourceLine" id="cb4-107" data-line-number="107"><span class="co">#&gt; [1] "cte"</span></a></code></pre></div>
+</div>
+<div id="information" class="section level2">
+<h2 class="hasAnchor">
+<a href="#information" class="anchor"></a>Information</h2>
+<ul>
+<li>
+<a href="SUPPORT.html">Getting help</a>.</li>
+<li>
+<a href="CONTRIBUTING.html">Contributing</a>.</li>
+<li>
+<a href="CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>.</li>
+</ul>
+</div>
+<div id="acknowledgements" class="section level2">
+<h2 class="hasAnchor">
+<a href="#acknowledgements" class="anchor"></a>Acknowledgements</h2>
+<p>Thanks to all partners of ForestGEO who shared their ideas and code. Functions’ authors include Graham Zemunik, Sabrina Russo, Daniel Zuleta, Matteo Detto, Kyle Harms, Gabriel Arellano.</p>
 </div>
 </div>
 </div>

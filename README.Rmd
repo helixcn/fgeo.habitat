@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# <img src="https://i.imgur.com/m8FNhQR.png" align="right" height=88 /> fgeo.habitat: Analize soils and tree-habitat data
+# <img src="https://i.imgur.com/m8FNhQR.png" align="right" height=88 /> Analize soils and tree-habitat associations
 
 [![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Travis build status](https://travis-ci.org/forestgeo/fgeo.habitat.svg?branch=master)](https://travis-ci.org/forestgeo/fgeo.habitat)
@@ -29,16 +29,73 @@ remotes::install_github("forestgeo/fgeo.habitat")
 
 For details on how to install packages from GitHub, see [this article](https://goo.gl/dQKEeg).
 
-
 ## Example
 
 ```{r}
 library(fgeo.habitat)
+```
 
-# Using a randomized data set; useful for examples but not for research.
-df <- fgeo.habitat::soil_random
+Habitat-species associations.
+
+```{r}
+# Example data (see ?luquillo_habitat and ?luquillo_top3_sp)
+plot_dimensions <- c(320, 500)
+grid_size <- 20
+habitat_data <- luquillo_habitat
+census_data <- luquillo_top3_sp
+alive_trees <- census_data[census_data$status == "A", ]
+
+abundance_per_quadrat <- abundanceperquad(
+  alive_trees,
+  plotdim = plot_dimensions,
+  gridsize = grid_size,
+  type = 'abund'
+)$abund
+
+one_species <- unique(census_data$sp)[[1]]
+one_species
+
+out_one <- torusonesp.all(
+  species = one_species,
+  hab.index20 = habitat_data,
+  allabund20 = abundance_per_quadrat,
+  plotdim = plot_dimensions,
+  gridsize = grid_size
+)
+out_one
+
+multiple_species <- unique(census_data$sp)
+multiple_species
+
+out_multiple <- lapply(
+  multiple_species,
+  torusonesp.all,
+  hab.index20 = habitat_data,
+  allabund20 = abundance_per_quadrat,
+  plotdim = plot_dimensions,
+  gridsize = grid_size
+)
+
+nicer_view <- t(Reduce(rbind, out_multiple))
+nicer_view
+```
+
+Krige soil data.
+
+```{r}
+# Randomized data -- not for research. See ?soil_random.
+df <- soil_random
 
 result <- GetKrigedSoil(df, var = "M3Al")
 lapply(result, head)
 ```
 
+## Information
+
+* [Getting help](SUPPORT.md).
+* [Contributing](CONTRIBUTING.md).
+* [Contributor Code of Conduct](CODE_OF_CONDUCT.md).
+
+## Acknowledgements
+
+Thanks to all partners of ForestGEO who shared their ideas and code. Functions' authors include Graham Zemunik, Sabrina Russo, Daniel Zuleta, Matteo Detto, Kyle Harms, Gabriel Arellano.

@@ -188,15 +188,15 @@ t(Reduce(rbind, out_all))
 
 ## Wrapper
 
-We can wrap the code to run the Torus Translation Test into a convenient function, `ttt()`, to abstract out the boilerplate code and focus on what matters most.
+We can wrap the code to run the __t__orus __t__ranslation __test__ into a convenient function, `tt_test()`, to abstract out the boilerplate code and focus on what matters most.
 
 ```{r}
-ttt_test <- function(sp, ...) {
+tt_test <- function(sp, ...) {
   out <- lapply(sp, torusonesp.all, ...)
   t(Reduce(rbind, out))
 }
 
-ttt_test(
+tt_test(
   all_species,
   hab.index20 = habitat_data,
   allabund20 = abundance_per_quadrat,
@@ -230,7 +230,7 @@ ggplot(census_bigger, aes(x = gx, y = gy)) +
   labs(fill = "Habitat")
 ```
 
-The output of `ttt_test()` doesn't scale up very well. With increasing number of species the resulting matrix becomes harder to visualize.
+The output of `tt_test()` doesn't scale up very well. With increasing number of species the resulting matrix becomes harder to visualize.
 
 ```{r}
 abundance_bigger <- abundanceperquad(
@@ -238,7 +238,7 @@ abundance_bigger <- abundanceperquad(
 )$abund
 
 many_sp <- unique(census_bigger$sp)
-result_bigger <- ttt_test(
+result_bigger <- tt_test(
   many_sp,
   hab.index20 = habitat_data,
   allabund20 = abundance_bigger,
@@ -269,19 +269,19 @@ View(result_long)
 We can wrap the re-formatting code into a handy function.
 
 ```{r}
-ttt_gather <- function(ttt_test) {
-  ttt_test %>% 
+tt_gather <- function(tt_test) {
+  tt_test %>% 
     as.data.frame() %>% 
-    add_column(metric = rownames(ttt_test)) %>% 
+    add_column(metric = rownames(tt_test)) %>% 
     gather(key = "sp", value = "value", -metric)
 }
 
-result_long <- ttt_gather(result_bigger)
+result_long <- tt_gather(result_bigger)
 ```
 
 ## Data science workflows
 
-Above we used `ttt_gather()` to output a dataframe. Compared to a matrix, a dataframe fits better in common data science workflows. Dataframes allow using popular tools for data wrangling and visualization (from the __dplyr__ and __ggplot2__ packages). Here are some examples of what you can do.
+Above we used `tt_gather()` to output a dataframe. Compared to a matrix, a dataframe fits better in common data science workflows. Dataframes allow using popular tools for data wrangling and visualization (from the __dplyr__ and __ggplot2__ packages). Here are some examples of what you can do.
 
 * Filtering interesting species.
 
