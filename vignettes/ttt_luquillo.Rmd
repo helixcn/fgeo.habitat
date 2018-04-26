@@ -44,9 +44,8 @@ For details on how to install packages from GitHub, see [this article](https://f
 
 ```{r}
 library(fgeo.habitat)
-# General purpose functions
-library(dplyr)
-library(ggplot2)
+# Packages for data wranging and visualization
+library(tidyverse)
 ```
 
 ### Load census and habitat data
@@ -119,7 +118,6 @@ abundance_per_quadrat <- abundanceperquad(
   pick,
   plotdim = plot_dimensions,
   gridsize = grid_size,
-  type = 'abund'
 )$abund
 
 str(abundance_per_quadrat, list.len = 5)
@@ -158,6 +156,93 @@ out_all <- lapply(
 t(Reduce(rbind, out_all))
 ```
 
+### Wrapper
+
+Finally, we can wrap all we have done into a convenient function.
+
+```{r}
+tttest <- function(sp, ...) {
+  out <- lapply(sp, torusonesp.all, ...)
+  t(Reduce(rbind, out))
+}
+```
+
+```{r}
+two_species <- sample(unique(pick$sp), 2)
+tttest(
+  two_species,
+  hab.index20 = habitat_data,
+  allabund20 = abundance_per_quadrat,
+  plotdim = plot_dimensions,
+  gridsize = grid_size
+)
+```
+
+### Scaling up
+
+Our result doesn't scale up very well. As the number of species increases the resulting matrix becomes harder to interpret and handle.
+
+```{r}
+census <- luquillo_tree6_random %>% 
+  filter(status == "A", dbh >= 10) %>% 
+  add_count(sp) %>% 
+  filter(n > 15)
+
+abnd <- abundanceperquad(
+  census, plotdim = plot_dimensions, gridsize = grid_size
+)$abund
+
+sp_lots <- unique(census$sp)
+result_lots <- tttest(
+  sp_lots,
+  hab.index20 = habitat_data,
+  allabund20 = abnd,
+  plotdim = plot_dimensions,
+  gridsize = grid_size
+)
+result_lots
+```
+
+A solution is to convert the resulting object to a friendly long-format dataframe. 
+
+```{r}
+result_long <- result_lots %>% 
+  as_tibble() %>% 
+  add_column(metric = rownames(result_lots)) %>% 
+  gather(key = "sp", value = "value", -metric)
+result_long
+```
+
+With this format, the dataframe is easier to manipulate, summarize and visualize. For example:
+
+* Filtering interesting species.
+
+```{r}
+top_sp <- count(census, sp) %>% top_n(5) %>% pull(sp)
+
+result_top_sp <- filter(result_long, sp %in% top_sp)
+result_top_sp %>% spread(sp, value)
+```
+
+* Producing analytic summaries.
+
+```{r}
+result_top_sp %>% 
+  group_by(metric) %>% 
+  summarise(mean = mean(value), max = max(value), min = min(value)) %>% 
+  print(n = length(.))
+```
+
+* Producing visual summaries.
+
+```{r, out.width = "100%"}
+result_top_sp %>% 
+  ggplot(aes(sp, value, color = sp)) +
+  geom_point() +
+  facet_wrap("metric", scales = "free_y") +
+  theme(axis.text.x = element_blank())
+```
+
 ### Map
 
 Let's see the distribution of species by habitat type.
@@ -174,8 +259,8 @@ habitat_centered <- mutate(
 )
 
 ggplot(census_data, aes(x = gx, y = gy)) +
+  geom_raster(data = habitat_centered, aes(x, y, fill = habitats)) + 
   geom_point() +
-  geom_raster(data = habitat_centered, aes(x, y, fill = habitats), alpha = 1/2) + 
   coord_fixed() +
   facet_wrap(~sp) +
   labs(fill = "Habitat")

@@ -21,7 +21,8 @@ Suggests:
     knitr,
     rmarkdown,
     testthat,
-    dplyr
+    dplyr,
+    tidyverse
 VignetteBuilder: knitr
 Encoding: UTF-8
 LazyData: true
