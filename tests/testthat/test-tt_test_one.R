@@ -5,6 +5,8 @@ set.seed(123)
 library(dplyr)
 library(fgeo.habitat)
 
+# Luquillo ----------------------------------------------------------------
+
 # Small dataset from Luquillo
 cns_luq <- luquillo_top3_sp
 sp_top3_luq <- unique(cns_luq$sp)
@@ -101,6 +103,8 @@ test_that("regression: outputs equal to known output", {
   expect_known_output(out_all, "ref-luq_3sp", print = TRUE, update = TRUE)
 })
 
+
+
 # Pasoh -------------------------------------------------------------------
 
 test_that("tests with Pasoh", {
@@ -169,6 +173,41 @@ test_that("tests with Pasoh", {
       allabund20 = abun_quad,
       plotdim = pdim,
       gridsize = gsize
+    )
+  )
+})
+
+
+
+# BCI ---------------------------------------------------------------------
+
+test_that("outputs silently with good habitat data from BCI", {
+  skip_if_not_installed("bciex")
+  skip_if_not_installed("fgeo.tool")
+  
+  bci_elev <- list(
+    col = bciex::bci_elevation,
+    xdim = 1000,
+    ydim = 500
+  )
+  bci_hab <- fgeo.tool::create_habitat(bci_elev, 20, 4)
+  bci_cns <- bciex::bci12t7mini %>% 
+    filter(status == "A", dbh >= 10) %>% 
+    add_count(sp) %>% 
+    filter(n > 50)
+  bci_pdim <- c(1000, 500)
+  bci_gsz <- 20
+  bci_n <- abundanceperquad(bci_cns, plotdim = bci_pdim, gridsize = bci_gsz,
+    type = "abund")$abund
+  bci_sp <- unique(bci_cns$sp)[[1]]
+  
+  expect_silent(
+    tt_test_one(
+      species = bci_sp,
+      hab.index20 = bci_hab,
+      allabund20 = bci_n,
+      plotdim = bci_pdim,
+      gridsize = bci_gsz
     )
   )
 })
