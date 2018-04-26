@@ -90,3 +90,6 @@ g2
 \code{\link[geoR:variofit]{geoR::variofit()}}, \code{\link[geoR:variog]{geoR::variog()}}, \code{\link[geoR:as.geodata]{geoR::as.geodata()}},
 \code{\link[geoR:ksline]{geoR::ksline()}}, \code{\link[geoR:krige.conv]{geoR::krige.conv()}}, \code{\link[geoR:krige.control]{geoR::krige.control()}}.
 }
+\author{
+Graham Zemunik (grah.zem@gmail.com).
+}

@@ -12,11 +12,11 @@ GetAutomatedKrigeParams(geod, trend = "cte", breaks = ExpList(2, 320, 30))
 \value{
 A list of the best fitted variogram parameters:
 \itemize{
-\item nugget: Xxxx.
-\item sill: Xxxx.
-\item range: Xxxx.
-\item kappa: Xxxx.
-\item model: Xxxx.
+\item nugget: FIXME.
+\item sill: FIXME.
+\item range: FIXME.
+\item kappa: FIXME.
+\item model: FIXME.
 \item minVM: The minimum fit error.
 \item vg: The variogram.
 }
@@ -28,4 +28,7 @@ Uses the \code{\link[geoR:variofit]{geoR::variofit()}} with a range of variogram
 \dontrun{
 # See examples in geoR::variog().
 }
+}
+\author{
+Graham Zemunik (grah.zem@gmail.com).
 }

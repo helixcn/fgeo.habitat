@@ -33,6 +33,8 @@
 #' @seealso [geoR::variofit()], [geoR::variog()], [geoR::as.geodata()],
 #'   [geoR::ksline()], [geoR::krige.conv()], [geoR::krige.control()].
 #'
+#' @author Graham Zemunik (grah.zem@@gmail.com).
+#' 
 #' @export
 #' @examples
 #' \dontrun{
@@ -180,9 +182,11 @@ GetKrigedSoil <- function(df.soil,
 
 #' List of n values which exponentially increases from first to last.
 #'
-#' @param first Xxx.
-#' @param last Xxx.
-#' @param n Xxx.
+#' @param first FIXME.
+#' @param last FIXME.
+#' @param n FIXME.
+#' 
+#' @author Graham Zemunik (grah.zem@@gmail.com).
 #'
 #' @export
 #' @examples
@@ -206,13 +210,15 @@ ExpList <- function(first, last, n) {
 #' @param geod,trend,breaks Passed to [geoR::variog()].
 #'
 #' @return A list of the best fitted variogram parameters:
-#'   * nugget: Xxxx.
-#'   * sill: Xxxx.
-#'   * range: Xxxx.
-#'   * kappa: Xxxx.
-#'   * model: Xxxx.
+#'   * nugget: FIXME.
+#'   * sill: FIXME.
+#'   * range: FIXME.
+#'   * kappa: FIXME.
+#'   * model: FIXME.
 #'   * minVM: The minimum fit error.
 #'   * vg: The variogram.
+#'
+#' @author Graham Zemunik (grah.zem@@gmail.com).
 #'
 #' @export
 #' @examples
@@ -271,10 +277,12 @@ GetAutomatedKrigeParams <- function(geod,
 #'   locations are returned if nls failed to model the surface, in which case
 #'   the model attribute is set to `NULL.`
 #'
-#' @param df Xxxx.
-#' @param gridSize Xxxx.
-#' @param xSize Xxxx.
-#' @param ySize Xxxx.
+#' @param df FIXME.
+#' @param gridSize FIXME.
+#' @param xSize FIXME.
+#' @param ySize FIXME.
+#' 
+#' @author Graham Zemunik (grah.zem@@gmail.com).
 #'
 #' @noRd
 #' @keywords internal
@@ -318,14 +326,16 @@ GetPolynomialFit <- function(df, gridSize = 20, xSize = 1000, ySize = 500) {
 
 #' Return a polynomial 2nd order surface (x,y) defined by the parameters a to f.
 #'
-#' @param x Xxx.
-#' @param y Xxx.
-#' @param a Xxx.
-#' @param b Xxx.
-#' @param c Xxx.
-#' @param d Xxx.
-#' @param e Xxx.
-#' @param f Xxx.
+#' @param x FIXME.
+#' @param y FIXME.
+#' @param a FIXME.
+#' @param b FIXME.
+#' @param c FIXME.
+#' @param d FIXME.
+#' @param e FIXME.
+#' @param f FIXME.
+#' 
+#' @author Graham Zemunik (grah.zem@@gmail.com).
 #'
 #' @keywords internal
 #' @noRd
@@ -343,7 +353,9 @@ PolynomialSurfaceOrder2 <- function(x, y, a, b, c, d, e, f) {
 #'
 #' @return A list of the original df, the delta value and the the delta value.
 #'
-#' @param df Xxxx.
+#' @param df FIXME.
+#' 
+#' @author Graham Zemunik (grah.zem@@gmail.com).
 #'
 #' @keywords internal
 #' @noRd
@@ -390,11 +402,13 @@ BoxCoxTransformSoil <- function(df) {
 #' Performed the inverse of the Box-Cox transform given the data, df,
 #' the lambda value and and delta added to the data
 #'
-#' @param lambda Xxx.
-#' @param df Xxx.
-#' @param delta Xxx.
+#' @param lambda FIXME.
+#' @param df FIXME.
+#' @param delta FIXME.
 #'
 #' @return The df with the transformed data, from the z column.
+#' 
+#' @author Graham Zemunik (grah.zem@@gmail.com).
 #'
 #' @keywords internal
 #' @noRd

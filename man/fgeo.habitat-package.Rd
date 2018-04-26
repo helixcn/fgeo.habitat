@@ -8,13 +8,16 @@
 \description{
 Analize soils and tree-habitat data.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/forestgeo/fgeo.habitat}
+  \item Report bugs at \url{https://github.com/forestgeo/fgeo.habitat/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Mauro Lepore \email{leporem@si.edu} [contractor]
-
-Authors:
-\itemize{
-  \item Graham Zemunik \email{grah.zem@@gmail.com}
-}
 
 Other contributors:
 \itemize{

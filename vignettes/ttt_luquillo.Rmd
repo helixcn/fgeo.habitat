@@ -1,5 +1,6 @@
 ---
 title: "Habitat-species associations"
+subtitle: "Given a number of species and habitat types in a plot, is each species significantly aggregated within habitats?"
 author: "Mauro Lepore"
 date: "`r Sys.Date()`"
 output: 
@@ -12,11 +13,9 @@ vignette: >
 ---
 
 ```{r setup, include=FALSE}
-set.seed(1014)
 options(digits = 3)
 
 knitr::opts_chunk$set(
-  echo = TRUE,
   comment = "#>",
   collapse = TRUE,
   cache = FALSE,
@@ -24,16 +23,15 @@ knitr::opts_chunk$set(
   fig.align = "center",
   fig.width = 6,
   fig.asp = 0.618,  # 1 / phi
-  fig.show = "hold",
-  warning = FALSE
+  fig.show = "hold"
 )
 ```
 
-Given a number of species and habitat types in a plot, is each species significantly aggregated within habitats?
+This article shows how to determine habitat-species associations with the function [`torusonesp.all()`](https://forestgeo.github.io/fgeo.habitat/reference/torusonesp.all.html), developed by Sabrina Russo, Daniel Zuleta, Matteo Detto, and Kyle Harms. 
 
-We'll answer this question with the function [`torusonesp.all()`](https://forestgeo.github.io/fgeo.habitat/reference/torusonesp.all.html), developed by Sabrina Russo, Daniel Zuleta, Matteo Detto, and Kyle Harms.
+To suggest changes to the source code please file a pull request on the GitHub repository of the relevant package. You can search all functions and packages [here](https://forestgeo.github.io/fgeo/articles/fgeo.html#functions). Each function's help file links to its source code.
 
-### Setup
+## Setup
 
 ```R
 # install.packages("remotes")
@@ -44,21 +42,24 @@ For details on how to install packages from GitHub, see [this article](https://f
 
 ```{r}
 library(fgeo.habitat)
-# Packages for data wranging and visualization
+# For data wranging and visualization
 library(tidyverse)
 ```
 
-### Load census and habitat data
+```{r}
+# For reproducible results
+set.seed(1014)
+```
 
-This example uses a small dataset from Luquillo.
+## Load census and habitat data
+
+Here we'll use example datasets that come with __fgeo.habitat__.
 
 ```{r}
 census <- luquillo_top3_sp
 
 str(census)
 ```
-
-The habitat data is based on measurements of elevation every 20 meters. (You may create habitats data with `fgeo.tool::create_habitat()`).
 
 ```{r}
 habitat_data <- luquillo_habitat
@@ -69,19 +70,21 @@ names(habitat_data)
 str(habitat_data)
 ```
 
+
 To load your own data, you may run something like this:
 
 ```R
-load("<PATH>/<CENSUS_DATA>.rdata")
-census_data <- <CENSUS_DATA>
+load("PATH/CENSUS_DATA.rdata")
+census_data <- CENSUS_DATA
 
-load("<PATH>/<HABITAT_DATA>.rdata")
-habitat_data <- <HABITAT_DATA>
+load("PATH/HABITAT_DATA.rdata")
+habitat_data <- HABITAT_DATA
 ```
 
 We can overview the relationship between species an habitats with a plot.
 
-```{r map-one-sp, out.width = "100%"}
+```{r}
+# Tweaks
 offset <- 20 / 2
 habitat_centered <- mutate(
   habitat_data, 
@@ -91,7 +94,9 @@ habitat_centered <- mutate(
   # From continuous to categorical
   habitats = as.factor(habitats)
 )
+```
 
+```{r, out.width="90%", fig.widh=(6 * 0.9 / 0.7)}
 ggplot(census, aes(x = gx, y = gy)) +
   geom_raster(data = habitat_centered, aes(x, y, fill = habitats)) + 
   geom_point() +
@@ -100,42 +105,43 @@ ggplot(census, aes(x = gx, y = gy)) +
   labs(fill = "Habitat")
 ```
 
-### Pick data
+## Pick data
 
-Let's pick alive trees, of 10 mm or more, and of sufficiently abundant species.
+We'll pick alive trees, of 10 mm or more, and of sufficiently abundant species.
 
 ```{r}
-# The pipe (`%>%`) helps to avoid saving temporary intermediary objects
-pick <- census %>% 
+pick <- filter(
+  census,
   # Keep only alive
-  filter(status == "A") %>% 
+  status == "A", 
   # Keep dbh of 10 mm or more (drops missing dbh)
-  filter(dbh >= 10) %>% 
-  # Keep sufficiently abundant trees
-  add_count(sp) %>% 
-  filter(n > 50)
+  dbh >= 10
+)
+# Count number of rows per species
+pick <- add_count(pick, sp)
+# Keep sufficiently abundant trees
+pick <- filter(pick, n > 50)
 
 # View
 unique(select(pick, sp, n))
 ```
 
-The habitat data suggests the plot dimensions and grid size we should use ([details](https://forestgeo.si.edu/sites/north-america/luquillo)).
+The grid size and plot dimensions will be used in more than one function. They must be consistent with the habitat data. The structure of the habitat data suggests the grid size and plot dimensions we should use ([plot details](https://forestgeo.si.edu/sites/north-america/luquillo)).
 
 ```{r}
 lapply(habitat_data, range)
 
+# For reuse
 plot_dimensions <- c(320, 500)
 grid_size <- 20
 ```
 
-### Abundance per quadrat
+## Abundance per quadrat
 
 `torusonesp.all()` requires abundance per quadrat in a particular format, as calculated with [`abundanceperquad()`](https://s.si.edu/2JtN94p) from the original CTFSRPackage.
 
 ```{r}
-# WARNING: Default keeps only trees which dbh > 10 mm, which drops missing dbh.
-# We did such selection explicitely above, but keep this in mind. For details
-# see ?abundanceperquad. 
+# For details see ?abundanceperquad (e.g. defaults to keep trees of dbh > 10 mm)
 abundance_per_quadrat <- abundanceperquad(
   pick,
   plotdim = plot_dimensions,
@@ -149,6 +155,7 @@ Now we have all we need to run `torusonesp.all()` for one and multiple species.
 
 ```{r}
 one_species <- unique(pick$sp)[[1]]
+one_species
 
 out_one <- torusonesp.all(
   species = one_species,
@@ -158,8 +165,7 @@ out_one <- torusonesp.all(
   gridsize = grid_size
 )
 
-# Friendly view
-t(out_one)
+out_one
 ```
 
 To iterate over multiple species you may write a for loop, or use a functional such as `lapply()`.
@@ -176,23 +182,22 @@ out_all <- lapply(
   gridsize = grid_size
 )
 
-# Friendly view
+# For friendlier view
 t(Reduce(rbind, out_all))
 ```
 
-### Wrapper
+## Wrapper
 
-We can wrap the code to run the Torus Translation Test into a convenient function, `ttt()`, to abstract out the boilperate code and focus on what matters most.
+We can wrap the code to run the Torus Translation Test into a convenient function, `ttt()`, to abstract out the boilerplate code and focus on what matters most.
 
 ```{r}
-ttt <- function(sp, ...) {
+ttt_test <- function(sp, ...) {
   out <- lapply(sp, torusonesp.all, ...)
   t(Reduce(rbind, out))
 }
 
-two_species <- sample(unique(pick$sp), 2)
-ttt(
-  two_species,
+ttt_test(
+  all_species,
   hab.index20 = habitat_data,
   allabund20 = abundance_per_quadrat,
   plotdim = plot_dimensions,
@@ -200,66 +205,94 @@ ttt(
 )
 ```
 
-### Scaling up
+## Scaling up
 
-Our result doesn't scale up very well. As the number of species increases the resulting matrix becomes harder to interpret and handle.
+In this section we'll use a bigger -- more realistic -- dataset.
 
 ```{r}
-bigger_census <- luquillo_tree6_random %>% 
+# Now using the pipe (`%>%`) to avoid saving intermediate results. For details
+# see http://style.tidyverse.org/pipes.html.
+census_bigger <- luquillo_tree6_random %>%
   filter(status == "A", dbh >= 10) %>% 
+  # Keeping little abundant species (a bad idea) only to show a bigger dataset.
   add_count(sp) %>% 
   filter(n > 15)
+```
 
-abundance <- abundanceperquad(
-  bigger_census, plotdim = plot_dimensions, gridsize = grid_size
+Overview.
+
+```{r, out.width="90%", fig.widh=(6 * 0.9 / 0.7)}
+ggplot(census_bigger, aes(x = gx, y = gy)) +
+  geom_raster(data = habitat_centered, aes(x, y, fill = habitats)) + 
+  geom_point() +
+  coord_fixed() +
+  facet_wrap(~sp) +
+  labs(fill = "Habitat")
+```
+
+The output of `ttt_test()` doesn't scale up very well. With increasing number of species the resulting matrix becomes harder to visualize.
+
+```{r}
+abundance_bigger <- abundanceperquad(
+  census_bigger, plotdim = plot_dimensions, gridsize = grid_size
 )$abund
 
-many_sp <- unique(bigger_census$sp)
-bigger_result <- ttt(
+many_sp <- unique(census_bigger$sp)
+result_bigger <- ttt_test(
   many_sp,
   hab.index20 = habitat_data,
-  allabund20 = abundance,
+  allabund20 = abundance_bigger,
   plotdim = plot_dimensions,
   gridsize = grid_size
 )
-bigger_result
+
+# Ackward
+result_bigger
 ```
 
-A solution is to convert the resulting object to a friendly long-format dataframe. 
+A solution is to convert the resulting object to a long-format dataframe, which is easier to view.
 
 ```{r}
-long_result <- bigger_result %>% 
+result_long <- result_bigger %>% 
   as.data.frame() %>% 
-  add_column(metric = rownames(bigger_result)) %>% 
+  add_column(metric = rownames(result_bigger)) %>% 
   gather(key = "sp", value = "value", -metric)
-head(long_result)
+
+head(result_long)
 ```
 
-Once again, we could wrap the re-formatting code into a handy function.
+```R
+# This view allows filtering
+View(result_long)
+```
+
+We can wrap the re-formatting code into a handy function.
 
 ```{r}
-gather_ttt <- function(ttt) {
-  ttt %>% 
+ttt_gather <- function(ttt_test) {
+  ttt_test %>% 
     as.data.frame() %>% 
-    add_column(metric = rownames(ttt)) %>% 
+    add_column(metric = rownames(ttt_test)) %>% 
     gather(key = "sp", value = "value", -metric)
 }
 
-long_result <- gather_ttt(bigger_result)
+result_long <- ttt_gather(result_bigger)
 ```
 
-With this format, the dataframe is easier to manipulate, summarize and visualize. For example:
+## Data science workflows
+
+Above we used `ttt_gather()` to output a dataframe. Compared to a matrix, a dataframe fits better in common data science workflows. Dataframes allow using popular tools for data wrangling and visualization (from the __dplyr__ and __ggplot2__ packages). Here are some examples of what you can do.
 
 * Filtering interesting species.
 
 ```{r}
-top_sp <- bigger_census %>% 
+top_sp <- census_bigger %>% 
   count(sp) %>% 
   top_n(5) %>% 
   pull(sp)
 top_sp
 
-result_top_sp <- filter(long_result, sp %in% top_sp)
+result_top_sp <- filter(result_long, sp %in% top_sp)
 # Friendly view
 spread(result_top_sp, sp, value)
 ```
@@ -274,7 +307,7 @@ result_top_sp %>%
 
 * Producing visual summaries.
 
-```{r, out.width = "100%"}
+```{r, out.width="90%", fig.widh=(6 * 0.9 / 0.7)}
 ggplot(result_top_sp, aes(sp, value, color = sp)) +
   geom_point() +
   facet_wrap("metric", scales = "free_y") +

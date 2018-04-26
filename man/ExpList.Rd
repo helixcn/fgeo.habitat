@@ -7,15 +7,18 @@
 ExpList(first, last, n)
 }
 \arguments{
-\item{first}{Xxx.}
+\item{first}{FIXME.}
 
-\item{last}{Xxx.}
+\item{last}{FIXME.}
 
-\item{n}{Xxx.}
+\item{n}{FIXME.}
 }
 \description{
 List of n values which exponentially increases from first to last.
 }
 \examples{
 ExpList(2, 320, 30)
+}
+\author{
+Graham Zemunik (grah.zem@gmail.com).
 }
