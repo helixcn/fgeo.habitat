@@ -1,4 +1,4 @@
-context("torusonesp.all.R")
+context("tt_test_one.R")
 
 # Ensure consistent values accross runs
 set.seed(123)
@@ -13,16 +13,40 @@ pdim_luq <- c(320, 500)
 gsize_luq <- 20
 sp_top1_luq <- first(sp_top3_luq)
 
-# Functions to reduce duplication
+# Reduce duplication
 abundance_sp <- function(n) {
   .cns <- filter(cns_luq, status == "A", sp  %in% sp_top3_luq[1:n])
   abundanceperquad(
     .cns, plotdim = pdim_luq, gridsize = gsize_luq, type = 'abund'
   )$abund
 }
+
+test_that("regression: outputs equal to original function", {
+  source("ref-torusonesp.all.R")
+  ref <- torusonesp.all(
+    species = sp_top1_luq,
+    hab.index20 = hab_luq,
+    allabund20 = abundance_sp(1),
+    plotdim = pdim_luq,
+    gridsize = gsize_luq
+  )
+  
+  now <- tt_test_one(
+    species = sp_top1_luq,
+    hab.index20 = hab_luq,
+    allabund20 = abundance_sp(1),
+    plotdim = pdim_luq,
+    gridsize = gsize_luq
+  )
+  expect_equal(ref, now)
+})
+
+
+
+# Reduce duplication
 expect_silent_with_n <- function(n) {
   expect_silent({
-    torusonesp.all(
+    tt_test_one(
       species = sp_top1_luq,
       hab.index20 = hab_luq,
       allabund20 = abundance_sp(n),
@@ -66,8 +90,8 @@ test_that("regression: outputs equal to known output", {
   all_species <- unique(census_data$sp)
   out_all <- lapply(
     X = all_species,
-    FUN = torusonesp.all,
-    # Other arguments passed to torusonesp.all
+    FUN = tt_test_one,
+    # Other arguments passed to tt_test_one
     hab.index20 = habitat_data,
     allabund20 = abundance_per_quadrat,
     plotdim = plot_dimensions,
@@ -76,8 +100,6 @@ test_that("regression: outputs equal to known output", {
   out_all <- Reduce(rbind, out_all)
   expect_known_output(out_all, "ref-luq_3sp", print = TRUE, update = TRUE)
 })
-
-
 
 # Pasoh -------------------------------------------------------------------
 
@@ -101,7 +123,7 @@ test_that("tests with Pasoh", {
   abun_quad <- abundanceperquad(
     cns_tiny, plotdim = pdim, gridsize = gsize, type = 'abund'
   )$abund
-  out_onesp <- torusonesp.all(
+  out_onesp <- tt_test_one(
     species = this_sp,
     hab.index20 = hab,
     allabund20 = abun_quad,
@@ -124,7 +146,7 @@ test_that("tests with Pasoh", {
 
   expect_error({
     expect_warning(
-      torusonesp.all(
+      tt_test_one(
         species = this_sp,
         hab.index20 = hab,
         allabund20 = abun_quad,
@@ -141,7 +163,7 @@ test_that("tests with Pasoh", {
     cns_2sp, plotdim = pdim, gridsize = gsize, type = 'abund'
   )$abund
   expect_silent(
-    torusonesp.all(
+    tt_test_one(
       species = this_sp,
       hab.index20 = hab,
       allabund20 = abun_quad,

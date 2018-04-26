@@ -1,6 +1,6 @@
 # TEST
+
 # Run with bciex, based on habitat data with create_habitat
-# Test regression agains pure version of torousonesp.all
 
 # OTHER PACKAGES
 # map: Write function to map raster

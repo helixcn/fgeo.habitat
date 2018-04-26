@@ -1,68 +1,5 @@
-#' Torus Translation Test to determine habitat associations of tree species.
-#' 
-#' Torus Translation Test (TT test) to determine habitat associations of tree
-#' species. Based on code written by Kyle Harms.
-#' 
-#' You should only try to determine the habitat association for sufficiently
-#' abundant species - in a 50-ha plot, a minimum abundance of 50 trees/species
-#' has been used.
-#'
-#' @param species Character sting giving the name of one species.
-#' @param hab.index20 Object giving the habitat designation for each 20x20
-#'   quadrat.
-#' @param allabund20 Abundance per quadrat.
-#' @param plotdim Plot dimensions.
-#' @param gridsize Grid size. Make sure the gridsize entered here matches the
-#'   gridsize on which the habitats are defined and the abundances were
-#'   calculated
-#'
-#' @author Sabrina Russo, Daniel Zuletta, Matteo Detto.
-#' 
-#' @seealso Example at \url{https://bookdown.org/fgeocomm/ttt/}.
-#'
-#' @return A numeric matrix.
-#' @export
-#' 
-#' @examples
-#' # Small dataset from Luquillo
-#' census_data <- luquillo_top3_sp
-#' alive_trees <- census_data[census_data$status == "A", ]
-#' 
-#' habitat_data <- luquillo_habitat
-#' plot_dimensions <- c(320, 500)
-#' grid_size <- 20
-#' 
-#' abundance_per_quadrat <- abundanceperquad(
-#'   alive_trees,
-#'   plotdim = plot_dimensions,
-#'   gridsize = grid_size,
-#'   type = 'abund'
-#' )$abund
-#' 
-#' one_species <- unique(census_data$sp)[[1]]
-#' out_one <- torusonesp.all(
-#'   species = one_species,
-#'   hab.index20 = habitat_data,
-#'   allabund20 = abundance_per_quadrat,
-#'   plotdim = plot_dimensions,
-#'   gridsize = grid_size
-#' )
-#' t(out_one)
-#' 
-#' # Iterate over multiple species
-#' all_species <- unique(census_data$sp)
-#' out_all <- lapply(
-#'   X = all_species,
-#'   FUN = torusonesp.all,
-#'   # Other arguments passed to torusonesp.all
-#'   hab.index20 = habitat_data,
-#'   allabund20 = abundance_per_quadrat,
-#'   plotdim = plot_dimensions,
-#'   gridsize = grid_size
-#' )
-#' # Compact view
-#' t(Reduce(rbind, out_all))
-torusonesp.all <- function(species, hab.index20, allabund20, plotdim, gridsize) {
+torusonesp.all=function(species="GIROPA", hab.index20=hab.index20, allabund20=allabund20, plotdim=c(1000,500), gridsize=20)
+{
   plotdimqx = plotdim[1]/gridsize  		# Calculates no. of x-axis quadrats of plot. (x is the long axis of plot in the case of Pasoh)
   plotdimqy = plotdim[2]/gridsize  		# Calculates no. of y-axis quadrats of plot.
   num.habs = length(unique(hab.index20$habitats))  	# Determines tot. no. of habitat types.
@@ -145,13 +82,12 @@ torusonesp.all <- function(species, hab.index20, allabund20, plotdim, gridsize) 
           Torspstcnthab[i] = sum(spmat[newhab==i])    # Determines tot. no. stems for focal sp. per habitat of the focal torus-based map.
         }
         
-        Torspprophab = Torspstcnthab/Tortotstcnthab   # Calculates relative stem density of focal sp. per habitat of the focal torus-based map.
+        Torspprophab = Torspstcnthab/Tortotstcnthab   # Calculates relative stem density of focal sp. per habitat of the focal torus-based map.  
+        
         
         for(i in 1:num.habs)
         {
-          if (is.na(spprophab[i] > Torspprophab[i])) {
-            warn_invalid_comparison(spprophab[i], Torspprophab[i])
-          }
+          
           if(spprophab[i] > Torspprophab[i])          # If rel. dens. of focal sp. in focal habitat of true map is greater than rel. dens. of focal sp. in focal habitat of torus-based map, then add one to "greater than" count. 		
             GrLsEq[1,(6*i)-4] = GrLsEq[1,(6*i)-4]+1  
           
@@ -180,14 +116,3 @@ torusonesp.all <- function(species, hab.index20, allabund20, plotdim, gridsize) 
   
   return(GrLsEq)
 } 
-
-#' Warns that a comparison is invalid. Results from a division `NaN = 0/0`
-#' @noRd
-warn_invalid_comparison <- function(spp, torus) {
-  msg <- "Values can't be compared:\n"
-  value <- paste0(
-    "spprophab = ", spp, " vs. ",
-    "Torspprophab = ", torus, "\n"
-  )
-  rlang::warn(paste0(msg, value))
-}

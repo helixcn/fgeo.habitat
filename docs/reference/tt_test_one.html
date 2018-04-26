@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Torus Translation Test to determine habitat associations of tree species. — torusonesp.all • fgeo.habitat</title>
+<title>Torus Translation Test to determine habitat associations of tree species. — tt_test_one • fgeo.habitat</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -25,7 +25,7 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Torus Translation Test to determine habitat associations of tree species. — torusonesp.all" />
+<meta property="og:title" content="Torus Translation Test to determine habitat associations of tree species. — tt_test_one" />
 
 <meta property="og:description" content="Torus Translation Test (TT test) to determine habitat associations of tree
 species. Based on code written by Kyle Harms." />
@@ -131,7 +131,7 @@ species. Based on code written by Kyle Harms." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Torus Translation Test to determine habitat associations of tree species.</h1>
-    <small>Source: <a href='https://github.com/forestgeo/fgeo.habitat/blob/master/R/torusonesp.all.R'><code>R/torusonesp.all.R</code></a></small>
+    <small>Source: <a href='https://github.com/forestgeo/fgeo.habitat/blob/master/R/tt_test_one.R'><code>R/tt_test_one.R</code></a></small>
     </div>
 
     
@@ -139,7 +139,7 @@ species. Based on code written by Kyle Harms." />
 species. Based on code written by Kyle Harms.</p>
     
 
-    <pre class="usage"><span class='fu'>torusonesp.all</span>(<span class='no'>species</span>, <span class='no'>hab.index20</span>, <span class='no'>allabund20</span>, <span class='no'>plotdim</span>, <span class='no'>gridsize</span>)</pre>
+    <pre class="usage"><span class='fu'>tt_test_one</span>(<span class='no'>species</span>, <span class='no'>hab.index20</span>, <span class='no'>allabund20</span>, <span class='no'>plotdim</span>, <span class='no'>gridsize</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -201,7 +201,7 @@ has been used.</p>
 )$<span class='no'>abund</span>
 
 <span class='no'>one_species</span> <span class='kw'>&lt;-</span> <span class='fu'>unique</span>(<span class='no'>census_data</span>$<span class='no'>sp</span>)<span class='kw'>[[</span><span class='fl'>1</span>]]
-<span class='no'>out_one</span> <span class='kw'>&lt;-</span> <span class='fu'>torusonesp.all</span>(
+<span class='no'>out_one</span> <span class='kw'>&lt;-</span> <span class='fu'>tt_test_one</span>(
   <span class='kw'>species</span> <span class='kw'>=</span> <span class='no'>one_species</span>,
   <span class='kw'>hab.index20</span> <span class='kw'>=</span> <span class='no'>habitat_data</span>,
   <span class='kw'>allabund20</span> <span class='kw'>=</span> <span class='no'>abundance_per_quadrat</span>,
@@ -237,8 +237,8 @@ has been used.</p>
 <span class='no'>all_species</span> <span class='kw'>&lt;-</span> <span class='fu'>unique</span>(<span class='no'>census_data</span>$<span class='no'>sp</span>)
 <span class='no'>out_all</span> <span class='kw'>&lt;-</span> <span class='fu'>lapply</span>(
   <span class='kw'>X</span> <span class='kw'>=</span> <span class='no'>all_species</span>,
-  <span class='kw'>FUN</span> <span class='kw'>=</span> <span class='no'>torusonesp.all</span>,
-  <span class='co'># Other arguments passed to torusonesp.all</span>
+  <span class='kw'>FUN</span> <span class='kw'>=</span> <span class='no'>tt_test_one</span>,
+  <span class='co'># Other arguments passed to tt_test_one</span>
   <span class='kw'>hab.index20</span> <span class='kw'>=</span> <span class='no'>habitat_data</span>,
   <span class='kw'>allabund20</span> <span class='kw'>=</span> <span class='no'>abundance_per_quadrat</span>,
   <span class='kw'>plotdim</span> <span class='kw'>=</span> <span class='no'>plot_dimensions</span>,

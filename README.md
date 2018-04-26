@@ -48,7 +48,7 @@ one_species <- unique(census_data$sp)[[1]]
 one_species
 #> [1] "CASARB"
 
-out_one <- torusonesp.all(
+out_one <- tt_test_one(
   species = one_species,
   hab.index20 = habitat_data,
   allabund20 = abundance_per_quadrat,
@@ -71,7 +71,7 @@ multiple_species
 
 out_multiple <- lapply(
   multiple_species,
-  torusonesp.all,
+  tt_test_one,
   hab.index20 = habitat_data,
   allabund20 = abundance_per_quadrat,
   plotdim = plot_dimensions,

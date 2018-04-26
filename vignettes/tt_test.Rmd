@@ -27,7 +27,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-This article shows how to determine habitat-species associations with the function [`torusonesp.all()`](https://forestgeo.github.io/fgeo.habitat/reference/torusonesp.all.html), developed by Sabrina Russo, Daniel Zuleta, Matteo Detto, and Kyle Harms. 
+This article shows how to determine habitat-species associations with the function [`tt_test_one()`](https://forestgeo.github.io/fgeo.habitat/reference/tt_test_one.html), developed by Sabrina Russo, Daniel Zuleta, Matteo Detto, and Kyle Harms. 
 
 To suggest changes to the source code please file a pull request on the GitHub repository of the relevant package. You can search all functions and packages [here](https://forestgeo.github.io/fgeo/articles/fgeo.html#functions). Each function's help file links to its source code.
 
@@ -138,7 +138,7 @@ grid_size <- 20
 
 ## Abundance per quadrat
 
-`torusonesp.all()` requires abundance per quadrat in a particular format, as calculated with [`abundanceperquad()`](https://s.si.edu/2JtN94p) from the original CTFSRPackage.
+`tt_test_one()` requires abundance per quadrat in a particular format, as calculated with [`abundanceperquad()`](https://s.si.edu/2JtN94p) from the original CTFSRPackage.
 
 ```{r}
 # For details see ?abundanceperquad (e.g. defaults to keep trees of dbh > 10 mm)
@@ -151,13 +151,13 @@ abundance_per_quadrat <- abundanceperquad(
 str(abundance_per_quadrat, list.len = 5)
 ```
 
-Now we have all we need to run `torusonesp.all()` for one and multiple species.
+Now we have all we need to run `tt_test_one()` for one and multiple species.
 
 ```{r}
 one_species <- unique(pick$sp)[[1]]
 one_species
 
-out_one <- torusonesp.all(
+out_one <- tt_test_one(
   species = one_species,
   hab.index20 = habitat_data,
   allabund20 = abundance_per_quadrat,
@@ -175,7 +175,7 @@ all_species <- unique(pick$sp)
 
 out_all <- lapply(
   all_species,
-  torusonesp.all,
+  tt_test_one,
   hab.index20 = habitat_data,
   allabund20 = abundance_per_quadrat,
   plotdim = plot_dimensions,
@@ -192,7 +192,7 @@ We can wrap the code to run the __t__orus __t__ranslation __test__ into a conven
 
 ```{r}
 tt_test <- function(sp, ...) {
-  out <- lapply(sp, torusonesp.all, ...)
+  out <- lapply(sp, tt_test_one, ...)
   t(Reduce(rbind, out))
 }
 

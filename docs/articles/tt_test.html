@@ -113,7 +113,7 @@
     
     
 <div class="contents">
-<p>This article shows how to determine habitat-species associations with the function <a href="https://forestgeo.github.io/fgeo.habitat/reference/torusonesp.all.html"><code><a href="../reference/torusonesp.all.html">torusonesp.all()</a></code></a>, developed by Sabrina Russo, Daniel Zuleta, Matteo Detto, and Kyle Harms.</p>
+<p>This article shows how to determine habitat-species associations with the function <a href="https://forestgeo.github.io/fgeo.habitat/reference/tt_test_one.html"><code><a href="../reference/tt_test_one.html">tt_test_one()</a></code></a>, developed by Sabrina Russo, Daniel Zuleta, Matteo Detto, and Kyle Harms.</p>
 <p>To suggest changes to the source code please file a pull request on the GitHub repository of the relevant package. You can search all functions and packages <a href="https://forestgeo.github.io/fgeo/articles/fgeo.html#functions">here</a>. Each function’s help file links to its source code.</p>
 <div id="setup" class="section level2">
 <h2 class="hasAnchor">
@@ -240,7 +240,7 @@
 <div id="abundance-per-quadrat" class="section level2">
 <h2 class="hasAnchor">
 <a href="#abundance-per-quadrat" class="anchor"></a>Abundance per quadrat</h2>
-<p><code><a href="../reference/torusonesp.all.html">torusonesp.all()</a></code> requires abundance per quadrat in a particular format, as calculated with <a href="https://s.si.edu/2JtN94p"><code><a href="../reference/abundanceperquad.html">abundanceperquad()</a></code></a> from the original CTFSRPackage.</p>
+<p><code><a href="../reference/tt_test_one.html">tt_test_one()</a></code> requires abundance per quadrat in a particular format, as calculated with <a href="https://s.si.edu/2JtN94p"><code><a href="../reference/abundanceperquad.html">abundanceperquad()</a></code></a> from the original CTFSRPackage.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="co"># For details see ?abundanceperquad (e.g. defaults to keep trees of dbh &gt; 10 mm)</span></a>
 <a class="sourceLine" id="cb11-2" data-line-number="2">abundance_per_quadrat &lt;-<span class="st"> </span><span class="kw"><a href="../reference/abundanceperquad.html">abundanceperquad</a></span>(</a>
 <a class="sourceLine" id="cb11-3" data-line-number="3">  pick,</a>
@@ -256,12 +256,12 @@
 <a class="sourceLine" id="cb11-13" data-line-number="13"><span class="co">#&gt;  $ 4  : num  0 0 0</span></a>
 <a class="sourceLine" id="cb11-14" data-line-number="14"><span class="co">#&gt;  $ 5  : num  0 0 0</span></a>
 <a class="sourceLine" id="cb11-15" data-line-number="15"><span class="co">#&gt;   [list output truncated]</span></a></code></pre></div>
-<p>Now we have all we need to run <code><a href="../reference/torusonesp.all.html">torusonesp.all()</a></code> for one and multiple species.</p>
+<p>Now we have all we need to run <code><a href="../reference/tt_test_one.html">tt_test_one()</a></code> for one and multiple species.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">one_species &lt;-<span class="st"> </span><span class="kw">unique</span>(pick<span class="op">$</span>sp)[[<span class="dv">1</span>]]</a>
 <a class="sourceLine" id="cb12-2" data-line-number="2">one_species</a>
 <a class="sourceLine" id="cb12-3" data-line-number="3"><span class="co">#&gt; [1] "CASARB"</span></a>
 <a class="sourceLine" id="cb12-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb12-5" data-line-number="5">out_one &lt;-<span class="st"> </span><span class="kw"><a href="../reference/torusonesp.all.html">torusonesp.all</a></span>(</a>
+<a class="sourceLine" id="cb12-5" data-line-number="5">out_one &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tt_test_one.html">tt_test_one</a></span>(</a>
 <a class="sourceLine" id="cb12-6" data-line-number="6">  <span class="dt">species =</span> one_species,</a>
 <a class="sourceLine" id="cb12-7" data-line-number="7">  <span class="dt">hab.index20 =</span> habitat_data,</a>
 <a class="sourceLine" id="cb12-8" data-line-number="8">  <span class="dt">allabund20 =</span> abundance_per_quadrat,</a>
@@ -283,7 +283,7 @@
 <a class="sourceLine" id="cb13-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb13-3" data-line-number="3">out_all &lt;-<span class="st"> </span><span class="kw">lapply</span>(</a>
 <a class="sourceLine" id="cb13-4" data-line-number="4">  all_species,</a>
-<a class="sourceLine" id="cb13-5" data-line-number="5">  torusonesp.all,</a>
+<a class="sourceLine" id="cb13-5" data-line-number="5">  tt_test_one,</a>
 <a class="sourceLine" id="cb13-6" data-line-number="6">  <span class="dt">hab.index20 =</span> habitat_data,</a>
 <a class="sourceLine" id="cb13-7" data-line-number="7">  <span class="dt">allabund20 =</span> abundance_per_quadrat,</a>
 <a class="sourceLine" id="cb13-8" data-line-number="8">  <span class="dt">plotdim =</span> plot_dimensions,</a>
@@ -323,7 +323,7 @@
 <a href="#wrapper" class="anchor"></a>Wrapper</h2>
 <p>We can wrap the code to run the __t__orus __t__ranslation <strong>test</strong> into a convenient function, <code>tt_test()</code>, to abstract out the boilerplate code and focus on what matters most.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">tt_test &lt;-<span class="st"> </span><span class="cf">function</span>(sp, ...) {</a>
-<a class="sourceLine" id="cb14-2" data-line-number="2">  out &lt;-<span class="st"> </span><span class="kw">lapply</span>(sp, torusonesp.all, ...)</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2">  out &lt;-<span class="st"> </span><span class="kw">lapply</span>(sp, tt_test_one, ...)</a>
 <a class="sourceLine" id="cb14-3" data-line-number="3">  <span class="kw">t</span>(<span class="kw">Reduce</span>(rbind, out))</a>
 <a class="sourceLine" id="cb14-4" data-line-number="4">}</a>
 <a class="sourceLine" id="cb14-5" data-line-number="5"></a>
