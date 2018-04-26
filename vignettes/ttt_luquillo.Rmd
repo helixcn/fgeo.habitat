@@ -53,8 +53,9 @@ library(tidyverse)
 This example uses a small dataset from Luquillo.
 
 ```{r}
-census_data <- luquillo_top3_sp
-str(census_data)
+census <- luquillo_top3_sp
+
+str(census)
 ```
 
 The habitat data is based on measurements of elevation every 20 meters. (You may create habitats data with `fgeo.tool::create_habitat()`).
@@ -78,13 +79,34 @@ load("<PATH>/<HABITAT_DATA>.rdata")
 habitat_data <- <HABITAT_DATA>
 ```
 
+We can overview the relationship between species an habitats with a plot.
+
+```{r map-one-sp, out.width = "100%"}
+offset <- 20 / 2
+habitat_centered <- mutate(
+  habitat_data, 
+  # Center species and habitat data
+  x = x + offset, 
+  y = y + offset,
+  # From continuous to categorical
+  habitats = as.factor(habitats)
+)
+
+ggplot(census, aes(x = gx, y = gy)) +
+  geom_raster(data = habitat_centered, aes(x, y, fill = habitats)) + 
+  geom_point() +
+  coord_fixed() +
+  facet_wrap(~sp) +
+  labs(fill = "Habitat")
+```
+
 ### Pick data
 
 Let's pick alive trees, of 10 mm or more, and of sufficiently abundant species.
 
 ```{r}
 # The pipe (`%>%`) helps to avoid saving temporary intermediary objects
-pick <- census_data %>% 
+pick <- census %>% 
   # Keep only alive
   filter(status == "A") %>% 
   # Keep dbh of 10 mm or more (drops missing dbh)
@@ -127,6 +149,7 @@ Now we have all we need to run `torusonesp.all()` for one and multiple species.
 
 ```{r}
 one_species <- unique(pick$sp)[[1]]
+
 out_one <- torusonesp.all(
   species = one_species,
   hab.index20 = habitat_data,
@@ -143,6 +166,7 @@ To iterate over multiple species you may write a for loop, or use a functional s
 
 ```{r}
 all_species <- unique(pick$sp)
+
 out_all <- lapply(
   all_species,
   torusonesp.all,
@@ -158,18 +182,16 @@ t(Reduce(rbind, out_all))
 
 ### Wrapper
 
-Finally, we can wrap all we have done into a convenient function.
+We can wrap the code to run the Torus Translation Test into a convenient function, `ttt()`, to abstract out the boilperate code and focus on what matters most.
 
 ```{r}
-tttest <- function(sp, ...) {
+ttt <- function(sp, ...) {
   out <- lapply(sp, torusonesp.all, ...)
   t(Reduce(rbind, out))
 }
-```
 
-```{r}
 two_species <- sample(unique(pick$sp), 2)
-tttest(
+ttt(
   two_species,
   hab.index20 = habitat_data,
   allabund20 = abundance_per_quadrat,
@@ -183,34 +205,47 @@ tttest(
 Our result doesn't scale up very well. As the number of species increases the resulting matrix becomes harder to interpret and handle.
 
 ```{r}
-census <- luquillo_tree6_random %>% 
+bigger_census <- luquillo_tree6_random %>% 
   filter(status == "A", dbh >= 10) %>% 
   add_count(sp) %>% 
   filter(n > 15)
 
-abnd <- abundanceperquad(
-  census, plotdim = plot_dimensions, gridsize = grid_size
+abundance <- abundanceperquad(
+  bigger_census, plotdim = plot_dimensions, gridsize = grid_size
 )$abund
 
-sp_lots <- unique(census$sp)
-result_lots <- tttest(
-  sp_lots,
+many_sp <- unique(bigger_census$sp)
+bigger_result <- ttt(
+  many_sp,
   hab.index20 = habitat_data,
-  allabund20 = abnd,
+  allabund20 = abundance,
   plotdim = plot_dimensions,
   gridsize = grid_size
 )
-result_lots
+bigger_result
 ```
 
 A solution is to convert the resulting object to a friendly long-format dataframe. 
 
 ```{r}
-result_long <- result_lots %>% 
-  as_tibble() %>% 
-  add_column(metric = rownames(result_lots)) %>% 
+long_result <- bigger_result %>% 
+  as.data.frame() %>% 
+  add_column(metric = rownames(bigger_result)) %>% 
   gather(key = "sp", value = "value", -metric)
-result_long
+head(long_result)
+```
+
+Once again, we could wrap the re-formatting code into a handy function.
+
+```{r}
+gather_ttt <- function(ttt) {
+  ttt %>% 
+    as.data.frame() %>% 
+    add_column(metric = rownames(ttt)) %>% 
+    gather(key = "sp", value = "value", -metric)
+}
+
+long_result <- gather_ttt(bigger_result)
 ```
 
 With this format, the dataframe is easier to manipulate, summarize and visualize. For example:
@@ -218,10 +253,15 @@ With this format, the dataframe is easier to manipulate, summarize and visualize
 * Filtering interesting species.
 
 ```{r}
-top_sp <- count(census, sp) %>% top_n(5) %>% pull(sp)
+top_sp <- bigger_census %>% 
+  count(sp) %>% 
+  top_n(5) %>% 
+  pull(sp)
+top_sp
 
-result_top_sp <- filter(result_long, sp %in% top_sp)
-result_top_sp %>% spread(sp, value)
+result_top_sp <- filter(long_result, sp %in% top_sp)
+# Friendly view
+spread(result_top_sp, sp, value)
 ```
 
 * Producing analytic summaries.
@@ -229,40 +269,15 @@ result_top_sp %>% spread(sp, value)
 ```{r}
 result_top_sp %>% 
   group_by(metric) %>% 
-  summarise(mean = mean(value), max = max(value), min = min(value)) %>% 
-  print(n = length(.))
+  summarise(mean = mean(value), max = max(value), min = min(value))
 ```
 
 * Producing visual summaries.
 
 ```{r, out.width = "100%"}
-result_top_sp %>% 
-  ggplot(aes(sp, value, color = sp)) +
+ggplot(result_top_sp, aes(sp, value, color = sp)) +
   geom_point() +
   facet_wrap("metric", scales = "free_y") +
   theme(axis.text.x = element_blank())
-```
-
-### Map
-
-Let's see the distribution of species by habitat type.
-
-```{r map-one-sp, out.width = "100%"}
-offset <- 20 / 2
-habitat_centered <- mutate(
-  habitat_data, 
-  # Center species and habitat data
-  x = x + offset, 
-  y = y + offset,
-  # From continuous to categorical
-  habitats = as.factor(habitats)
-)
-
-ggplot(census_data, aes(x = gx, y = gy)) +
-  geom_raster(data = habitat_centered, aes(x, y, fill = habitats)) + 
-  geom_point() +
-  coord_fixed() +
-  facet_wrap(~sp) +
-  labs(fill = "Habitat")
 ```
 

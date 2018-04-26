@@ -123,12 +123,12 @@
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(fgeo.habitat)</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co"># Packages for data wranging and visualization</span></a>
 <a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt; -- Attaching packages --------------------------------------------------- tidyverse 1.2.1 --</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt; -- Attaching packages --------------------------------------------- tidyverse 1.2.1 --</span></a>
 <a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt; v ggplot2 2.2.1     v purrr   0.2.4</span></a>
 <a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt; v tibble  1.4.2     v dplyr   0.7.4</span></a>
 <a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt; v tidyr   0.8.0     v stringr 1.3.0</span></a>
 <a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">#&gt; v readr   1.1.1     v forcats 0.3.0</span></a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt; -- Conflicts ------------------------------------------------------ tidyverse_conflicts() --</span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt; -- Conflicts ------------------------------------------------ tidyverse_conflicts() --</span></a>
 <a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt; x dplyr::filter() masks stats::filter()</span></a>
 <a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">#&gt; x dplyr::lag()    masks stats::lag()</span></a></code></pre></div>
 </div>
@@ -136,28 +136,29 @@
 <h3 class="hasAnchor">
 <a href="#load-census-and-habitat-data" class="anchor"></a>Load census and habitat data</h3>
 <p>This example uses a small dataset from Luquillo.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">census_data &lt;-<span class="st"> </span>luquillo_top3_sp</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">str</span>(census_data)</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; Classes 'tbl_df', 'tbl' and 'data.frame':    434 obs. of  19 variables:</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt;  $ treeID   : int  180 631 1380 1840 2849 3354 3690 4183 5182 5632 ...</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt;  $ stemID   : int  225 775 1702 2240 3421 4054 4486 5086 6312 6841 ...</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt;  $ tag      : chr  "100171" "10069" "101560" "10208" ...</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt;  $ StemTag  : chr  "100174" "10069" "101560" "10208" ...</span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt;  $ sp       : chr  "CASARB" "PREMON" "CASARB" "PREMON" ...</span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt;  $ quadrat  : chr  "921" "213" "820" "613" ...</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt;  $ gx       : num  164.6 38.3 141.9 115.5 79.2 ...</span></a>
-<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt;  $ gy       : num  410 245 386 245 389 ...</span></a>
-<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt;  $ MeasureID: int  617049 598429 614023 607825 603814 599273 585007 590860 585935 594643 ...</span></a>
-<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt;  $ CensusID : int  6 6 6 6 6 6 6 6 6 6 ...</span></a>
-<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt;  $ dbh      : num  46.1 139 NA 161 60 NA 146 NA 140 174 ...</span></a>
-<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt;  $ pom      : chr  "1.35" "1.25" NA "1.3" ...</span></a>
-<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt;  $ hom      : num  1.34 1.25 NA 1.28 1.3 NA 1.3 NA 1.34 1.31 ...</span></a>
-<a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">#&gt;  $ ExactDate: num  17017 16912 17014 16918 17009 ...</span></a>
-<a class="sourceLine" id="cb3-18" data-line-number="18"><span class="co">#&gt;  $ DFstatus : chr  "alive" "alive" "dead" "alive" ...</span></a>
-<a class="sourceLine" id="cb3-19" data-line-number="19"><span class="co">#&gt;  $ codes    : chr  "SPROUT;A" "MAIN;A" "MAIN;DEADT" "MAIN;A" ...</span></a>
-<a class="sourceLine" id="cb3-20" data-line-number="20"><span class="co">#&gt;  $ nostems  : num  2 1 1 1 1 2 1 1 1 1 ...</span></a>
-<a class="sourceLine" id="cb3-21" data-line-number="21"><span class="co">#&gt;  $ status   : chr  "A" "A" "D" "A" ...</span></a>
-<a class="sourceLine" id="cb3-22" data-line-number="22"><span class="co">#&gt;  $ date     : num  NA NA NA NA NA NA NA NA NA NA ...</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">census &lt;-<span class="st"> </span>luquillo_top3_sp</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw">str</span>(census)</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; Classes 'tbl_df', 'tbl' and 'data.frame':    434 obs. of  19 variables:</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt;  $ treeID   : int  180 631 1380 1840 2849 3354 3690 4183 5182 5632 ...</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt;  $ stemID   : int  225 775 1702 2240 3421 4054 4486 5086 6312 6841 ...</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt;  $ tag      : chr  "100171" "10069" "101560" "10208" ...</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt;  $ StemTag  : chr  "100174" "10069" "101560" "10208" ...</span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt;  $ sp       : chr  "CASARB" "PREMON" "CASARB" "PREMON" ...</span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt;  $ quadrat  : chr  "921" "213" "820" "613" ...</span></a>
+<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt;  $ gx       : num  164.6 38.3 141.9 115.5 79.2 ...</span></a>
+<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt;  $ gy       : num  410 245 386 245 389 ...</span></a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt;  $ MeasureID: int  617049 598429 614023 607825 603814 599273 585007 590860 585935 594643 ...</span></a>
+<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt;  $ CensusID : int  6 6 6 6 6 6 6 6 6 6 ...</span></a>
+<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt;  $ dbh      : num  46.1 139 NA 161 60 NA 146 NA 140 174 ...</span></a>
+<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt;  $ pom      : chr  "1.35" "1.25" NA "1.3" ...</span></a>
+<a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">#&gt;  $ hom      : num  1.34 1.25 NA 1.28 1.3 NA 1.3 NA 1.34 1.31 ...</span></a>
+<a class="sourceLine" id="cb3-18" data-line-number="18"><span class="co">#&gt;  $ ExactDate: num  17017 16912 17014 16918 17009 ...</span></a>
+<a class="sourceLine" id="cb3-19" data-line-number="19"><span class="co">#&gt;  $ DFstatus : chr  "alive" "alive" "dead" "alive" ...</span></a>
+<a class="sourceLine" id="cb3-20" data-line-number="20"><span class="co">#&gt;  $ codes    : chr  "SPROUT;A" "MAIN;A" "MAIN;DEADT" "MAIN;A" ...</span></a>
+<a class="sourceLine" id="cb3-21" data-line-number="21"><span class="co">#&gt;  $ nostems  : num  2 1 1 1 1 2 1 1 1 1 ...</span></a>
+<a class="sourceLine" id="cb3-22" data-line-number="22"><span class="co">#&gt;  $ status   : chr  "A" "A" "D" "A" ...</span></a>
+<a class="sourceLine" id="cb3-23" data-line-number="23"><span class="co">#&gt;  $ date     : num  NA NA NA NA NA NA NA NA NA NA ...</span></a></code></pre></div>
 <p>The habitat data is based on measurements of elevation every 20 meters. (You may create habitats data with <code><a href="http://www.rdocumentation.org/packages/fgeo.tool/topics/create_habitat">fgeo.tool::create_habitat()</a></code>).</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">habitat_data &lt;-<span class="st"> </span>luquillo_habitat</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"></a>
@@ -176,106 +177,87 @@
 <a class="sourceLine" id="cb5-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb5-4" data-line-number="4"><span class="kw">load</span>(<span class="st">"&lt;PATH&gt;/&lt;HABITAT_DATA&gt;.rdata"</span>)</a>
 <a class="sourceLine" id="cb5-5" data-line-number="5">habitat_data &lt;-<span class="st"> </span><span class="er">&lt;</span>HABITAT_DATA<span class="op">&gt;</span></a></code></pre></div>
+<p>We can overview the relationship between species an habitats with a plot.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">offset &lt;-<span class="st"> </span><span class="dv">20</span> <span class="op">/</span><span class="st"> </span><span class="dv">2</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">habitat_centered &lt;-<span class="st"> </span><span class="kw">mutate</span>(</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">  habitat_data, </a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">  <span class="co"># Center species and habitat data</span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5">  <span class="dt">x =</span> x <span class="op">+</span><span class="st"> </span>offset, </a>
+<a class="sourceLine" id="cb6-6" data-line-number="6">  <span class="dt">y =</span> y <span class="op">+</span><span class="st"> </span>offset,</a>
+<a class="sourceLine" id="cb6-7" data-line-number="7">  <span class="co"># From continuous to categorical</span></a>
+<a class="sourceLine" id="cb6-8" data-line-number="8">  <span class="dt">habitats =</span> <span class="kw">as.factor</span>(habitats)</a>
+<a class="sourceLine" id="cb6-9" data-line-number="9">)</a>
+<a class="sourceLine" id="cb6-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="kw">ggplot</span>(census, <span class="kw">aes</span>(<span class="dt">x =</span> gx, <span class="dt">y =</span> gy)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="st">  </span><span class="kw">geom_raster</span>(<span class="dt">data =</span> habitat_centered, <span class="kw">aes</span>(x, y, <span class="dt">fill =</span> habitats)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-14" data-line-number="14"><span class="st">  </span><span class="kw">coord_fixed</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-15" data-line-number="15"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>sp) <span class="op">+</span></a>
+<a class="sourceLine" id="cb6-16" data-line-number="16"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">fill =</span> <span class="st">"Habitat"</span>)</a></code></pre></div>
+<p><img src="ttt_luquillo_files/figure-html/map-one-sp-1.png" width="100%" style="display: block; margin: auto;"></p>
 </div>
 <div id="pick-data" class="section level3">
 <h3 class="hasAnchor">
 <a href="#pick-data" class="anchor"></a>Pick data</h3>
 <p>Let’s pick alive trees, of 10 mm or more, and of sufficiently abundant species.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># The pipe (`%&gt;%`) helps to avoid saving temporary intermediary objects</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">pick &lt;-<span class="st"> </span>census_data <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="st">  </span><span class="co"># Keep only alive</span></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="st">  </span><span class="kw">filter</span>(status <span class="op">==</span><span class="st"> "A"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="st">  </span><span class="co"># Keep dbh of 10 mm or more (drops missing dbh)</span></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="st">  </span><span class="kw">filter</span>(dbh <span class="op">&gt;=</span><span class="st"> </span><span class="dv">10</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="st">  </span><span class="co"># Keep sufficiently abundant trees</span></a>
-<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="st">  </span><span class="kw">add_count</span>(sp) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="st">  </span><span class="kw">filter</span>(n <span class="op">&gt;</span><span class="st"> </span><span class="dv">50</span>)</a>
-<a class="sourceLine" id="cb6-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co"># View</span></a>
-<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="kw">unique</span>(<span class="kw">select</span>(pick, sp, n))</a>
-<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt; # A tibble: 3 x 2</span></a>
-<a class="sourceLine" id="cb6-14" data-line-number="14"><span class="co">#&gt;   sp         n</span></a>
-<a class="sourceLine" id="cb6-15" data-line-number="15"><span class="co">#&gt;   &lt;chr&gt;  &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb6-16" data-line-number="16"><span class="co">#&gt; 1 CASARB    66</span></a>
-<a class="sourceLine" id="cb6-17" data-line-number="17"><span class="co">#&gt; 2 PREMON   234</span></a>
-<a class="sourceLine" id="cb6-18" data-line-number="18"><span class="co">#&gt; 3 SLOBER    66</span></a></code></pre></div>
-<p>The habitat data suggests the plot dimensions and grid size we should use (<a href="https://forestgeo.si.edu/sites/north-america/luquillo">details</a>).</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">lapply</span>(habitat_data, range)</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co">#&gt; $x</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">#&gt; [1]   0 300</span></a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt; $y</span></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">#&gt; [1]   0 480</span></a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt; $habitats</span></a>
-<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">#&gt; [1] 1 4</span></a>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="co"># The pipe (`%&gt;%`) helps to avoid saving temporary intermediary objects</span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">pick &lt;-<span class="st"> </span>census <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="st">  </span><span class="co"># Keep only alive</span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="st">  </span><span class="kw">filter</span>(status <span class="op">==</span><span class="st"> "A"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="st">  </span><span class="co"># Keep dbh of 10 mm or more (drops missing dbh)</span></a>
+<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="st">  </span><span class="kw">filter</span>(dbh <span class="op">&gt;=</span><span class="st"> </span><span class="dv">10</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="st">  </span><span class="co"># Keep sufficiently abundant trees</span></a>
+<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="st">  </span><span class="kw">add_count</span>(sp) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="st">  </span><span class="kw">filter</span>(n <span class="op">&gt;</span><span class="st"> </span><span class="dv">50</span>)</a>
 <a class="sourceLine" id="cb7-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb7-11" data-line-number="11">plot_dimensions &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">320</span>, <span class="dv">500</span>)</a>
-<a class="sourceLine" id="cb7-12" data-line-number="12">grid_size &lt;-<span class="st"> </span><span class="dv">20</span></a></code></pre></div>
+<a class="sourceLine" id="cb7-11" data-line-number="11"><span class="co"># View</span></a>
+<a class="sourceLine" id="cb7-12" data-line-number="12"><span class="kw">unique</span>(<span class="kw">select</span>(pick, sp, n))</a>
+<a class="sourceLine" id="cb7-13" data-line-number="13"><span class="co">#&gt; # A tibble: 3 x 2</span></a>
+<a class="sourceLine" id="cb7-14" data-line-number="14"><span class="co">#&gt;   sp         n</span></a>
+<a class="sourceLine" id="cb7-15" data-line-number="15"><span class="co">#&gt;   &lt;chr&gt;  &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb7-16" data-line-number="16"><span class="co">#&gt; 1 CASARB    66</span></a>
+<a class="sourceLine" id="cb7-17" data-line-number="17"><span class="co">#&gt; 2 PREMON   234</span></a>
+<a class="sourceLine" id="cb7-18" data-line-number="18"><span class="co">#&gt; 3 SLOBER    66</span></a></code></pre></div>
+<p>The habitat data suggests the plot dimensions and grid size we should use (<a href="https://forestgeo.si.edu/sites/north-america/luquillo">details</a>).</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">lapply</span>(habitat_data, range)</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co">#&gt; $x</span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">#&gt; [1]   0 300</span></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co">#&gt; $y</span></a>
+<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co">#&gt; [1]   0 480</span></a>
+<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb8-8" data-line-number="8"><span class="co">#&gt; $habitats</span></a>
+<a class="sourceLine" id="cb8-9" data-line-number="9"><span class="co">#&gt; [1] 1 4</span></a>
+<a class="sourceLine" id="cb8-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb8-11" data-line-number="11">plot_dimensions &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">320</span>, <span class="dv">500</span>)</a>
+<a class="sourceLine" id="cb8-12" data-line-number="12">grid_size &lt;-<span class="st"> </span><span class="dv">20</span></a></code></pre></div>
 </div>
 <div id="abundance-per-quadrat" class="section level3">
 <h3 class="hasAnchor">
 <a href="#abundance-per-quadrat" class="anchor"></a>Abundance per quadrat</h3>
 <p><code><a href="../reference/torusonesp.all.html">torusonesp.all()</a></code> requires abundance per quadrat in a particular format, as calculated with <a href="https://s.si.edu/2JtN94p"><code><a href="../reference/abundanceperquad.html">abundanceperquad()</a></code></a> from the original CTFSRPackage.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co"># </span><span class="al">WARNING</span><span class="co">: Default keeps only trees which dbh &gt; 10 mm, which drops missing dbh.</span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co"># We did such selection explicitely above, but keep this in mind. For details</span></a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co"># see ?abundanceperquad. </span></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4">abundance_per_quadrat &lt;-<span class="st"> </span><span class="kw"><a href="../reference/abundanceperquad.html">abundanceperquad</a></span>(</a>
-<a class="sourceLine" id="cb8-5" data-line-number="5">  pick,</a>
-<a class="sourceLine" id="cb8-6" data-line-number="6">  <span class="dt">plotdim =</span> plot_dimensions,</a>
-<a class="sourceLine" id="cb8-7" data-line-number="7">  <span class="dt">gridsize =</span> grid_size,</a>
-<a class="sourceLine" id="cb8-8" data-line-number="8">)<span class="op">$</span>abund</a>
-<a class="sourceLine" id="cb8-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb8-10" data-line-number="10"><span class="kw">str</span>(abundance_per_quadrat, <span class="dt">list.len =</span> <span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb8-11" data-line-number="11"><span class="co">#&gt; 'data.frame':    3 obs. of  400 variables:</span></a>
-<a class="sourceLine" id="cb8-12" data-line-number="12"><span class="co">#&gt;  $ 1  : num  0 1 0</span></a>
-<a class="sourceLine" id="cb8-13" data-line-number="13"><span class="co">#&gt;  $ 2  : num  0 0 0</span></a>
-<a class="sourceLine" id="cb8-14" data-line-number="14"><span class="co">#&gt;  $ 3  : num  0 0 0</span></a>
-<a class="sourceLine" id="cb8-15" data-line-number="15"><span class="co">#&gt;  $ 4  : num  0 0 0</span></a>
-<a class="sourceLine" id="cb8-16" data-line-number="16"><span class="co">#&gt;  $ 5  : num  0 0 0</span></a>
-<a class="sourceLine" id="cb8-17" data-line-number="17"><span class="co">#&gt;   [list output truncated]</span></a></code></pre></div>
-<p>Now we have all we need to run <code><a href="../reference/torusonesp.all.html">torusonesp.all()</a></code> for one and multiple species.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">one_species &lt;-<span class="st"> </span><span class="kw">unique</span>(pick<span class="op">$</span>sp)[[<span class="dv">1</span>]]</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2">out_one &lt;-<span class="st"> </span><span class="kw"><a href="../reference/torusonesp.all.html">torusonesp.all</a></span>(</a>
-<a class="sourceLine" id="cb9-3" data-line-number="3">  <span class="dt">species =</span> one_species,</a>
-<a class="sourceLine" id="cb9-4" data-line-number="4">  <span class="dt">hab.index20 =</span> habitat_data,</a>
-<a class="sourceLine" id="cb9-5" data-line-number="5">  <span class="dt">allabund20 =</span> abundance_per_quadrat,</a>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="co"># </span><span class="al">WARNING</span><span class="co">: Default keeps only trees which dbh &gt; 10 mm, which drops missing dbh.</span></a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="co"># We did such selection explicitely above, but keep this in mind. For details</span></a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="co"># see ?abundanceperquad. </span></a>
+<a class="sourceLine" id="cb9-4" data-line-number="4">abundance_per_quadrat &lt;-<span class="st"> </span><span class="kw"><a href="../reference/abundanceperquad.html">abundanceperquad</a></span>(</a>
+<a class="sourceLine" id="cb9-5" data-line-number="5">  pick,</a>
 <a class="sourceLine" id="cb9-6" data-line-number="6">  <span class="dt">plotdim =</span> plot_dimensions,</a>
-<a class="sourceLine" id="cb9-7" data-line-number="7">  <span class="dt">gridsize =</span> grid_size</a>
-<a class="sourceLine" id="cb9-8" data-line-number="8">)</a>
+<a class="sourceLine" id="cb9-7" data-line-number="7">  <span class="dt">gridsize =</span> grid_size,</a>
+<a class="sourceLine" id="cb9-8" data-line-number="8">)<span class="op">$</span>abund</a>
 <a class="sourceLine" id="cb9-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co"># Friendly view</span></a>
-<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="kw">t</span>(out_one)</a>
-<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="co">#&gt;                  CASARB</span></a>
-<a class="sourceLine" id="cb9-13" data-line-number="13"><span class="co">#&gt; N.Hab.1          25.000</span></a>
-<a class="sourceLine" id="cb9-14" data-line-number="14"><span class="co">#&gt; Gr.Hab.1       1489.000</span></a>
-<a class="sourceLine" id="cb9-15" data-line-number="15"><span class="co">#&gt; Ls.Hab.1        109.000</span></a>
-<a class="sourceLine" id="cb9-16" data-line-number="16"><span class="co">#&gt; Eq.Hab.1          2.000</span></a>
-<a class="sourceLine" id="cb9-17" data-line-number="17"><span class="co">#&gt; Rep.Agg.Neut.1    0.000</span></a>
-<a class="sourceLine" id="cb9-18" data-line-number="18"><span class="co">#&gt; Obs.Quantile.1    0.931</span></a>
-<a class="sourceLine" id="cb9-19" data-line-number="19"><span class="co">#&gt; N.Hab.2          12.000</span></a>
-<a class="sourceLine" id="cb9-20" data-line-number="20"><span class="co">#&gt; Gr.Hab.2        168.000</span></a>
-<a class="sourceLine" id="cb9-21" data-line-number="21"><span class="co">#&gt; Ls.Hab.2       1431.000</span></a>
-<a class="sourceLine" id="cb9-22" data-line-number="22"><span class="co">#&gt; Eq.Hab.2          1.000</span></a>
-<a class="sourceLine" id="cb9-23" data-line-number="23"><span class="co">#&gt; Rep.Agg.Neut.2    0.000</span></a>
-<a class="sourceLine" id="cb9-24" data-line-number="24"><span class="co">#&gt; Obs.Quantile.2    0.105</span></a>
-<a class="sourceLine" id="cb9-25" data-line-number="25"><span class="co">#&gt; N.Hab.3          14.000</span></a>
-<a class="sourceLine" id="cb9-26" data-line-number="26"><span class="co">#&gt; Gr.Hab.3        567.000</span></a>
-<a class="sourceLine" id="cb9-27" data-line-number="27"><span class="co">#&gt; Ls.Hab.3       1029.000</span></a>
-<a class="sourceLine" id="cb9-28" data-line-number="28"><span class="co">#&gt; Eq.Hab.3          4.000</span></a>
-<a class="sourceLine" id="cb9-29" data-line-number="29"><span class="co">#&gt; Rep.Agg.Neut.3    0.000</span></a>
-<a class="sourceLine" id="cb9-30" data-line-number="30"><span class="co">#&gt; Obs.Quantile.3    0.354</span></a>
-<a class="sourceLine" id="cb9-31" data-line-number="31"><span class="co">#&gt; N.Hab.4          15.000</span></a>
-<a class="sourceLine" id="cb9-32" data-line-number="32"><span class="co">#&gt; Gr.Hab.4        934.000</span></a>
-<a class="sourceLine" id="cb9-33" data-line-number="33"><span class="co">#&gt; Ls.Hab.4        661.000</span></a>
-<a class="sourceLine" id="cb9-34" data-line-number="34"><span class="co">#&gt; Eq.Hab.4          5.000</span></a>
-<a class="sourceLine" id="cb9-35" data-line-number="35"><span class="co">#&gt; Rep.Agg.Neut.4    0.000</span></a>
-<a class="sourceLine" id="cb9-36" data-line-number="36"><span class="co">#&gt; Obs.Quantile.4    0.584</span></a></code></pre></div>
-<p>To iterate over multiple species you may write a for loop, or use a functional such as <code>lapply()</code>.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">all_species &lt;-<span class="st"> </span><span class="kw">unique</span>(pick<span class="op">$</span>sp)</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2">out_all &lt;-<span class="st"> </span><span class="kw">lapply</span>(</a>
-<a class="sourceLine" id="cb10-3" data-line-number="3">  all_species,</a>
-<a class="sourceLine" id="cb10-4" data-line-number="4">  torusonesp.all,</a>
+<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="kw">str</span>(abundance_per_quadrat, <span class="dt">list.len =</span> <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&gt; 'data.frame':    3 obs. of  400 variables:</span></a>
+<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="co">#&gt;  $ 1  : num  0 1 0</span></a>
+<a class="sourceLine" id="cb9-13" data-line-number="13"><span class="co">#&gt;  $ 2  : num  0 0 0</span></a>
+<a class="sourceLine" id="cb9-14" data-line-number="14"><span class="co">#&gt;  $ 3  : num  0 0 0</span></a>
+<a class="sourceLine" id="cb9-15" data-line-number="15"><span class="co">#&gt;  $ 4  : num  0 0 0</span></a>
+<a class="sourceLine" id="cb9-16" data-line-number="16"><span class="co">#&gt;  $ 5  : num  0 0 0</span></a>
+<a class="sourceLine" id="cb9-17" data-line-number="17"><span class="co">#&gt;   [list output truncated]</span></a></code></pre></div>
+<p>Now we have all we need to run <code><a href="../reference/torusonesp.all.html">torusonesp.all()</a></code> for one and multiple species.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">one_species &lt;-<span class="st"> </span><span class="kw">unique</span>(pick<span class="op">$</span>sp)[[<span class="dv">1</span>]]</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3">out_one &lt;-<span class="st"> </span><span class="kw"><a href="../reference/torusonesp.all.html">torusonesp.all</a></span>(</a>
+<a class="sourceLine" id="cb10-4" data-line-number="4">  <span class="dt">species =</span> one_species,</a>
 <a class="sourceLine" id="cb10-5" data-line-number="5">  <span class="dt">hab.index20 =</span> habitat_data,</a>
 <a class="sourceLine" id="cb10-6" data-line-number="6">  <span class="dt">allabund20 =</span> abundance_per_quadrat,</a>
 <a class="sourceLine" id="cb10-7" data-line-number="7">  <span class="dt">plotdim =</span> plot_dimensions,</a>
@@ -283,97 +265,137 @@
 <a class="sourceLine" id="cb10-9" data-line-number="9">)</a>
 <a class="sourceLine" id="cb10-10" data-line-number="10"></a>
 <a class="sourceLine" id="cb10-11" data-line-number="11"><span class="co"># Friendly view</span></a>
-<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="kw">t</span>(<span class="kw">Reduce</span>(rbind, out_all))</a>
-<a class="sourceLine" id="cb10-13" data-line-number="13"><span class="co">#&gt;                  CASARB   PREMON   SLOBER</span></a>
-<a class="sourceLine" id="cb10-14" data-line-number="14"><span class="co">#&gt; N.Hab.1          25.000   59.000   14.000</span></a>
-<a class="sourceLine" id="cb10-15" data-line-number="15"><span class="co">#&gt; Gr.Hab.1       1489.000  389.000  492.000</span></a>
-<a class="sourceLine" id="cb10-16" data-line-number="16"><span class="co">#&gt; Ls.Hab.1        109.000 1208.000 1092.000</span></a>
-<a class="sourceLine" id="cb10-17" data-line-number="17"><span class="co">#&gt; Eq.Hab.1          2.000    3.000   16.000</span></a>
-<a class="sourceLine" id="cb10-18" data-line-number="18"><span class="co">#&gt; Rep.Agg.Neut.1    0.000    0.000    0.000</span></a>
-<a class="sourceLine" id="cb10-19" data-line-number="19"><span class="co">#&gt; Obs.Quantile.1    0.931    0.243    0.307</span></a>
-<a class="sourceLine" id="cb10-20" data-line-number="20"><span class="co">#&gt; N.Hab.2          12.000   75.000   16.000</span></a>
-<a class="sourceLine" id="cb10-21" data-line-number="21"><span class="co">#&gt; Gr.Hab.2        168.000 1562.000  473.000</span></a>
-<a class="sourceLine" id="cb10-22" data-line-number="22"><span class="co">#&gt; Ls.Hab.2       1431.000   37.000 1125.000</span></a>
-<a class="sourceLine" id="cb10-23" data-line-number="23"><span class="co">#&gt; Eq.Hab.2          1.000    1.000    2.000</span></a>
-<a class="sourceLine" id="cb10-24" data-line-number="24"><span class="co">#&gt; Rep.Agg.Neut.2    0.000    1.000    0.000</span></a>
-<a class="sourceLine" id="cb10-25" data-line-number="25"><span class="co">#&gt; Obs.Quantile.2    0.105    0.976    0.296</span></a>
-<a class="sourceLine" id="cb10-26" data-line-number="26"><span class="co">#&gt; N.Hab.3          14.000   56.000   19.000</span></a>
-<a class="sourceLine" id="cb10-27" data-line-number="27"><span class="co">#&gt; Gr.Hab.3        567.000  632.000 1181.000</span></a>
-<a class="sourceLine" id="cb10-28" data-line-number="28"><span class="co">#&gt; Ls.Hab.3       1029.000  963.000  415.000</span></a>
-<a class="sourceLine" id="cb10-29" data-line-number="29"><span class="co">#&gt; Eq.Hab.3          4.000    5.000    4.000</span></a>
-<a class="sourceLine" id="cb10-30" data-line-number="30"><span class="co">#&gt; Rep.Agg.Neut.3    0.000    0.000    0.000</span></a>
-<a class="sourceLine" id="cb10-31" data-line-number="31"><span class="co">#&gt; Obs.Quantile.3    0.354    0.395    0.738</span></a>
-<a class="sourceLine" id="cb10-32" data-line-number="32"><span class="co">#&gt; N.Hab.4          15.000   44.000   17.000</span></a>
-<a class="sourceLine" id="cb10-33" data-line-number="33"><span class="co">#&gt; Gr.Hab.4        934.000  222.000 1151.000</span></a>
-<a class="sourceLine" id="cb10-34" data-line-number="34"><span class="co">#&gt; Ls.Hab.4        661.000 1375.000  440.000</span></a>
-<a class="sourceLine" id="cb10-35" data-line-number="35"><span class="co">#&gt; Eq.Hab.4          5.000    3.000    9.000</span></a>
-<a class="sourceLine" id="cb10-36" data-line-number="36"><span class="co">#&gt; Rep.Agg.Neut.4    0.000    0.000    0.000</span></a>
-<a class="sourceLine" id="cb10-37" data-line-number="37"><span class="co">#&gt; Obs.Quantile.4    0.584    0.139    0.719</span></a></code></pre></div>
+<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="kw">t</span>(out_one)</a>
+<a class="sourceLine" id="cb10-13" data-line-number="13"><span class="co">#&gt;                  CASARB</span></a>
+<a class="sourceLine" id="cb10-14" data-line-number="14"><span class="co">#&gt; N.Hab.1          25.000</span></a>
+<a class="sourceLine" id="cb10-15" data-line-number="15"><span class="co">#&gt; Gr.Hab.1       1489.000</span></a>
+<a class="sourceLine" id="cb10-16" data-line-number="16"><span class="co">#&gt; Ls.Hab.1        109.000</span></a>
+<a class="sourceLine" id="cb10-17" data-line-number="17"><span class="co">#&gt; Eq.Hab.1          2.000</span></a>
+<a class="sourceLine" id="cb10-18" data-line-number="18"><span class="co">#&gt; Rep.Agg.Neut.1    0.000</span></a>
+<a class="sourceLine" id="cb10-19" data-line-number="19"><span class="co">#&gt; Obs.Quantile.1    0.931</span></a>
+<a class="sourceLine" id="cb10-20" data-line-number="20"><span class="co">#&gt; N.Hab.2          12.000</span></a>
+<a class="sourceLine" id="cb10-21" data-line-number="21"><span class="co">#&gt; Gr.Hab.2        168.000</span></a>
+<a class="sourceLine" id="cb10-22" data-line-number="22"><span class="co">#&gt; Ls.Hab.2       1431.000</span></a>
+<a class="sourceLine" id="cb10-23" data-line-number="23"><span class="co">#&gt; Eq.Hab.2          1.000</span></a>
+<a class="sourceLine" id="cb10-24" data-line-number="24"><span class="co">#&gt; Rep.Agg.Neut.2    0.000</span></a>
+<a class="sourceLine" id="cb10-25" data-line-number="25"><span class="co">#&gt; Obs.Quantile.2    0.105</span></a>
+<a class="sourceLine" id="cb10-26" data-line-number="26"><span class="co">#&gt; N.Hab.3          14.000</span></a>
+<a class="sourceLine" id="cb10-27" data-line-number="27"><span class="co">#&gt; Gr.Hab.3        567.000</span></a>
+<a class="sourceLine" id="cb10-28" data-line-number="28"><span class="co">#&gt; Ls.Hab.3       1029.000</span></a>
+<a class="sourceLine" id="cb10-29" data-line-number="29"><span class="co">#&gt; Eq.Hab.3          4.000</span></a>
+<a class="sourceLine" id="cb10-30" data-line-number="30"><span class="co">#&gt; Rep.Agg.Neut.3    0.000</span></a>
+<a class="sourceLine" id="cb10-31" data-line-number="31"><span class="co">#&gt; Obs.Quantile.3    0.354</span></a>
+<a class="sourceLine" id="cb10-32" data-line-number="32"><span class="co">#&gt; N.Hab.4          15.000</span></a>
+<a class="sourceLine" id="cb10-33" data-line-number="33"><span class="co">#&gt; Gr.Hab.4        934.000</span></a>
+<a class="sourceLine" id="cb10-34" data-line-number="34"><span class="co">#&gt; Ls.Hab.4        661.000</span></a>
+<a class="sourceLine" id="cb10-35" data-line-number="35"><span class="co">#&gt; Eq.Hab.4          5.000</span></a>
+<a class="sourceLine" id="cb10-36" data-line-number="36"><span class="co">#&gt; Rep.Agg.Neut.4    0.000</span></a>
+<a class="sourceLine" id="cb10-37" data-line-number="37"><span class="co">#&gt; Obs.Quantile.4    0.584</span></a></code></pre></div>
+<p>To iterate over multiple species you may write a for loop, or use a functional such as <code>lapply()</code>.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">all_species &lt;-<span class="st"> </span><span class="kw">unique</span>(pick<span class="op">$</span>sp)</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb11-3" data-line-number="3">out_all &lt;-<span class="st"> </span><span class="kw">lapply</span>(</a>
+<a class="sourceLine" id="cb11-4" data-line-number="4">  all_species,</a>
+<a class="sourceLine" id="cb11-5" data-line-number="5">  torusonesp.all,</a>
+<a class="sourceLine" id="cb11-6" data-line-number="6">  <span class="dt">hab.index20 =</span> habitat_data,</a>
+<a class="sourceLine" id="cb11-7" data-line-number="7">  <span class="dt">allabund20 =</span> abundance_per_quadrat,</a>
+<a class="sourceLine" id="cb11-8" data-line-number="8">  <span class="dt">plotdim =</span> plot_dimensions,</a>
+<a class="sourceLine" id="cb11-9" data-line-number="9">  <span class="dt">gridsize =</span> grid_size</a>
+<a class="sourceLine" id="cb11-10" data-line-number="10">)</a>
+<a class="sourceLine" id="cb11-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb11-12" data-line-number="12"><span class="co"># Friendly view</span></a>
+<a class="sourceLine" id="cb11-13" data-line-number="13"><span class="kw">t</span>(<span class="kw">Reduce</span>(rbind, out_all))</a>
+<a class="sourceLine" id="cb11-14" data-line-number="14"><span class="co">#&gt;                  CASARB   PREMON   SLOBER</span></a>
+<a class="sourceLine" id="cb11-15" data-line-number="15"><span class="co">#&gt; N.Hab.1          25.000   59.000   14.000</span></a>
+<a class="sourceLine" id="cb11-16" data-line-number="16"><span class="co">#&gt; Gr.Hab.1       1489.000  389.000  492.000</span></a>
+<a class="sourceLine" id="cb11-17" data-line-number="17"><span class="co">#&gt; Ls.Hab.1        109.000 1208.000 1092.000</span></a>
+<a class="sourceLine" id="cb11-18" data-line-number="18"><span class="co">#&gt; Eq.Hab.1          2.000    3.000   16.000</span></a>
+<a class="sourceLine" id="cb11-19" data-line-number="19"><span class="co">#&gt; Rep.Agg.Neut.1    0.000    0.000    0.000</span></a>
+<a class="sourceLine" id="cb11-20" data-line-number="20"><span class="co">#&gt; Obs.Quantile.1    0.931    0.243    0.307</span></a>
+<a class="sourceLine" id="cb11-21" data-line-number="21"><span class="co">#&gt; N.Hab.2          12.000   75.000   16.000</span></a>
+<a class="sourceLine" id="cb11-22" data-line-number="22"><span class="co">#&gt; Gr.Hab.2        168.000 1562.000  473.000</span></a>
+<a class="sourceLine" id="cb11-23" data-line-number="23"><span class="co">#&gt; Ls.Hab.2       1431.000   37.000 1125.000</span></a>
+<a class="sourceLine" id="cb11-24" data-line-number="24"><span class="co">#&gt; Eq.Hab.2          1.000    1.000    2.000</span></a>
+<a class="sourceLine" id="cb11-25" data-line-number="25"><span class="co">#&gt; Rep.Agg.Neut.2    0.000    1.000    0.000</span></a>
+<a class="sourceLine" id="cb11-26" data-line-number="26"><span class="co">#&gt; Obs.Quantile.2    0.105    0.976    0.296</span></a>
+<a class="sourceLine" id="cb11-27" data-line-number="27"><span class="co">#&gt; N.Hab.3          14.000   56.000   19.000</span></a>
+<a class="sourceLine" id="cb11-28" data-line-number="28"><span class="co">#&gt; Gr.Hab.3        567.000  632.000 1181.000</span></a>
+<a class="sourceLine" id="cb11-29" data-line-number="29"><span class="co">#&gt; Ls.Hab.3       1029.000  963.000  415.000</span></a>
+<a class="sourceLine" id="cb11-30" data-line-number="30"><span class="co">#&gt; Eq.Hab.3          4.000    5.000    4.000</span></a>
+<a class="sourceLine" id="cb11-31" data-line-number="31"><span class="co">#&gt; Rep.Agg.Neut.3    0.000    0.000    0.000</span></a>
+<a class="sourceLine" id="cb11-32" data-line-number="32"><span class="co">#&gt; Obs.Quantile.3    0.354    0.395    0.738</span></a>
+<a class="sourceLine" id="cb11-33" data-line-number="33"><span class="co">#&gt; N.Hab.4          15.000   44.000   17.000</span></a>
+<a class="sourceLine" id="cb11-34" data-line-number="34"><span class="co">#&gt; Gr.Hab.4        934.000  222.000 1151.000</span></a>
+<a class="sourceLine" id="cb11-35" data-line-number="35"><span class="co">#&gt; Ls.Hab.4        661.000 1375.000  440.000</span></a>
+<a class="sourceLine" id="cb11-36" data-line-number="36"><span class="co">#&gt; Eq.Hab.4          5.000    3.000    9.000</span></a>
+<a class="sourceLine" id="cb11-37" data-line-number="37"><span class="co">#&gt; Rep.Agg.Neut.4    0.000    0.000    0.000</span></a>
+<a class="sourceLine" id="cb11-38" data-line-number="38"><span class="co">#&gt; Obs.Quantile.4    0.584    0.139    0.719</span></a></code></pre></div>
 </div>
 <div id="wrapper" class="section level3">
 <h3 class="hasAnchor">
 <a href="#wrapper" class="anchor"></a>Wrapper</h3>
-<p>Finally, we can wrap all we have done into a convenient function.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">tttest &lt;-<span class="st"> </span><span class="cf">function</span>(sp, ...) {</a>
-<a class="sourceLine" id="cb11-2" data-line-number="2">  out &lt;-<span class="st"> </span><span class="kw">lapply</span>(sp, torusonesp.all, ...)</a>
-<a class="sourceLine" id="cb11-3" data-line-number="3">  <span class="kw">t</span>(<span class="kw">Reduce</span>(rbind, out))</a>
-<a class="sourceLine" id="cb11-4" data-line-number="4">}</a></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">two_species &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">unique</span>(pick<span class="op">$</span>sp), <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb12-2" data-line-number="2"><span class="kw">tttest</span>(</a>
-<a class="sourceLine" id="cb12-3" data-line-number="3">  two_species,</a>
-<a class="sourceLine" id="cb12-4" data-line-number="4">  <span class="dt">hab.index20 =</span> habitat_data,</a>
-<a class="sourceLine" id="cb12-5" data-line-number="5">  <span class="dt">allabund20 =</span> abundance_per_quadrat,</a>
-<a class="sourceLine" id="cb12-6" data-line-number="6">  <span class="dt">plotdim =</span> plot_dimensions,</a>
-<a class="sourceLine" id="cb12-7" data-line-number="7">  <span class="dt">gridsize =</span> grid_size</a>
-<a class="sourceLine" id="cb12-8" data-line-number="8">)</a>
-<a class="sourceLine" id="cb12-9" data-line-number="9"><span class="co">#&gt;                  CASARB   PREMON</span></a>
-<a class="sourceLine" id="cb12-10" data-line-number="10"><span class="co">#&gt; N.Hab.1          25.000   59.000</span></a>
-<a class="sourceLine" id="cb12-11" data-line-number="11"><span class="co">#&gt; Gr.Hab.1       1489.000  389.000</span></a>
-<a class="sourceLine" id="cb12-12" data-line-number="12"><span class="co">#&gt; Ls.Hab.1        109.000 1208.000</span></a>
-<a class="sourceLine" id="cb12-13" data-line-number="13"><span class="co">#&gt; Eq.Hab.1          2.000    3.000</span></a>
-<a class="sourceLine" id="cb12-14" data-line-number="14"><span class="co">#&gt; Rep.Agg.Neut.1    0.000    0.000</span></a>
-<a class="sourceLine" id="cb12-15" data-line-number="15"><span class="co">#&gt; Obs.Quantile.1    0.931    0.243</span></a>
-<a class="sourceLine" id="cb12-16" data-line-number="16"><span class="co">#&gt; N.Hab.2          12.000   75.000</span></a>
-<a class="sourceLine" id="cb12-17" data-line-number="17"><span class="co">#&gt; Gr.Hab.2        168.000 1562.000</span></a>
-<a class="sourceLine" id="cb12-18" data-line-number="18"><span class="co">#&gt; Ls.Hab.2       1431.000   37.000</span></a>
-<a class="sourceLine" id="cb12-19" data-line-number="19"><span class="co">#&gt; Eq.Hab.2          1.000    1.000</span></a>
-<a class="sourceLine" id="cb12-20" data-line-number="20"><span class="co">#&gt; Rep.Agg.Neut.2    0.000    1.000</span></a>
-<a class="sourceLine" id="cb12-21" data-line-number="21"><span class="co">#&gt; Obs.Quantile.2    0.105    0.976</span></a>
-<a class="sourceLine" id="cb12-22" data-line-number="22"><span class="co">#&gt; N.Hab.3          14.000   56.000</span></a>
-<a class="sourceLine" id="cb12-23" data-line-number="23"><span class="co">#&gt; Gr.Hab.3        567.000  632.000</span></a>
-<a class="sourceLine" id="cb12-24" data-line-number="24"><span class="co">#&gt; Ls.Hab.3       1029.000  963.000</span></a>
-<a class="sourceLine" id="cb12-25" data-line-number="25"><span class="co">#&gt; Eq.Hab.3          4.000    5.000</span></a>
-<a class="sourceLine" id="cb12-26" data-line-number="26"><span class="co">#&gt; Rep.Agg.Neut.3    0.000    0.000</span></a>
-<a class="sourceLine" id="cb12-27" data-line-number="27"><span class="co">#&gt; Obs.Quantile.3    0.354    0.395</span></a>
-<a class="sourceLine" id="cb12-28" data-line-number="28"><span class="co">#&gt; N.Hab.4          15.000   44.000</span></a>
-<a class="sourceLine" id="cb12-29" data-line-number="29"><span class="co">#&gt; Gr.Hab.4        934.000  222.000</span></a>
-<a class="sourceLine" id="cb12-30" data-line-number="30"><span class="co">#&gt; Ls.Hab.4        661.000 1375.000</span></a>
-<a class="sourceLine" id="cb12-31" data-line-number="31"><span class="co">#&gt; Eq.Hab.4          5.000    3.000</span></a>
-<a class="sourceLine" id="cb12-32" data-line-number="32"><span class="co">#&gt; Rep.Agg.Neut.4    0.000    0.000</span></a>
-<a class="sourceLine" id="cb12-33" data-line-number="33"><span class="co">#&gt; Obs.Quantile.4    0.584    0.139</span></a></code></pre></div>
+<p>We can wrap the code to run the Torus Translation Test into a convenient function, <code>ttt()</code>, to abstract out the boilperate code and focus on what matters most.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">ttt &lt;-<span class="st"> </span><span class="cf">function</span>(sp, ...) {</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2">  out &lt;-<span class="st"> </span><span class="kw">lapply</span>(sp, torusonesp.all, ...)</a>
+<a class="sourceLine" id="cb12-3" data-line-number="3">  <span class="kw">t</span>(<span class="kw">Reduce</span>(rbind, out))</a>
+<a class="sourceLine" id="cb12-4" data-line-number="4">}</a>
+<a class="sourceLine" id="cb12-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb12-6" data-line-number="6">two_species &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="kw">unique</span>(pick<span class="op">$</span>sp), <span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="kw">ttt</span>(</a>
+<a class="sourceLine" id="cb12-8" data-line-number="8">  two_species,</a>
+<a class="sourceLine" id="cb12-9" data-line-number="9">  <span class="dt">hab.index20 =</span> habitat_data,</a>
+<a class="sourceLine" id="cb12-10" data-line-number="10">  <span class="dt">allabund20 =</span> abundance_per_quadrat,</a>
+<a class="sourceLine" id="cb12-11" data-line-number="11">  <span class="dt">plotdim =</span> plot_dimensions,</a>
+<a class="sourceLine" id="cb12-12" data-line-number="12">  <span class="dt">gridsize =</span> grid_size</a>
+<a class="sourceLine" id="cb12-13" data-line-number="13">)</a>
+<a class="sourceLine" id="cb12-14" data-line-number="14"><span class="co">#&gt;                  CASARB   PREMON</span></a>
+<a class="sourceLine" id="cb12-15" data-line-number="15"><span class="co">#&gt; N.Hab.1          25.000   59.000</span></a>
+<a class="sourceLine" id="cb12-16" data-line-number="16"><span class="co">#&gt; Gr.Hab.1       1489.000  389.000</span></a>
+<a class="sourceLine" id="cb12-17" data-line-number="17"><span class="co">#&gt; Ls.Hab.1        109.000 1208.000</span></a>
+<a class="sourceLine" id="cb12-18" data-line-number="18"><span class="co">#&gt; Eq.Hab.1          2.000    3.000</span></a>
+<a class="sourceLine" id="cb12-19" data-line-number="19"><span class="co">#&gt; Rep.Agg.Neut.1    0.000    0.000</span></a>
+<a class="sourceLine" id="cb12-20" data-line-number="20"><span class="co">#&gt; Obs.Quantile.1    0.931    0.243</span></a>
+<a class="sourceLine" id="cb12-21" data-line-number="21"><span class="co">#&gt; N.Hab.2          12.000   75.000</span></a>
+<a class="sourceLine" id="cb12-22" data-line-number="22"><span class="co">#&gt; Gr.Hab.2        168.000 1562.000</span></a>
+<a class="sourceLine" id="cb12-23" data-line-number="23"><span class="co">#&gt; Ls.Hab.2       1431.000   37.000</span></a>
+<a class="sourceLine" id="cb12-24" data-line-number="24"><span class="co">#&gt; Eq.Hab.2          1.000    1.000</span></a>
+<a class="sourceLine" id="cb12-25" data-line-number="25"><span class="co">#&gt; Rep.Agg.Neut.2    0.000    1.000</span></a>
+<a class="sourceLine" id="cb12-26" data-line-number="26"><span class="co">#&gt; Obs.Quantile.2    0.105    0.976</span></a>
+<a class="sourceLine" id="cb12-27" data-line-number="27"><span class="co">#&gt; N.Hab.3          14.000   56.000</span></a>
+<a class="sourceLine" id="cb12-28" data-line-number="28"><span class="co">#&gt; Gr.Hab.3        567.000  632.000</span></a>
+<a class="sourceLine" id="cb12-29" data-line-number="29"><span class="co">#&gt; Ls.Hab.3       1029.000  963.000</span></a>
+<a class="sourceLine" id="cb12-30" data-line-number="30"><span class="co">#&gt; Eq.Hab.3          4.000    5.000</span></a>
+<a class="sourceLine" id="cb12-31" data-line-number="31"><span class="co">#&gt; Rep.Agg.Neut.3    0.000    0.000</span></a>
+<a class="sourceLine" id="cb12-32" data-line-number="32"><span class="co">#&gt; Obs.Quantile.3    0.354    0.395</span></a>
+<a class="sourceLine" id="cb12-33" data-line-number="33"><span class="co">#&gt; N.Hab.4          15.000   44.000</span></a>
+<a class="sourceLine" id="cb12-34" data-line-number="34"><span class="co">#&gt; Gr.Hab.4        934.000  222.000</span></a>
+<a class="sourceLine" id="cb12-35" data-line-number="35"><span class="co">#&gt; Ls.Hab.4        661.000 1375.000</span></a>
+<a class="sourceLine" id="cb12-36" data-line-number="36"><span class="co">#&gt; Eq.Hab.4          5.000    3.000</span></a>
+<a class="sourceLine" id="cb12-37" data-line-number="37"><span class="co">#&gt; Rep.Agg.Neut.4    0.000    0.000</span></a>
+<a class="sourceLine" id="cb12-38" data-line-number="38"><span class="co">#&gt; Obs.Quantile.4    0.584    0.139</span></a></code></pre></div>
 </div>
 <div id="scaling-up" class="section level3">
 <h3 class="hasAnchor">
 <a href="#scaling-up" class="anchor"></a>Scaling up</h3>
 <p>Our result doesn’t scale up very well. As the number of species increases the resulting matrix becomes harder to interpret and handle.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">census &lt;-<span class="st"> </span>luquillo_tree6_random <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">bigger_census &lt;-<span class="st"> </span>luquillo_tree6_random <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb13-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(status <span class="op">==</span><span class="st"> "A"</span>, dbh <span class="op">&gt;=</span><span class="st"> </span><span class="dv">10</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb13-3" data-line-number="3"><span class="st">  </span><span class="kw">add_count</span>(sp) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb13-4" data-line-number="4"><span class="st">  </span><span class="kw">filter</span>(n <span class="op">&gt;</span><span class="st"> </span><span class="dv">15</span>)</a>
 <a class="sourceLine" id="cb13-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb13-6" data-line-number="6">abnd &lt;-<span class="st"> </span><span class="kw"><a href="../reference/abundanceperquad.html">abundanceperquad</a></span>(</a>
-<a class="sourceLine" id="cb13-7" data-line-number="7">  census, <span class="dt">plotdim =</span> plot_dimensions, <span class="dt">gridsize =</span> grid_size</a>
+<a class="sourceLine" id="cb13-6" data-line-number="6">abundance &lt;-<span class="st"> </span><span class="kw"><a href="../reference/abundanceperquad.html">abundanceperquad</a></span>(</a>
+<a class="sourceLine" id="cb13-7" data-line-number="7">  bigger_census, <span class="dt">plotdim =</span> plot_dimensions, <span class="dt">gridsize =</span> grid_size</a>
 <a class="sourceLine" id="cb13-8" data-line-number="8">)<span class="op">$</span>abund</a>
 <a class="sourceLine" id="cb13-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb13-10" data-line-number="10">sp_lots &lt;-<span class="st"> </span><span class="kw">unique</span>(census<span class="op">$</span>sp)</a>
-<a class="sourceLine" id="cb13-11" data-line-number="11">result_lots &lt;-<span class="st"> </span><span class="kw">tttest</span>(</a>
-<a class="sourceLine" id="cb13-12" data-line-number="12">  sp_lots,</a>
+<a class="sourceLine" id="cb13-10" data-line-number="10">many_sp &lt;-<span class="st"> </span><span class="kw">unique</span>(bigger_census<span class="op">$</span>sp)</a>
+<a class="sourceLine" id="cb13-11" data-line-number="11">bigger_result &lt;-<span class="st"> </span><span class="kw">ttt</span>(</a>
+<a class="sourceLine" id="cb13-12" data-line-number="12">  many_sp,</a>
 <a class="sourceLine" id="cb13-13" data-line-number="13">  <span class="dt">hab.index20 =</span> habitat_data,</a>
-<a class="sourceLine" id="cb13-14" data-line-number="14">  <span class="dt">allabund20 =</span> abnd,</a>
+<a class="sourceLine" id="cb13-14" data-line-number="14">  <span class="dt">allabund20 =</span> abundance,</a>
 <a class="sourceLine" id="cb13-15" data-line-number="15">  <span class="dt">plotdim =</span> plot_dimensions,</a>
 <a class="sourceLine" id="cb13-16" data-line-number="16">  <span class="dt">gridsize =</span> grid_size</a>
 <a class="sourceLine" id="cb13-17" data-line-number="17">)</a>
-<a class="sourceLine" id="cb13-18" data-line-number="18">result_lots</a>
+<a class="sourceLine" id="cb13-18" data-line-number="18">bigger_result</a>
 <a class="sourceLine" id="cb13-19" data-line-number="19"><span class="co">#&gt;                  DACEXC   CASARB   PREMON   SCHMOR   MANBID   CASSYL</span></a>
 <a class="sourceLine" id="cb13-20" data-line-number="20"><span class="co">#&gt; N.Hab.1           3.000   25.000   59.000    6.000   13.000 7.00e+00</span></a>
 <a class="sourceLine" id="cb13-21" data-line-number="21"><span class="co">#&gt; Gr.Hab.1         64.000 1511.000  605.000  623.000 1076.000 9.23e+02</span></a>
@@ -425,94 +447,95 @@
 <a class="sourceLine" id="cb13-67" data-line-number="67"><span class="co">#&gt; Rep.Agg.Neut.4 0.00e+00 0.00e+00    0.000    0.000    0.000</span></a>
 <a class="sourceLine" id="cb13-68" data-line-number="68"><span class="co">#&gt; Obs.Quantile.4 6.91e-01 7.69e-02    0.357    0.688    0.647</span></a></code></pre></div>
 <p>A solution is to convert the resulting object to a friendly long-format dataframe.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">result_long &lt;-<span class="st"> </span>result_lots <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="st">  </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="st">  </span><span class="kw">add_column</span>(<span class="dt">metric =</span> <span class="kw">rownames</span>(result_lots)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">long_result &lt;-<span class="st"> </span>bigger_result <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="st">  </span><span class="kw">add_column</span>(<span class="dt">metric =</span> <span class="kw">rownames</span>(bigger_result)) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb14-4" data-line-number="4"><span class="st">  </span><span class="kw">gather</span>(<span class="dt">key =</span> <span class="st">"sp"</span>, <span class="dt">value =</span> <span class="st">"value"</span>, <span class="op">-</span>metric)</a>
-<a class="sourceLine" id="cb14-5" data-line-number="5">result_long</a>
-<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="co">#&gt; # A tibble: 264 x 3</span></a>
-<a class="sourceLine" id="cb14-7" data-line-number="7"><span class="co">#&gt;    metric         sp         value</span></a>
-<a class="sourceLine" id="cb14-8" data-line-number="8"><span class="co">#&gt;    &lt;chr&gt;          &lt;chr&gt;      &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb14-9" data-line-number="9"><span class="co">#&gt;  1 N.Hab.1        DACEXC    3.00  </span></a>
-<a class="sourceLine" id="cb14-10" data-line-number="10"><span class="co">#&gt;  2 Gr.Hab.1       DACEXC   64.0   </span></a>
-<a class="sourceLine" id="cb14-11" data-line-number="11"><span class="co">#&gt;  3 Ls.Hab.1       DACEXC 1532.    </span></a>
-<a class="sourceLine" id="cb14-12" data-line-number="12"><span class="co">#&gt;  4 Eq.Hab.1       DACEXC    4.00  </span></a>
-<a class="sourceLine" id="cb14-13" data-line-number="13"><span class="co">#&gt;  5 Rep.Agg.Neut.1 DACEXC    0.    </span></a>
-<a class="sourceLine" id="cb14-14" data-line-number="14"><span class="co">#&gt;  6 Obs.Quantile.1 DACEXC    0.0400</span></a>
-<a class="sourceLine" id="cb14-15" data-line-number="15"><span class="co">#&gt;  7 N.Hab.2        DACEXC    8.00  </span></a>
-<a class="sourceLine" id="cb14-16" data-line-number="16"><span class="co">#&gt;  8 Gr.Hab.2       DACEXC  598.    </span></a>
-<a class="sourceLine" id="cb14-17" data-line-number="17"><span class="co">#&gt;  9 Ls.Hab.2       DACEXC  997.    </span></a>
-<a class="sourceLine" id="cb14-18" data-line-number="18"><span class="co">#&gt; 10 Eq.Hab.2       DACEXC    5.00  </span></a>
-<a class="sourceLine" id="cb14-19" data-line-number="19"><span class="co">#&gt; # ... with 254 more rows</span></a></code></pre></div>
+<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="kw">head</span>(long_result)</a>
+<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="co">#&gt;           metric     sp   value</span></a>
+<a class="sourceLine" id="cb14-7" data-line-number="7"><span class="co">#&gt; 1        N.Hab.1 DACEXC    3.00</span></a>
+<a class="sourceLine" id="cb14-8" data-line-number="8"><span class="co">#&gt; 2       Gr.Hab.1 DACEXC   64.00</span></a>
+<a class="sourceLine" id="cb14-9" data-line-number="9"><span class="co">#&gt; 3       Ls.Hab.1 DACEXC 1532.00</span></a>
+<a class="sourceLine" id="cb14-10" data-line-number="10"><span class="co">#&gt; 4       Eq.Hab.1 DACEXC    4.00</span></a>
+<a class="sourceLine" id="cb14-11" data-line-number="11"><span class="co">#&gt; 5 Rep.Agg.Neut.1 DACEXC    0.00</span></a>
+<a class="sourceLine" id="cb14-12" data-line-number="12"><span class="co">#&gt; 6 Obs.Quantile.1 DACEXC    0.04</span></a></code></pre></div>
+<p>Once again, we could wrap the re-formatting code into a handy function.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">gather_ttt &lt;-<span class="st"> </span><span class="cf">function</span>(ttt) {</a>
+<a class="sourceLine" id="cb15-2" data-line-number="2">  ttt <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="st">    </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="st">    </span><span class="kw">add_column</span>(<span class="dt">metric =</span> <span class="kw">rownames</span>(ttt)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="st">    </span><span class="kw">gather</span>(<span class="dt">key =</span> <span class="st">"sp"</span>, <span class="dt">value =</span> <span class="st">"value"</span>, <span class="op">-</span>metric)</a>
+<a class="sourceLine" id="cb15-6" data-line-number="6">}</a>
+<a class="sourceLine" id="cb15-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb15-8" data-line-number="8">long_result &lt;-<span class="st"> </span><span class="kw">gather_ttt</span>(bigger_result)</a></code></pre></div>
 <p>With this format, the dataframe is easier to manipulate, summarize and visualize. For example:</p>
 <ul>
 <li>Filtering interesting species.</li>
 </ul>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">top_sp &lt;-<span class="st"> </span><span class="kw">count</span>(census, sp) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">top_n</span>(<span class="dv">5</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(sp)</a>
-<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="co">#&gt; Selecting by nn</span></a>
-<a class="sourceLine" id="cb15-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb15-4" data-line-number="4">result_top_sp &lt;-<span class="st"> </span><span class="kw">filter</span>(result_long, sp <span class="op">%in%</span><span class="st"> </span>top_sp)</a>
-<a class="sourceLine" id="cb15-5" data-line-number="5">result_top_sp <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">spread</span>(sp, value)</a>
-<a class="sourceLine" id="cb15-6" data-line-number="6"><span class="co">#&gt; # A tibble: 24 x 6</span></a>
-<a class="sourceLine" id="cb15-7" data-line-number="7"><span class="co">#&gt;    metric   CASARB DACEXC MANBID PREMON SLOBER</span></a>
-<a class="sourceLine" id="cb15-8" data-line-number="8"><span class="co">#&gt;    &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb15-9" data-line-number="9"><span class="co">#&gt;  1 Eq.Hab.1     9.     4.     5.     5.     2.</span></a>
-<a class="sourceLine" id="cb15-10" data-line-number="10"><span class="co">#&gt;  2 Eq.Hab.2     2.     5.     3.     1.     5.</span></a>
-<a class="sourceLine" id="cb15-11" data-line-number="11"><span class="co">#&gt;  3 Eq.Hab.3     2.     5.     1.     3.     3.</span></a>
-<a class="sourceLine" id="cb15-12" data-line-number="12"><span class="co">#&gt;  4 Eq.Hab.4     4.     2.     4.     3.     3.</span></a>
-<a class="sourceLine" id="cb15-13" data-line-number="13"><span class="co">#&gt;  5 Gr.Hab.1  1511.    64.  1076.   605.   536.</span></a>
-<a class="sourceLine" id="cb15-14" data-line-number="14"><span class="co">#&gt;  6 Gr.Hab.2   219.   598.   440.  1577.   590.</span></a>
-<a class="sourceLine" id="cb15-15" data-line-number="15"><span class="co">#&gt;  7 Gr.Hab.3   466.   443.  1346.   333.  1060.</span></a>
-<a class="sourceLine" id="cb15-16" data-line-number="16"><span class="co">#&gt;  8 Gr.Hab.4   888.  1576.   230.   165.  1100.</span></a>
-<a class="sourceLine" id="cb15-17" data-line-number="17"><span class="co">#&gt;  9 Ls.Hab.1    80.  1532.   519.   990.  1062.</span></a>
-<a class="sourceLine" id="cb15-18" data-line-number="18"><span class="co">#&gt; 10 Ls.Hab.2  1379.   997.  1157.    22.  1005.</span></a>
-<a class="sourceLine" id="cb15-19" data-line-number="19"><span class="co">#&gt; # ... with 14 more rows</span></a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">top_sp &lt;-<span class="st"> </span>bigger_census <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="st">  </span><span class="kw">count</span>(sp) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="st">  </span><span class="kw">top_n</span>(<span class="dv">5</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="st">  </span><span class="kw">pull</span>(sp)</a>
+<a class="sourceLine" id="cb16-5" data-line-number="5"><span class="co">#&gt; Selecting by nn</span></a>
+<a class="sourceLine" id="cb16-6" data-line-number="6">top_sp</a>
+<a class="sourceLine" id="cb16-7" data-line-number="7"><span class="co">#&gt; [1] "CASARB" "DACEXC" "MANBID" "PREMON" "SLOBER"</span></a>
+<a class="sourceLine" id="cb16-8" data-line-number="8"></a>
+<a class="sourceLine" id="cb16-9" data-line-number="9">result_top_sp &lt;-<span class="st"> </span><span class="kw">filter</span>(long_result, sp <span class="op">%in%</span><span class="st"> </span>top_sp)</a>
+<a class="sourceLine" id="cb16-10" data-line-number="10"><span class="co"># Friendly view</span></a>
+<a class="sourceLine" id="cb16-11" data-line-number="11"><span class="kw">spread</span>(result_top_sp, sp, value)</a>
+<a class="sourceLine" id="cb16-12" data-line-number="12"><span class="co">#&gt;            metric   CASARB   DACEXC   MANBID   PREMON   SLOBER</span></a>
+<a class="sourceLine" id="cb16-13" data-line-number="13"><span class="co">#&gt; 1        Eq.Hab.1    9.000    4.000    5.000    5.000    2.000</span></a>
+<a class="sourceLine" id="cb16-14" data-line-number="14"><span class="co">#&gt; 2        Eq.Hab.2    2.000    5.000    3.000    1.000    5.000</span></a>
+<a class="sourceLine" id="cb16-15" data-line-number="15"><span class="co">#&gt; 3        Eq.Hab.3    2.000    5.000    1.000    3.000    3.000</span></a>
+<a class="sourceLine" id="cb16-16" data-line-number="16"><span class="co">#&gt; 4        Eq.Hab.4    4.000    2.000    4.000    3.000    3.000</span></a>
+<a class="sourceLine" id="cb16-17" data-line-number="17"><span class="co">#&gt; 5        Gr.Hab.1 1511.000   64.000 1076.000  605.000  536.000</span></a>
+<a class="sourceLine" id="cb16-18" data-line-number="18"><span class="co">#&gt; 6        Gr.Hab.2  219.000  598.000  440.000 1577.000  590.000</span></a>
+<a class="sourceLine" id="cb16-19" data-line-number="19"><span class="co">#&gt; 7        Gr.Hab.3  466.000  443.000 1346.000  333.000 1060.000</span></a>
+<a class="sourceLine" id="cb16-20" data-line-number="20"><span class="co">#&gt; 8        Gr.Hab.4  888.000 1576.000  230.000  165.000 1100.000</span></a>
+<a class="sourceLine" id="cb16-21" data-line-number="21"><span class="co">#&gt; 9        Ls.Hab.1   80.000 1532.000  519.000  990.000 1062.000</span></a>
+<a class="sourceLine" id="cb16-22" data-line-number="22"><span class="co">#&gt; 10       Ls.Hab.2 1379.000  997.000 1157.000   22.000 1005.000</span></a>
+<a class="sourceLine" id="cb16-23" data-line-number="23"><span class="co">#&gt; 11       Ls.Hab.3 1132.000 1152.000  253.000 1264.000  537.000</span></a>
+<a class="sourceLine" id="cb16-24" data-line-number="24"><span class="co">#&gt; 12       Ls.Hab.4  708.000   22.000 1366.000 1432.000  497.000</span></a>
+<a class="sourceLine" id="cb16-25" data-line-number="25"><span class="co">#&gt; 13        N.Hab.1   25.000    3.000   13.000   59.000   14.000</span></a>
+<a class="sourceLine" id="cb16-26" data-line-number="26"><span class="co">#&gt; 14        N.Hab.2   12.000    8.000   10.000   75.000   16.000</span></a>
+<a class="sourceLine" id="cb16-27" data-line-number="27"><span class="co">#&gt; 15        N.Hab.3   14.000    7.000   15.000   56.000   19.000</span></a>
+<a class="sourceLine" id="cb16-28" data-line-number="28"><span class="co">#&gt; 16        N.Hab.4   15.000   15.000    7.000   44.000   17.000</span></a>
+<a class="sourceLine" id="cb16-29" data-line-number="29"><span class="co">#&gt; 17 Obs.Quantile.1    0.944    0.040    0.672    0.378    0.335</span></a>
+<a class="sourceLine" id="cb16-30" data-line-number="30"><span class="co">#&gt; 18 Obs.Quantile.2    0.137    0.374    0.275    0.986    0.369</span></a>
+<a class="sourceLine" id="cb16-31" data-line-number="31"><span class="co">#&gt; 19 Obs.Quantile.3    0.291    0.277    0.841    0.208    0.662</span></a>
+<a class="sourceLine" id="cb16-32" data-line-number="32"><span class="co">#&gt; 20 Obs.Quantile.4    0.555    0.985    0.144    0.103    0.688</span></a>
+<a class="sourceLine" id="cb16-33" data-line-number="33"><span class="co">#&gt; 21 Rep.Agg.Neut.1    0.000    0.000    0.000    0.000    0.000</span></a>
+<a class="sourceLine" id="cb16-34" data-line-number="34"><span class="co">#&gt; 22 Rep.Agg.Neut.2    0.000    0.000    0.000    1.000    0.000</span></a>
+<a class="sourceLine" id="cb16-35" data-line-number="35"><span class="co">#&gt; 23 Rep.Agg.Neut.3    0.000    0.000    0.000    0.000    0.000</span></a>
+<a class="sourceLine" id="cb16-36" data-line-number="36"><span class="co">#&gt; 24 Rep.Agg.Neut.4    0.000    1.000    0.000    0.000    0.000</span></a></code></pre></div>
 <ul>
 <li>Producing analytic summaries.</li>
 </ul>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">result_top_sp <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(metric) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(value), <span class="dt">max =</span> <span class="kw">max</span>(value), <span class="dt">min =</span> <span class="kw">min</span>(value)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="st">  </span><span class="kw">print</span>(<span class="dt">n =</span> <span class="kw">length</span>(.))</a>
-<a class="sourceLine" id="cb16-5" data-line-number="5"><span class="co">#&gt; # A tibble: 24 x 4</span></a>
-<a class="sourceLine" id="cb16-6" data-line-number="6"><span class="co">#&gt;   metric    mean   max   min</span></a>
-<a class="sourceLine" id="cb16-7" data-line-number="7"><span class="co">#&gt;   &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb16-8" data-line-number="8"><span class="co">#&gt; 1 Eq.Hab.1  5.00    9.    2.</span></a>
-<a class="sourceLine" id="cb16-9" data-line-number="9"><span class="co">#&gt; 2 Eq.Hab.2  3.20    5.    1.</span></a>
-<a class="sourceLine" id="cb16-10" data-line-number="10"><span class="co">#&gt; 3 Eq.Hab.3  2.80    5.    1.</span></a>
-<a class="sourceLine" id="cb16-11" data-line-number="11"><span class="co">#&gt; 4 Eq.Hab.4  3.20    4.    2.</span></a>
-<a class="sourceLine" id="cb16-12" data-line-number="12"><span class="co">#&gt; # ... with 20 more rows</span></a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">result_top_sp <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="st">  </span><span class="kw">group_by</span>(metric) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb17-3" data-line-number="3"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(value), <span class="dt">max =</span> <span class="kw">max</span>(value), <span class="dt">min =</span> <span class="kw">min</span>(value))</a>
+<a class="sourceLine" id="cb17-4" data-line-number="4"><span class="co">#&gt; # A tibble: 24 x 4</span></a>
+<a class="sourceLine" id="cb17-5" data-line-number="5"><span class="co">#&gt;    metric     mean   max   min</span></a>
+<a class="sourceLine" id="cb17-6" data-line-number="6"><span class="co">#&gt;    &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb17-7" data-line-number="7"><span class="co">#&gt;  1 Eq.Hab.1   5.00    9.    2.</span></a>
+<a class="sourceLine" id="cb17-8" data-line-number="8"><span class="co">#&gt;  2 Eq.Hab.2   3.20    5.    1.</span></a>
+<a class="sourceLine" id="cb17-9" data-line-number="9"><span class="co">#&gt;  3 Eq.Hab.3   2.80    5.    1.</span></a>
+<a class="sourceLine" id="cb17-10" data-line-number="10"><span class="co">#&gt;  4 Eq.Hab.4   3.20    4.    2.</span></a>
+<a class="sourceLine" id="cb17-11" data-line-number="11"><span class="co">#&gt;  5 Gr.Hab.1 758.   1511.   64.</span></a>
+<a class="sourceLine" id="cb17-12" data-line-number="12"><span class="co">#&gt;  6 Gr.Hab.2 685.   1577.  219.</span></a>
+<a class="sourceLine" id="cb17-13" data-line-number="13"><span class="co">#&gt;  7 Gr.Hab.3 730.   1346.  333.</span></a>
+<a class="sourceLine" id="cb17-14" data-line-number="14"><span class="co">#&gt;  8 Gr.Hab.4 792.   1576.  165.</span></a>
+<a class="sourceLine" id="cb17-15" data-line-number="15"><span class="co">#&gt;  9 Ls.Hab.1 837.   1532.   80.</span></a>
+<a class="sourceLine" id="cb17-16" data-line-number="16"><span class="co">#&gt; 10 Ls.Hab.2 912.   1379.   22.</span></a>
+<a class="sourceLine" id="cb17-17" data-line-number="17"><span class="co">#&gt; # ... with 14 more rows</span></a></code></pre></div>
 <ul>
 <li>Producing visual summaries.</li>
 </ul>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">result_top_sp <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(sp, value, <span class="dt">color =</span> sp)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb17-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb17-4" data-line-number="4"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="st">"metric"</span>, <span class="dt">scales =</span> <span class="st">"free_y"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb17-5" data-line-number="5"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_blank</span>())</a></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">ggplot</span>(result_top_sp, <span class="kw">aes</span>(sp, value, <span class="dt">color =</span> sp)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb18-3" data-line-number="3"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="st">"metric"</span>, <span class="dt">scales =</span> <span class="st">"free_y"</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb18-4" data-line-number="4"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_blank</span>())</a></code></pre></div>
 <p><img src="ttt_luquillo_files/figure-html/unnamed-chunk-15-1.png" width="100%" style="display: block; margin: auto;"></p>
-</div>
-<div id="map" class="section level3">
-<h3 class="hasAnchor">
-<a href="#map" class="anchor"></a>Map</h3>
-<p>Let’s see the distribution of species by habitat type.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">offset &lt;-<span class="st"> </span><span class="dv">20</span> <span class="op">/</span><span class="st"> </span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb18-2" data-line-number="2">habitat_centered &lt;-<span class="st"> </span><span class="kw">mutate</span>(</a>
-<a class="sourceLine" id="cb18-3" data-line-number="3">  habitat_data, </a>
-<a class="sourceLine" id="cb18-4" data-line-number="4">  <span class="co"># Center species and habitat data</span></a>
-<a class="sourceLine" id="cb18-5" data-line-number="5">  <span class="dt">x =</span> x <span class="op">+</span><span class="st"> </span>offset, </a>
-<a class="sourceLine" id="cb18-6" data-line-number="6">  <span class="dt">y =</span> y <span class="op">+</span><span class="st"> </span>offset,</a>
-<a class="sourceLine" id="cb18-7" data-line-number="7">  <span class="co"># From continuous to categorical</span></a>
-<a class="sourceLine" id="cb18-8" data-line-number="8">  <span class="dt">habitats =</span> <span class="kw">as.factor</span>(habitats)</a>
-<a class="sourceLine" id="cb18-9" data-line-number="9">)</a>
-<a class="sourceLine" id="cb18-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb18-11" data-line-number="11"><span class="kw">ggplot</span>(census_data, <span class="kw">aes</span>(<span class="dt">x =</span> gx, <span class="dt">y =</span> gy)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb18-12" data-line-number="12"><span class="st">  </span><span class="kw">geom_raster</span>(<span class="dt">data =</span> habitat_centered, <span class="kw">aes</span>(x, y, <span class="dt">fill =</span> habitats)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb18-13" data-line-number="13"><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb18-14" data-line-number="14"><span class="st">  </span><span class="kw">coord_fixed</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb18-15" data-line-number="15"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>sp) <span class="op">+</span></a>
-<a class="sourceLine" id="cb18-16" data-line-number="16"><span class="st">  </span><span class="kw">labs</span>(<span class="dt">fill =</span> <span class="st">"Habitat"</span>)</a></code></pre></div>
-<p><img src="ttt_luquillo_files/figure-html/map-one-sp-1.png" width="100%" style="display: block; margin: auto;"></p>
 </div>
 </div>
   </div>
