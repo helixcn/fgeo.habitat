@@ -18,9 +18,7 @@ sp_top1_luq <- first(sp_top3_luq)
 # Reduce duplication
 abundance_sp <- function(n) {
   .cns <- filter(cns_luq, status == "A", sp  %in% sp_top3_luq[1:n])
-  abundanceperquad(
-    .cns, plotdim = pdim_luq, gridsize = gsize_luq, type = 'abund'
-  )$abund
+  abund_index(.cns, pdim_luq, gsize_luq)
 }
 
 test_that("regression: outputs equal to original function", {
@@ -81,23 +79,17 @@ test_that("regression: outputs equal to known output", {
   census_data <- luquillo_top3_sp
   alive_trees <- census_data[census_data$status == "A", ]
   habitat_data <- luquillo_habitat
-  plot_dimensions <- c(320, 500)
-  grid_size <- 20
-  abundance_per_quadrat <- abundanceperquad(
-    alive_trees,
-    plotdim = plot_dimensions,
-    gridsize = grid_size,
-    type = 'abund'
-  )$abund
+  pdim <- c(320, 500)
+  gsize <- 20
   all_species <- unique(census_data$sp)
   out_all <- lapply(
     X = all_species,
     FUN = tt_test_one,
     # Other arguments passed to tt_test_one
     hab.index20 = habitat_data,
-    allabund20 = abundance_per_quadrat,
-    plotdim = plot_dimensions,
-    gridsize = grid_size
+    allabund20 = abund_index(alive_trees, pdim, gsize),
+    plotdim = pdim,
+    gridsize = gsize
   )
   out_all <- Reduce(rbind, out_all)
   expect_known_output(out_all, "ref-luq_3sp", print = TRUE, update = TRUE)
@@ -124,13 +116,10 @@ test_that("tests with Pasoh", {
   hab <- pasoh::pasoh_hab_index20
   
   # REGRESSION
-  abun_quad <- abundanceperquad(
-    cns_tiny, plotdim = pdim, gridsize = gsize, type = 'abund'
-  )$abund
   out_onesp <- tt_test_one(
     species = this_sp,
     hab.index20 = hab,
-    allabund20 = abun_quad,
+    allabund20 = abund_index(cns_tiny, pdim, gsize),
     plotdim = pdim,
     gridsize = gsize
   )
@@ -144,16 +133,12 @@ test_that("tests with Pasoh", {
   # If datasets has only one species, the test fails -- this makes sense but
   # should confirm with Russo et al
   cns_1sp <- cns_tiny %>% filter(sp  == this_sp)
-  abun_quad <- abundanceperquad(
-    cns_1sp, plotdim = pdim, gridsize = gsize, type = 'abund'
-  )$abund
-
   expect_error({
     expect_warning(
       tt_test_one(
         species = this_sp,
         hab.index20 = hab,
-        allabund20 = abun_quad,
+        allabund20 = abund_index(cns_1sp, pdim, gsize),
         plotdim = pdim,
         gridsize = gsize
       ),
@@ -163,14 +148,11 @@ test_that("tests with Pasoh", {
   
   # PASSES WITH A TWO-SPECIES DATASET
   cns_2sp <- cns_tiny %>% filter(sp %in% sample(cns_tiny$sp, 2))
-  abun_quad <- abundanceperquad(
-    cns_2sp, plotdim = pdim, gridsize = gsize, type = 'abund'
-  )$abund
   expect_silent(
     tt_test_one(
       species = this_sp,
       hab.index20 = hab,
-      allabund20 = abun_quad,
+      allabund20 = abund_index(cns_2sp, pdim, gsize),
       plotdim = pdim,
       gridsize = gsize
     )
@@ -197,15 +179,13 @@ test_that("outputs silently with good habitat data from BCI", {
     filter(n > 50)
   bci_pdim <- c(1000, 500)
   bci_gsz <- 20
-  bci_n <- abundanceperquad(bci_cns, plotdim = bci_pdim, gridsize = bci_gsz,
-    type = "abund")$abund
   bci_sp <- unique(bci_cns$sp)[[1]]
   
   expect_silent(
     tt_test_one(
       species = bci_sp,
       hab.index20 = bci_hab,
-      allabund20 = bci_n,
+      allabund20 = abund_index(bci_cns, bci_pdim, bci_gsz),
       plotdim = bci_pdim,
       gridsize = bci_gsz
     )

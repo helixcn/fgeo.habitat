@@ -22,7 +22,7 @@ test_that("outputs the expected tibble", {
 pdim_luq <- c(320, 500)
 gsize_luq <- 20
 
-abnd <- abundanceperquad(cns_luq, 0, pdim_luq, gsize_luq)$abund
+abnd <- abund_index(cns_luq, pdim_luq, gsize_luq)
 out_tt_one <- tt_test_one(
   species = sp_top1_luq,
   hab.index20 = hab_luq,

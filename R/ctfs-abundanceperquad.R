@@ -8,7 +8,7 @@
 #' @inheritParams ctfs::abundanceperquad
 #'
 #' @family functions from http://ctfs.si.edu/Public/CTFSRPackage/
-#' @export
+#' @keywords internal
 abundanceperquad <- function(censdata,
                              mindbh = 10,
                              plotdim = c(1000, 500),
