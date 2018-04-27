@@ -89,35 +89,6 @@ tt_test <- function(sp,
   tt_gather(tt_mat)
 }
 
-#' @export
-#' @name tt_test
-tt_gather <- function(ttt) {
-  UseMethod("tt_gather")
-}
-
-#' @export
-tt_gather.list <- function(ttt) {
-  flip <- t(Reduce(rbind, ttt))
-  mat_enframe(flip, "metric", "sp", "value")
-}
-#' @export
-tt_gather.matrix <- function(ttt) {
-  flip <- t(ttt)
-  mat_enframe(flip, "metric", "sp", "value")
-}
-#' @export
-tt_gather.default <- function(ttt) {
-  rlang::abort(paste0("Can't deal with data of class ", class(ttt), "."))
-}
-
-
-
-
-
-
-
-
-
 #' @rdname tt_test
 #' @export
 tt_test_one <- function(species, hab.index20, allabund20, plotdim, gridsize) {
@@ -249,3 +220,32 @@ warn_invalid_comparison <- function(spp, torus) {
   )
   rlang::warn(paste0(msg, value))
 }
+
+#' Gather the output of `tt_test_one()`.
+#' 
+#' Gather the output of `tt_test_one()`. For examples see [tt_test()].
+#'
+#' @param ttt Output of `tt_test_one()`; Either a single matix or a list of
+#'   matrices.
+#'
+#' @return A dataframe.
+#' @export
+tt_gather <- function(ttt) {
+  UseMethod("tt_gather")
+}
+
+#' @export
+tt_gather.list <- function(ttt) {
+  flip <- t(Reduce(rbind, ttt))
+  mat_enframe(flip, "metric", "sp", "value")
+}
+#' @export
+tt_gather.matrix <- function(ttt) {
+  flip <- t(ttt)
+  mat_enframe(flip, "metric", "sp", "value")
+}
+#' @export
+tt_gather.default <- function(ttt) {
+  rlang::abort(paste0("Can't deal with data of class ", class(ttt), "."))
+}
+

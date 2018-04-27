@@ -2,15 +2,11 @@
 % Please edit documentation in R/tt_test.R
 \name{tt_test}
 \alias{tt_test}
-\alias{tt_test}
-\alias{tt_gather}
 \alias{tt_test_one}
 \title{Torus Translation Test to determine habitat associations of tree species.}
 \usage{
 tt_test(sp, census, habitat, plotdim = extract_plotdim(habitat),
   gridsize = extract_gridsize(habitat))
-
-tt_gather(ttt)
 
 tt_test_one(species, hab.index20, allabund20, plotdim, gridsize)
 }
@@ -29,9 +25,9 @@ plot partition defined by \code{gridsize}.}
 gridsize on which the habitats are defined and the abundances were
 calculated.}
 
-\item{ttt}{Result of a tt_test().}
-
 \item{allabund20}{The output of \code{abundanceperquadrat()}.}
+
+\item{ttt}{Result of a tt_test().}
 }
 \value{
 A numeric matrix.
