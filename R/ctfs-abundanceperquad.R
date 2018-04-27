@@ -1,3 +1,35 @@
+#' Abundance, basal area, or agb of every species by quadrat.
+#' 
+#' Finds abundance, basal area, or agb of every species per square quadrat of
+#' any size; plotdim is the x dimension then y dimension of the plot and must be
+#' set correctly; gridsize is the quadrat dimension. The plot is divided into a
+#' checkerboard of non-overlapping, space-filling squares.
+#'
+#' @inheritParams ctfs::abundanceperquad
+#'
+#' @family functions from http://ctfs.si.edu/Public/CTFSRPackage/
+#' @export
+abundanceperquad <- function(censdata,
+                             mindbh = 10,
+                             plotdim = c(1000, 500),
+                             gridsize = 100,
+                             type = "abund",
+                             dbhunit = "mm") {
+  sp = censdata$sp
+  quadno = gxgy.to.index(censdata$gx, censdata$gy, gridsize = gridsize, 
+    plotdim = plotdim)
+  result = abundance(censdata, type = type, mindbh = mindbh, 
+    dbhunit = dbhunit, split1 = sp, split2 = quadno)
+  allspp = unique(censdata$sp)
+  maxquad = floor(plotdim[1]/gridsize) * floor(plotdim[2]/gridsize)
+  allquad = 1:maxquad
+  if (dim(result[[type]])[1] < length(allspp) | dim(result[[type]])[2] < 
+      length(allquad)) 
+    result[[type]] = fill.dimension(result[[type]], class1 = allspp, 
+      class2 = allquad, fill = 0)
+  return(result)
+}
+
 #' Internal.
 #'
 #' @family functions from http://ctfs.si.edu/Public/CTFSRPackage/
@@ -37,40 +69,6 @@ function (censdata, type = "abund", alivecode = c("A"), mindbh = NULL,
         names(result)[1] = "agb"
     return(result)
 }
-
-#' Abundance, basal area, or agb of every species by quadrat.
-#' 
-#' Finds abundance, basal area, or agb of every species per square quadrat of
-#' any size; plotdim is the x dimension then y dimension of the plot and must be
-#' set correctly; gridsize is the quadrat dimension. The plot is divided into a
-#' checkerboard of non-overlapping, space-filling squares.
-#'
-#' @inheritParams ctfs::abundanceperquad
-#'
-#' @family functions from http://ctfs.si.edu/Public/CTFSRPackage/
-#' @export
-abundanceperquad <- function (censdata,
-                              mindbh = 10,
-                              plotdim = c(1000, 500),
-                              gridsize = 100,
-                              type = "abund",
-                              dbhunit = "mm") {
-    sp = censdata$sp
-    quadno = gxgy.to.index(censdata$gx, censdata$gy, gridsize = gridsize, 
-        plotdim = plotdim)
-    result = abundance(censdata, type = type, mindbh = mindbh, 
-        dbhunit = dbhunit, split1 = sp, split2 = quadno)
-    allspp = unique(censdata$sp)
-    maxquad = floor(plotdim[1]/gridsize) * floor(plotdim[2]/gridsize)
-    allquad = 1:maxquad
-    if (dim(result[[type]])[1] < length(allspp) | dim(result[[type]])[2] < 
-        length(allquad)) 
-        result[[type]] = fill.dimension(result[[type]], class1 = allspp, 
-            class2 = allquad, fill = 0)
-    return(result)
-}
-
-
 
 #' Internal.
 #'

@@ -1,9 +1,5 @@
 # TODO
 
-
-# Test mat_enframe
-
-
 # Pull abundanceperquad() out from tt_test(), wrap it into n_by_idx() and feed 
 # it as an argument. n_by_idx() can then change once I develop a better version.
 
