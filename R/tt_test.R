@@ -10,7 +10,7 @@
 #' The wrapper `tt_test()` uses `abundanceperquad()` internaly which is slow.
 #' You may calculate abundance per quadrat independently, feed it to the
 #' argument `allabund20` of `tt_test_one()`, and reformat the output with
-#' `tt_gather()`. See Examples to iterate over multiple species.
+#' `tt_df()`. See Examples to iterate over multiple species.
 #' 
 #' @param sp,species Character sting giving species names. `tt_test_one()` can 
 #'   take only one species; `tt_test()` can take any number of species.
@@ -32,6 +32,8 @@
 #' 
 #' @export
 #' @examples
+#' # Setup
+#' 
 #' # For easier data wranging
 #' library(dplyr)
 #' 
@@ -47,10 +49,14 @@
 #' 
 #' species <- unique(pick$sp)
 #' 
+#' 
+#' 
 #' # Test with the wrapper tt_test()
+#' 
 #' out <- tt_test(species, census, habitat)
 #' # Try also: View(out)
-#' out
+#' head(out)
+#' tail(out)
 #' 
 #' 
 #' 
@@ -68,21 +74,22 @@
 #'   plotdim = plotdim,
 #'   gridsize = gridsize
 #' )
-#' out2
-#' # Nicer view; try also View(tt_gather(out2))
-#' tt_gather(out2)
+#' head(out2)
+#' tail(out2)
+#' # Nicer view; try also View(tt_df(out2))
+#' head(tt_df(out2))
 #' 
 #' # Multiple species
 #' out3 <- lapply(
 #'   species, tt_test_one,
 #'   hab.index20 = habitat,
-#'   allabund20 = abundnce,
+#'   allabund20 = abundance,
 #'   plotdim = plotdim,
 #'   gridsize = gridsize
 #' )
 #' out3
-#' # Nicer view; try also View(tt_gather(out3))
-#' tt_gather(out3)
+#' # Nicer view; try also View(tt_df(out3))
+#' head(tt_df(out3))
 tt_test <- function(sp, 
                     census, 
                     habitat, 
@@ -101,7 +108,7 @@ tt_test <- function(sp,
     gridsize = gridsize
   )
   
-  tt_gather(tt_mat)
+  tt_df(tt_mat)
 }
 
 #' @rdname tt_test
@@ -245,22 +252,22 @@ warn_invalid_comparison <- function(spp, torus) {
 #'
 #' @return A dataframe.
 #' @export
-tt_gather <- function(ttt) {
-  UseMethod("tt_gather")
+tt_df <- function(ttt) {
+  UseMethod("tt_df")
 }
 
 #' @export
-tt_gather.list <- function(ttt) {
+tt_df.list <- function(ttt) {
   flip <- t(Reduce(rbind, ttt))
   mat_enframe(flip, "metric", "sp", "value")
 }
 #' @export
-tt_gather.matrix <- function(ttt) {
+tt_df.matrix <- function(ttt) {
   flip <- t(ttt)
   mat_enframe(flip, "metric", "sp", "value")
 }
 #' @export
-tt_gather.default <- function(ttt) {
+tt_df.default <- function(ttt) {
   rlang::abort(paste0("Can't deal with data of class ", class(ttt), "."))
 }
 

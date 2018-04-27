@@ -37,5 +37,5 @@ test_that("outputs expected values", {
 })
 
 test_that("Fails with known error", {
-  expect_error(tt_gather(character()), "Can't deal with data")
+  expect_error(tt_df(character()), "Can't deal with data")
 })

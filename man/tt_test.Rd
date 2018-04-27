@@ -44,9 +44,11 @@ has been used.
 The wrapper \code{tt_test()} uses \code{abundanceperquad()} internaly which is slow.
 You may calculate abundance per quadrat independently, feed it to the
 argument \code{allabund20} of \code{tt_test_one()}, and reformat the output with
-\code{tt_gather()}. See Examples to iterate over multiple species.
+\code{tt_df()}. See Examples to iterate over multiple species.
 }
 \examples{
+# Setup
+
 # For easier data wranging
 library(dplyr)
 
@@ -62,10 +64,14 @@ pick <- filter(pick, n > 50)
 
 species <- unique(pick$sp)
 
+
+
 # Test with the wrapper tt_test()
+
 out <- tt_test(species, census, habitat)
 # Try also: View(out)
-out
+head(out)
+tail(out)
 
 
 
@@ -83,21 +89,22 @@ out2 <- tt_test_one(unique(pick$sp)[[2]],
   plotdim = plotdim,
   gridsize = gridsize
 )
-out2
-# Nicer view; try also View(tt_gather(out2))
-tt_gather(out2)
+head(out2)
+tail(out2)
+# Nicer view; try also View(tt_df(out2))
+head(tt_df(out2))
 
 # Multiple species
 out3 <- lapply(
   species, tt_test_one,
   hab.index20 = habitat,
-  allabund20 = abundnce,
+  allabund20 = abundance,
   plotdim = plotdim,
   gridsize = gridsize
 )
 out3
-# Nicer view; try also View(tt_gather(out3))
-tt_gather(out3)
+# Nicer view; try also View(tt_df(out3))
+head(tt_df(out3))
 }
 \seealso{
 Example at \url{https://bookdown.org/fgeocomm/ttt/}.

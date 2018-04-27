@@ -36,3 +36,4 @@ Other functions from http://ctfs.si.edu/Public/CTFSRPackage/: \code{\link{abunda
   \code{\link{gxgy.to.index}},
   \code{\link{rowcol.to.index}}
 }
+\keyword{internal}
