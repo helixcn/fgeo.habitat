@@ -244,7 +244,7 @@ warn_invalid_comparison <- function(spp, torus) {
 
 #' Gather the output of `tt_test_one()`.
 #' 
-#' Gather the output of `tt_test_one()`. For examples see [tt_test()].
+#' Dataframe the output of `tt_test_one()`. For examples see [tt_test()].
 #'
 #' @param ttt Output of `tt_test_one()`; Either a single matix or a list of
 #'   matrices.

@@ -14,5 +14,5 @@ matrices.}
 A dataframe.
 }
 \description{
-Gather the output of \code{tt_test_one()}. For examples see \code{\link[=tt_test]{tt_test()}}.
+Dataframe the output of \code{tt_test_one()}. For examples see \code{\link[=tt_test]{tt_test()}}.
 }

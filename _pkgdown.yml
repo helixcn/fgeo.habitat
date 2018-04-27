@@ -49,10 +49,16 @@ reference:
       - soil_random
   - title: "Torus translation"
     contents:
-      - torusonesp.all
+      - starts_with("tt_")
+      - -matches("tt_df")
       - dist_in_torus
   - title: "Torus translation: Helpers"
     contents:
-      - abundanceperquad
+      - tt_df
+      - abund_index
       - extract_plotdim
       - extract_gridsize
+  - title: "Datasets"
+    contents:
+      - starts_with("luquillo")
+    
