@@ -47,42 +47,57 @@ argument \code{allabund20} of \code{tt_test_one()}, and reformat the output with
 \code{tt_gather()}. See Examples to iterate over multiple species.
 }
 \examples{
-# Not crucial but makes data wranging more succint and easier to understand
+# For easier data wranging
 library(dplyr)
 
 # Example data
-hab <- luquillo_habitat
-cns <- luquillo_top3_sp
+habitat <- luquillo_habitat
+census <- luquillo_top3_sp
 
 # Pick alive trees, of 10 mm or more
-pick <- filter(cns, status == "A", dbh >= 10)
+pick <- filter(census, status == "A", dbh >= 10)
 # Pick sufficiently abundant trees
 pick <- add_count(pick, sp)
 pick <- filter(pick, n > 50)
 
-spp <- unique(pick$sp)
+species <- unique(pick$sp)
 
-# Test with a wrapper
-out <- tt_test(spp, cns, hab)
-# For a view with filtering feature use View(out)
+# Test with the wrapper tt_test()
+out <- tt_test(species, census, habitat)
+# Try also: View(out)
 out
 
-# Test without the wrapper
-pdim <- c(320, 500)
-gsize <- 20
-n_quad <- abundanceperquad(
-  pick, plotdim = pdim, gridsize = gsize, mindbh = 0
-)$abund
-out2 <- lapply(
-  spp, tt_test_one, 
-  hab.index20 = hab, 
-  allabund20 = n_quad, 
-  plotdim = pdim,
-  gridsize = gsize
+
+
+# Test without the wrapper, i.e. with tt_test_one()
+
+# Setup
+plotdim <- c(320, 500)
+gridsize <- 20
+abundance <- abund_index(pick, plotdim, gridsize)
+
+# One species
+out2 <- tt_test_one(unique(pick$sp)[[2]],
+  hab.index20 = habitat,
+  allabund20 = abundance,
+  plotdim = plotdim,
+  gridsize = gridsize
 )
 out2
-# Nicer view
+# Nicer view; try also View(tt_gather(out2))
 tt_gather(out2)
+
+# Multiple species
+out3 <- lapply(
+  species, tt_test_one,
+  hab.index20 = habitat,
+  allabund20 = abundnce,
+  plotdim = plotdim,
+  gridsize = gridsize
+)
+out3
+# Nicer view; try also View(tt_gather(out3))
+tt_gather(out3)
 }
 \seealso{
 Example at \url{https://bookdown.org/fgeocomm/ttt/}.
