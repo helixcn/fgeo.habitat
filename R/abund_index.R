@@ -15,6 +15,10 @@
 #' @seealso `fgeo.tool::add_index()`.
 #'
 #' @examples
+#' cns <- luquillo_tree6_random
+#' pdm <- c(1000, 500)
+#' gsz <- 20
+#' abund_index(cns, pdm, gsz)
 abund_index <- function(censdata, plotdim, gridsize) {
   stopifnot(!missing(censdata), !missing(plotdim), !missing(gridsize))
   abundanceperquad(

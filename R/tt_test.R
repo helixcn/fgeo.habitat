@@ -73,13 +73,19 @@ tt_test <- function(sp,
                     habitat, 
                     plotdim = extract_plotdim(habitat), 
                     gridsize = extract_gridsize(habitat)) {
-  tt_mat <- tt_test_ply(
-    sp = sp, 
-    census = census, 
-    habitat = habitat, 
-    plotdim = plotdim, 
+  n_index <- abundanceperquad(
+    censdata = census, plotdim = plotdim, gridsize = gridsize, mindbh = 0
+  )$abund
+  
+  tt_mat <- lapply(
+    X = sp, 
+    FUN = tt_test_one,
+    allabund20 = n_index,
+    hab.index20 = habitat,
+    plotdim = plotdim,
     gridsize = gridsize
   )
+  
   tt_gather(tt_mat)
 }
 
@@ -106,23 +112,11 @@ tt_gather.default <- function(ttt) {
 
 
 
-#' Returns a list of results for each species.
-#' @keywords internal
-#' @export
-tt_test_ply <- function(sp, census, habitat, plotdim, gridsize) {
-  n_index <- abundanceperquad(
-    censdata = census, plotdim = plotdim, gridsize = gridsize, mindbh = 0
-  )$abund
-  
-  lapply(
-    X = sp, 
-    FUN = tt_test_one,
-    allabund20 = n_index,
-    hab.index20 = habitat,
-    plotdim = plotdim,
-    gridsize = gridsize
-  )
-}
+
+
+
+
+
 
 #' @rdname tt_test
 #' @export

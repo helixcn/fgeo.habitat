@@ -19,8 +19,6 @@ test_that("outputs the expected tibble", {
   expect_equal(sp_top1_luq, unique(out$sp))
 })
 
-
-
 pdim_luq <- c(320, 500)
 gsize_luq <- 20
 
@@ -36,27 +34,6 @@ out_tt_one <- tt_test_one(
 test_that("outputs expected values", {
   out <- tt_test(sp_top1_luq, cns_luq, hab_luq)$value
   expect_equal(out, as.vector(out_tt_one))
-})
-
-
-
-context("tt_gather.R")
-
-test_that("tt_gather() works with list and matrix", {
-  out_multi <- tt_test_ply(
-    sp = unique(cns_luq$sp),
-    census = cns_luq,
-    habitat = hab_luq,
-    plotdim = pdim_luq,
-    gridsize = gsize_luq
-  )
-  
-  expect_true(any(grepl("matrix", class(out_tt_one))))
-  expect_silent(tt_gather(out_tt_one))
-  expect_true(any(grepl("list", class(out_multi))))
-  expect_silent(tt_gather(out_multi))
-  expect_true(any(grepl("list", class(out_multi))))
-  expect_silent(tt_gather(out_multi))
 })
 
 test_that("Fails with known error", {
