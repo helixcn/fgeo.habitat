@@ -25,7 +25,7 @@ plot partition defined by \code{gridsize}.}
 gridsize on which the habitats are defined and the abundances were
 calculated.}
 
-\item{allabund20}{The output of \code{abundanceperquadrat()}.}
+\item{allabund20}{The output of \code{abund_index()}.}
 }
 \value{
 A numeric matrix.
@@ -39,8 +39,8 @@ You should only try to determine the habitat association for sufficiently
 abundant species - in a 50-ha plot, a minimum abundance of 50 trees/species
 has been used.
 
-The wrapper \code{tt_test()} uses \code{abundanceperquad()} internaly which is slow.
-You may calculate abundance per quadrat independently, feed it to the
+\code{tt_test()} uses \code{abundanceperquad()} -- via \code{abund_index()} -- which is
+slow. You may calculate abundance per quadrat independently, feed it to the
 argument \code{allabund20} of \code{tt_test_one()}, and reformat the output with
 \code{tt_df()}. See Examples to iterate over multiple species.
 }
@@ -105,7 +105,7 @@ out3
 head(tt_df(out3))
 }
 \seealso{
-Example at \url{https://bookdown.org/fgeocomm/ttt/}.
+\code{\link[=tt_df]{tt_df()}}.
 }
 \author{
 Sabrina Russo, Daniel Zuletta, Matteo Detto, and Kyle Harms.

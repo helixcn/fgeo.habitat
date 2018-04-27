@@ -1,5 +1,8 @@
 # TODO
 
+# styler::style().
+# devtools::spellcheck().
+
 # Test that tt_test() fails with informative messages. 
 # Add messages to these functions to report the extracted values.
 # Rename extract_plotdim?
