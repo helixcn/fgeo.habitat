@@ -22,7 +22,6 @@
 #'   gridsize on which the habitats are defined and the abundances were
 #'   calculated.
 #' @param allabund20 The output of `abundanceperquadrat()`.
-#' @param ttt Result of a tt_test().
 #'
 #' @author Sabrina Russo, Daniel Zuletta, Matteo Detto, and Kyle Harms.
 #' 

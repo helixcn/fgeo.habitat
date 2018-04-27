@@ -1,6 +1,6 @@
 # soilkrig 0.0.0.9001
 
-* New function `tt_test_one()` and friends.
+* New function `tt_test()` and friends.
 * Rename to __fgeo.habitat__
 
 # soilkrig 0.0.0.9000

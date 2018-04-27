@@ -121,81 +121,145 @@
 <a href="#example" class="anchor"></a>Example</h2>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(fgeo.habitat)</a></code></pre></div>
 <p>Habitat-species associations.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># Example data (see ?luquillo_habitat and ?luquillo_top3_sp)</span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">plot_dimensions &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">320</span>, <span class="dv">500</span>)</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">grid_size &lt;-<span class="st"> </span><span class="dv">20</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">habitat_data &lt;-<span class="st"> </span>luquillo_habitat</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">census_data &lt;-<span class="st"> </span>luquillo_top3_sp</a>
-<a class="sourceLine" id="cb3-6" data-line-number="6">alive_trees &lt;-<span class="st"> </span>census_data[census_data<span class="op">$</span>status <span class="op">==</span><span class="st"> "A"</span>, ]</a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8">abundance_per_quadrat &lt;-<span class="st"> </span><span class="kw"><a href="reference/abundanceperquad.html">abundanceperquad</a></span>(</a>
-<a class="sourceLine" id="cb3-9" data-line-number="9">  alive_trees,</a>
-<a class="sourceLine" id="cb3-10" data-line-number="10">  <span class="dt">plotdim =</span> plot_dimensions,</a>
-<a class="sourceLine" id="cb3-11" data-line-number="11">  <span class="dt">gridsize =</span> grid_size,</a>
-<a class="sourceLine" id="cb3-12" data-line-number="12">  <span class="dt">type =</span> <span class="st">'abund'</span></a>
-<a class="sourceLine" id="cb3-13" data-line-number="13">)<span class="op">$</span>abund</a>
-<a class="sourceLine" id="cb3-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb3-15" data-line-number="15">one_species &lt;-<span class="st"> </span><span class="kw">unique</span>(census_data<span class="op">$</span>sp)[[<span class="dv">1</span>]]</a>
-<a class="sourceLine" id="cb3-16" data-line-number="16">one_species</a>
-<a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">#&gt; [1] "CASARB"</span></a>
-<a class="sourceLine" id="cb3-18" data-line-number="18"></a>
-<a class="sourceLine" id="cb3-19" data-line-number="19">out_one &lt;-<span class="st"> </span><span class="kw"><a href="reference/tt_test_one.html">tt_test_one</a></span>(</a>
-<a class="sourceLine" id="cb3-20" data-line-number="20">  <span class="dt">species =</span> one_species,</a>
-<a class="sourceLine" id="cb3-21" data-line-number="21">  <span class="dt">hab.index20 =</span> habitat_data,</a>
-<a class="sourceLine" id="cb3-22" data-line-number="22">  <span class="dt">allabund20 =</span> abundance_per_quadrat,</a>
-<a class="sourceLine" id="cb3-23" data-line-number="23">  <span class="dt">plotdim =</span> plot_dimensions,</a>
-<a class="sourceLine" id="cb3-24" data-line-number="24">  <span class="dt">gridsize =</span> grid_size</a>
-<a class="sourceLine" id="cb3-25" data-line-number="25">)</a>
-<a class="sourceLine" id="cb3-26" data-line-number="26">out_one</a>
-<a class="sourceLine" id="cb3-27" data-line-number="27"><span class="co">#&gt;        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1</span></a>
-<a class="sourceLine" id="cb3-28" data-line-number="28"><span class="co">#&gt; CASARB      25     1489      109        2              0       0.930625</span></a>
-<a class="sourceLine" id="cb3-29" data-line-number="29"><span class="co">#&gt;        N.Hab.2 Gr.Hab.2 Ls.Hab.2 Eq.Hab.2 Rep.Agg.Neut.2 Obs.Quantile.2</span></a>
-<a class="sourceLine" id="cb3-30" data-line-number="30"><span class="co">#&gt; CASARB      12      168     1431        1              0          0.105</span></a>
-<a class="sourceLine" id="cb3-31" data-line-number="31"><span class="co">#&gt;        N.Hab.3 Gr.Hab.3 Ls.Hab.3 Eq.Hab.3 Rep.Agg.Neut.3 Obs.Quantile.3</span></a>
-<a class="sourceLine" id="cb3-32" data-line-number="32"><span class="co">#&gt; CASARB      14      567     1029        4              0       0.354375</span></a>
-<a class="sourceLine" id="cb3-33" data-line-number="33"><span class="co">#&gt;        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4</span></a>
-<a class="sourceLine" id="cb3-34" data-line-number="34"><span class="co">#&gt; CASARB      15      934      661        5              0        0.58375</span></a>
-<a class="sourceLine" id="cb3-35" data-line-number="35"></a>
-<a class="sourceLine" id="cb3-36" data-line-number="36">multiple_species &lt;-<span class="st"> </span><span class="kw">unique</span>(census_data<span class="op">$</span>sp)</a>
-<a class="sourceLine" id="cb3-37" data-line-number="37">multiple_species</a>
-<a class="sourceLine" id="cb3-38" data-line-number="38"><span class="co">#&gt; [1] "CASARB" "PREMON" "SLOBER"</span></a>
-<a class="sourceLine" id="cb3-39" data-line-number="39"></a>
-<a class="sourceLine" id="cb3-40" data-line-number="40">out_multiple &lt;-<span class="st"> </span><span class="kw">lapply</span>(</a>
-<a class="sourceLine" id="cb3-41" data-line-number="41">  multiple_species,</a>
-<a class="sourceLine" id="cb3-42" data-line-number="42">  tt_test_one,</a>
-<a class="sourceLine" id="cb3-43" data-line-number="43">  <span class="dt">hab.index20 =</span> habitat_data,</a>
-<a class="sourceLine" id="cb3-44" data-line-number="44">  <span class="dt">allabund20 =</span> abundance_per_quadrat,</a>
-<a class="sourceLine" id="cb3-45" data-line-number="45">  <span class="dt">plotdim =</span> plot_dimensions,</a>
-<a class="sourceLine" id="cb3-46" data-line-number="46">  <span class="dt">gridsize =</span> grid_size</a>
-<a class="sourceLine" id="cb3-47" data-line-number="47">)</a>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># Setup</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co"># For easier data wranging</span></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt; Attaching package: 'dplyr'</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt; The following objects are masked from 'package:stats':</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt;     filter, lag</span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt; The following objects are masked from 'package:base':</span></a>
+<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt;     intersect, setdiff, setequal, union</span></a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"></a>
+<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co"># Example data</span></a>
+<a class="sourceLine" id="cb3-15" data-line-number="15">habitat &lt;-<span class="st"> </span>luquillo_habitat</a>
+<a class="sourceLine" id="cb3-16" data-line-number="16">census &lt;-<span class="st"> </span>luquillo_top3_sp</a>
+<a class="sourceLine" id="cb3-17" data-line-number="17"></a>
+<a class="sourceLine" id="cb3-18" data-line-number="18"><span class="co"># Pick alive trees, of 10 mm or more</span></a>
+<a class="sourceLine" id="cb3-19" data-line-number="19">pick &lt;-<span class="st"> </span><span class="kw">filter</span>(census, status <span class="op">==</span><span class="st"> "A"</span>, dbh <span class="op">&gt;=</span><span class="st"> </span><span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb3-20" data-line-number="20"><span class="co"># Pick sufficiently abundant trees</span></a>
+<a class="sourceLine" id="cb3-21" data-line-number="21">pick &lt;-<span class="st"> </span><span class="kw">add_count</span>(pick, sp)</a>
+<a class="sourceLine" id="cb3-22" data-line-number="22">pick &lt;-<span class="st"> </span><span class="kw">filter</span>(pick, n <span class="op">&gt;</span><span class="st"> </span><span class="dv">50</span>)</a>
+<a class="sourceLine" id="cb3-23" data-line-number="23"></a>
+<a class="sourceLine" id="cb3-24" data-line-number="24">species &lt;-<span class="st"> </span><span class="kw">unique</span>(pick<span class="op">$</span>sp)</a>
+<a class="sourceLine" id="cb3-25" data-line-number="25"></a>
+<a class="sourceLine" id="cb3-26" data-line-number="26"></a>
+<a class="sourceLine" id="cb3-27" data-line-number="27"></a>
+<a class="sourceLine" id="cb3-28" data-line-number="28"><span class="co"># Test with the wrapper tt_test()</span></a>
+<a class="sourceLine" id="cb3-29" data-line-number="29"></a>
+<a class="sourceLine" id="cb3-30" data-line-number="30">out &lt;-<span class="st"> </span><span class="kw"><a href="reference/tt_test.html">tt_test</a></span>(species, census, habitat)</a>
+<a class="sourceLine" id="cb3-31" data-line-number="31"><span class="co"># Try also: View(out)</span></a>
+<a class="sourceLine" id="cb3-32" data-line-number="32"><span class="kw">head</span>(out)</a>
+<a class="sourceLine" id="cb3-33" data-line-number="33"><span class="co">#&gt;           metric     sp       value</span></a>
+<a class="sourceLine" id="cb3-34" data-line-number="34"><span class="co">#&gt; 1        N.Hab.1 CASARB   25.000000</span></a>
+<a class="sourceLine" id="cb3-35" data-line-number="35"><span class="co">#&gt; 2       Gr.Hab.1 CASARB 1489.000000</span></a>
+<a class="sourceLine" id="cb3-36" data-line-number="36"><span class="co">#&gt; 3       Ls.Hab.1 CASARB  109.000000</span></a>
+<a class="sourceLine" id="cb3-37" data-line-number="37"><span class="co">#&gt; 4       Eq.Hab.1 CASARB    2.000000</span></a>
+<a class="sourceLine" id="cb3-38" data-line-number="38"><span class="co">#&gt; 5 Rep.Agg.Neut.1 CASARB    0.000000</span></a>
+<a class="sourceLine" id="cb3-39" data-line-number="39"><span class="co">#&gt; 6 Obs.Quantile.1 CASARB    0.930625</span></a>
+<a class="sourceLine" id="cb3-40" data-line-number="40"><span class="kw">tail</span>(out)</a>
+<a class="sourceLine" id="cb3-41" data-line-number="41"><span class="co">#&gt;            metric     sp       value</span></a>
+<a class="sourceLine" id="cb3-42" data-line-number="42"><span class="co">#&gt; 67        N.Hab.4 SLOBER   17.000000</span></a>
+<a class="sourceLine" id="cb3-43" data-line-number="43"><span class="co">#&gt; 68       Gr.Hab.4 SLOBER 1151.000000</span></a>
+<a class="sourceLine" id="cb3-44" data-line-number="44"><span class="co">#&gt; 69       Ls.Hab.4 SLOBER  440.000000</span></a>
+<a class="sourceLine" id="cb3-45" data-line-number="45"><span class="co">#&gt; 70       Eq.Hab.4 SLOBER    9.000000</span></a>
+<a class="sourceLine" id="cb3-46" data-line-number="46"><span class="co">#&gt; 71 Rep.Agg.Neut.4 SLOBER    0.000000</span></a>
+<a class="sourceLine" id="cb3-47" data-line-number="47"><span class="co">#&gt; 72 Obs.Quantile.4 SLOBER    0.719375</span></a>
 <a class="sourceLine" id="cb3-48" data-line-number="48"></a>
-<a class="sourceLine" id="cb3-49" data-line-number="49">nicer_view &lt;-<span class="st"> </span><span class="kw">t</span>(<span class="kw">Reduce</span>(rbind, out_multiple))</a>
-<a class="sourceLine" id="cb3-50" data-line-number="50">nicer_view</a>
-<a class="sourceLine" id="cb3-51" data-line-number="51"><span class="co">#&gt;                     CASARB      PREMON      SLOBER</span></a>
-<a class="sourceLine" id="cb3-52" data-line-number="52"><span class="co">#&gt; N.Hab.1          25.000000   59.000000   14.000000</span></a>
-<a class="sourceLine" id="cb3-53" data-line-number="53"><span class="co">#&gt; Gr.Hab.1       1489.000000  389.000000  492.000000</span></a>
-<a class="sourceLine" id="cb3-54" data-line-number="54"><span class="co">#&gt; Ls.Hab.1        109.000000 1208.000000 1092.000000</span></a>
-<a class="sourceLine" id="cb3-55" data-line-number="55"><span class="co">#&gt; Eq.Hab.1          2.000000    3.000000   16.000000</span></a>
-<a class="sourceLine" id="cb3-56" data-line-number="56"><span class="co">#&gt; Rep.Agg.Neut.1    0.000000    0.000000    0.000000</span></a>
-<a class="sourceLine" id="cb3-57" data-line-number="57"><span class="co">#&gt; Obs.Quantile.1    0.930625    0.243125    0.307500</span></a>
-<a class="sourceLine" id="cb3-58" data-line-number="58"><span class="co">#&gt; N.Hab.2          12.000000   75.000000   16.000000</span></a>
-<a class="sourceLine" id="cb3-59" data-line-number="59"><span class="co">#&gt; Gr.Hab.2        168.000000 1562.000000  473.000000</span></a>
-<a class="sourceLine" id="cb3-60" data-line-number="60"><span class="co">#&gt; Ls.Hab.2       1431.000000   37.000000 1125.000000</span></a>
-<a class="sourceLine" id="cb3-61" data-line-number="61"><span class="co">#&gt; Eq.Hab.2          1.000000    1.000000    2.000000</span></a>
-<a class="sourceLine" id="cb3-62" data-line-number="62"><span class="co">#&gt; Rep.Agg.Neut.2    0.000000    1.000000    0.000000</span></a>
-<a class="sourceLine" id="cb3-63" data-line-number="63"><span class="co">#&gt; Obs.Quantile.2    0.105000    0.976250    0.295625</span></a>
-<a class="sourceLine" id="cb3-64" data-line-number="64"><span class="co">#&gt; N.Hab.3          14.000000   56.000000   19.000000</span></a>
-<a class="sourceLine" id="cb3-65" data-line-number="65"><span class="co">#&gt; Gr.Hab.3        567.000000  632.000000 1181.000000</span></a>
-<a class="sourceLine" id="cb3-66" data-line-number="66"><span class="co">#&gt; Ls.Hab.3       1029.000000  963.000000  415.000000</span></a>
-<a class="sourceLine" id="cb3-67" data-line-number="67"><span class="co">#&gt; Eq.Hab.3          4.000000    5.000000    4.000000</span></a>
-<a class="sourceLine" id="cb3-68" data-line-number="68"><span class="co">#&gt; Rep.Agg.Neut.3    0.000000    0.000000    0.000000</span></a>
-<a class="sourceLine" id="cb3-69" data-line-number="69"><span class="co">#&gt; Obs.Quantile.3    0.354375    0.395000    0.738125</span></a>
-<a class="sourceLine" id="cb3-70" data-line-number="70"><span class="co">#&gt; N.Hab.4          15.000000   44.000000   17.000000</span></a>
-<a class="sourceLine" id="cb3-71" data-line-number="71"><span class="co">#&gt; Gr.Hab.4        934.000000  222.000000 1151.000000</span></a>
-<a class="sourceLine" id="cb3-72" data-line-number="72"><span class="co">#&gt; Ls.Hab.4        661.000000 1375.000000  440.000000</span></a>
-<a class="sourceLine" id="cb3-73" data-line-number="73"><span class="co">#&gt; Eq.Hab.4          5.000000    3.000000    9.000000</span></a>
-<a class="sourceLine" id="cb3-74" data-line-number="74"><span class="co">#&gt; Rep.Agg.Neut.4    0.000000    0.000000    0.000000</span></a>
-<a class="sourceLine" id="cb3-75" data-line-number="75"><span class="co">#&gt; Obs.Quantile.4    0.583750    0.138750    0.719375</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-49" data-line-number="49"></a>
+<a class="sourceLine" id="cb3-50" data-line-number="50"></a>
+<a class="sourceLine" id="cb3-51" data-line-number="51"><span class="co"># Test without the wrapper, i.e. with tt_test_one()</span></a>
+<a class="sourceLine" id="cb3-52" data-line-number="52"></a>
+<a class="sourceLine" id="cb3-53" data-line-number="53"><span class="co"># Setup</span></a>
+<a class="sourceLine" id="cb3-54" data-line-number="54">plotdim &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">320</span>, <span class="dv">500</span>)</a>
+<a class="sourceLine" id="cb3-55" data-line-number="55">gridsize &lt;-<span class="st"> </span><span class="dv">20</span></a>
+<a class="sourceLine" id="cb3-56" data-line-number="56">abundance &lt;-<span class="st"> </span><span class="kw"><a href="reference/abund_index.html">abund_index</a></span>(pick, plotdim, gridsize)</a>
+<a class="sourceLine" id="cb3-57" data-line-number="57"></a>
+<a class="sourceLine" id="cb3-58" data-line-number="58"><span class="co"># One species</span></a>
+<a class="sourceLine" id="cb3-59" data-line-number="59">out2 &lt;-<span class="st"> </span><span class="kw"><a href="reference/tt_test.html">tt_test_one</a></span>(<span class="kw">unique</span>(pick<span class="op">$</span>sp)[[<span class="dv">2</span>]],</a>
+<a class="sourceLine" id="cb3-60" data-line-number="60">  <span class="dt">hab.index20 =</span> habitat,</a>
+<a class="sourceLine" id="cb3-61" data-line-number="61">  <span class="dt">allabund20 =</span> abundance,</a>
+<a class="sourceLine" id="cb3-62" data-line-number="62">  <span class="dt">plotdim =</span> plotdim,</a>
+<a class="sourceLine" id="cb3-63" data-line-number="63">  <span class="dt">gridsize =</span> gridsize</a>
+<a class="sourceLine" id="cb3-64" data-line-number="64">)</a>
+<a class="sourceLine" id="cb3-65" data-line-number="65"><span class="kw">head</span>(out2)</a>
+<a class="sourceLine" id="cb3-66" data-line-number="66"><span class="co">#&gt;        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1</span></a>
+<a class="sourceLine" id="cb3-67" data-line-number="67"><span class="co">#&gt; PREMON      59      389     1208        3              0       0.243125</span></a>
+<a class="sourceLine" id="cb3-68" data-line-number="68"><span class="co">#&gt;        N.Hab.2 Gr.Hab.2 Ls.Hab.2 Eq.Hab.2 Rep.Agg.Neut.2 Obs.Quantile.2</span></a>
+<a class="sourceLine" id="cb3-69" data-line-number="69"><span class="co">#&gt; PREMON      75     1562       37        1              1        0.97625</span></a>
+<a class="sourceLine" id="cb3-70" data-line-number="70"><span class="co">#&gt;        N.Hab.3 Gr.Hab.3 Ls.Hab.3 Eq.Hab.3 Rep.Agg.Neut.3 Obs.Quantile.3</span></a>
+<a class="sourceLine" id="cb3-71" data-line-number="71"><span class="co">#&gt; PREMON      56      632      963        5              0          0.395</span></a>
+<a class="sourceLine" id="cb3-72" data-line-number="72"><span class="co">#&gt;        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4</span></a>
+<a class="sourceLine" id="cb3-73" data-line-number="73"><span class="co">#&gt; PREMON      44      222     1375        3              0        0.13875</span></a>
+<a class="sourceLine" id="cb3-74" data-line-number="74"><span class="kw">tail</span>(out2)</a>
+<a class="sourceLine" id="cb3-75" data-line-number="75"><span class="co">#&gt;        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1</span></a>
+<a class="sourceLine" id="cb3-76" data-line-number="76"><span class="co">#&gt; PREMON      59      389     1208        3              0       0.243125</span></a>
+<a class="sourceLine" id="cb3-77" data-line-number="77"><span class="co">#&gt;        N.Hab.2 Gr.Hab.2 Ls.Hab.2 Eq.Hab.2 Rep.Agg.Neut.2 Obs.Quantile.2</span></a>
+<a class="sourceLine" id="cb3-78" data-line-number="78"><span class="co">#&gt; PREMON      75     1562       37        1              1        0.97625</span></a>
+<a class="sourceLine" id="cb3-79" data-line-number="79"><span class="co">#&gt;        N.Hab.3 Gr.Hab.3 Ls.Hab.3 Eq.Hab.3 Rep.Agg.Neut.3 Obs.Quantile.3</span></a>
+<a class="sourceLine" id="cb3-80" data-line-number="80"><span class="co">#&gt; PREMON      56      632      963        5              0          0.395</span></a>
+<a class="sourceLine" id="cb3-81" data-line-number="81"><span class="co">#&gt;        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4</span></a>
+<a class="sourceLine" id="cb3-82" data-line-number="82"><span class="co">#&gt; PREMON      44      222     1375        3              0        0.13875</span></a>
+<a class="sourceLine" id="cb3-83" data-line-number="83"><span class="co"># Nicer view; try also View(tt_df(out2))</span></a>
+<a class="sourceLine" id="cb3-84" data-line-number="84"><span class="kw">head</span>(<span class="kw"><a href="reference/tt_df.html">tt_df</a></span>(out2))</a>
+<a class="sourceLine" id="cb3-85" data-line-number="85"><span class="co">#&gt;           metric     sp       value</span></a>
+<a class="sourceLine" id="cb3-86" data-line-number="86"><span class="co">#&gt; 1        N.Hab.1 PREMON   59.000000</span></a>
+<a class="sourceLine" id="cb3-87" data-line-number="87"><span class="co">#&gt; 2       Gr.Hab.1 PREMON  389.000000</span></a>
+<a class="sourceLine" id="cb3-88" data-line-number="88"><span class="co">#&gt; 3       Ls.Hab.1 PREMON 1208.000000</span></a>
+<a class="sourceLine" id="cb3-89" data-line-number="89"><span class="co">#&gt; 4       Eq.Hab.1 PREMON    3.000000</span></a>
+<a class="sourceLine" id="cb3-90" data-line-number="90"><span class="co">#&gt; 5 Rep.Agg.Neut.1 PREMON    0.000000</span></a>
+<a class="sourceLine" id="cb3-91" data-line-number="91"><span class="co">#&gt; 6 Obs.Quantile.1 PREMON    0.243125</span></a>
+<a class="sourceLine" id="cb3-92" data-line-number="92"></a>
+<a class="sourceLine" id="cb3-93" data-line-number="93"><span class="co"># Multiple species</span></a>
+<a class="sourceLine" id="cb3-94" data-line-number="94">out3 &lt;-<span class="st"> </span><span class="kw">lapply</span>(</a>
+<a class="sourceLine" id="cb3-95" data-line-number="95">  species, tt_test_one,</a>
+<a class="sourceLine" id="cb3-96" data-line-number="96">  <span class="dt">hab.index20 =</span> habitat,</a>
+<a class="sourceLine" id="cb3-97" data-line-number="97">  <span class="dt">allabund20 =</span> abundance,</a>
+<a class="sourceLine" id="cb3-98" data-line-number="98">  <span class="dt">plotdim =</span> plotdim,</a>
+<a class="sourceLine" id="cb3-99" data-line-number="99">  <span class="dt">gridsize =</span> gridsize</a>
+<a class="sourceLine" id="cb3-100" data-line-number="100">)</a>
+<a class="sourceLine" id="cb3-101" data-line-number="101">out3</a>
+<a class="sourceLine" id="cb3-102" data-line-number="102"><span class="co">#&gt; [[1]]</span></a>
+<a class="sourceLine" id="cb3-103" data-line-number="103"><span class="co">#&gt;        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1</span></a>
+<a class="sourceLine" id="cb3-104" data-line-number="104"><span class="co">#&gt; CASARB      25     1489      109        2              0       0.930625</span></a>
+<a class="sourceLine" id="cb3-105" data-line-number="105"><span class="co">#&gt;        N.Hab.2 Gr.Hab.2 Ls.Hab.2 Eq.Hab.2 Rep.Agg.Neut.2 Obs.Quantile.2</span></a>
+<a class="sourceLine" id="cb3-106" data-line-number="106"><span class="co">#&gt; CASARB      12      168     1431        1              0          0.105</span></a>
+<a class="sourceLine" id="cb3-107" data-line-number="107"><span class="co">#&gt;        N.Hab.3 Gr.Hab.3 Ls.Hab.3 Eq.Hab.3 Rep.Agg.Neut.3 Obs.Quantile.3</span></a>
+<a class="sourceLine" id="cb3-108" data-line-number="108"><span class="co">#&gt; CASARB      14      567     1029        4              0       0.354375</span></a>
+<a class="sourceLine" id="cb3-109" data-line-number="109"><span class="co">#&gt;        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4</span></a>
+<a class="sourceLine" id="cb3-110" data-line-number="110"><span class="co">#&gt; CASARB      15      934      661        5              0        0.58375</span></a>
+<a class="sourceLine" id="cb3-111" data-line-number="111"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb3-112" data-line-number="112"><span class="co">#&gt; [[2]]</span></a>
+<a class="sourceLine" id="cb3-113" data-line-number="113"><span class="co">#&gt;        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1</span></a>
+<a class="sourceLine" id="cb3-114" data-line-number="114"><span class="co">#&gt; PREMON      59      389     1208        3              0       0.243125</span></a>
+<a class="sourceLine" id="cb3-115" data-line-number="115"><span class="co">#&gt;        N.Hab.2 Gr.Hab.2 Ls.Hab.2 Eq.Hab.2 Rep.Agg.Neut.2 Obs.Quantile.2</span></a>
+<a class="sourceLine" id="cb3-116" data-line-number="116"><span class="co">#&gt; PREMON      75     1562       37        1              1        0.97625</span></a>
+<a class="sourceLine" id="cb3-117" data-line-number="117"><span class="co">#&gt;        N.Hab.3 Gr.Hab.3 Ls.Hab.3 Eq.Hab.3 Rep.Agg.Neut.3 Obs.Quantile.3</span></a>
+<a class="sourceLine" id="cb3-118" data-line-number="118"><span class="co">#&gt; PREMON      56      632      963        5              0          0.395</span></a>
+<a class="sourceLine" id="cb3-119" data-line-number="119"><span class="co">#&gt;        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4</span></a>
+<a class="sourceLine" id="cb3-120" data-line-number="120"><span class="co">#&gt; PREMON      44      222     1375        3              0        0.13875</span></a>
+<a class="sourceLine" id="cb3-121" data-line-number="121"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb3-122" data-line-number="122"><span class="co">#&gt; [[3]]</span></a>
+<a class="sourceLine" id="cb3-123" data-line-number="123"><span class="co">#&gt;        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1</span></a>
+<a class="sourceLine" id="cb3-124" data-line-number="124"><span class="co">#&gt; SLOBER      14      492     1092       16              0         0.3075</span></a>
+<a class="sourceLine" id="cb3-125" data-line-number="125"><span class="co">#&gt;        N.Hab.2 Gr.Hab.2 Ls.Hab.2 Eq.Hab.2 Rep.Agg.Neut.2 Obs.Quantile.2</span></a>
+<a class="sourceLine" id="cb3-126" data-line-number="126"><span class="co">#&gt; SLOBER      16      473     1125        2              0       0.295625</span></a>
+<a class="sourceLine" id="cb3-127" data-line-number="127"><span class="co">#&gt;        N.Hab.3 Gr.Hab.3 Ls.Hab.3 Eq.Hab.3 Rep.Agg.Neut.3 Obs.Quantile.3</span></a>
+<a class="sourceLine" id="cb3-128" data-line-number="128"><span class="co">#&gt; SLOBER      19     1181      415        4              0       0.738125</span></a>
+<a class="sourceLine" id="cb3-129" data-line-number="129"><span class="co">#&gt;        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4</span></a>
+<a class="sourceLine" id="cb3-130" data-line-number="130"><span class="co">#&gt; SLOBER      17     1151      440        9              0       0.719375</span></a>
+<a class="sourceLine" id="cb3-131" data-line-number="131"><span class="co"># Nicer view; try also View(tt_df(out3))</span></a>
+<a class="sourceLine" id="cb3-132" data-line-number="132"><span class="kw">head</span>(<span class="kw"><a href="reference/tt_df.html">tt_df</a></span>(out3))</a>
+<a class="sourceLine" id="cb3-133" data-line-number="133"><span class="co">#&gt;           metric     sp       value</span></a>
+<a class="sourceLine" id="cb3-134" data-line-number="134"><span class="co">#&gt; 1        N.Hab.1 CASARB   25.000000</span></a>
+<a class="sourceLine" id="cb3-135" data-line-number="135"><span class="co">#&gt; 2       Gr.Hab.1 CASARB 1489.000000</span></a>
+<a class="sourceLine" id="cb3-136" data-line-number="136"><span class="co">#&gt; 3       Ls.Hab.1 CASARB  109.000000</span></a>
+<a class="sourceLine" id="cb3-137" data-line-number="137"><span class="co">#&gt; 4       Eq.Hab.1 CASARB    2.000000</span></a>
+<a class="sourceLine" id="cb3-138" data-line-number="138"><span class="co">#&gt; 5 Rep.Agg.Neut.1 CASARB    0.000000</span></a>
+<a class="sourceLine" id="cb3-139" data-line-number="139"><span class="co">#&gt; 6 Obs.Quantile.1 CASARB    0.930625</span></a></code></pre></div>
 <p>Krige soil data.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="co"># Randomized data -- not for research. See ?soil_random.</span></a>
 <a class="sourceLine" id="cb4-2" data-line-number="2">df &lt;-<span class="st"> </span>soil_random</a>

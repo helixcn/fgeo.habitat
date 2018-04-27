@@ -26,8 +26,6 @@ gridsize on which the habitats are defined and the abundances were
 calculated.}
 
 \item{allabund20}{The output of \code{abundanceperquadrat()}.}
-
-\item{ttt}{Result of a tt_test().}
 }
 \value{
 A numeric matrix.

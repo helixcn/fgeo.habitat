@@ -56,18 +56,18 @@ set.seed(1014)
 Here we'll use example datasets that come with __fgeo.habitat__.
 
 ```{r}
-census <- luquillo_top3_sp
+census <- luquillo_tree6_random
 
 str(census)
 ```
 
 ```{r}
-habitat_data <- luquillo_habitat
+habitat <- luquillo_habitat
 
 # Must have
-names(habitat_data)
+names(habitat)
 
-str(habitat_data)
+str(habitat)
 ```
 
 
@@ -75,34 +75,10 @@ To load your own data, you may run something like this:
 
 ```R
 load("PATH/CENSUS_DATA.rdata")
-census_data <- CENSUS_DATA
+census <- CENSUS_DATA
 
-load("PATH/HABITAT_DATA.rdata")
-habitat_data <- HABITAT_DATA
-```
-
-We can overview the relationship between species an habitats with a plot.
-
-```{r}
-# Tweaks
-offset <- 20 / 2
-habitat_centered <- mutate(
-  habitat_data, 
-  # Center species and habitat data
-  x = x + offset, 
-  y = y + offset,
-  # From continuous to categorical
-  habitats = as.factor(habitats)
-)
-```
-
-```{r, out.width="90%", fig.widh=(6 * 0.9 / 0.7)}
-ggplot(census, aes(x = gx, y = gy)) +
-  geom_raster(data = habitat_centered, aes(x, y, fill = habitats)) + 
-  geom_point() +
-  coord_fixed() +
-  facet_wrap(~sp) +
-  labs(fill = "Habitat")
+load("PATH/HABITAT-DATA.rdata")
+habitat <- HABITAT-DATA
 ```
 
 ## Pick data
@@ -122,36 +98,89 @@ pick <- add_count(pick, sp)
 # Keep sufficiently abundant trees
 pick <- filter(pick, n > 50)
 
-# View
+# Summary
 unique(select(pick, sp, n))
 ```
 
-The grid size and plot dimensions will be used in more than one function. They must be consistent with the habitat data. The structure of the habitat data suggests the grid size and plot dimensions we should use ([plot details](https://forestgeo.si.edu/sites/north-america/luquillo)).
+## Overview
+
+Before testing, we can overview the relationship between species an habitats with a plot.
 
 ```{r}
-lapply(habitat_data, range)
+# Tweaks
+offset <- 20 / 2
+habitat2 <- mutate(
+  habitat, 
+  # Center species and habitat data
+  x = x + offset, 
+  y = y + offset,
+  # From continuous to categorical
+  habitats = as.factor(habitats)
+)
+```
 
+```{r, out.width="90%", fig.widh=(6 * 0.9 / 0.7)}
+ggplot(pick, aes(x = gx, y = gy)) +
+  geom_raster(data = habitat2, aes(x, y, fill = habitats)) + 
+  geom_point() +
+  coord_fixed() +
+  facet_wrap(~sp) +
+  labs(fill = "Habitat")
+```
+
+## Test
+
+### With `tt_test()` and any number of species
+
+```{r}
+all_sp <- unique(pick$sp)
+out <- tt_test(all_sp, census, habitat)
+head(out)
+```
+
+You can conveniently view the output with `View(out)` or -- to compare species side by side -- you can spread the values across species with `spread()`. 
+
+```{r}
+spread(out, sp, value)
+```
+
+### With `tt_test_one()` and one species
+
+Before we used `tt_test()`, which is a wrapper around `tt_test_one()` -- the original function developed by Sabrina Russo, Daniel Zuleta, Matteo Detto, and Kyle Harms. This section shows how you may use `tt_test_one()` directly to test a single species. The following section shows how to extend the test to any number of species.
+
+See `?tt_test_one()`; you'll find out that this function needs the name of one species, a census, and habitat data. All of these we already have (above). But `tt_test_one()` also needs plot dimensions, grid size and the abundance (count) of each species per quadrat-index.
+
+We should find and store the plot dimensions and gridsize because we'll need them in more than one function and they must be consistent. To understand which values to choose we may inspect the structure of the habitat ([plot details](https://forestgeo.si.edu/sites/north-america/luquillo)).
+
+```{r}
+lapply(habitat, range)
+```
+
+You functions may also help you.
+
+```{r}
+extract_plotdim(habitat)
+extract_gridsize(habitat)
+```
+
+These are the values we need.
+
+```{r}
 # For reuse
 plot_dimensions <- c(320, 500)
 grid_size <- 20
 ```
 
-## Abundance per quadrat
-
-`tt_test_one()` requires abundance per quadrat in a particular format, as calculated with [`abundanceperquad()`](https://s.si.edu/2JtN94p) from the original CTFSRPackage.
+To calculate abundance per quadrat-index you may use the function [`abundanceperquad()`](https://s.si.edu/2JtN94p) from the original CTFSRPackage, or a more conservative wrapper, `abund_index()` from __fgeo.habitat__.
 
 ```{r}
-# For details see ?abundanceperquad (e.g. defaults to keep trees of dbh > 10 mm)
-abundance_per_quadrat <- abundanceperquad(
-  pick,
-  plotdim = plot_dimensions,
-  gridsize = grid_size,
-)$abund
+# For details see ?abund_index (e.g. defaults to keep trees of dbh > 10 mm)
+abundance <- abund_index(pick, plot_dimensions, grid_size)
 
-str(abundance_per_quadrat, list.len = 5)
+str(abundance, list.len = 5)
 ```
 
-Now we have all we need to run `tt_test_one()` for one and multiple species.
+Now that we have all we need, we can run `tt_test_one()`.
 
 ```{r}
 one_species <- unique(pick$sp)[[1]]
@@ -159,14 +188,22 @@ one_species
 
 out_one <- tt_test_one(
   species = one_species,
-  hab.index20 = habitat_data,
-  allabund20 = abundance_per_quadrat,
+  hab.index20 = habitat,
+  allabund20 = abundance,
   plotdim = plot_dimensions,
   gridsize = grid_size
 )
 
 out_one
 ```
+
+You may transform the output into a dataframe with `tt_df()`.
+
+```{r}
+tt_df(out_one)
+```
+
+### With `tt_test_one()` and any number of species
 
 To iterate over multiple species you may write a for loop, or use a functional such as `lapply()`.
 
@@ -176,131 +213,47 @@ all_species <- unique(pick$sp)
 out_all <- lapply(
   all_species,
   tt_test_one,
-  hab.index20 = habitat_data,
-  allabund20 = abundance_per_quadrat,
+  hab.index20 = habitat,
+  allabund20 = abundance,
   plotdim = plot_dimensions,
   gridsize = grid_size
 )
 
-# For friendlier view
-t(Reduce(rbind, out_all))
+out_all
 ```
 
-## Wrapper
-
-We can wrap the code to run the __t__orus __t__ranslation __test__ into a convenient function, `tt_test()`, to abstract out the boilerplate code and focus on what matters most.
+Here again you may use `tt_df()` in combination with `View()` and `spread()`.
 
 ```{r}
-tt_test <- function(sp, ...) {
-  out <- lapply(sp, tt_test_one, ...)
-  t(Reduce(rbind, out))
-}
-
-tt_test(
-  all_species,
-  hab.index20 = habitat_data,
-  allabund20 = abundance_per_quadrat,
-  plotdim = plot_dimensions,
-  gridsize = grid_size
-)
-```
-
-## Scaling up
-
-In this section we'll use a bigger -- more realistic -- dataset.
-
-```{r}
-# Now using the pipe (`%>%`) to avoid saving intermediate results. For details
-# see http://style.tidyverse.org/pipes.html.
-census_bigger <- luquillo_tree6_random %>%
-  filter(status == "A", dbh >= 10) %>% 
-  # Keeping little abundant species (a bad idea) only to show a bigger dataset.
-  add_count(sp) %>% 
-  filter(n > 15)
-```
-
-Overview.
-
-```{r, out.width="90%", fig.widh=(6 * 0.9 / 0.7)}
-ggplot(census_bigger, aes(x = gx, y = gy)) +
-  geom_raster(data = habitat_centered, aes(x, y, fill = habitats)) + 
-  geom_point() +
-  coord_fixed() +
-  facet_wrap(~sp) +
-  labs(fill = "Habitat")
-```
-
-The output of `tt_test()` doesn't scale up very well. With increasing number of species the resulting matrix becomes harder to visualize.
-
-```{r}
-abundance_bigger <- abundanceperquad(
-  census_bigger, plotdim = plot_dimensions, gridsize = grid_size
-)$abund
-
-many_sp <- unique(census_bigger$sp)
-result_bigger <- tt_test(
-  many_sp,
-  hab.index20 = habitat_data,
-  allabund20 = abundance_bigger,
-  plotdim = plot_dimensions,
-  gridsize = grid_size
-)
-
-# Ackward
-result_bigger
-```
-
-A solution is to convert the resulting object to a long-format dataframe, which is easier to view.
-
-```{r}
-result_long <- result_bigger %>% 
-  as.data.frame() %>% 
-  add_column(metric = rownames(result_bigger)) %>% 
-  gather(key = "sp", value = "value", -metric)
-
-head(result_long)
-```
-
-```R
-# This view allows filtering
-View(result_long)
-```
-
-We can wrap the re-formatting code into a handy function.
-
-```{r}
-tt_gather <- function(tt_test) {
-  tt_test %>% 
-    as.data.frame() %>% 
-    add_column(metric = rownames(tt_test)) %>% 
-    gather(key = "sp", value = "value", -metric)
-}
-
-result_long <- tt_gather(result_bigger)
+spread(tt_df(out_all), sp, value)
 ```
 
 ## Data science workflows
 
-Above we used `tt_gather()` to output a dataframe. Compared to a matrix, a dataframe fits better in common data science workflows. Dataframes allow using popular tools for data wrangling and visualization (from the __dplyr__ and __ggplot2__ packages). Here are some examples of what you can do.
+Above we used `tt_test()` or a combination of `tt_test_one()` and `tt_df()` to output a dataframe. Compared to a matrix, a dataframe fits better in common workflows for data manipulation and visualization. The dataframe is the most important data structure used in __dplyr__, __ggplot2__, and all other packages in the tidyverse. Here are some examples of what you can do with our dataframe output. We'll use the pipe operator (`%>%`) to avoid saving intermediary results and to make our code more expressive -- where each line is an imperative statement that communicates our intention (for details see http://style.tidyverse.org/pipes.html).
 
-* Filtering interesting species.
+* Transforming data.
 
 ```{r}
-top_sp <- census_bigger %>% 
-  count(sp) %>% 
-  top_n(5) %>% 
-  pull(sp)
-top_sp
+out %>% 
+  mutate_if(is.character, tolower) %>% 
+  mutate_if(is.numeric, round, 2) %>% 
+  mutate(metric = str_replace_all(metric, fixed("."), "_")) %>% 
+  head()
+```
 
-result_top_sp <- filter(result_long, sp %in% top_sp)
-# Friendly view
-spread(result_top_sp, sp, value)
+* Filtering interesting rows and arranging them as required.
+
+```{r}
+out %>% 
+  filter(sp  %in% c("SLOBER", "PREMON"), grepl("Gr", metric)) %>% 
+  arrange(metric, desc(value))
 ```
 
 * Producing analytic summaries.
 
 ```{r}
-result_top_sp %>% 
+out %>% 
   group_by(metric) %>% 
   summarise(mean = mean(value), max = max(value), min = min(value))
 ```
@@ -308,7 +261,7 @@ result_top_sp %>%
 * Producing visual summaries.
 
 ```{r, out.width="90%", fig.widh=(6 * 0.9 / 0.7)}
-ggplot(result_top_sp, aes(sp, value, color = sp)) +
+ggplot(out, aes(sp, value, color = sp)) +
   geom_point() +
   facet_wrap("metric", scales = "free_y") +
   theme(axis.text.x = element_blank())

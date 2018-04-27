@@ -38,46 +38,64 @@ library(fgeo.habitat)
 Habitat-species associations.
 
 ```{r}
-# Example data (see ?luquillo_habitat and ?luquillo_top3_sp)
-plot_dimensions <- c(320, 500)
-grid_size <- 20
-habitat_data <- luquillo_habitat
-census_data <- luquillo_top3_sp
-alive_trees <- census_data[census_data$status == "A", ]
+# Setup
 
-abundance_per_quadrat <- abundanceperquad(
-  alive_trees,
-  plotdim = plot_dimensions,
-  gridsize = grid_size,
-  type = 'abund'
-)$abund
+# For easier data wranging
+library(dplyr)
 
-one_species <- unique(census_data$sp)[[1]]
-one_species
+# Example data
+habitat <- luquillo_habitat
+census <- luquillo_top3_sp
 
-out_one <- tt_test_one(
-  species = one_species,
-  hab.index20 = habitat_data,
-  allabund20 = abundance_per_quadrat,
-  plotdim = plot_dimensions,
-  gridsize = grid_size
+# Pick alive trees, of 10 mm or more
+pick <- filter(census, status == "A", dbh >= 10)
+# Pick sufficiently abundant trees
+pick <- add_count(pick, sp)
+pick <- filter(pick, n > 50)
+
+species <- unique(pick$sp)
+
+
+
+# Test with the wrapper tt_test()
+
+out <- tt_test(species, census, habitat)
+# Try also: View(out)
+head(out)
+tail(out)
+
+
+
+# Test without the wrapper, i.e. with tt_test_one()
+
+# Setup
+plotdim <- c(320, 500)
+gridsize <- 20
+abundance <- abund_index(pick, plotdim, gridsize)
+
+# One species
+out2 <- tt_test_one(unique(pick$sp)[[2]],
+  hab.index20 = habitat,
+  allabund20 = abundance,
+  plotdim = plotdim,
+  gridsize = gridsize
 )
-out_one
+head(out2)
+tail(out2)
+# Nicer view; try also View(tt_df(out2))
+head(tt_df(out2))
 
-multiple_species <- unique(census_data$sp)
-multiple_species
-
-out_multiple <- lapply(
-  multiple_species,
-  tt_test_one,
-  hab.index20 = habitat_data,
-  allabund20 = abundance_per_quadrat,
-  plotdim = plot_dimensions,
-  gridsize = grid_size
+# Multiple species
+out3 <- lapply(
+  species, tt_test_one,
+  hab.index20 = habitat,
+  allabund20 = abundance,
+  plotdim = plotdim,
+  gridsize = gridsize
 )
-
-nicer_view <- t(Reduce(rbind, out_multiple))
-nicer_view
+out3
+# Nicer view; try also View(tt_df(out3))
+head(tt_df(out3))
 ```
 
 Krige soil data.
