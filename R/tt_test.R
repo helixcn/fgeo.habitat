@@ -7,8 +7,8 @@
 #' abundant species - in a 50-ha plot, a minimum abundance of 50 trees/species
 #' has been used.
 #' 
-#' The wrapper `tt_test()` uses `abundanceperquad()` internaly which is slow.
-#' You may calculate abundance per quadrat independently, feed it to the
+#' `tt_test()` uses `abundanceperquad()` -- via `abund_index()` -- which is
+#' slow. You may calculate abundance per quadrat independently, feed it to the
 #' argument `allabund20` of `tt_test_one()`, and reformat the output with
 #' `tt_df()`. See Examples to iterate over multiple species.
 #' 
@@ -21,11 +21,11 @@
 #' @param gridsize Grid size. If using `tt_test_one()`, ensure it matches the
 #'   gridsize on which the habitats are defined and the abundances were
 #'   calculated.
-#' @param allabund20 The output of `abundanceperquadrat()`.
+#' @param allabund20 The output of `abund_index()`.
 #'
 #' @author Sabrina Russo, Daniel Zuletta, Matteo Detto, and Kyle Harms.
 #' 
-#' @seealso Example at \url{https://bookdown.org/fgeocomm/ttt/}.
+#' @seealso [tt_df()].
 #' 
 #' @return A numeric matrix.
 #' 
@@ -94,19 +94,14 @@ tt_test <- function(sp,
                     habitat, 
                     plotdim = extract_plotdim(habitat), 
                     gridsize = extract_gridsize(habitat)) {
-  n_index <- abundanceperquad(
-    censdata = census, plotdim = plotdim, gridsize = gridsize, mindbh = 0
-  )$abund
-  
   tt_mat <- lapply(
     X = sp, 
     FUN = tt_test_one,
-    allabund20 = n_index,
+    allabund20 = abund_index(census, plotdim, gridsize),
     hab.index20 = habitat,
     plotdim = plotdim,
     gridsize = gridsize
   )
-  
   tt_df(tt_mat)
 }
 

@@ -9,6 +9,7 @@
 #'
 #' @family functions from http://ctfs.si.edu/Public/CTFSRPackage/
 #' @keywords internal
+#' @noRd
 abundanceperquad <- function(censdata,
                              mindbh = 10,
                              plotdim = c(1000, 500),
@@ -30,12 +31,10 @@ abundanceperquad <- function(censdata,
   return(result)
 }
 
-#' Internal.
-#'
 #' @family functions from http://ctfs.si.edu/Public/CTFSRPackage/
 #' @keywords internal
-abundance <- 
-function (censdata, type = "abund", alivecode = c("A"), mindbh = NULL, 
+#' @noRd
+abundance <- function (censdata, type = "abund", alivecode = c("A"), mindbh = NULL, 
     dbhunit = "mm", split1 = NULL, split2 = NULL) 
 {
     if (is.null(split1)) 
@@ -70,12 +69,10 @@ function (censdata, type = "abund", alivecode = c("A"), mindbh = NULL,
     return(result)
 }
 
-#' Internal.
-#'
 #' @family functions from http://ctfs.si.edu/Public/CTFSRPackage/
 #' @keywords internal
-basum <- 
-function (dbh, mindbh = 10, dbhunit = "mm") 
+#' @noRd
+basum <- function (dbh, mindbh = 10, dbhunit = "mm") 
 {
     if (!is.null(mindbh)) 
         dbh = dbh[dbh >= mindbh]
@@ -84,14 +81,10 @@ function (dbh, mindbh = 10, dbhunit = "mm")
     return(sum(ba(dbh, dbhunit = dbhunit), na.rm = TRUE))
 }
 
-
-
-#' Internal.
-#'
 #' @family functions from http://ctfs.si.edu/Public/CTFSRPackage/
 #' @keywords internal
-gxgy.to.index <- 
-function (gx, gy, gridsize = 20, plotdim = c(1000, 500)) 
+#' @noRd
+gxgy.to.index <- function (gx, gy, gridsize = 20, plotdim = c(1000, 500)) 
 {
     badgxgy = (gx < 0 | gy < 0 | gx >= plotdim[1] | gy >= plotdim[2] | 
         is.na(gx) | is.na(gy))
@@ -102,14 +95,10 @@ function (gx, gy, gridsize = 20, plotdim = c(1000, 500))
     return(rowcol.to.index(rowno, colno, gridsize, plotdim))
 }
 
-
-
-#' Internal.
-#'
 #' @family functions from http://ctfs.si.edu/Public/CTFSRPackage/
 #' @keywords internal
-fill.dimension <- 
-function (dataarray, class1, class2, fill = 0) 
+#' @noRd
+fill.dimension <- function (dataarray, class1, class2, fill = 0) 
 {
     result = data.frame(matrix(fill, nrow = length(class1), ncol = length(class2)))
     rownames(result) = class1
@@ -119,14 +108,10 @@ function (dataarray, class1, class2, fill = 0)
     return(result)
 }
 
-
-
-#' Internal.
-#'
 #' @family functions from http://ctfs.si.edu/Public/CTFSRPackage/
 #' @keywords internal
-ba <- 
-function (dbh, dbhunit = "mm") 
+#' @noRd
+ba <- function (dbh, dbhunit = "mm") 
 {
     if (dbhunit == "mm") 
         return(pi * (dbh/2000)^2)
@@ -134,14 +119,10 @@ function (dbh, dbhunit = "mm")
         return(pi * (dbh/200)^2)
 }
 
-
-
-#' Internal.
-#'
 #' @family functions from http://ctfs.si.edu/Public/CTFSRPackage/
 #' @keywords internal
-rowcol.to.index <- 
-function (rowno, colno, gridsize = 20, plotdim = c(1000, 500)) 
+#' @noRd
+rowcol.to.index <- function (rowno, colno, gridsize = 20, plotdim = c(1000, 500)) 
 {
     badrc = (rowno <= 0 | colno <= 0 | rowno > plotdim[2]/gridsize | 
         colno > plotdim[1]/gridsize)
@@ -153,6 +134,3 @@ function (rowno, colno, gridsize = 20, plotdim = c(1000, 500))
         index[badrc] = NA
     return(index)
 }
-
-
-
