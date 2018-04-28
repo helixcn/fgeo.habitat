@@ -1,5 +1,5 @@
 #' Datasets from __fgeo.data__.
-#' 
+#'
 #' @seealso `fgeo.data::luquillo_habitat`, `fgeo.data::luquillo_elevation`,
 #'   `fgeo.data::luquillo_tree6_random`, `fgeo.data::luquillo_stem6_random`.
 #'
@@ -21,8 +21,8 @@ NULL
 "luquillo_stem6_random"
 
 #' A tiny dataset from Luquillo of the three most abundant species.
-#' 
-#' @examples 
+#'
+#' @examples
 #' str(luquillo_top3_sp)
 "luquillo_top3_sp"
 
@@ -34,7 +34,7 @@ NULL
 #' `M3Al` has been randomized. It is useful for examples but not for research.
 #'
 #' @source Graham Zemunik (via https://goo.gl/2EwLQJ).
-#' 
-#' @examples 
+#'
+#' @examples
 #' str(soil_random, give.attr = FALSE)
 "soil_random"

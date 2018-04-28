@@ -7,7 +7,7 @@
 tt_df(ttt)
 }
 \arguments{
-\item{ttt}{Output of \code{tt_test_one()}; Either a single matix or a list of
+\item{ttt}{Output of \code{tt_test_one()}; Either a single matrix or a list of
 matrices.}
 }
 \value{

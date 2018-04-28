@@ -14,7 +14,7 @@ columns \code{gx}, \code{gy}.}
 
 \item{var}{A text string giving the variable/column in \code{df.soil} to krige.}
 
-\item{gridSize}{Points are kriged to the centre points of a grid of this
+\item{gridSize}{Points are kriged to the center points of a grid of this
 size.}
 
 \item{krigeParams}{If you want to pass specified kriging parameters; see

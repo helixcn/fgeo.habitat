@@ -108,5 +108,5 @@ head(tt_df(out3))
 \code{\link[=tt_df]{tt_df()}}.
 }
 \author{
-Sabrina Russo, Daniel Zuletta, Matteo Detto, and Kyle Harms.
+Sabrina Russo, Daniel Zuleta, Matteo Detto, and Kyle Harms.
 }

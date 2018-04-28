@@ -26,7 +26,7 @@ column names and the values.}
 }
 \description{
 These functions convert a matrix to three-column data frames, where columns
-sotre row names, column names, and values of the original matrix.
+store row names, column names, and values of the original matrix.
 \code{\link[=mat_enframe]{mat_enframe()}} outputs a long-format dataframe and \code{\link[=mat_enframe_ls]{mat_enframe_ls()}}
 returns a list of dataframes where each element of the list maps to a column
 of the original matrix.
