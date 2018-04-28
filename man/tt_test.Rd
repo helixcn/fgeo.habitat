@@ -90,9 +90,8 @@ out2 <- tt_test_one(unique(pick$sp)[[2]],
   plotdim = plotdim,
   gridsize = gridsize
 )
-head(out2)
-tail(out2)
-# Nicer view; try also View(tt_df(out2))
+out2
+# Alternative data structure; try also View(tt_df(out2))
 head(tt_df(out2))
 
 # Multiple species
@@ -104,7 +103,7 @@ out3 <- lapply(
   gridsize = gridsize
 )
 out3
-# Nicer view; try also View(tt_df(out3))
+# Alternative data structure; try also View(tt_df(out3))
 head(tt_df(out3))
 }
 \seealso{

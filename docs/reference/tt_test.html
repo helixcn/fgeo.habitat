@@ -254,21 +254,14 @@ argument <code>allabund20</code> of <code>tt_test_one()</code>, and reformat the
   <span class='kw'>plotdim</span> <span class='kw'>=</span> <span class='no'>plotdim</span>,
   <span class='kw'>gridsize</span> <span class='kw'>=</span> <span class='no'>gridsize</span>
 )
-<span class='fu'>head</span>(<span class='no'>out2</span>)</div><div class='output co'>#&gt;        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1 N.Hab.2
+<span class='no'>out2</span></div><div class='output co'>#&gt;        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1 N.Hab.2
 #&gt; PREMON      59      389     1208        3              0          0.243      75
 #&gt;        Gr.Hab.2 Ls.Hab.2 Eq.Hab.2 Rep.Agg.Neut.2 Obs.Quantile.2 N.Hab.3
 #&gt; PREMON     1562       37        1              1          0.976      56
 #&gt;        Gr.Hab.3 Ls.Hab.3 Eq.Hab.3 Rep.Agg.Neut.3 Obs.Quantile.3 N.Hab.4
 #&gt; PREMON      632      963        5              0          0.395      44
 #&gt;        Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4
-#&gt; PREMON      222     1375        3              0          0.139</div><div class='input'><span class='fu'>tail</span>(<span class='no'>out2</span>)</div><div class='output co'>#&gt;        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1 N.Hab.2
-#&gt; PREMON      59      389     1208        3              0          0.243      75
-#&gt;        Gr.Hab.2 Ls.Hab.2 Eq.Hab.2 Rep.Agg.Neut.2 Obs.Quantile.2 N.Hab.3
-#&gt; PREMON     1562       37        1              1          0.976      56
-#&gt;        Gr.Hab.3 Ls.Hab.3 Eq.Hab.3 Rep.Agg.Neut.3 Obs.Quantile.3 N.Hab.4
-#&gt; PREMON      632      963        5              0          0.395      44
-#&gt;        Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4
-#&gt; PREMON      222     1375        3              0          0.139</div><div class='input'><span class='co'># Nicer view; try also View(tt_df(out2))</span>
+#&gt; PREMON      222     1375        3              0          0.139</div><div class='input'><span class='co'># Alternative data structure; try also View(tt_df(out2))</span>
 <span class='fu'>head</span>(<span class='fu'><a href='tt_df.html'>tt_df</a></span>(<span class='no'>out2</span>))</div><div class='output co'>#&gt;           metric     sp    value
 #&gt; 1        N.Hab.1 PREMON   59.000
 #&gt; 2       Gr.Hab.1 PREMON  389.000
@@ -313,7 +306,7 @@ argument <code>allabund20</code> of <code>tt_test_one()</code>, and reformat the
 #&gt; SLOBER     1181      415        4              0          0.738      17
 #&gt;        Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4
 #&gt; SLOBER     1151      440        9              0          0.719
-#&gt; </div><div class='input'><span class='co'># Nicer view; try also View(tt_df(out3))</span>
+#&gt; </div><div class='input'><span class='co'># Alternative data structure; try also View(tt_df(out3))</span>
 <span class='fu'>head</span>(<span class='fu'><a href='tt_df.html'>tt_df</a></span>(<span class='no'>out3</span>))</div><div class='output co'>#&gt;           metric     sp    value
 #&gt; 1        N.Hab.1 CASARB   25.000
 #&gt; 2       Gr.Hab.1 CASARB 1489.000

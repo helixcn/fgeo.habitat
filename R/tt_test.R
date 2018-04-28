@@ -75,9 +75,8 @@
 #'   plotdim = plotdim,
 #'   gridsize = gridsize
 #' )
-#' head(out2)
-#' tail(out2)
-#' # Nicer view; try also View(tt_df(out2))
+#' out2
+#' # Alternative data structure; try also View(tt_df(out2))
 #' head(tt_df(out2))
 #'
 #' # Multiple species
@@ -89,7 +88,7 @@
 #'   gridsize = gridsize
 #' )
 #' out3
-#' # Nicer view; try also View(tt_df(out3))
+#' # Alternative data structure; try also View(tt_df(out3))
 #' head(tt_df(out3))
 tt_test <- function(sp,
                     census,
