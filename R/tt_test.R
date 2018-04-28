@@ -23,7 +23,11 @@
 #'   calculated.
 #' @param allabund20 The output of `abund_index()`.
 #'
+<<<<<<< HEAD
 #' @author Sabrina Russo, Daniel Zuleta, Matteo Detto, and Kyle Harms.
+=======
+#' @author Sabrina Russo, Daniel Zuletta, Matteo Detto, and Kyle Harms.
+>>>>>>> b830130d4e7d59c66ab77b8d5b9bb356575e1003
 #'
 #' @seealso [tt_df()].
 #'

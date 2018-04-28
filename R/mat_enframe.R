@@ -1,7 +1,11 @@
 #' Convert a matrices to data frames.
 #'
 #' These functions convert a matrix to three-column data frames, where columns
+<<<<<<< HEAD
 #' store row names, column names, and values of the original matrix.
+=======
+#' sotre row names, column names, and values of the original matrix.
+>>>>>>> b830130d4e7d59c66ab77b8d5b9bb356575e1003
 #' [mat_enframe()] outputs a long-format dataframe and [mat_enframe_ls()]
 #' returns a list of dataframes where each element of the list maps to a column
 #' of the original matrix.

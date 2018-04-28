@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 #' Count rows by quadrat-index (conservative wrapper of `abundanceperquad()`).
+=======
+#' Count rows by quadrat-index (conservative warpper of `abundanceperquad()`).
+>>>>>>> b830130d4e7d59c66ab77b8d5b9bb356575e1003
 #'
 #' Count rows by quadrat-index. This is a conservative wrapper around the
 #' function `abundanceperquad()` of the CTFSRPackage. Its output is always
