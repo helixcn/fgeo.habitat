@@ -22,11 +22,11 @@ test_that("output is of correct lengh", {
 
 test_that("fails with wrong names", {
   expect_error(
-    extract_gridsize(data.frame(wrong_name = 1)), 
+    extract_gridsize(data.frame(wrong_name = 1)),
     "Ensure your data set has these variables"
   )
   expect_error(
-    extract_plotdim(data.frame(wrong_name = 1)), 
+    extract_plotdim(data.frame(wrong_name = 1)),
     "Ensure your data set has these variables"
   )
 })

@@ -4,11 +4,11 @@ test_that("outputs is a matrix of doubles", {
   x <- matrix(0:3, nrow = 2)
   d1 <- dist_in_torus(x)
   expect_type(d1, "double")
-  expect_true("matrix" %in%  class(d1))
-  
-  d2 <-  dist_in_torus(x, lower = c(3, 13), upper = c(5, 15))
+  expect_true("matrix" %in% class(d1))
+
+  d2 <- dist_in_torus(x, lower = c(3, 13), upper = c(5, 15))
   expect_type(d2, "double")
-  expect_true("matrix" %in%  class(d2))
+  expect_true("matrix" %in% class(d2))
 })
 
 test_that("fails with wrong input", {
@@ -49,4 +49,3 @@ test_that("behaves in particular ways with extreeme conditions", {
   expect_error(dist_in_torus(matrix(1)))
   expect_error(dist_in_torus(matrix(c(NULL, NULL))))
 })
-

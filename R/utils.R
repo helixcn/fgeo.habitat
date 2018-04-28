@@ -2,7 +2,7 @@ collapse <- function(...) {
   paste0(..., collapse = ", ")
 }
 
-check_crucial_names <- function (x, nms) {
+check_crucial_names <- function(x, nms) {
   stopifnot(rlang::is_named(x))
   stopifnot(is.character(nms))
   are_names_expected <- all(nms %in% names(x))
@@ -10,12 +10,13 @@ check_crucial_names <- function (x, nms) {
     return(invisible(x))
   }
   else {
-    stop("Ensure your data set has these variables:\n", paste0(nms, 
-      collapse = ", "), call. = FALSE)
+    stop("Ensure your data set has these variables:\n", paste0(nms,
+      collapse = ", "
+    ), call. = FALSE)
   }
 }
 
-get_datasets <- function (package) {
+get_datasets <- function(package) {
   dinfo <- utils::data(package = package)
   dinfo[["results"]][, "Item"]
 }

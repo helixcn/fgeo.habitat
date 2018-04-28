@@ -34,7 +34,7 @@
 #'   [geoR::ksline()], [geoR::krige.conv()], [geoR::krige.control()].
 #'
 #' @author Graham Zemunik (grah.zem@@gmail.com).
-#' 
+#'
 #' @export
 #' @examples
 #' \dontrun{
@@ -89,7 +89,7 @@ GetKrigedSoil <- function(df.soil,
     useKsLine = useKsLine
   )
 
-  df <- df.soil[ , c("gx", "gy", var)]
+  df <- df.soil[, c("gx", "gy", var)]
   names(df)[3] <- "z"
 
   # This follows a similar methodology to the John 2007 paper:
@@ -108,7 +108,8 @@ GetKrigedSoil <- function(df.soil,
   df <- bc$df
 
   polyfit <- GetPolynomialFit(
-    df, gridSize = gridSize, xSize = xSize, ySize = ySize
+    df,
+    gridSize = gridSize, xSize = xSize, ySize = ySize
   )
 
   # Get the variogram parameters
@@ -128,8 +129,9 @@ GetKrigedSoil <- function(df.soil,
     params <- GetAutomatedKrigeParams(geod, breaks = breaks)
   } else {
     params <- krigeParams
-    if (!("kappa" %in% names(params)))
+    if (!("kappa" %in% names(params))) {
       params$kappa <- 0
+    }
   }
 
   # Do the kriging
@@ -185,7 +187,7 @@ GetKrigedSoil <- function(df.soil,
 #' @param first FIXME.
 #' @param last FIXME.
 #' @param n FIXME.
-#' 
+#'
 #' @author Graham Zemunik (grah.zem@@gmail.com).
 #'
 #' @export
@@ -194,7 +196,7 @@ GetKrigedSoil <- function(df.soil,
 ExpList <- function(first, last, n) {
   v <- vector()
   m <- 1 / (n - 1)
-  quotient <- (last / first) ^ m
+  quotient <- (last / first)^m
 
   v[1] <- first
   for (i in 2:n)
@@ -236,7 +238,7 @@ GetAutomatedKrigeParams <- function(geod,
   # Several different models are tested; the one with the lowest least
   # squares error is chosen
   vg <- variog(geod, breaks = breaks, pairs.min = 5, trend = trend)
-  varModels <- c("exponential", "circular", "cauchy", "gaussian") #, "wave" )
+  varModels <- c("exponential", "circular", "cauchy", "gaussian") # , "wave" )
   minValue <- NULL
   minVM <- NULL
   startRange <- max(breaks) / 2
@@ -281,7 +283,7 @@ GetAutomatedKrigeParams <- function(geod,
 #' @param gridSize FIXME.
 #' @param xSize FIXME.
 #' @param ySize FIXME.
-#' 
+#'
 #' @author Graham Zemunik (grah.zem@@gmail.com).
 #'
 #' @noRd
@@ -334,13 +336,13 @@ GetPolynomialFit <- function(df, gridSize = 20, xSize = 1000, ySize = 500) {
 #' @param d FIXME.
 #' @param e FIXME.
 #' @param f FIXME.
-#' 
+#'
 #' @author Graham Zemunik (grah.zem@@gmail.com).
 #'
 #' @keywords internal
 #' @noRd
 PolynomialSurfaceOrder2 <- function(x, y, a, b, c, d, e, f) {
-  a + b * x + c * y + d * x * y + e * x ^ 2 + f * y ^ 2
+  a + b * x + c * y + d * x * y + e * x^2 + f * y^2
 }
 
 #' Find the optimal Box-Cox transform parameters.
@@ -354,7 +356,7 @@ PolynomialSurfaceOrder2 <- function(x, y, a, b, c, d, e, f) {
 #' @return A list of the original df, the delta value and the the delta value.
 #'
 #' @param df FIXME.
-#' 
+#'
 #' @author Graham Zemunik (grah.zem@@gmail.com).
 #'
 #' @keywords internal
@@ -373,7 +375,7 @@ BoxCoxTransformSoil <- function(df) {
       # boxcox will complain about -ve values
       if (min(df$z) == 0) {
         # add a small amount to allow transforms to work
-        delta = 0.00001
+        delta <- 0.00001
         df$z <- df$z + delta
       }
       bc <- boxcox(
@@ -383,7 +385,7 @@ BoxCoxTransformSoil <- function(df) {
         plotit = F
       )
       lambda <- bc$x[which(bc$y == max(bc$y))]
-      lambda <- round(lambda / 0.5) * 0.5  # Get lambda in multiples of 0.5
+      lambda <- round(lambda / 0.5) * 0.5 # Get lambda in multiples of 0.5
       if (lambda == 0) {
         df$z <- log(df$z)
       } else {
@@ -407,7 +409,7 @@ BoxCoxTransformSoil <- function(df) {
 #' @param delta FIXME.
 #'
 #' @return The df with the transformed data, from the z column.
-#' 
+#'
 #' @author Graham Zemunik (grah.zem@@gmail.com).
 #'
 #' @keywords internal
@@ -417,7 +419,7 @@ InvBoxCoxTransformSoil <- function(df, lambda, delta) {
     df$z <- exp(df$z)
   } else {
     if (lambda == 0.5) {
-      df$z <- df$z ^ 2
+      df$z <- df$z^2
     }
   }
   # Take away the delta offset

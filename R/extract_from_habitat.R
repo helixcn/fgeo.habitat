@@ -17,7 +17,7 @@ NULL
 #' @export
 extract_gridsize <- function(habitats) {
   check_crucial_names(habitats, c("x", "y"))
-  
+
   grid_x <- difference_among_grid_steps(habitats$x)
   grid_y <- difference_among_grid_steps(habitats$y)
   gridsize <- unique(grid_x, grid_y)
@@ -28,10 +28,12 @@ extract_gridsize <- function(habitats) {
 #' @export
 extract_plotdim <- function(habitats) {
   check_crucial_names(habitats, c("x", "y"))
-  
+
   gridsize <- extract_gridsize(habitats)
   plotdim <- unlist(
-    lapply(habitats[c("x", "y")], function(.x){max(.x) + gridsize})
+    lapply(habitats[c("x", "y")], function(.x) {
+      max(.x) + gridsize
+    })
   )
   as.integer(unname(plotdim))
 }
@@ -45,6 +47,6 @@ extract_plotdim <- function(habitats) {
 difference_among_grid_steps <- function(habitat_x_or_y) {
   grid_steps <- unique(habitat_x_or_y)
   difference_among_grid_steps <- unique(diff(grid_steps))
-  
+
   difference_among_grid_steps
 }
