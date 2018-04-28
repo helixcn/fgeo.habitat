@@ -28,7 +28,10 @@ calculated.}
 \item{allabund20}{The output of \code{abund_index()}.}
 }
 \value{
-A numeric matrix.
+\itemize{
+\item \code{tt_test()}: A dataframe.
+\item \code{tt_test_one()}: A numeric matrix.
+}
 }
 \description{
 Torus Translation Test (TT test) to determine habitat associations of tree
@@ -108,5 +111,5 @@ head(tt_df(out3))
 \code{\link[=tt_df]{tt_df()}}.
 }
 \author{
-Sabrina Russo, Daniel Zuletta, Matteo Detto, and Kyle Harms.
+Sabrina Russo, Daniel Zuleta, Matteo Detto, and Kyle Harms.
 }

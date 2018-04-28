@@ -55,47 +55,10 @@ pick <- filter(pick, n > 50)
 
 species <- unique(pick$sp)
 
-
-
-# Test with the wrapper tt_test()
-
 out <- tt_test(species, census, habitat)
 # Try also: View(out)
 head(out)
 tail(out)
-
-
-
-# Test without the wrapper, i.e. with tt_test_one()
-
-# Setup
-plotdim <- c(320, 500)
-gridsize <- 20
-abundance <- abund_index(pick, plotdim, gridsize)
-
-# One species
-out2 <- tt_test_one(unique(pick$sp)[[2]],
-  hab.index20 = habitat,
-  allabund20 = abundance,
-  plotdim = plotdim,
-  gridsize = gridsize
-)
-head(out2)
-tail(out2)
-# Nicer view; try also View(tt_df(out2))
-head(tt_df(out2))
-
-# Multiple species
-out3 <- lapply(
-  species, tt_test_one,
-  hab.index20 = habitat,
-  allabund20 = abundance,
-  plotdim = plotdim,
-  gridsize = gridsize
-)
-out3
-# Nicer view; try also View(tt_df(out3))
-head(tt_df(out3))
 ```
 
 Krige soil data.

@@ -21,6 +21,7 @@ knitr::opts_chunk$set(
   cache = FALSE,
   out.width = "70%",
   fig.align = "center",
+  fig.height = 9,
   fig.width = 6,
   fig.asp = 0.618,  # 1 / phi
   fig.show = "hold"
@@ -33,16 +34,18 @@ To suggest changes to the source code please file a pull request on the GitHub r
 
 ## Setup
 
+First, install and load ("open") the relevant packages. (If this code chunks isn't clear enough, see [this article](https://fgeo.netlify.com/2018/02/05/2018-02-05-installing-packages-from-github/) for details on how to install packages from GitHub.)
+
 ```R
 # install.packages("remotes")
 remotes::install_github("forestgeo/fgeo.habitat")
 ```
 
-For details on how to install packages from GitHub, see [this article](https://fgeo.netlify.com/2018/02/05/2018-02-05-installing-packages-from-github/).
-
 ```{r}
 library(fgeo.habitat)
 # For data wranging and visualization
+
+# Install the tidyverse package from CRAN with: install.packages("tidyverse")
 library(tidyverse)
 ```
 
@@ -53,7 +56,7 @@ set.seed(1014)
 
 ## Load census and habitat data
 
-Here we'll use example datasets that come with __fgeo.habitat__.
+we'll use example datasets that come with __fgeo.habitat__.
 
 ```{r}
 census <- luquillo_tree6_random
@@ -156,27 +159,23 @@ We should find and store the plot dimensions and gridsize because we'll need the
 lapply(habitat, range)
 ```
 
-You functions may also help you.
+You can find information about each ForestGEO site at https://forestgeo.si.edu/sites-all. Also, consider these functions:
 
 ```{r}
-extract_plotdim(habitat)
-extract_gridsize(habitat)
+plot_dimensions <- extract_plotdim(habitat)
+plot_dimensions
+
+grid_size <- extract_gridsize(habitat)
+grid_size
 ```
 
-These are the values we need.
+To calculate abundance per quadrat-index you may use the function [`abundanceperquad()`](https://s.si.edu/2JtN94p) from the original CTFSRPackage, or a more conservative wrapper, `abund_index()`, from __fgeo.habitat__.
 
 ```{r}
-# For reuse
-plot_dimensions <- c(320, 500)
-grid_size <- 20
-```
-
-To calculate abundance per quadrat-index you may use the function [`abundanceperquad()`](https://s.si.edu/2JtN94p) from the original CTFSRPackage, or a more conservative wrapper, `abund_index()` from __fgeo.habitat__.
-
-```{r}
-# For details see ?abund_index (e.g. defaults to keep trees of dbh > 10 mm)
+# For details see ?abund_index()
 abundance <- abund_index(pick, plot_dimensions, grid_size)
 
+# Show only a few lines of output
 str(abundance, list.len = 5)
 ```
 
@@ -222,7 +221,7 @@ out_all <- lapply(
 out_all
 ```
 
-Here again you may use `tt_df()` in combination with `View()` and `spread()`.
+Again, you may use `tt_df()` in combination with `View()` and `spread()`.
 
 ```{r}
 spread(tt_df(out_all), sp, value)
@@ -230,7 +229,9 @@ spread(tt_df(out_all), sp, value)
 
 ## Data science workflows
 
-Above we used `tt_test()` or a combination of `tt_test_one()` and `tt_df()` to output a dataframe. Compared to a matrix, a dataframe fits better in common workflows for data manipulation and visualization. The dataframe is the most important data structure used in __dplyr__, __ggplot2__, and all other packages in the tidyverse. Here are some examples of what you can do with our dataframe output. We'll use the pipe operator (`%>%`) to avoid saving intermediary results and to make our code more expressive -- where each line is an imperative statement that communicates our intention (for details see http://style.tidyverse.org/pipes.html).
+Above we used `tt_test()`, or a combination of `tt_test_one()` and `tt_df()`, to output a dataframe. Compared to a matrix, a dataframe fits better in common workflows for data manipulation and visualization. The dataframe is the most important data structure used in __dplyr__, __ggplot2__, and all other packages in the __tidyverse__. Here are some examples of what you can do with our dataframe output.
+
+The next few code chunks use the pipe operator (`%>%`) to avoid saving intermediary results and to make our code more expressive -- where each line is an imperative statement that communicates our intention (for details see http://style.tidyverse.org/pipes.html).
 
 * Transforming data.
 
@@ -260,10 +261,12 @@ out %>%
 
 * Producing visual summaries.
 
-```{r, out.width="90%", fig.widh=(6 * 0.9 / 0.7)}
+(Unfortunately, __ggplot2__ was developed before the pipe was invented. In ggplot2, we compose functions not with `%>%` but with `+`.)
+
+```{r, out.width="100%", fig.widh=(6 * 0.9 / 0.7)}
 ggplot(out, aes(sp, value, color = sp)) +
   geom_point() +
   facet_wrap("metric", scales = "free_y") +
-  theme(axis.text.x = element_blank())
+  theme(axis.text.x = element_blank(), legend.position = "top")
 ```
 

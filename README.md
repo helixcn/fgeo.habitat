@@ -55,10 +55,6 @@ pick <- filter(pick, n > 50)
 
 species <- unique(pick$sp)
 
-
-
-# Test with the wrapper tt_test()
-
 out <- tt_test(species, census, habitat)
 # Try also: View(out)
 head(out)
@@ -77,98 +73,6 @@ tail(out)
 #> 70       Eq.Hab.4 SLOBER    9.000000
 #> 71 Rep.Agg.Neut.4 SLOBER    0.000000
 #> 72 Obs.Quantile.4 SLOBER    0.719375
-
-
-
-# Test without the wrapper, i.e. with tt_test_one()
-
-# Setup
-plotdim <- c(320, 500)
-gridsize <- 20
-abundance <- abund_index(pick, plotdim, gridsize)
-
-# One species
-out2 <- tt_test_one(unique(pick$sp)[[2]],
-  hab.index20 = habitat,
-  allabund20 = abundance,
-  plotdim = plotdim,
-  gridsize = gridsize
-)
-head(out2)
-#>        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1
-#> PREMON      59      389     1208        3              0       0.243125
-#>        N.Hab.2 Gr.Hab.2 Ls.Hab.2 Eq.Hab.2 Rep.Agg.Neut.2 Obs.Quantile.2
-#> PREMON      75     1562       37        1              1        0.97625
-#>        N.Hab.3 Gr.Hab.3 Ls.Hab.3 Eq.Hab.3 Rep.Agg.Neut.3 Obs.Quantile.3
-#> PREMON      56      632      963        5              0          0.395
-#>        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4
-#> PREMON      44      222     1375        3              0        0.13875
-tail(out2)
-#>        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1
-#> PREMON      59      389     1208        3              0       0.243125
-#>        N.Hab.2 Gr.Hab.2 Ls.Hab.2 Eq.Hab.2 Rep.Agg.Neut.2 Obs.Quantile.2
-#> PREMON      75     1562       37        1              1        0.97625
-#>        N.Hab.3 Gr.Hab.3 Ls.Hab.3 Eq.Hab.3 Rep.Agg.Neut.3 Obs.Quantile.3
-#> PREMON      56      632      963        5              0          0.395
-#>        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4
-#> PREMON      44      222     1375        3              0        0.13875
-# Nicer view; try also View(tt_df(out2))
-head(tt_df(out2))
-#>           metric     sp       value
-#> 1        N.Hab.1 PREMON   59.000000
-#> 2       Gr.Hab.1 PREMON  389.000000
-#> 3       Ls.Hab.1 PREMON 1208.000000
-#> 4       Eq.Hab.1 PREMON    3.000000
-#> 5 Rep.Agg.Neut.1 PREMON    0.000000
-#> 6 Obs.Quantile.1 PREMON    0.243125
-
-# Multiple species
-out3 <- lapply(
-  species, tt_test_one,
-  hab.index20 = habitat,
-  allabund20 = abundance,
-  plotdim = plotdim,
-  gridsize = gridsize
-)
-out3
-#> [[1]]
-#>        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1
-#> CASARB      25     1489      109        2              0       0.930625
-#>        N.Hab.2 Gr.Hab.2 Ls.Hab.2 Eq.Hab.2 Rep.Agg.Neut.2 Obs.Quantile.2
-#> CASARB      12      168     1431        1              0          0.105
-#>        N.Hab.3 Gr.Hab.3 Ls.Hab.3 Eq.Hab.3 Rep.Agg.Neut.3 Obs.Quantile.3
-#> CASARB      14      567     1029        4              0       0.354375
-#>        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4
-#> CASARB      15      934      661        5              0        0.58375
-#> 
-#> [[2]]
-#>        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1
-#> PREMON      59      389     1208        3              0       0.243125
-#>        N.Hab.2 Gr.Hab.2 Ls.Hab.2 Eq.Hab.2 Rep.Agg.Neut.2 Obs.Quantile.2
-#> PREMON      75     1562       37        1              1        0.97625
-#>        N.Hab.3 Gr.Hab.3 Ls.Hab.3 Eq.Hab.3 Rep.Agg.Neut.3 Obs.Quantile.3
-#> PREMON      56      632      963        5              0          0.395
-#>        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4
-#> PREMON      44      222     1375        3              0        0.13875
-#> 
-#> [[3]]
-#>        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1
-#> SLOBER      14      492     1092       16              0         0.3075
-#>        N.Hab.2 Gr.Hab.2 Ls.Hab.2 Eq.Hab.2 Rep.Agg.Neut.2 Obs.Quantile.2
-#> SLOBER      16      473     1125        2              0       0.295625
-#>        N.Hab.3 Gr.Hab.3 Ls.Hab.3 Eq.Hab.3 Rep.Agg.Neut.3 Obs.Quantile.3
-#> SLOBER      19     1181      415        4              0       0.738125
-#>        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4
-#> SLOBER      17     1151      440        9              0       0.719375
-# Nicer view; try also View(tt_df(out3))
-head(tt_df(out3))
-#>           metric     sp       value
-#> 1        N.Hab.1 CASARB   25.000000
-#> 2       Gr.Hab.1 CASARB 1489.000000
-#> 3       Ls.Hab.1 CASARB  109.000000
-#> 4       Eq.Hab.1 CASARB    2.000000
-#> 5 Rep.Agg.Neut.1 CASARB    0.000000
-#> 6 Obs.Quantile.1 CASARB    0.930625
 ```
 
 Krige soil data.

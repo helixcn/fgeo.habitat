@@ -1,7 +1,7 @@
 context("test-getkrigedsoil.R")
 
 df <- fgeo.habitat::soil_random[1:10, ]
-result <- suppressWarnings(GetKrigedSoil(df, var="M3Al"))
+result <- suppressWarnings(GetKrigedSoil(df, var = "M3Al"))
 
 test_that("GetKrigedSoil() passes regression test", {
   expect_equal_to_reference(result, "ref-GetKrigedSoil.rds")
@@ -40,7 +40,7 @@ test_that("GetKrigedSoil() returns the expected value.", {
 
 test_that("check_GetKrigSoil() fails with wrong input", {
   numeric_input <- as.matrix(df)
-  expect_error(GetKrigedSoil(numeric_input, var="M3Al"))
+  expect_error(GetKrigedSoil(numeric_input, var = "M3Al"))
 
   rnm <- stats::setNames(df, c("wrong_x", "wrong_gy", "M3Al"))
   expect_error(
@@ -49,7 +49,7 @@ test_that("check_GetKrigSoil() fails with wrong input", {
   )
   cero_row <- data.frame(gx = numeric(0), gy = numeric(0))
   expect_error(
-    GetKrigedSoil(cero_row, var ="M3Al"),
+    GetKrigedSoil(cero_row, var = "M3Al"),
     "Ensure `df.soil` has one or more rows"
   )
   expect_error(

@@ -1,16 +1,11 @@
 # TODO
 
-# styler::style().
-# devtools::spellcheck().
-
 # Test that tt_test() fails with informative messages. 
-# Add messages to these functions to report the extracted values.
-# Rename extract_plotdim?
-# Rename extract_gridsize?
-# Test to brake abund_index.
 
+# Test to brake abund_index.
 # Improve function names in all the package
 # Adress FIXME
+# Improve the output of soil functions
 
 # OTHER PACKAGES
 # map: Write function to map raster

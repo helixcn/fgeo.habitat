@@ -25,13 +25,12 @@ test_that("output is of expected format", {
   expect_type(out, "list")
   nms <- unique(Reduce(c, lapply(out, names)))
   expect_equal(nms, c("rownames", "colnames", "value"))
-  
+
   out2 <- mat_enframe_ls(mat, "metric", "sp")
   nms2 <- unique(Reduce(c, lapply(out2, names)))
   expect_equal(nms2, c("metric", "sp", "value"))
-  
+
   mat <- matrix(1:6, 2)
   out3 <- mat_enframe_ls(mat)
   expect_equal(names(out3), paste0("X", 1:3))
 })
-

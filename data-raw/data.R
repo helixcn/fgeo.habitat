@@ -14,5 +14,5 @@ top3_sp <- cns %>%
   dplyr::arrange(desc(n)) %>%
   dplyr::top_n(3) %>%
   dplyr::pull(sp)
-luquillo_top3_sp <- dplyr::filter(cns, sp  %in% top3_sp)
+luquillo_top3_sp <- dplyr::filter(cns, sp %in% top3_sp)
 use_data(luquillo_top3_sp, overwrite = TRUE)
