@@ -2,7 +2,7 @@
 % Please edit documentation in R/abund_index.R
 \name{abund_index}
 \alias{abund_index}
-\title{Count rows by quadrat-index (conservative wrapper of \code{abundanceperquad()}).}
+\title{Count rows by quadrat-index.}
 \usage{
 abund_index(censdata, plotdim, gridsize)
 }
