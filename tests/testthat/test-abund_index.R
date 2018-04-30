@@ -1,7 +1,5 @@
 context("test-abund_index.R")
 
-
-
 # Old functions -----------------------------------------------------------
 
 #' Abundance, basal area, or agb of every species by quadrat.
@@ -100,25 +98,22 @@ cns <- luquillo_tree6_random
 pdm <- c(1000, 500)
 gsz <- 20
 
-test_that("outputs equal to abundanceperquad2()", {
-
+test_that("outputs equal to abundanceperquad()", {
   old <- fgeo.habitat:::abundanceperquad2(
     censdata = cns, mindbh = 0, plotdim = pdm, gridsize = gsz
   )$abund
   new <- abund_index(cns, pdm, gsz)
-
   expect_equal(old, new)
 })
 
 test_that("outputs equal to abundanceperquad()", {
-  
   out1 <- fgeo.habitat:::abundanceperquad2(
     censdata = cns, mindbh = 0, plotdim = pdm, gridsize = gsz
   )$abund
   out2 <- abundanceperquad(
     censdata = cns, mindbh = 0, plotdim = pdm, gridsize = gsz
   )$abund
-  # expect_equal(out1, out2)
+  expect_equal(out1, out2)
 })
 
 test_that("is faster than abundanceperquad()", {
@@ -131,5 +126,16 @@ test_that("is faster than abundanceperquad()", {
     )$abund,
     times = 10
   )
-  # expect_true(mean(new$time) < mean(old$time))
+  expect_true(mean(new$time) < mean(old$time))
+})
+
+test_that("outputs equal to abundanceperquad()", {
+  
+  out1 <- fgeo.habitat:::abundanceperquad2(
+    censdata = cns, mindbh = 0, plotdim = pdm, gridsize = gsz
+  )$abund
+  out2 <- abundanceperquad(
+    censdata = cns, mindbh = 0, plotdim = pdm, gridsize = gsz
+  )$abund
+  expect_equal(out1, out2)
 })
