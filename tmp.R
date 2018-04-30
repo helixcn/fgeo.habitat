@@ -13,7 +13,6 @@
 
 
 
-
 library(tidyverse)
 library(janitor)
 library(fgeo.tool)
@@ -35,7 +34,3 @@ tiny %>%
   arrange(index, sp, tag) %>% 
   unique() %>% 
   abund_index(pdm, gsz)
-
-
-
-

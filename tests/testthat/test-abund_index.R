@@ -118,7 +118,7 @@ test_that("outputs equal to abundanceperquad()", {
 
 test_that("is faster than abundanceperquad()", {
   skip_if_not_installed("microbenchmark")
-
+  
   new <- microbenchmark::microbenchmark(abund_index(cns, pdm, gsz), times = 3)
   old <- microbenchmark::microbenchmark(
     abundanceperquad(
