@@ -36,6 +36,45 @@ test_that("outputs expected values", {
   expect_equal(out, as.vector(out_tt_one))
 })
 
+test_that("species may be factor or character", {
+  expect_true(
+    identical(
+      tt_test(as.factor(sp_top1_luq), cns_luq, hab_luq), 
+      tt_test(sp_top1_luq, cns_luq, hab_luq)
+    )
+  )
+})
+
+test_that("fails with informative message", {
+  expect_error(
+    tt_test(1, cns_luq, hab_luq),
+    "`sp` must be of class character or factor"
+  )
+  expect_error(tt_test("a", cns_luq, hab_luq), "All `sp` must be present")
+  expect_error(
+    tt_test(c("SLOBER", "odd"), cns_luq, hab_luq), 
+    "odd"
+  )
+  expect_error(
+    tt_test(c("SLOBER", "PREMON"), census = 1, hab_luq), 
+    "is not TRUE"
+  )
+  expect_error(tt_test(c("SLOBER", "PREMON"), cns_luq, 1), "is not TRUE")
+  expect_error(tt_test(c("SLOBER"), cns_luq, hab_luq, 1), "is not TRUE")
+  expect_error(
+    tt_test(c("SLOBER"), cns_luq, hab_luq, pdim_luq, "a"), 
+    "is not TRUE"
+  )
+  expect_warning(
+    tt_test(c("SLOBER"), cns_luq, hab_luq, pdim_luq, 12), 
+    "Uncommon `gridsize`"
+  )
+})
+
+
+
+context("tt_df")
+
 test_that("Fails with known error", {
   expect_error(tt_df(character()), "Can't deal with data")
 })
