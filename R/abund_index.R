@@ -21,7 +21,7 @@
 #' abund_index(cns, pdm, gsz)
 abund_index <- function(censdata, plotdim, gridsize) {
   stopifnot(!missing(censdata), !missing(plotdim), !missing(gridsize))
-  abundanceperquad(
+  abundanceperquad2(
     censdata = censdata, plotdim = plotdim, gridsize = gridsize, mindbh = 0
   )$abund
 }

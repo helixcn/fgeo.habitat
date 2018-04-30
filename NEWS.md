@@ -1,3 +1,7 @@
+# fgeo.habitat 0.0.0.9003
+
+* Improve performance of tt_test() and abund_index().
+
 # fgeo.habitat 0.0.0.9002
 
 * New function `tt_test()` and friends, by Sabrinna Russo et al.

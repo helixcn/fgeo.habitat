@@ -11,3 +11,4 @@
 ^\.travis\.yml$
 ^codecov\.yml$
 ^\.github$
+^tmp2\.R$
