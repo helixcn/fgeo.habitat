@@ -1,27 +1,22 @@
-#' Abundance, basal area, or agb of every species by quadrat.
-#'
-#' Finds abundance, basal area, or agb of every species per square quadrat of
-#' any size; plotdim is the x dimension then y dimension of the plot and must be
-#' set correctly; gridsize is the quadrat dimension. The plot is divided into a
-#' checkerboard of non-overlapping, space-filling squares.
+#' A faster version of abundanceperquad() targeted for abundance only.
 #'
 #' @inheritParams ctfs::abundanceperquad
 #'
 #' @family functions from http://ctfs.si.edu/Public/CTFSRPackage/
 #' @keywords internal
 #' @noRd
-abundanceperquad <- function(censdata,
-                             mindbh = 10,
-                             plotdim = c(1000, 500),
-                             gridsize = 100,
-                             type = "abund",
-                             dbhunit = "mm") {
+abundanceperquad2 <- function(censdata,
+                              mindbh = 10,
+                              plotdim = c(1000, 500),
+                              gridsize = 100,
+                              type = "abund",
+                              dbhunit = "mm") {
   sp <- censdata$sp
   quadno <- gxgy.to.index(censdata$gx, censdata$gy,
     gridsize = gridsize,
     plotdim = plotdim
   )
-  result <- abundance(censdata,
+  result <- abundance2(censdata,
     type = type, mindbh = mindbh,
     dbhunit = dbhunit, split1 = sp, split2 = quadno
   )
@@ -29,7 +24,7 @@ abundanceperquad <- function(censdata,
   maxquad <- floor(plotdim[1] / gridsize) * floor(plotdim[2] / gridsize)
   allquad <- 1:maxquad
   if (dim(result[[type]])[1] < length(allspp) | dim(result[[type]])[2] <
-    length(allquad)) {
+      length(allquad)) {
     result[[type]] <- fill.dimension(result[[type]],
       class1 = allspp,
       class2 = allquad, fill = 0
@@ -38,11 +33,25 @@ abundanceperquad <- function(censdata,
   return(result)
 }
 
+#' A faster version of abundance() targeted to only counts (not ba or agb)
 #' @family functions from http://ctfs.si.edu/Public/CTFSRPackage/
 #' @keywords internal
 #' @noRd
-abundance <- function(censdata, type = "abund", alivecode = c("A"), mindbh = NULL,
-                      dbhunit = "mm", split1 = NULL, split2 = NULL) {
+abundance2 <- function(censdata,
+                       type = "abund",
+                       alivecode = c("A"),
+                       mindbh = NULL,
+                       dbhunit = "mm",
+                       split1 = NULL,
+                       split2 = NULL) {
+  if (!type == "abund") {
+    stop(
+      "`type` must be 'abund'; other types are deprecated.\n",
+      "Maybe you want `abundance()` of the original CTFSRPackage?",
+      call. = FALSE
+      )
+  }
+  
   if (is.null(split1)) {
     split1 <- rep("all", dim(censdata)[1])
   }
@@ -59,28 +68,9 @@ abundance <- function(censdata, type = "abund", alivecode = c("A"), mindbh = NUL
   class1 <- sort(unique(split1))
   class2 <- sort(unique(split2))
   groupvar <- list(split1[alive & inc], split2[alive & inc])
-  if (type == "abund") {
-    abund <- tapply(censdata$dbh[alive & inc], groupvar, length)
-  } else if (type == "ba") {
-    abund <- tapply(censdata$dbh[alive & inc], groupvar, basum,
-      mindbh = mindbh, dbhunit = dbhunit
-    )
-  } else if (type == "agb") {
-    abund <- tapply(censdata$agb[alive & inc], groupvar, sum,
-      na.rm = TRUE
-    )
-  }
-  meandate <- tapply(censdata$date[alive & inc], groupvar, mean,
-    na.rm = TRUE
-  )
+  abund <- tapply(censdata$dbh[alive & inc], groupvar, length)
   abund <- fill.dimension(abund, class1, class2)
-  meandate <- fill.dimension(meandate, class1, class2, fill = NA)
-  result <- list(abund = abund, meandate = meandate)
-  if (type == "ba") {
-    names(result)[1] <- "ba"
-  } else if (type == "agb") {
-    names(result)[1] <- "agb"
-  }
+  result <- list(abund = abund)
   return(result)
 }
 

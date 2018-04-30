@@ -95,10 +95,11 @@ tt_test <- function(sp,
                     habitat,
                     plotdim = extract_plotdim(habitat),
                     gridsize = extract_gridsize(habitat)) {
+  abundance <- abund_index(census, plotdim, gridsize)
   tt_mat <- lapply(
     X = sp,
     FUN = tt_test_one,
-    allabund20 = abund_index(census, plotdim, gridsize),
+    allabund20 = abundance,
     hab.index20 = habitat,
     plotdim = plotdim,
     gridsize = gridsize
