@@ -24,6 +24,12 @@ abundance (not basal area nor agb) and includes all available rows. If you
 want to exclude trees of some particular dbh range you need to do it before
 using this function.
 }
+\details{
+This function is softly deprecated. Better alternavies to count rows by
+groups are available in \strong{dplyr} and \strong{janitor}(see \code{group_by()} and
+\code{count()} in \strong{dplyr} and \code{tabyl()} in \strong{janitor}). Those alternatives are
+better tested and considerably faster.
+}
 \examples{
 cns <- luquillo_tree6_random
 pdm <- c(1000, 500)

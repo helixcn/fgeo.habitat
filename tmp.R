@@ -1,6 +1,5 @@
 # TODO
 
-# Test that tt_test() fails with informative messages. 
 # Improve function names in all the package
 # Adress FIXME
 # Improve the output of soil functions
