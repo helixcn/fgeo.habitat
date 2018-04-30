@@ -95,6 +95,9 @@ tt_test <- function(sp,
                     habitat,
                     plotdim = extract_plotdim(habitat),
                     gridsize = extract_gridsize(habitat)) {
+  check_tt(sp = sp, census = census, habitat = habitat, plotdim = plotdim, 
+    gridsize = gridsize
+  )
   abundance <- abund_index(census, plotdim, gridsize)
   tt_mat <- lapply(
     X = sp,
@@ -106,6 +109,45 @@ tt_test <- function(sp,
   )
   tt_df(tt_mat)
 }
+
+
+check_tt <- function(sp, census, habitat, plotdim, gridsize) {
+  stopifnot(
+    is.data.frame(census), 
+    is.data.frame(habitat),
+    is.numeric(plotdim), 
+    length(plotdim) == 2,
+    is.numeric(gridsize), 
+    length(gridsize) == 1
+  )
+  
+  common_gridsize <- gridsize  %in% c(5, 10, 20)
+  if (!common_gridsize) {
+    rlang::warn(paste("Uncommon `gridsize`:", gridsize, "\nIs this expected?"))
+  }
+  
+  if (!any(is.character(sp) || is.factor(sp))) {
+    msg <- paste0(
+      "`sp` must be of class character or factor but is of class ",
+      class(sp), "."
+    )
+    rlang::abort(msg)
+  }
+  
+  valid_sp <- sp %in% unique(census$sp)
+  if (!all(valid_sp)) {
+    msg <- paste0(
+      "All `sp` must be present in `census`.\n",
+      "Odd: ", commas(sp[!valid_sp])
+    )
+    abort(msg)
+  }
+}
+
+
+
+
+
 
 #' @rdname tt_test
 #' @export
