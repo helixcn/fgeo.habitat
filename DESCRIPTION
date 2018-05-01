@@ -7,6 +7,8 @@ Authors@R: c(
     )
 Description: Analize soils and tree-habitat data.
 License: GPL-3
+URL: https://github.com/forestgeo/fgeo.habitat
+BugReports: https://github.com/forestgeo/fgeo.habitat/issues
 Depends: 
     R (>= 3.1.2)
 Imports: 
@@ -16,11 +18,11 @@ Imports:
     stats
 Suggests: 
     covr,
+    dplyr,
     ggplot2,
     knitr,
     rmarkdown,
     testthat,
-    dplyr,
     tidyverse
 VignetteBuilder: knitr
 Encoding: UTF-8
@@ -28,5 +30,3 @@ LazyData: true
 Remotes: forestgeo/fgeo.data
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1
-URL: https://github.com/forestgeo/fgeo.habitat
-BugReports: https://github.com/forestgeo/fgeo.habitat/issues

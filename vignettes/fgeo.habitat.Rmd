@@ -55,7 +55,7 @@ tail(out)
 
 ## Krige soil data
 
-Krige soil data following the methodology of the John et al. (2007): `GetKrigedSoil()` by Graham Zemunik.
+Krige soil data following the methodology of the John et al. (2007): `krig()` by Graham Zemunik.
 
 ```{r}
 # Example data
@@ -64,7 +64,11 @@ soil <- soil_random
 
 ```{r}
 # Krige with automated parameters
-auto <- GetKrigedSoil(soil, var = "M3Al")
+auto <- krig(soil, var = "M3Al")
+```
+
+```{r}
+summary(auto)
 ```
 
 ```R
@@ -82,7 +86,7 @@ glimpse(auto$df)
 params <- list(
   model = "circular", range = 100, nugget = 1000, sill = 46000, kappa = 0.5
 )
-custom <- GetKrigedSoil(soil, var = "M3Al", krigeParams = params)
+custom <- krig(soil, var = "M3Al", params = params)
 ```
 
 ```R

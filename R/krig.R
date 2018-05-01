@@ -1,28 +1,26 @@
-# Kriging functionality for CTFS
-
-# Do ----------------------------------------------------------------------
-
 #' Krige soil data following the methodology of the John et al. (2007).
 #'
-#' @description
-#' If called without inputs, `GetKrigedSoil()` calculates a "best" semivariogram
-#' to use and krige the soil data. By default the best kriging parameters (found
-#' via variogram functions in the __geoR__ package) are used, but specified
-#' parameters can be used via the `krigeParams` argument. __geoR__ has two main
-#' kriging functions: [geoR::ksline()] and [geoR::krige.conv()]. The argument
-#' `useKsLine` specifies whether to use the [geoR::ksline()] function or not.
-#'
-#' @param df.soil The data frame with the points, coords specified in the
+#' Krige soil data following the methodology of the John et al. (2007).
+#' `GetKrigedSoil()` is softly deprecated. Compared to it, `krig()` has an
+#' interface that is more consistent with other functions of ForestGEO, and
+#' outputs a list of subclass "krig" -- which has a `summary()` method (see
+#' examples).
+#' 
+#' @param soil,df.soil The data frame with the points, coords specified in the
 #'   columns `gx`, `gy`.
 #' @param var A text string giving the variable/column in `df.soil` to krige.
-#' @param gridSize Points are kriged to the center points of a grid of this
-#'   size.
-#' @param krigeParams If you want to pass specified kriging parameters; see
-#'   [GetAutomatedKrigeParams()] for each parameter.
-#' @param xSize,ySize X and Y size/length of the plot.
+#' @param gridsize,gridSize Points are kriged to the center points of a grid of
+#'   this size.
+#' @param params,krigeParams If you want to pass specified kriging parameters;
+#'   see [krig_auto_params()] for each parameter.
+#' @param plotdim_x,plotdim_y,xSize,ySize X and Y dimensions of the plot.
 #' @param breaks Breaks/intervals used to calculate the semivariogram, which
 #'   only happens if `krigeParams = NULL` (default).
-#' @param useKsLine See above.
+#' @param use_ksline,useKsLine Use the [geoR::ksline()] function? Use `TRUE` to
+#'   calculate a "best" semivariogram based on default parameters via
+#'   `geoR::variogram()`]. Use `FALSE` to base calculation on parameters passed
+#'   to `params`.
+#' 
 #' @return A list with the following items:
 #'   * `df`: Data frame of kriged values (column z) at each grid point (x, y).
 #'   * `df.poly`: Data frame of the polynomial surface fitted to the raw data.
@@ -36,54 +34,75 @@
 #' @author Graham Zemunik (grah.zem@@gmail.com).
 #'
 #' @export
+#' 
 #' @examples
 #' \dontrun{
-#' # You need ggplot2
-#' if (!requireNamespace("ggplot2", quietly = TRUE)) {
-#'   stop("ggplot2 needed for this example to work. Please install it.",
-#'     call. = FALSE)
-#' }
-#'
-#' library(ggplot2)
-#'
-#' # Use randomized data set for examples (invalid for reaserch).
-#' df <- fgeo.habitat::soil_random
-#' str(df)
-#'
+#' # Example data
+#' soil <- soil_random
+#' 
 #' # Krige with automated parameters
-#' kriged <- GetKrigedSoil(df, var = "M3Al")
-#' str(kriged)
-#'
-#' # Krige with specified parameters - these example params are rather arbitrary
-#' # but are loosely based on what was chosen from the automated kriging
+#' auto <- krig(soil, var = "M3Al")
+#' # For a nice view in RStudio use: View(auto)
+#' summary(auto)
+#' 
+#' # Custom params (arbitrary but based on automated kriging params)
 #' params <- list(
-#'   model = "circular",
-#'   range = 100,
-#'   nugget = 1000,
-#'   sill = 46000,
-#'   kappa = 0.5
+#'   model = "circular", range = 100, nugget = 1000, sill = 46000, kappa = 0.5
 #' )
-#' kriged.2 <- GetKrigedSoil(df, var = "M3Al", krigeParams = params)
-#'
-#' # Have a look at the differences
-#' g <- ggplot(kriged$df, aes(x = x, y = y, fill = z)) +
-#'   geom_tile() +
-#'   coord_equal()
-#' g2 <- ggplot(kriged.2$df, aes(x = x, y = y, fill = z)) +
-#'   geom_tile() +
-#'   coord_equal()
-#' g
-#' g2
+#' custom <- krig(soil, var = "M3Al", params = params)
+#' # For a nice view in RStudio use: View(custom)
+#' summary(custom)
+#' 
+#' # Compare
+#' if (!requireNamespace("ggplot2", quietly = TRUE)) {
+#'   stop("Install ggplot2 for this section to work.", call. = FALSE)
 #' }
+#' library(ggplot2)
+#' 
+#' title_auto <- "Automated parameters"
+#' ggplot(auto$df, aes(x = x, y = y, fill = z)) +
+#'   geom_tile() + 
+#'   coord_equal() +
+#'   labs(title = title_auto)
+#' title_custom <- "Custom parameters"
+#' 
+#' ggplot(custom$df, aes(x = x, y = y, fill = z)) +
+#'   geom_tile() + 
+#'   coord_equal() +
+#'   labs(title = title_custom)
+#' }
+krig <- function(soil,
+                 var,
+                 gridsize = 20,
+                 params = NULL,
+                 plotdim_x = 1000,
+                 plotdim_y = 500,
+                 breaks = krig_breaks(2, 320, 30),
+                 use_ksline = TRUE) {
+  out <- GetKrigedSoil(
+    df.soil = soil,
+    var = var,
+    gridSize = gridsize,
+    krigeParams = params,
+    xSize = plotdim_x,
+    ySize = plotdim_y,
+    breaks = breaks,
+    useKsLine = use_ksline
+  )
+  structure(out, class = c("krig", "list"))
+}
+
+#' @rdname krig
+#' @export
 GetKrigedSoil <- function(df.soil,
                           var,
                           gridSize = 20,
                           krigeParams = NULL,
                           xSize = 1000,
                           ySize = 500,
-                          breaks = ExpList(2, 320, 30),
+                          breaks = krig_breaks(2, 320, 30),
                           useKsLine = TRUE) {
-  check_GetKrigedSoil(
+  check_krig(
     df.soil = df.soil, var = var, gridSize = gridSize, xSize = xSize,
     ySize = ySize, breaks = breaks, krigeParams = krigeParams,
     useKsLine = useKsLine
@@ -126,7 +145,7 @@ GetKrigedSoil <- function(df.soil,
 
   geod <- as.geodata(df.krig)
   if (is.null(krigeParams)) {
-    params <- GetAutomatedKrigeParams(geod, breaks = breaks)
+    params <- krig_auto_params(geod, breaks = breaks)
   } else {
     params <- krigeParams
     if (!("kappa" %in% names(params))) {
@@ -182,63 +201,43 @@ GetKrigedSoil <- function(df.soil,
   )
 }
 
-#' List of n values which exponentially increases from first to last.
-#'
-#' @param first FIXME.
-#' @param last FIXME.
-#' @param n FIXME.
-#'
-#' @author Graham Zemunik (grah.zem@@gmail.com).
-#'
-#' @export
-#' @examples
-#' ExpList(2, 320, 30)
-ExpList <- function(first, last, n) {
-  v <- vector()
-  m <- 1 / (n - 1)
-  quotient <- (last / first)^m
-
-  v[1] <- first
-  for (i in 2:n)
-    v[i] <- v[i - 1] * quotient
-
-  v
-}
-
+#' Find "best" variogram parameters. 
+#' 
 #' Find the "best" variogram parameters for a given geodata object.
+#' 
+#' The default breaks argument is set to have more points where the curve rises
+#' the most and exponentially and fewer at large distances. This means that the
+#' curve fitting is not overly biased by points beyond the effective maximum
+#' range. 
+#' 
+#' Several different models are tested; the one with the lowest least
+#' squares error is chosen.
 #'
-#' Uses the [geoR::variofit()] with a range of variogram models.
-#'
-#' @param geod,trend,breaks Passed to [geoR::variog()].
-#'
-#' @return A list of the best fitted variogram parameters:
-#'   * nugget: FIXME.
-#'   * sill: FIXME.
-#'   * range: FIXME.
-#'   * kappa: FIXME.
-#'   * model: FIXME.
+#' @inheritParams geoR::variog
+#' 
+#' @seealso [geoR::variog].
+#' 
+#' @return A list of the best fitted variogram parameters. The following
+#'   descriptioin is adapted from [geoR::variog()] -- which you should see
+#'   for more details:
+#'   * nugget: value of the nugget parameter. An estimated value if 
+#'   `fix.nugget = FALSE` or a fixed value if `fix.nugget = TRUE`.
+#'   * sill and range: First and second elements of cov.pars` -- a two elements
+#'   vector with estimated values of the covariance parameters sigma^2 and phi,
+#'   respectively.
+#'   * kappa: Fixed value of the smoothness parameter.
+#'   * model: Name of the correlation function (see` cov.model`).
 #'   * minVM: The minimum fit error.
 #'   * vg: The variogram.
 #'
 #' @author Graham Zemunik (grah.zem@@gmail.com).
-#'
+#' 
 #' @export
-#' @examples
-#' \dontrun{
-#' # See examples in geoR::variog().
-#' }
-GetAutomatedKrigeParams <- function(geod,
-                                    trend = "cte",
-                                    breaks = ExpList(2, 320, 30)) {
-  # The default breaks argument is set to have more points where the curve
-  # rises the most and exponentially fewer at large distances
-  # This means that the curve fitting is not overly biased by points
-  # beyond the effective maximum range
-
-  # Several different models are tested; the one with the lowest least
-  # squares error is chosen
-  vg <- variog(geod, breaks = breaks, pairs.min = 5, trend = trend)
-  varModels <- c("exponential", "circular", "cauchy", "gaussian") # , "wave" )
+krig_auto_params <- function(geodata,
+                             trend = "cte",
+                             breaks = krig_breaks(2, 320, 30)) {
+  vg <- variog(geodata, breaks = breaks, pairs.min = 5, trend = trend)
+  varModels <- c("exponential", "circular", "cauchy", "gaussian")
   minValue <- NULL
   minVM <- NULL
   startRange <- max(breaks) / 2
@@ -266,6 +265,8 @@ GetAutomatedKrigeParams <- function(geod,
   )
 }
 
+
+
 #' Fit a 2D polynomial surface.
 #'
 #' Fit a 2D polynomial surface from the following inputs:
@@ -278,11 +279,6 @@ GetAutomatedKrigeParams <- function(geod,
 #'   point, and the nls model, if the nls fit succeeded. No interpolated
 #'   locations are returned if nls failed to model the surface, in which case
 #'   the model attribute is set to `NULL.`
-#'
-#' @param df FIXME.
-#' @param gridSize FIXME.
-#' @param xSize FIXME.
-#' @param ySize FIXME.
 #'
 #' @author Graham Zemunik (grah.zem@@gmail.com).
 #'
@@ -324,18 +320,7 @@ GetPolynomialFit <- function(df, gridSize = 20, xSize = 1000, ySize = 500) {
   list(df.orig = df, df.interpolated = df.locations, mod = model)
 }
 
-
-
 #' Return a polynomial 2nd order surface (x,y) defined by the parameters a to f.
-#'
-#' @param x FIXME.
-#' @param y FIXME.
-#' @param a FIXME.
-#' @param b FIXME.
-#' @param c FIXME.
-#' @param d FIXME.
-#' @param e FIXME.
-#' @param f FIXME.
 #'
 #' @author Graham Zemunik (grah.zem@@gmail.com).
 #'
@@ -354,8 +339,6 @@ PolynomialSurfaceOrder2 <- function(x, y, a, b, c, d, e, f) {
 #' if used is returned as the delta argument.
 #'
 #' @return A list of the original df, the delta value and the the delta value.
-#'
-#' @param df FIXME.
 #'
 #' @author Graham Zemunik (grah.zem@@gmail.com).
 #'
@@ -404,10 +387,6 @@ BoxCoxTransformSoil <- function(df) {
 #' Performed the inverse of the Box-Cox transform given the data, df,
 #' the lambda value and and delta added to the data
 #'
-#' @param lambda FIXME.
-#' @param df FIXME.
-#' @param delta FIXME.
-#'
 #' @return The df with the transformed data, from the z column.
 #'
 #' @author Graham Zemunik (grah.zem@@gmail.com).
@@ -432,14 +411,14 @@ InvBoxCoxTransformSoil <- function(df, lambda, delta) {
 
 # Check -------------------------------------------------------------------
 
-check_GetKrigedSoil <- function(df.soil,
-                                var,
-                                gridSize,
-                                krigeParams,
-                                xSize,
-                                ySize,
-                                breaks,
-                                useKsLine) {
+check_krig <- function(df.soil,
+                       var,
+                       gridSize,
+                       krigeParams,
+                       xSize,
+                       ySize,
+                       breaks,
+                       useKsLine) {
   stopifnot(is.data.frame(df.soil))
   stopifnot(!is.null(df.soil))
   if (!dim(df.soil)[[1]] > 0) {
@@ -453,8 +432,6 @@ check_GetKrigedSoil <- function(df.soil,
   stopifnot(is.character(var))
   stopifnot(length(var) != 0)
   stopifnot(!missing(var))
-
-
 
   if (!var %in% names(df.soil)) {
     stop(

@@ -81,7 +81,7 @@ Krige soil data.
 # Randomized data -- not for research. See ?soil_random.
 df <- soil_random
 
-result <- GetKrigedSoil(df, var = "M3Al")
+result <- krig(df, var = "M3Al")
 #> variog: computing omnidirectional variogram
 #> variofit: covariance model used is exponential 
 #> variofit: weights used: npairs 
@@ -119,20 +119,25 @@ names(result)
 ```
 
 ``` r
-View(result)
-```
-
-``` r
-lapply(result, str, give.attr = FALSE)
+summary(result)
+#> df
 #> 'data.frame':    1250 obs. of  3 variables:
 #>  $ x: num  10 30 50 70 90 110 130 150 170 190 ...
 #>  $ y: num  10 10 10 10 10 10 10 10 10 10 ...
 #>  $ z: num  825 826 826 827 828 ...
+#> 
+#> df.poly
 #> 'data.frame':    1250 obs. of  3 variables:
 #>  $ gx: num  10 30 50 70 90 110 130 150 170 190 ...
 #>  $ gy: num  10 10 10 10 10 10 10 10 10 10 ...
 #>  $ z : num  825 826 827 828 829 ...
+#> 
+#> nm
+#> 'numeric'
 #>  num 1
+#> 
+#> nm
+#> 'variogram'
 #> List of 20
 #>  $ u               : num [1:15] 25.4 30.3 36 42.9 51.1 ...
 #>  $ v               : num [1:15] 52791 54636 65742 58004 49142 ...
@@ -153,7 +158,10 @@ lapply(result, str, give.attr = FALSE)
 #>  $ direction       : chr "omnidirectional"
 #>  $ tolerance       : chr "none"
 #>  $ uvec            : num [1:30] 1 2.19 2.61 3.11 3.7 ...
-#>  $ call            : language variog(geodata = geod, breaks = breaks, trend = trend, pairs.min = 5)
+#>  $ call            : language variog(geodata = geodata, breaks = breaks, trend = trend, pairs.min = 5)
+#> 
+#> nm
+#> 'variomodel', variofit'
 #> List of 17
 #>  $ nugget               : num 56607
 #>  $ cov.pars             : num [1:2] 40008 1533
@@ -172,20 +180,6 @@ lapply(result, str, give.attr = FALSE)
 #>  $ lambda               : num 1
 #>  $ message              : chr "optim convergence code: 0"
 #>  $ call                 : language variofit(vario = vg, ini.cov.pars = c(initialVal, startRange), cov.model = varModels[i],      nugget = initialVal)
-#> $df
-#> NULL
-#> 
-#> $df.poly
-#> NULL
-#> 
-#> $lambda
-#> NULL
-#> 
-#> $vg
-#> NULL
-#> 
-#> $vm
-#> NULL
 ```
 
 ## Information

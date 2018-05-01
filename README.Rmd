@@ -67,7 +67,7 @@ Krige soil data.
 # Randomized data -- not for research. See ?soil_random.
 df <- soil_random
 
-result <- GetKrigedSoil(df, var = "M3Al")
+result <- krig(df, var = "M3Al")
 ```
 
 ```{r}
@@ -75,12 +75,8 @@ result <- GetKrigedSoil(df, var = "M3Al")
 names(result)
 ```
 
-```R
-View(result)
-```
-
 ```{r}
-lapply(result, str, give.attr = FALSE)
+summary(result)
 ```
 
 ## Information

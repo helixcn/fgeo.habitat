@@ -41,12 +41,10 @@ navbar:
 reference:
   - title: "Soils"
     contents:
-      - GetKrigedSoil
+      - krig
   - title: "Soils: Helpers"
     contents:
-      - ExpList
-      - GetAutomatedKrigeParams
-      - soil_random
+      - matches("krig_")
   - title: "Torus translation"
     contents:
       - starts_with("tt_")
@@ -61,4 +59,5 @@ reference:
   - title: "Datasets"
     contents:
       - starts_with("luquillo")
+      - soil_random
     

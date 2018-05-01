@@ -1,5 +1,5 @@
 ---
-title: "GetKrigedSoil()"
+title: "krig()"
 runtime: shiny
 output:
   flexdashboard::flex_dashboard:
@@ -70,7 +70,7 @@ renderPrint({
 
 ```{r}
 renderPlot({
-  result <- GetKrigedSoil(active_df(), var = input$var_id)
+  result <- krig(active_df(), var = input$var_id)
   ggplot(result$df, aes(x, y, fill = z)) + 
     geom_tile() +
     coord_equal() +
@@ -86,7 +86,7 @@ renderPlot({
 ```{r}
 numericInput("print_n2", "How many elements of each result to show?", 6)
 renderPrint({
-  result <- GetKrigedSoil(active_df(), var = input$var_id)
+  result <- krig(active_df(), var = input$var_id)
   lapply(result, head, input$print_n2)
 })
 ```
@@ -102,7 +102,7 @@ h4("4. CUstomize parameters")
 helpText("Click for help:")
 ```
 
-#### [`?GetKrigedSoil()`](https://goo.gl/MAkNBV)
+#### [`?krig()`](https://goo.gl/MAkNBV)
 
 ```{r}
 hr()
@@ -151,7 +151,7 @@ renderPrint({
 
 ```{r}
 renderPlot({
-  result <- GetKrigedSoil(active_df(), var = input$var_id)
+  result <- krig(active_df(), var = input$var_id)
   ggplot(result$df, aes(x, y, fill = z)) + 
     geom_tile() +
     coord_equal() +
@@ -167,14 +167,14 @@ renderPlot({
 ```{r}
 numericInput("print_n2", "How many elements of each result to show?", 6)
 renderPrint({
-  result <- GetKrigedSoil(
+  result <- krig(
     active_df(), 
     var = input$var_id,
     xSize = input$xSize_id,
     ySize = input$ySize_id,
     useKsLine = input$useKsLine_id,
-    krigeParams = NULL,
-    breaks = ExpList(
+    params = NULL,
+    breaks = krig_auto_breaks(
       input$first_id, 
       input$last_id, 
       input$n_id
