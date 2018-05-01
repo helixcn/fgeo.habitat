@@ -2,6 +2,7 @@ pandoc: 2.1.1
 pkgdown: 0.1.0.9000
 pkgdown_sha: ba364393708b38fd6368f1d089586e54df3e1948
 articles:
+  fgeo.habitat: fgeo.habitat.html
   tt_test: tt_test.html
 urls:
   reference: https://forestgeo.github.io/fgeo.habitat//reference

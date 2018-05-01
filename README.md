@@ -110,81 +110,82 @@ result <- GetKrigedSoil(df, var = "M3Al")
 #> ksline: kriging location:  1201 out of 1250 
 #> ksline: kriging location:  1250 out of 1250 
 #> Kriging performed using global neighbourhood
-lapply(result, head)
+```
+
+``` r
+# The result is a complex list
+names(result)
+#> [1] "df"      "df.poly" "lambda"  "vg"      "vm"
+```
+
+``` r
+View(result)
+```
+
+``` r
+lapply(result, str, give.attr = FALSE)
+#> 'data.frame':    1250 obs. of  3 variables:
+#>  $ x: num  10 30 50 70 90 110 130 150 170 190 ...
+#>  $ y: num  10 10 10 10 10 10 10 10 10 10 ...
+#>  $ z: num  825 826 826 827 828 ...
+#> 'data.frame':    1250 obs. of  3 variables:
+#>  $ gx: num  10 30 50 70 90 110 130 150 170 190 ...
+#>  $ gy: num  10 10 10 10 10 10 10 10 10 10 ...
+#>  $ z : num  825 826 827 828 829 ...
+#>  num 1
+#> List of 20
+#>  $ u               : num [1:15] 25.4 30.3 36 42.9 51.1 ...
+#>  $ v               : num [1:15] 52791 54636 65742 58004 49142 ...
+#>  $ n               : num [1:15] 66 1110 73 1101 61 ...
+#>  $ sd              : num [1:15] 64847 75753 89509 79157 63291 ...
+#>  $ bins.lim        : num [1:31] 1.00e-12 2.00 2.38 2.84 3.38 ...
+#>  $ ind.bin         : logi [1:30] FALSE FALSE FALSE FALSE FALSE FALSE ...
+#>  $ var.mark        : num 55269
+#>  $ beta.ols        : num -1.71e-08
+#>  $ output.type     : chr "bin"
+#>  $ max.dist        : num 320
+#>  $ estimator.type  : chr "classical"
+#>  $ n.data          : int 625
+#>  $ lambda          : num 1
+#>  $ trend           : chr "cte"
+#>  $ pairs.min       : num 5
+#>  $ nugget.tolerance: num 1e-12
+#>  $ direction       : chr "omnidirectional"
+#>  $ tolerance       : chr "none"
+#>  $ uvec            : num [1:30] 1 2.19 2.61 3.11 3.7 ...
+#>  $ call            : language variog(geodata = geod, breaks = breaks, trend = trend, pairs.min = 5)
+#> List of 17
+#>  $ nugget               : num 56607
+#>  $ cov.pars             : num [1:2] 40008 1533
+#>  $ cov.model            : chr "cauchy"
+#>  $ kappa                : num 0.5
+#>  $ value                : num 6.38e+10
+#>  $ trend                : chr "cte"
+#>  $ beta.ols             : num -1.71e-08
+#>  $ practicalRange       : num 30614
+#>  $ max.dist             : num 320
+#>  $ minimisation.function: chr "optim"
+#>  $ weights              : chr "npairs"
+#>  $ method               : chr "WLS"
+#>  $ fix.nugget           : logi FALSE
+#>  $ fix.kappa            : logi TRUE
+#>  $ lambda               : num 1
+#>  $ message              : chr "optim convergence code: 0"
+#>  $ call                 : language variofit(vario = vg, ini.cov.pars = c(initialVal, startRange), cov.model = varModels[i],      nugget = initialVal)
 #> $df
-#>     x  y        z
-#> 1  10 10 824.5186
-#> 2  30 10 825.5012
-#> 3  50 10 826.4549
-#> 4  70 10 827.3795
-#> 5  90 10 828.2749
-#> 6 110 10 829.1410
+#> NULL
 #> 
 #> $df.poly
-#>    gx gy        z
-#> 1  10 10 824.9970
-#> 2  30 10 825.9262
-#> 3  50 10 826.8312
-#> 4  70 10 827.7119
-#> 5  90 10 828.5683
-#> 6 110 10 829.4005
+#> NULL
 #> 
 #> $lambda
-#> [1] 1
+#> NULL
 #> 
 #> $vg
-#> $vg$u
-#>  [1]  25.39513  30.25204  36.03784  42.93020  51.14075  60.92159  72.57304
-#>  [8]  86.45288 102.98729 122.68395 146.14767 174.09890 207.39590 247.06106
-#> [15] 294.31232
-#> 
-#> $vg$v
-#>  [1] 52791.00 54636.41 65741.80 58003.72 49141.59 58165.96 40611.67
-#>  [8] 56683.03 57253.77 56038.20 55323.08 57468.67 57094.51 57525.14
-#> [15] 57029.48
-#> 
-#> $vg$n
-#>  [1]    66  1110    73  1101    61  3215    56  4179  2115  5790  6424
-#> [12]  8768 11157 17373 16571
-#> 
-#> $vg$sd
-#>  [1] 64846.88 75752.81 89508.82 79156.84 63290.60 78722.09 56903.37
-#>  [8] 77464.93 77752.94 76617.91 76455.77 76468.92 77257.41 77679.91
-#> [15] 76192.99
-#> 
-#> $vg$bins.lim
-#>  [1] 1.000000e-12 2.000000e+00 2.382507e+00 2.838169e+00 3.380978e+00
-#>  [6] 4.027602e+00 4.797894e+00 5.715508e+00 6.808618e+00 8.110789e+00
-#> [11] 9.662004e+00 1.150990e+01 1.371120e+01 1.633351e+01 1.945735e+01
-#> [16] 2.317864e+01 2.761163e+01 3.289245e+01 3.918324e+01 4.667716e+01
-#> [21] 5.560433e+01 6.623884e+01 7.890724e+01 9.399852e+01 1.119761e+02
-#> [26] 1.333918e+02 1.589035e+02 1.892943e+02 2.254975e+02 2.686246e+02
-#> [31] 3.200000e+02
-#> 
-#> $vg$ind.bin
-#>  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-#> [12] FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
-#> [23]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
-#> 
+#> NULL
 #> 
 #> $vm
-#> $vm$nugget
-#> [1] 56607
-#> 
-#> $vm$cov.pars
-#> [1] 40008.481  1532.595
-#> 
-#> $vm$cov.model
-#> [1] "cauchy"
-#> 
-#> $vm$kappa
-#> [1] 0.5
-#> 
-#> $vm$value
-#> [1] 63795822341
-#> 
-#> $vm$trend
-#> [1] "cte"
+#> NULL
 ```
 
 ## Information

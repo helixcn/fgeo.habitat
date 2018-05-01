@@ -68,7 +68,19 @@ Krige soil data.
 df <- soil_random
 
 result <- GetKrigedSoil(df, var = "M3Al")
-lapply(result, head)
+```
+
+```{r}
+# The result is a complex list
+names(result)
+```
+
+```R
+View(result)
+```
+
+```{r}
+lapply(result, str, give.attr = FALSE)
 ```
 
 ## Information

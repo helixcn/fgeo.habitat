@@ -1,0 +1,113 @@
+---
+title: "Get started"
+author: "Mauro Lepore"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Get started}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+set.seed(1014)
+knitr::opts_chunk$set(
+  echo = TRUE,
+  comment = "#>",
+  collapse = TRUE,
+  cache = FALSE,
+  out.width = "70%",
+  fig.align = "center",
+  fig.width = 6,
+  fig.asp = 0.618,
+  fig.show = "hold"
+)
+```
+
+```{r}
+library(fgeo.habitat)
+library(ggplot2)
+library(dplyr)
+```
+
+## Habitat-species associations
+
+Torus translation test to determine habitat associations of tree species: `tt_test()`, by Sabrina Russo, Daniel Zuleta, Matteo Detto, and Kyle Harms.
+
+```{r}
+# Example data
+habitat <- luquillo_habitat
+census <- luquillo_top3_sp
+
+# Pick alive trees, of 10 mm or more
+pick <- filter(census, status == "A", dbh >= 10)
+# Pick sufficiently abundant trees
+pick <- add_count(pick, sp)
+pick <- filter(pick, n > 50)
+
+species <- unique(pick$sp)
+
+out <- tt_test(species, census, habitat)
+# Try also: View(out)
+head(out)
+tail(out)
+```
+
+## Krige soil data
+
+Krige soil data following the methodology of the John et al. (2007): `GetKrigedSoil()` by Graham Zemunik.
+
+```{r}
+# Example data
+soil <- soil_random
+```
+
+```{r}
+# Krige with automated parameters
+auto <- GetKrigedSoil(soil, var = "M3Al")
+```
+
+```R
+View(auto)
+```
+
+<img src="https://i.imgur.com/fTDjckj.png" align="center" height=150 />
+
+```{r}
+glimpse(auto$df)
+```
+
+```{r}
+# These custom params are rather arbitrary but based on automated kriging params
+params <- list(
+  model = "circular", range = 100, nugget = 1000, sill = 46000, kappa = 0.5
+)
+custom <- GetKrigedSoil(soil, var = "M3Al", krigeParams = params)
+```
+
+```R
+View(custom)
+```
+
+<img src="https://i.imgur.com/0u4WHYS.png" align="center" height=150 />
+
+```{r}
+glimpse(custom$df)
+```
+
+```{r, fig.align="default", out.width="45%", fig.widh=(6 * 0.5 / 0.7)}
+# Have a look at the differences
+
+title_auto <- "Automated parameters"
+ggplot(auto$df, aes(x = x, y = y, fill = z)) +
+  geom_tile() + 
+  coord_equal() +
+  labs(title = title_auto)
+
+title_custom <- "Custom parameters"
+ggplot(custom$df, aes(x = x, y = y, fill = z)) +
+  geom_tile() + 
+  coord_equal() +
+  labs(title = title_custom)
+```
+
