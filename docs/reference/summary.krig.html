@@ -94,19 +94,7 @@
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Apps
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="https://bookdown.org/forestgeoguest/soilkrig_app/">Krig soil data</a>
-    </li>
-  </ul>
-</li>
-<li>
+        <li>
   <a href="https://github.com/maurolepore">
     <span class="fa fa-gavel"></span>
      
@@ -234,13 +222,13 @@
 #&gt; 'data.frame':	1250 obs. of  3 variables:
 #&gt;  $ x: num  10 30 50 70 90 110 130 150 170 190 ...
 #&gt;  $ y: num  10 10 10 10 10 10 10 10 10 10 ...
-#&gt;  $ z: num  681 690 698 707 715 ...
+#&gt;  $ z: num  950 944 939 933 928 ...
 #&gt; 
 #&gt; df.poly
 #&gt; 'data.frame':	1250 obs. of  3 variables:
 #&gt;  $ gx: num  10 30 50 70 90 110 130 150 170 190 ...
 #&gt;  $ gy: num  10 10 10 10 10 10 10 10 10 10 ...
-#&gt;  $ z : num  681 690 698 707 715 ...
+#&gt;  $ z : num  949 943 938 933 927 ...
 #&gt; 
 #&gt; lambda
 #&gt; 'numeric'
@@ -249,14 +237,14 @@
 #&gt; vg
 #&gt; 'variogram'
 #&gt; List of 20
-#&gt;  $ u               : num [1:11] 30.3 42.9 60.9 86.5 103 ...
-#&gt;  $ v               : num [1:11] 72786 78382 59101 68778 63713 ...
-#&gt;  $ n               : num [1:11] 29 24 72 116 46 144 150 212 237 420 ...
-#&gt;  $ sd              : num [1:11] 93497 135189 70925 90735 95024 ...
+#&gt;  $ u               : num [1:12] 30.3 42.9 51.1 60.9 86.5 ...
+#&gt;  $ v               : num [1:12] 60522 54239 174166 55226 44193 ...
+#&gt;  $ n               : num [1:12] 21 25 5 81 94 57 155 167 247 288 ...
+#&gt;  $ sd              : num [1:12] 96683 58618 214627 60326 52526 ...
 #&gt;  $ bins.lim        : num [1:31] 1.00e-12 2.00 2.38 2.84 3.38 ...
 #&gt;  $ ind.bin         : logi [1:30] FALSE FALSE FALSE FALSE FALSE FALSE ...
-#&gt;  $ var.mark        : num 58627
-#&gt;  $ beta.ols        : num 3.01e-07
+#&gt;  $ var.mark        : num 55039
+#&gt;  $ beta.ols        : num 2.62e-08
 #&gt;  $ output.type     : chr "bin"
 #&gt;  $ max.dist        : num 320
 #&gt;  $ estimator.type  : chr "classical"
@@ -273,14 +261,14 @@
 #&gt; vm
 #&gt; 'variomodel', variofit'
 #&gt; List of 17
-#&gt;  $ nugget               : num 60109
-#&gt;  $ cov.pars             : num [1:2] 1951365 10607
-#&gt;  $ cov.model            : chr "cauchy"
+#&gt;  $ nugget               : num 56634
+#&gt;  $ cov.pars             : num [1:2] 87783 2105
+#&gt;  $ cov.model            : chr "gaussian"
 #&gt;  $ kappa                : num 0.5
-#&gt;  $ value                : num 4.24e+10
+#&gt;  $ value                : num 1.49e+11
 #&gt;  $ trend                : chr "cte"
-#&gt;  $ beta.ols             : num 3.01e-07
-#&gt;  $ practicalRange       : num 211877
+#&gt;  $ beta.ols             : num 2.62e-08
+#&gt;  $ practicalRange       : num 3644
 #&gt;  $ max.dist             : num 320
 #&gt;  $ minimisation.function: chr "optim"
 #&gt;  $ weights              : chr "npairs"

@@ -22,11 +22,6 @@ navbar:
   type: default
 
   right:
-    - text: Apps
-      menu:
-      - text: Krig soil data
-        href: https://bookdown.org/forestgeoguest/soilkrig_app/
-
     - icon: fa-gavel
       href: https://github.com/maurolepore
 
