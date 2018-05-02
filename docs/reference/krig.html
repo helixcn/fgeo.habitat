@@ -219,7 +219,7 @@ data.</p></li>
 <span class='no'>soil</span> <span class='kw'>&lt;-</span> <span class='no'>soil_random</span>
 
 <span class='co'># Krige with automated parameters</span>
-<span class='no'>auto</span> <span class='kw'>&lt;-</span> <span class='fu'>krig</span>(<span class='no'>soil</span>, <span class='kw'>var</span> <span class='kw'>=</span> <span class='st'>"M3Al"</span>)
+<span class='no'>auto</span> <span class='kw'>&lt;-</span> <span class='fu'>krig</span>(<span class='no'>soil</span>, <span class='kw'>var</span> <span class='kw'>=</span> <span class='st'>"m3al"</span>)
 <span class='co'># For a nice view in RStudio use: View(auto)</span>
 <span class='fu'>summary</span>(<span class='no'>auto</span>)
 
@@ -227,7 +227,7 @@ data.</p></li>
 <span class='no'>params</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(
   <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"circular"</span>, <span class='kw'>range</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>nugget</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>sill</span> <span class='kw'>=</span> <span class='fl'>46000</span>, <span class='kw'>kappa</span> <span class='kw'>=</span> <span class='fl'>0.5</span>
 )
-<span class='no'>custom</span> <span class='kw'>&lt;-</span> <span class='fu'>krig</span>(<span class='no'>soil</span>, <span class='kw'>var</span> <span class='kw'>=</span> <span class='st'>"M3Al"</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='no'>params</span>)
+<span class='no'>custom</span> <span class='kw'>&lt;-</span> <span class='fu'>krig</span>(<span class='no'>soil</span>, <span class='kw'>var</span> <span class='kw'>=</span> <span class='st'>"m3al"</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='no'>params</span>)
 <span class='co'># For a nice view in RStudio use: View(custom)</span>
 <span class='fu'>summary</span>(<span class='no'>custom</span>)
 

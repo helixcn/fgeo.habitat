@@ -58,7 +58,7 @@ examples).
 soil <- soil_random
 
 # Krige with automated parameters
-auto <- krig(soil, var = "M3Al")
+auto <- krig(soil, var = "m3al")
 # For a nice view in RStudio use: View(auto)
 summary(auto)
 
@@ -66,7 +66,7 @@ summary(auto)
 params <- list(
   model = "circular", range = 100, nugget = 1000, sill = 46000, kappa = 0.5
 )
-custom <- krig(soil, var = "M3Al", params = params)
+custom <- krig(soil, var = "m3al", params = params)
 # For a nice view in RStudio use: View(custom)
 summary(custom)
 

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Soil data for examples. — soil_random • fgeo.habitat</title>
+<title>Fake soil data with multiple elements. — soil_fake • fgeo.habitat</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -25,10 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
-<meta property="og:title" content="Soil data for examples. — soil_random" />
+<meta property="og:title" content="Fake soil data with multiple elements. — soil_fake" />
 
-<meta property="og:description" content="This data set is based on data from Barro Colorado Island, but the variable
-m3al has been randomized. It is useful for examples but not for research." />
+<meta property="og:description" content="Fake soil data with multiple elements." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -133,39 +132,34 @@ m3al has been randomized. It is useful for examples but not for research." />
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Soil data for examples.</h1>
+    <h1>Fake soil data with multiple elements.</h1>
     <small>Source: <a href='https://github.com/forestgeo/fgeo.habitat/blob/master/R/data.R'><code>R/data.R</code></a></small>
     </div>
 
     
-    <p>This data set is based on data from Barro Colorado Island, but the variable
-<code>m3al</code> has been randomized. It is useful for examples but not for research.</p>
+    <p>Fake soil data with multiple elements.</p>
     
 
-    <pre class="usage"><span class='no'>soil_random</span></pre>
+    <pre class="usage"><span class='no'>soil_fake</span></pre>
         
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>An object of class <code>tbl_df</code> (inherits from <code>tbl</code>, <code>data.frame</code>) with 100 rows and 3 columns.</p>
-    
-    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
-
-    <p>Graham Zemunik (via https://goo.gl/2EwLQJ).</p>
+    <p>An object of class <code>tbl_df</code> (inherits from <code>tbl</code>, <code>data.frame</code>) with 30 rows and 5 columns.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>str</span>(<span class='no'>soil_random</span>, <span class='kw'>give.attr</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; Classes ‘tbl_df’, ‘tbl’ and 'data.frame':	100 obs. of  3 variables:
-#&gt;  $ gx  : int  229 49 569 689 229 949 489 709 489 829 ...
-#&gt;  $ gy  : int  210 270 30 270 170 330 230 370 150 330 ...
-#&gt;  $ m3al: num  945 1051 450 431 867 ...</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>str</span>(<span class='no'>soil_fake</span>)</div><div class='output co'>#&gt; Classes ‘tbl_df’, ‘tbl’ and 'data.frame':	30 obs. of  5 variables:
+#&gt;  $ gx: int  101 330 193 269 880 668 74 681 597 700 ...
+#&gt;  $ gy: int  312 278 479 456 300 155 275 463 180 167 ...
+#&gt;  $ mg: num  0.65 0.72 0.43 0.48 0.49 0.7 0.5 0.59 0.7 0.44 ...
+#&gt;  $ c : num  1.45 1.85 2.25 0.45 1.25 1.45 0.45 2.05 1.75 2.05 ...
+#&gt;  $ p : num  5.6 5.1 5.2 5.1 5.5 6.5 7.1 6.7 6.3 5.5 ...</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       
       <li><a href="#format">Format</a></li>
-
-      <li><a href="#source">Source</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

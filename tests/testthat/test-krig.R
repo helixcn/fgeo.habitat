@@ -1,7 +1,7 @@
 context("test-krig.R")
 
 df <- fgeo.habitat::soil_random[1:10, ]
-result <- suppressMessages(krig(df, var = "M3Al"))
+result <- suppressMessages(krig(df, var = "m3al"))
 
 test_that("krig() passes regression test", {
   expect_equal_to_reference(result, "ref-krig.rds")
@@ -24,24 +24,24 @@ test_that("krig() returns the expected value.", {
 })
 
 test_that("print suppressable message", {
-  expect_message(krig(df, var = "M3Al"))
-  expect_silent(suppressMessages(krig(df, var = "M3Al")))
+  expect_message(krig(df, var = "m3al"))
+  expect_silent(suppressMessages(krig(df, var = "m3al")))
 })
 
 # Checks ------------------------------------------------------------------
 
 test_that("check_GetKrigSoil() fails with wrong input", {
   numeric_input <- as.matrix(df)
-  expect_error(krig(numeric_input, var = "M3Al"))
+  expect_error(krig(numeric_input, var = "m3al"))
 
-  rnm <- stats::setNames(df, c("wrong_x", "wrong_gy", "M3Al"))
+  rnm <- stats::setNames(df, c("wrong_x", "wrong_gy", "m3al"))
   expect_error(
-    krig(rnm, var = "M3Al"),
+    krig(rnm, var = "m3al"),
     "Ensure your data set has these variables:"
   )
   cero_row <- data.frame(gx = numeric(0), gy = numeric(0))
   expect_error(
-    krig(cero_row, var = "M3Al"),
+    krig(cero_row, var = "m3al"),
     "Ensure `df.soil` has one or more rows"
   )
   expect_error(
@@ -53,13 +53,13 @@ test_that("check_GetKrigSoil() fails with wrong input", {
     krig(df),
     "argument \"var\" is missing"
   )
-  expect_error(krig(df, var = "M3Al", gridSize = "3"))
-  expect_error(krig(df, var = "M3Al", xSize = "3"))
-  expect_error(krig(df, var = "M3Al", ySize = "3"))
+  expect_error(krig(df, var = "m3al", gridSize = "3"))
+  expect_error(krig(df, var = "m3al", xSize = "3"))
+  expect_error(krig(df, var = "m3al", ySize = "3"))
   wrong_type <- 1
-  expect_error(krig(df, var = "M3Al", params = wrong_type))
+  expect_error(krig(df, var = "m3al", params = wrong_type))
   bad_not_a_number <- "a"
-  expect_error(krig(df, var = "M3Al", breaks = bad_not_a_number))
+  expect_error(krig(df, var = "m3al", breaks = bad_not_a_number))
   bad_not_logical <- "a"
-  expect_error(krig(df, var = "M3Al", useKsLine = bad_not_logical))
+  expect_error(krig(df, var = "m3al", useKsLine = bad_not_logical))
 })

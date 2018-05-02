@@ -4,7 +4,7 @@
 \name{soil_random}
 \alias{soil_random}
 \title{Soil data for examples.}
-\format{An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 625 rows and 3 columns.}
+\format{An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 100 rows and 3 columns.}
 \source{
 Graham Zemunik (via https://goo.gl/2EwLQJ).
 }
@@ -13,7 +13,7 @@ soil_random
 }
 \description{
 This data set is based on data from Barro Colorado Island, but the variable
-\code{M3Al} has been randomized. It is useful for examples but not for research.
+\code{m3al} has been randomized. It is useful for examples but not for research.
 }
 \examples{
 str(soil_random, give.attr = FALSE)

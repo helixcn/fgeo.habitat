@@ -65,7 +65,7 @@ soil <- soil_random
 Krige with automated parameters.
 
 ```{r}
-auto <- krig(soil, var = "M3Al")
+auto <- krig(soil, var = "m3al")
 ```
 
 ```{r}
@@ -92,7 +92,7 @@ params <- list(
 )
 # Quietly
 custom <- suppressMessages(
-  krig(soil, var = "M3Al", params = params)
+  krig(soil, var = "m3al", params = params)
 )
 ```
 

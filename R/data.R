@@ -1,3 +1,5 @@
+# Luquillo ----------------------------------------------------------------
+
 #' Datasets from __fgeo.data__.
 #'
 #' @seealso `fgeo.data::luquillo_habitat`, `fgeo.data::luquillo_elevation`,
@@ -8,16 +10,16 @@
 #' str(luquillo_elevation, give.attr = FALSE)
 #' str(luquillo_tree6_random, give.attr = FALSE)
 #' str(luquillo_stem6_random, give.attr = FALSE)
-#' @name example_data
+#' @name luquillo
 NULL
 
-#' @rdname example_data
+#' @rdname luquillo
 "luquillo_habitat"
-#' @rdname example_data
+#' @rdname luquillo
 "luquillo_elevation"
-#' @rdname example_data
+#' @rdname luquillo
 "luquillo_tree6_random"
-#' @rdname example_data
+#' @rdname luquillo
 "luquillo_stem6_random"
 
 #' A tiny dataset from Luquillo of the three most abundant species.
@@ -28,13 +30,23 @@ NULL
 
 
 
+# Soil --------------------------------------------------------------------
+
 #' Soil data for examples.
 #'
 #' This data set is based on data from Barro Colorado Island, but the variable
-#' `M3Al` has been randomized. It is useful for examples but not for research.
+#' `m3al` has been randomized. It is useful for examples but not for research.
 #'
 #' @source Graham Zemunik (via https://goo.gl/2EwLQJ).
 #'
 #' @examples
 #' str(soil_random, give.attr = FALSE)
 "soil_random"
+
+
+
+#' Fake soil data with multiple elements.
+#' 
+#' @examples 
+#' str(soil_fake)
+"soil_fake"

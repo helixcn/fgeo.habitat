@@ -11,10 +11,10 @@
 #' @examples
 #' df <- soil_random
 #' 
-#' res1 <- GetKrigedSoil(df, var = "M3Al")
+#' res1 <- GetKrigedSoil(df, var = "m3al")
 #' summary(res1)
 #' 
-#' res2 <- krig(df, var = "M3Al")
+#' res2 <- krig(df, var = "m3al")
 #' summary(res2)
 #' 
 #' identical(unclass(res1), unclass(res2))

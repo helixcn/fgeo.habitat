@@ -11,7 +11,8 @@ test_that("expected datasets", {
       "luquillo_stem6_random",
       "luquillo_top3_sp",
       "luquillo_tree6_random",
-      "soil_random"
+      "soil_random",
+      "soil_fake"
     )
   )
   actual <- sort(get_datasets("fgeo.habitat"))

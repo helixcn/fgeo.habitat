@@ -166,7 +166,7 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='no'>soil_random</span>
 
-<span class='no'>res1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='krig.html'>GetKrigedSoil</a></span>(<span class='no'>df</span>, <span class='kw'>var</span> <span class='kw'>=</span> <span class='st'>"M3Al"</span>)</div><div class='output co'>#&gt; variog: computing omnidirectional variogram
+<span class='no'>res1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='krig.html'>GetKrigedSoil</a></span>(<span class='no'>df</span>, <span class='kw'>var</span> <span class='kw'>=</span> <span class='st'>"m3al"</span>)</div><div class='output co'>#&gt; variog: computing omnidirectional variogram
 #&gt; variofit: covariance model used is exponential 
 #&gt; variofit: weights used: npairs 
 #&gt; variofit: minimisation function used: optim 
@@ -199,7 +199,7 @@
 #&gt; lambda   1     -none-     numeric
 #&gt; vg      20     variogram  list   
 #&gt; vm      17     variomodel list   </div><div class='input'>
-<span class='no'>res2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='krig.html'>krig</a></span>(<span class='no'>df</span>, <span class='kw'>var</span> <span class='kw'>=</span> <span class='st'>"M3Al"</span>)</div><div class='output co'>#&gt; <span class='message'>variog: computing omnidirectional variogram</span>
+<span class='no'>res2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='krig.html'>krig</a></span>(<span class='no'>df</span>, <span class='kw'>var</span> <span class='kw'>=</span> <span class='st'>"m3al"</span>)</div><div class='output co'>#&gt; <span class='message'>variog: computing omnidirectional variogram</span>
 #&gt; <span class='message'>variofit: covariance model used is exponential </span>
 #&gt; <span class='message'>variofit: weights used: npairs </span>
 #&gt; <span class='message'>variofit: minimisation function used: optim </span>
@@ -230,33 +230,33 @@
 #&gt; 'data.frame':	1250 obs. of  3 variables:
 #&gt;  $ x: num  10 30 50 70 90 110 130 150 170 190 ...
 #&gt;  $ y: num  10 10 10 10 10 10 10 10 10 10 ...
-#&gt;  $ z: num  825 826 826 827 828 ...
+#&gt;  $ z: num  1018 1010 1002 995 987 ...
 #&gt; 
 #&gt; df.poly
 #&gt; 'data.frame':	1250 obs. of  3 variables:
 #&gt;  $ gx: num  10 30 50 70 90 110 130 150 170 190 ...
 #&gt;  $ gy: num  10 10 10 10 10 10 10 10 10 10 ...
-#&gt;  $ z : num  825 826 827 828 829 ...
+#&gt;  $ z : num  31.9 31.8 31.7 31.5 31.4 ...
 #&gt; 
-#&gt; nm
+#&gt; lambda
 #&gt; 'numeric'
-#&gt;  num 1
+#&gt;  num 0.5
 #&gt; 
-#&gt; nm
+#&gt; vg
 #&gt; 'variogram'
 #&gt; List of 20
-#&gt;  $ u               : num [1:15] 25.4 30.3 36 42.9 51.1 ...
-#&gt;  $ v               : num [1:15] 52791 54636 65742 58004 49142 ...
-#&gt;  $ n               : num [1:15] 66 1110 73 1101 61 ...
-#&gt;  $ sd              : num [1:15] 64847 75753 89509 79157 63291 ...
+#&gt;  $ u               : num [1:11] 30.3 42.9 60.9 86.5 103 ...
+#&gt;  $ v               : num [1:11] 21.2 32.2 21.3 22.1 25.3 ...
+#&gt;  $ n               : num [1:11] 28 22 81 105 42 154 181 222 306 506 ...
+#&gt;  $ sd              : num [1:11] 29.2 55.8 29.9 26.5 42.3 ...
 #&gt;  $ bins.lim        : num [1:31] 1.00e-12 2.00 2.38 2.84 3.38 ...
 #&gt;  $ ind.bin         : logi [1:30] FALSE FALSE FALSE FALSE FALSE FALSE ...
-#&gt;  $ var.mark        : num 55269
-#&gt;  $ beta.ols        : num -1.71e-08
+#&gt;  $ var.mark        : num 20.6
+#&gt;  $ beta.ols        : num 1.34e-09
 #&gt;  $ output.type     : chr "bin"
 #&gt;  $ max.dist        : num 320
 #&gt;  $ estimator.type  : chr "classical"
-#&gt;  $ n.data          : int 625
+#&gt;  $ n.data          : int 100
 #&gt;  $ lambda          : num 1
 #&gt;  $ trend           : chr "cte"
 #&gt;  $ pairs.min       : num 5
@@ -266,17 +266,17 @@
 #&gt;  $ uvec            : num [1:30] 1 2.19 2.61 3.11 3.7 ...
 #&gt;  $ call            : language variog(geodata = geodata, breaks = breaks, trend = trend, pairs.min = 5)
 #&gt; 
-#&gt; nm
+#&gt; vm
 #&gt; 'variomodel', variofit'
 #&gt; List of 17
-#&gt;  $ nugget               : num 56607
-#&gt;  $ cov.pars             : num [1:2] 40008 1533
-#&gt;  $ cov.model            : chr "cauchy"
+#&gt;  $ nugget               : num 20.5
+#&gt;  $ cov.pars             : num [1:2] 2360 15360
+#&gt;  $ cov.model            : chr "gaussian"
 #&gt;  $ kappa                : num 0.5
-#&gt;  $ value                : num 6.38e+10
+#&gt;  $ value                : num 10619
 #&gt;  $ trend                : chr "cte"
-#&gt;  $ beta.ols             : num -1.71e-08
-#&gt;  $ practicalRange       : num 30614
+#&gt;  $ beta.ols             : num 1.34e-09
+#&gt;  $ practicalRange       : num 26586
 #&gt;  $ max.dist             : num 320
 #&gt;  $ minimisation.function: chr "optim"
 #&gt;  $ weights              : chr "npairs"
@@ -284,7 +284,7 @@
 #&gt;  $ fix.nugget           : logi FALSE
 #&gt;  $ fix.kappa            : logi TRUE
 #&gt;  $ lambda               : num 1
-#&gt;  $ message              : chr "optim convergence code: 0"
+#&gt;  $ message              : chr "optim convergence code: 1"
 #&gt;  $ call                 : language variofit(vario = vg, ini.cov.pars = c(initialVal, startRange), cov.model = varModels[i],      nugget = initialVal)</div><div class='input'>
 <span class='fu'>identical</span>(<span class='fu'>unclass</span>(<span class='no'>res1</span>), <span class='fu'>unclass</span>(<span class='no'>res2</span>))</div><div class='output co'>#&gt; [1] TRUE</div></pre>
   </div>

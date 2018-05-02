@@ -59,5 +59,4 @@ reference:
   - title: "Datasets"
     contents:
       - starts_with("luquillo")
-      - soil_random
-    
+      - starts_with("soil")
