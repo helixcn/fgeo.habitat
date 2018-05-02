@@ -21,12 +21,14 @@ Prints a cleaner version of \code{str()} and returns its input invisibly.
 A cleaner version of \code{str()} for the result of \code{krig()}.
 }
 \examples{
-df <- soil_random
+# Example dataset
+soil <- soil_fake
 
-res1 <- GetKrigedSoil(df, var = "m3al")
+res1 <- GetKrigedSoil(soil, var = "mg")
+
 summary(res1)
 
-res2 <- krig(df, var = "m3al")
+res2 <- suppressMessages(krig(soil, var = "mg"))
 summary(res2)
 
 identical(unclass(res1), unclass(res2))

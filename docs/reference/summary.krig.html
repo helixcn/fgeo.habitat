@@ -156,9 +156,10 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='no'>soil_random</span>
+    <pre class="examples"><div class='input'><span class='co'># Example dataset</span>
+<span class='no'>soil</span> <span class='kw'>&lt;-</span> <span class='no'>soil_fake</span>
 
-<span class='no'>res1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='krig.html'>GetKrigedSoil</a></span>(<span class='no'>df</span>, <span class='kw'>var</span> <span class='kw'>=</span> <span class='st'>"m3al"</span>)</div><div class='output co'>#&gt; variog: computing omnidirectional variogram
+<span class='no'>res1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='krig.html'>GetKrigedSoil</a></span>(<span class='no'>soil</span>, <span class='kw'>var</span> <span class='kw'>=</span> <span class='st'>"mg"</span>)</div><div class='output co'>#&gt; variog: computing omnidirectional variogram
 #&gt; variofit: covariance model used is exponential 
 #&gt; variofit: weights used: npairs 
 #&gt; variofit: minimisation function used: optim 
@@ -185,70 +186,45 @@
 #&gt; ksline: kriging location:  1101 out of 1250 
 #&gt; ksline: kriging location:  1201 out of 1250 
 #&gt; ksline: kriging location:  1250 out of 1250 
-#&gt; Kriging performed using global neighbourhood </div><div class='input'><span class='fu'>summary</span>(<span class='no'>res1</span>)</div><div class='output co'>#&gt;         Length Class      Mode   
+#&gt; Kriging performed using global neighbourhood </div><div class='input'>
+<span class='fu'>summary</span>(<span class='no'>res1</span>)</div><div class='output co'>#&gt;         Length Class      Mode   
 #&gt; df       3     data.frame list   
 #&gt; df.poly  3     data.frame list   
 #&gt; lambda   1     -none-     numeric
 #&gt; vg      20     variogram  list   
 #&gt; vm      17     variomodel list   </div><div class='input'>
-<span class='no'>res2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='krig.html'>krig</a></span>(<span class='no'>df</span>, <span class='kw'>var</span> <span class='kw'>=</span> <span class='st'>"m3al"</span>)</div><div class='output co'>#&gt; <span class='message'>variog: computing omnidirectional variogram</span>
-#&gt; <span class='message'>variofit: covariance model used is exponential </span>
-#&gt; <span class='message'>variofit: weights used: npairs </span>
-#&gt; <span class='message'>variofit: minimisation function used: optim </span>
-#&gt; <span class='message'>variofit: covariance model used is circular </span>
-#&gt; <span class='message'>variofit: weights used: npairs </span>
-#&gt; <span class='message'>variofit: minimisation function used: optim </span>
-#&gt; <span class='message'>variofit: covariance model used is cauchy </span>
-#&gt; <span class='message'>variofit: weights used: npairs </span>
-#&gt; <span class='message'>variofit: minimisation function used: optim </span>
-#&gt; <span class='message'>variofit: covariance model used is gaussian </span>
-#&gt; <span class='message'>variofit: weights used: npairs </span>
-#&gt; <span class='message'>variofit: minimisation function used: optim </span>
-#&gt; <span class='message'>ksline: kriging location:  1 out of 1250 </span>
-#&gt; <span class='message'>ksline: kriging location:  101 out of 1250 </span>
-#&gt; <span class='message'>ksline: kriging location:  201 out of 1250 </span>
-#&gt; <span class='message'>ksline: kriging location:  301 out of 1250 </span>
-#&gt; <span class='message'>ksline: kriging location:  401 out of 1250 </span>
-#&gt; <span class='message'>ksline: kriging location:  501 out of 1250 </span>
-#&gt; <span class='message'>ksline: kriging location:  601 out of 1250 </span>
-#&gt; <span class='message'>ksline: kriging location:  701 out of 1250 </span>
-#&gt; <span class='message'>ksline: kriging location:  801 out of 1250 </span>
-#&gt; <span class='message'>ksline: kriging location:  901 out of 1250 </span>
-#&gt; <span class='message'>ksline: kriging location:  1001 out of 1250 </span>
-#&gt; <span class='message'>ksline: kriging location:  1101 out of 1250 </span>
-#&gt; <span class='message'>ksline: kriging location:  1201 out of 1250 </span>
-#&gt; <span class='message'>ksline: kriging location:  1250 out of 1250 </span>
-#&gt; <span class='message'>Kriging performed using global neighbourhood </span></div><div class='input'><span class='fu'>summary</span>(<span class='no'>res2</span>)</div><div class='output co'>#&gt; df
+<span class='no'>res2</span> <span class='kw'>&lt;-</span> <span class='fu'>suppressMessages</span>(<span class='fu'><a href='krig.html'>krig</a></span>(<span class='no'>soil</span>, <span class='kw'>var</span> <span class='kw'>=</span> <span class='st'>"mg"</span>))
+<span class='fu'>summary</span>(<span class='no'>res2</span>)</div><div class='output co'>#&gt; df
 #&gt; 'data.frame':	1250 obs. of  3 variables:
 #&gt;  $ x: num  10 30 50 70 90 110 130 150 170 190 ...
 #&gt;  $ y: num  10 10 10 10 10 10 10 10 10 10 ...
-#&gt;  $ z: num  950 944 939 933 928 ...
+#&gt;  $ z: num  0.56 0.57 0.579 0.587 0.596 ...
 #&gt; 
 #&gt; df.poly
 #&gt; 'data.frame':	1250 obs. of  3 variables:
 #&gt;  $ gx: num  10 30 50 70 90 110 130 150 170 190 ...
 #&gt;  $ gy: num  10 10 10 10 10 10 10 10 10 10 ...
-#&gt;  $ z : num  949 943 938 933 927 ...
+#&gt;  $ z : num  -0.579 -0.563 -0.547 -0.532 -0.518 ...
 #&gt; 
 #&gt; lambda
 #&gt; 'numeric'
-#&gt;  num 1
+#&gt;  num 0
 #&gt; 
 #&gt; vg
 #&gt; 'variogram'
 #&gt; List of 20
-#&gt;  $ u               : num [1:12] 30.3 42.9 51.1 60.9 86.5 ...
-#&gt;  $ v               : num [1:12] 60522 54239 174166 55226 44193 ...
-#&gt;  $ n               : num [1:12] 21 25 5 81 94 57 155 167 247 288 ...
-#&gt;  $ sd              : num [1:12] 96683 58618 214627 60326 52526 ...
+#&gt;  $ u               : num [1:9] 60.9 86.5 103 122.7 146.1 ...
+#&gt;  $ v               : num [1:9] 0.0283 0.0273 0.0406 0.0283 0.0402 ...
+#&gt;  $ n               : num [1:9] 7 9 10 10 18 19 36 34 38
+#&gt;  $ sd              : num [1:9] 0.0389 0.0319 0.0497 0.0282 0.0326 ...
 #&gt;  $ bins.lim        : num [1:31] 1.00e-12 2.00 2.38 2.84 3.38 ...
 #&gt;  $ ind.bin         : logi [1:30] FALSE FALSE FALSE FALSE FALSE FALSE ...
-#&gt;  $ var.mark        : num 55039
-#&gt;  $ beta.ols        : num 2.62e-08
+#&gt;  $ var.mark        : num 0.0275
+#&gt;  $ beta.ols        : num 1.25e-10
 #&gt;  $ output.type     : chr "bin"
 #&gt;  $ max.dist        : num 320
 #&gt;  $ estimator.type  : chr "classical"
-#&gt;  $ n.data          : int 100
+#&gt;  $ n.data          : int 30
 #&gt;  $ lambda          : num 1
 #&gt;  $ trend           : chr "cte"
 #&gt;  $ pairs.min       : num 5
@@ -261,14 +237,14 @@
 #&gt; vm
 #&gt; 'variomodel', variofit'
 #&gt; List of 17
-#&gt;  $ nugget               : num 56634
-#&gt;  $ cov.pars             : num [1:2] 87783 2105
-#&gt;  $ cov.model            : chr "gaussian"
+#&gt;  $ nugget               : num 0.0312
+#&gt;  $ cov.pars             : num [1:2] 0 160
+#&gt;  $ cov.model            : chr "exponential"
 #&gt;  $ kappa                : num 0.5
-#&gt;  $ value                : num 1.49e+11
+#&gt;  $ value                : num 0.0232
 #&gt;  $ trend                : chr "cte"
-#&gt;  $ beta.ols             : num 2.62e-08
-#&gt;  $ practicalRange       : num 3644
+#&gt;  $ beta.ols             : num 1.25e-10
+#&gt;  $ practicalRange       : num 479
 #&gt;  $ max.dist             : num 320
 #&gt;  $ minimisation.function: chr "optim"
 #&gt;  $ weights              : chr "npairs"
