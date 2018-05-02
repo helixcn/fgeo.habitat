@@ -1,7 +1,7 @@
 context("test-krig.R")
 
 df <- fgeo.habitat::soil_random[1:10, ]
-result <- suppressWarnings(krig(df, var = "M3Al"))
+result <- suppressMessages(krig(df, var = "M3Al"))
 
 test_that("krig() passes regression test", {
   expect_equal_to_reference(result, "ref-krig.rds")
@@ -21,6 +21,11 @@ test_that("krig() returns the expected value.", {
   expect_named(result$vg)
   expect_is(result$vm, "variomodel")
   expect_is(result$vm, "variofit")
+})
+
+test_that("print suppressable message", {
+  expect_message(krig(df, var = "M3Al"))
+  expect_silent(suppressMessages(krig(df, var = "M3Al")))
 })
 
 # Checks ------------------------------------------------------------------

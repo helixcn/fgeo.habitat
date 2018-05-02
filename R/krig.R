@@ -79,7 +79,8 @@ krig <- function(soil,
                  plotdim_y = 500,
                  breaks = krig_breaks(2, 320, 30),
                  use_ksline = TRUE) {
-  out <- GetKrigedSoil(
+  quiet_krig <- purrr::quietly(GetKrigedSoil)
+  krig <- quiet_krig(
     df.soil = soil,
     var = var,
     gridSize = gridsize,
@@ -89,7 +90,8 @@ krig <- function(soil,
     breaks = breaks,
     useKsLine = use_ksline
   )
-  structure(out, class = c("krig", "list"))
+  message(krig$output)
+  structure(krig$result, class = c("krig", "list"))
 }
 
 #' @rdname krig

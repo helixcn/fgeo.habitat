@@ -1,14 +1,5 @@
 # TODO
 
-
-# silent annoying printed messages:
-# sink("temporary-file")
-# result <- krig(soil_random, "M3Al")
-# sink()
-# result
-# printed <- read.table(temporary-file)
-# message(printed)
-
 # Show how to lapply on krg_krig
 # Show how summary on elements of the krig() list.
 # update app

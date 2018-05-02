@@ -79,47 +79,17 @@ Krige soil data.
 
 ``` r
 # Randomized data -- not for research. See ?soil_random.
-df <- soil_random
+soil <- soil_random
+str(soil_random, give.attr = FALSE)
+#> Classes 'tbl_df', 'tbl' and 'data.frame':    625 obs. of  3 variables:
+#>  $ gx  : int  9 9 9 9 9 9 9 9 9 9 ...
+#>  $ gy  : int  30 70 110 150 190 230 270 310 350 390 ...
+#>  $ M3Al: num  994 591 661 982 1154 ...
 
-result <- krig(df, var = "M3Al")
-#> variog: computing omnidirectional variogram
-#> variofit: covariance model used is exponential 
-#> variofit: weights used: npairs 
-#> variofit: minimisation function used: optim 
-#> variofit: covariance model used is circular 
-#> variofit: weights used: npairs 
-#> variofit: minimisation function used: optim 
-#> variofit: covariance model used is cauchy 
-#> variofit: weights used: npairs 
-#> variofit: minimisation function used: optim 
-#> variofit: covariance model used is gaussian 
-#> variofit: weights used: npairs 
-#> variofit: minimisation function used: optim 
-#> ksline: kriging location:  1 out of 1250 
-#> ksline: kriging location:  101 out of 1250 
-#> ksline: kriging location:  201 out of 1250 
-#> ksline: kriging location:  301 out of 1250 
-#> ksline: kriging location:  401 out of 1250 
-#> ksline: kriging location:  501 out of 1250 
-#> ksline: kriging location:  601 out of 1250 
-#> ksline: kriging location:  701 out of 1250 
-#> ksline: kriging location:  801 out of 1250 
-#> ksline: kriging location:  901 out of 1250 
-#> ksline: kriging location:  1001 out of 1250 
-#> ksline: kriging location:  1101 out of 1250 
-#> ksline: kriging location:  1201 out of 1250 
-#> ksline: kriging location:  1250 out of 1250 
-#> Kriging performed using global neighbourhood
-```
-
-``` r
-# The result is a complex list
-names(result)
-#> [1] "df"      "df.poly" "lambda"  "vg"      "vm"
-```
-
-``` r
-summary(result)
+out <- suppressMessages(
+  krig(soil, var = "M3Al")
+)
+summary(out)
 #> df
 #> 'data.frame':    1250 obs. of  3 variables:
 #>  $ x: num  10 30 50 70 90 110 130 150 170 190 ...

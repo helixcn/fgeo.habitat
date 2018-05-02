@@ -62,14 +62,17 @@ Krige soil data following the methodology of the John et al. (2007): `krig()` by
 soil <- soil_random
 ```
 
+Krige with automated parameters.
+
 ```{r}
-# Krige with automated parameters
 auto <- krig(soil, var = "M3Al")
 ```
 
 ```{r}
 summary(auto)
 ```
+
+Try also:
 
 ```R
 View(auto)
@@ -78,30 +81,28 @@ View(auto)
 <img src="https://i.imgur.com/fTDjckj.png" align="center" height=150 />
 
 ```{r}
-glimpse(auto$df)
+str(auto$df, give.attr = FALSE)
 ```
 
+With custom params (arbitrary but based on automated kriging params).
+
 ```{r}
-# These custom params are rather arbitrary but based on automated kriging params
 params <- list(
   model = "circular", range = 100, nugget = 1000, sill = 46000, kappa = 0.5
 )
-custom <- krig(soil, var = "M3Al", params = params)
+# Quietly
+custom <- suppressMessages(
+  krig(soil, var = "M3Al", params = params)
+)
 ```
-
-```R
-View(custom)
-```
-
-<img src="https://i.imgur.com/0u4WHYS.png" align="center" height=150 />
 
 ```{r}
-glimpse(custom$df)
+str(custom$df, give.attr = FALSE)
 ```
 
-```{r, fig.align="default", out.width="45%", fig.widh=(6 * 0.5 / 0.7)}
-# Have a look at the differences
+Compare
 
+```{r, fig.align="default", out.width="45%", fig.widh=(6 * 0.5 / 0.7)}
 title_auto <- "Automated parameters"
 ggplot(auto$df, aes(x = x, y = y, fill = z)) +
   geom_tile() + 

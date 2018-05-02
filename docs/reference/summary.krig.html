@@ -199,34 +199,34 @@
 #&gt; lambda   1     -none-     numeric
 #&gt; vg      20     variogram  list   
 #&gt; vm      17     variomodel list   </div><div class='input'>
-<span class='no'>res2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='krig.html'>krig</a></span>(<span class='no'>df</span>, <span class='kw'>var</span> <span class='kw'>=</span> <span class='st'>"M3Al"</span>)</div><div class='output co'>#&gt; variog: computing omnidirectional variogram
-#&gt; variofit: covariance model used is exponential 
-#&gt; variofit: weights used: npairs 
-#&gt; variofit: minimisation function used: optim 
-#&gt; variofit: covariance model used is circular 
-#&gt; variofit: weights used: npairs 
-#&gt; variofit: minimisation function used: optim 
-#&gt; variofit: covariance model used is cauchy 
-#&gt; variofit: weights used: npairs 
-#&gt; variofit: minimisation function used: optim 
-#&gt; variofit: covariance model used is gaussian 
-#&gt; variofit: weights used: npairs 
-#&gt; variofit: minimisation function used: optim 
-#&gt; ksline: kriging location:  1 out of 1250 
-#&gt; ksline: kriging location:  101 out of 1250 
-#&gt; ksline: kriging location:  201 out of 1250 
-#&gt; ksline: kriging location:  301 out of 1250 
-#&gt; ksline: kriging location:  401 out of 1250 
-#&gt; ksline: kriging location:  501 out of 1250 
-#&gt; ksline: kriging location:  601 out of 1250 
-#&gt; ksline: kriging location:  701 out of 1250 
-#&gt; ksline: kriging location:  801 out of 1250 
-#&gt; ksline: kriging location:  901 out of 1250 
-#&gt; ksline: kriging location:  1001 out of 1250 
-#&gt; ksline: kriging location:  1101 out of 1250 
-#&gt; ksline: kriging location:  1201 out of 1250 
-#&gt; ksline: kriging location:  1250 out of 1250 
-#&gt; Kriging performed using global neighbourhood </div><div class='input'><span class='fu'>summary</span>(<span class='no'>res2</span>)</div><div class='output co'>#&gt; df
+<span class='no'>res2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='krig.html'>krig</a></span>(<span class='no'>df</span>, <span class='kw'>var</span> <span class='kw'>=</span> <span class='st'>"M3Al"</span>)</div><div class='output co'>#&gt; <span class='message'>variog: computing omnidirectional variogram</span>
+#&gt; <span class='message'>variofit: covariance model used is exponential </span>
+#&gt; <span class='message'>variofit: weights used: npairs </span>
+#&gt; <span class='message'>variofit: minimisation function used: optim </span>
+#&gt; <span class='message'>variofit: covariance model used is circular </span>
+#&gt; <span class='message'>variofit: weights used: npairs </span>
+#&gt; <span class='message'>variofit: minimisation function used: optim </span>
+#&gt; <span class='message'>variofit: covariance model used is cauchy </span>
+#&gt; <span class='message'>variofit: weights used: npairs </span>
+#&gt; <span class='message'>variofit: minimisation function used: optim </span>
+#&gt; <span class='message'>variofit: covariance model used is gaussian </span>
+#&gt; <span class='message'>variofit: weights used: npairs </span>
+#&gt; <span class='message'>variofit: minimisation function used: optim </span>
+#&gt; <span class='message'>ksline: kriging location:  1 out of 1250 </span>
+#&gt; <span class='message'>ksline: kriging location:  101 out of 1250 </span>
+#&gt; <span class='message'>ksline: kriging location:  201 out of 1250 </span>
+#&gt; <span class='message'>ksline: kriging location:  301 out of 1250 </span>
+#&gt; <span class='message'>ksline: kriging location:  401 out of 1250 </span>
+#&gt; <span class='message'>ksline: kriging location:  501 out of 1250 </span>
+#&gt; <span class='message'>ksline: kriging location:  601 out of 1250 </span>
+#&gt; <span class='message'>ksline: kriging location:  701 out of 1250 </span>
+#&gt; <span class='message'>ksline: kriging location:  801 out of 1250 </span>
+#&gt; <span class='message'>ksline: kriging location:  901 out of 1250 </span>
+#&gt; <span class='message'>ksline: kriging location:  1001 out of 1250 </span>
+#&gt; <span class='message'>ksline: kriging location:  1101 out of 1250 </span>
+#&gt; <span class='message'>ksline: kriging location:  1201 out of 1250 </span>
+#&gt; <span class='message'>ksline: kriging location:  1250 out of 1250 </span>
+#&gt; <span class='message'>Kriging performed using global neighbourhood </span></div><div class='input'><span class='fu'>summary</span>(<span class='no'>res2</span>)</div><div class='output co'>#&gt; df
 #&gt; 'data.frame':	1250 obs. of  3 variables:
 #&gt;  $ x: num  10 30 50 70 90 110 130 150 170 190 ...
 #&gt;  $ y: num  10 10 10 10 10 10 10 10 10 10 ...

@@ -65,19 +65,16 @@ Krige soil data.
 
 ```{r}
 # Randomized data -- not for research. See ?soil_random.
-df <- soil_random
+soil <- soil_random
+str(soil_random, give.attr = FALSE)
 
-result <- krig(df, var = "M3Al")
+out <- suppressMessages(
+  krig(soil, var = "M3Al")
+)
+summary(out)
 ```
 
-```{r}
-# The result is a complex list
-names(result)
-```
 
-```{r}
-summary(result)
-```
 
 ## Information
 
