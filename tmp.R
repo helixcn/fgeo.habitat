@@ -1,12 +1,11 @@
 # TODO
 
 # Show how to lapply on krg_krig
-# Show how summary on elements of the krig() list.
-# update app
+# Show how summary on elements of the krig() list that have a summary or plot
+#   method
+# update app and push to shiny.io
 # Update app link to shiny.io
-
-
-# Improve the output of soil functions
+# try fix warning on attach 
 
 # OTHER PACKAGES
 # map: Write function to map raster

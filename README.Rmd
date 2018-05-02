@@ -33,16 +33,13 @@ For details on how to install packages from GitHub, see [this article](https://g
 
 ```{r}
 library(fgeo.habitat)
+# For easier data wranging
+library(dplyr)
 ```
 
 Habitat-species associations.
 
 ```{r}
-# Setup
-
-# For easier data wranging
-library(dplyr)
-
 # Example data
 habitat <- luquillo_habitat
 census <- luquillo_top3_sp

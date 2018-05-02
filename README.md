@@ -25,13 +25,6 @@ article](https://goo.gl/dQKEeg).
 
 ``` r
 library(fgeo.habitat)
-```
-
-Habitat-species associations.
-
-``` r
-# Setup
-
 # For easier data wranging
 library(dplyr)
 #> 
@@ -42,7 +35,11 @@ library(dplyr)
 #> The following objects are masked from 'package:base':
 #> 
 #>     intersect, setdiff, setequal, union
+```
 
+Habitat-species associations.
+
+``` r
 # Example data
 habitat <- luquillo_habitat
 census <- luquillo_top3_sp
