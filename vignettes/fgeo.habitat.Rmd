@@ -26,8 +26,7 @@ knitr::opts_chunk$set(
 
 ```{r}
 library(fgeo.habitat)
-library(ggplot2)
-library(dplyr)
+library(tidyverse)
 ```
 
 ## Habitat-species associations
@@ -55,7 +54,9 @@ tail(out)
 
 ## Krige soil data
 
-Krige soil data following the methodology of the John et al. (2007): `krig()` by Graham Zemunik.
+Krige soil data with `krig()`, by Graham Zemunik.
+
+### Compare parameters
 
 ```{r}
 # Example data
@@ -100,7 +101,7 @@ custom <- suppressMessages(
 str(custom$df, give.attr = FALSE)
 ```
 
-Compare
+Compare.
 
 ```{r, fig.align="default", out.width="45%", fig.widh=(6 * 0.5 / 0.7)}
 title_auto <- "Automated parameters"
@@ -114,5 +115,57 @@ ggplot(custom$df, aes(x = x, y = y, fill = z)) +
   geom_tile() + 
   coord_equal() +
   labs(title = title_custom)
+```
+
+### Iterate over multiple soil variables
+
+```{r}
+soil <- soil_fake
+soil
+```
+
+Scale soil data to make their values fall within the same range. In the following section, this will ease visual comparison.
+
+```{r}
+soil_vars <- c("mg", "c", "p")
+soil_fake[soil_vars] <- map_df(soil_fake[soil_vars], scale)
+soil_fake
+```
+
+Iterate. Create a function `krig_df()` to run `krig()` quietly and pull the `df` element of the resulting list.
+
+```{r}
+krig_df <- function(var) {
+  out <- suppressMessages(
+    krig(soil_fake, var)
+  )
+  out$df
+}
+```
+
+Iterate: Apply `krig_df()` for each soil variable.
+
+```{r}
+dfs <- map(soil_vars, krig_df)
+dfs <-   set_names(dfs, soil_vars)
+map(dfs, head)
+```
+
+### Visualize multiple soil variables
+
+Re structure as a long-format dataframe to allow facetting with __gglot2__.
+
+```{r}
+dfs2 <- unnest(enframe(dfs, name = "soil_var"))
+dfs2
+```
+
+Visualize.
+
+```{r}
+ggplot(dfs2, aes(x, y, fill = z)) +
+  geom_tile() +
+  facet_wrap("soil_var") +
+  coord_equal()
 ```
 
