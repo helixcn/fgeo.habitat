@@ -41,5 +41,5 @@ hdr <- function(.data, ...) {
 }
 
 hdr2 <- function(x, nm) {
-  hdr(x, "nm\n'", commas(class(x), "'"))
+  hdr(x, nm, "\n'", commas(class(x), "'"))
 }
