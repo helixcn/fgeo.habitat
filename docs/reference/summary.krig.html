@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="Summary of <code>krig()</code> results. — summary.krig" />
 
 <meta property="og:description" content="A cleaner version of str() for the result of krig()." />
@@ -38,8 +41,6 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
 
 
   </head>
@@ -129,16 +130,19 @@
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Summary of <code>krig()</code> results.</h1>
-    <small>Source: <a href='https://github.com/forestgeo/fgeo.habitat/blob/master/R/summary.krig.R'><code>R/summary.krig.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/forestgeo/fgeo.habitat/blob/master/R/summary.krig.R'><code>R/summary.krig.R</code></a></small>
+    <div class="hidden name"><code>summary.krig.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>A cleaner version of <code>str()</code> for the result of <code><a href='krig.html'>krig()</a></code>.</p>
     
+    </div>
 
     <pre class="usage"><span class='co'># S3 method for krig</span>
 <span class='fu'>summary</span>(<span class='no'>object</span>, <span class='no'>...</span>)</pre>
@@ -230,29 +234,29 @@
 #&gt; 'data.frame':	1250 obs. of  3 variables:
 #&gt;  $ x: num  10 30 50 70 90 110 130 150 170 190 ...
 #&gt;  $ y: num  10 10 10 10 10 10 10 10 10 10 ...
-#&gt;  $ z: num  1018 1010 1002 995 987 ...
+#&gt;  $ z: num  681 690 698 707 715 ...
 #&gt; 
 #&gt; df.poly
 #&gt; 'data.frame':	1250 obs. of  3 variables:
 #&gt;  $ gx: num  10 30 50 70 90 110 130 150 170 190 ...
 #&gt;  $ gy: num  10 10 10 10 10 10 10 10 10 10 ...
-#&gt;  $ z : num  31.9 31.8 31.7 31.5 31.4 ...
+#&gt;  $ z : num  681 690 698 707 715 ...
 #&gt; 
 #&gt; lambda
 #&gt; 'numeric'
-#&gt;  num 0.5
+#&gt;  num 1
 #&gt; 
 #&gt; vg
 #&gt; 'variogram'
 #&gt; List of 20
 #&gt;  $ u               : num [1:11] 30.3 42.9 60.9 86.5 103 ...
-#&gt;  $ v               : num [1:11] 21.2 32.2 21.3 22.1 25.3 ...
-#&gt;  $ n               : num [1:11] 28 22 81 105 42 154 181 222 306 506 ...
-#&gt;  $ sd              : num [1:11] 29.2 55.8 29.9 26.5 42.3 ...
+#&gt;  $ v               : num [1:11] 72786 78382 59101 68778 63713 ...
+#&gt;  $ n               : num [1:11] 29 24 72 116 46 144 150 212 237 420 ...
+#&gt;  $ sd              : num [1:11] 93497 135189 70925 90735 95024 ...
 #&gt;  $ bins.lim        : num [1:31] 1.00e-12 2.00 2.38 2.84 3.38 ...
 #&gt;  $ ind.bin         : logi [1:30] FALSE FALSE FALSE FALSE FALSE FALSE ...
-#&gt;  $ var.mark        : num 20.6
-#&gt;  $ beta.ols        : num 1.34e-09
+#&gt;  $ var.mark        : num 58627
+#&gt;  $ beta.ols        : num 3.01e-07
 #&gt;  $ output.type     : chr "bin"
 #&gt;  $ max.dist        : num 320
 #&gt;  $ estimator.type  : chr "classical"
@@ -269,14 +273,14 @@
 #&gt; vm
 #&gt; 'variomodel', variofit'
 #&gt; List of 17
-#&gt;  $ nugget               : num 20.5
-#&gt;  $ cov.pars             : num [1:2] 2360 15360
-#&gt;  $ cov.model            : chr "gaussian"
+#&gt;  $ nugget               : num 60109
+#&gt;  $ cov.pars             : num [1:2] 1951365 10607
+#&gt;  $ cov.model            : chr "cauchy"
 #&gt;  $ kappa                : num 0.5
-#&gt;  $ value                : num 10619
+#&gt;  $ value                : num 4.24e+10
 #&gt;  $ trend                : chr "cte"
-#&gt;  $ beta.ols             : num 1.34e-09
-#&gt;  $ practicalRange       : num 26586
+#&gt;  $ beta.ols             : num 3.01e-07
+#&gt;  $ practicalRange       : num 211877
 #&gt;  $ max.dist             : num 320
 #&gt;  $ minimisation.function: chr "optim"
 #&gt;  $ weights              : chr "npairs"
@@ -284,7 +288,7 @@
 #&gt;  $ fix.nugget           : logi FALSE
 #&gt;  $ fix.kappa            : logi TRUE
 #&gt;  $ lambda               : num 1
-#&gt;  $ message              : chr "optim convergence code: 1"
+#&gt;  $ message              : chr "optim convergence code: 0"
 #&gt;  $ call                 : language variofit(vario = vg, ini.cov.pars = c(initialVal, startRange), cov.model = varModels[i],      nugget = initialVal)</div><div class='input'>
 <span class='fu'>identical</span>(<span class='fu'>unclass</span>(<span class='no'>res1</span>), <span class='fu'>unclass</span>(<span class='no'>res2</span>))</div><div class='output co'>#&gt; [1] TRUE</div></pre>
   </div>

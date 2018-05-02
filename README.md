@@ -79,9 +79,9 @@ Krige soil data.
 soil <- soil_random
 str(soil_random, give.attr = FALSE)
 #> Classes 'tbl_df', 'tbl' and 'data.frame':    100 obs. of  3 variables:
-#>  $ gx  : int  229 49 569 689 229 949 489 709 489 829 ...
-#>  $ gy  : int  210 270 30 270 170 330 230 370 150 330 ...
-#>  $ m3al: num  945 1051 450 431 867 ...
+#>  $ gx  : int  9 9 29 49 69 69 69 89 109 149 ...
+#>  $ gy  : int  270 350 410 390 50 330 450 470 490 90 ...
+#>  $ m3al: num  1032 624 1063 346 932 ...
 
 out <- suppressMessages(
   krig(soil, var = "m3al")
@@ -91,29 +91,29 @@ summary(out)
 #> 'data.frame':    1250 obs. of  3 variables:
 #>  $ x: num  10 30 50 70 90 110 130 150 170 190 ...
 #>  $ y: num  10 10 10 10 10 10 10 10 10 10 ...
-#>  $ z: num  1018 1010 1002 995 987 ...
+#>  $ z: num  681 690 698 707 715 ...
 #> 
 #> df.poly
 #> 'data.frame':    1250 obs. of  3 variables:
 #>  $ gx: num  10 30 50 70 90 110 130 150 170 190 ...
 #>  $ gy: num  10 10 10 10 10 10 10 10 10 10 ...
-#>  $ z : num  31.9 31.8 31.7 31.5 31.4 ...
+#>  $ z : num  681 690 698 707 715 ...
 #> 
 #> lambda
 #> 'numeric'
-#>  num 0.5
+#>  num 1
 #> 
 #> vg
 #> 'variogram'
 #> List of 20
 #>  $ u               : num [1:11] 30.3 42.9 60.9 86.5 103 ...
-#>  $ v               : num [1:11] 21.2 32.2 21.3 22.1 25.3 ...
-#>  $ n               : num [1:11] 28 22 81 105 42 154 181 222 306 506 ...
-#>  $ sd              : num [1:11] 29.2 55.8 29.9 26.5 42.3 ...
+#>  $ v               : num [1:11] 72786 78382 59101 68778 63713 ...
+#>  $ n               : num [1:11] 29 24 72 116 46 144 150 212 237 420 ...
+#>  $ sd              : num [1:11] 93497 135189 70925 90735 95024 ...
 #>  $ bins.lim        : num [1:31] 1.00e-12 2.00 2.38 2.84 3.38 ...
 #>  $ ind.bin         : logi [1:30] FALSE FALSE FALSE FALSE FALSE FALSE ...
-#>  $ var.mark        : num 20.6
-#>  $ beta.ols        : num 1.34e-09
+#>  $ var.mark        : num 58627
+#>  $ beta.ols        : num 3.01e-07
 #>  $ output.type     : chr "bin"
 #>  $ max.dist        : num 320
 #>  $ estimator.type  : chr "classical"
@@ -130,14 +130,14 @@ summary(out)
 #> vm
 #> 'variomodel', variofit'
 #> List of 17
-#>  $ nugget               : num 20.5
-#>  $ cov.pars             : num [1:2] 2360 15360
-#>  $ cov.model            : chr "gaussian"
+#>  $ nugget               : num 60109
+#>  $ cov.pars             : num [1:2] 1951365 10607
+#>  $ cov.model            : chr "cauchy"
 #>  $ kappa                : num 0.5
-#>  $ value                : num 10619
+#>  $ value                : num 4.24e+10
 #>  $ trend                : chr "cte"
-#>  $ beta.ols             : num 1.34e-09
-#>  $ practicalRange       : num 26586
+#>  $ beta.ols             : num 3.01e-07
+#>  $ practicalRange       : num 211877
 #>  $ max.dist             : num 320
 #>  $ minimisation.function: chr "optim"
 #>  $ weights              : chr "npairs"
@@ -145,7 +145,7 @@ summary(out)
 #>  $ fix.nugget           : logi FALSE
 #>  $ fix.kappa            : logi TRUE
 #>  $ lambda               : num 1
-#>  $ message              : chr "optim convergence code: 1"
+#>  $ message              : chr "optim convergence code: 0"
 #>  $ call                 : language variofit(vario = vg, ini.cov.pars = c(initialVal, startRange), cov.model = varModels[i],      nugget = initialVal)
 ```
 

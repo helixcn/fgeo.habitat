@@ -6,6 +6,22 @@
 \usage{
 krig_auto_params(geodata, trend = "cte", breaks = krig_breaks(2, 320, 30))
 }
+\arguments{
+\item{geodata}{a list containing element \code{coords}
+    as described next. Typically an object of the class
+    \code{"geodata"} - a \pkg{geoR} data-set.
+    If not provided the arguments
+    \code{coords} must be provided instead.  }
+
+\item{trend}{specifies the mean part of the model.
+    See documentation of \code{\link{trend.spatial}} for further details.
+    Defaults to \code{"cte"}.  }
+
+\item{breaks}{a vector with values to define the variogram binning. Only
+    used when \code{option = "bin"}.
+    See \code{DETAILS} below for more details on how to specify the bins.
+  }
+}
 \value{
 A list of the best fitted variogram parameters. The following
 descriptioin is adapted from \code{\link[geoR:variog]{geoR::variog()}} -- which you should see

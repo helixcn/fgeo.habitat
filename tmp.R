@@ -1,7 +1,5 @@
 # TODO
 
-# Show how summary on elements of the krig() list that have a summary or plot
-#   method
 # update app and push to shiny.io
 # Update app link to shiny.io
 # try fix warning on attach 

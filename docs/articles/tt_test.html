@@ -18,7 +18,7 @@
 <![endif]-->
 </head>
 <body>
-    <div class="container template-vignette">
+    <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -101,7 +101,7 @@
 
       
       </header><div class="row">
-  <div class="col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Habitat-species associations</h1>
             <h3 class="subtitle">Given a number of species and habitat types in a plot, is each species significantly aggregated within habitats?</h3>
@@ -109,13 +109,13 @@
             
             <h4 class="date">2018-05-02</h4>
       
-      <small>Source: <a href="https://github.com/forestgeo/fgeo.habitat/blob/master/vignettes/tt_test.Rmd"><code>vignettes/tt_test.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/forestgeo/fgeo.habitat/blob/master/vignettes/tt_test.Rmd"><code>vignettes/tt_test.Rmd</code></a></small>
+      <div class="hidden name"><code>tt_test.Rmd</code></div>
 
     </div>
 
     
     
-<div class="contents">
 <p>This article shows how to determine habitat-species associations with the function <a href="https://forestgeo.github.io/fgeo.habitat/reference/tt_test_one.html"><code><a href="../reference/tt_test.html">tt_test_one()</a></code></a>, developed by Sabrina Russo, Daniel Zuleta, Matteo Detto, and Kyle Harms.</p>
 <p>To suggest changes to the source code please file a pull request on the GitHub repository of the relevant package. You can search all functions and packages <a href="https://forestgeo.github.io/fgeo/articles/fgeo.html#functions">here</a>. Each function’s help file links to its source code.</p>
 <div id="setup" class="section level2">
@@ -129,12 +129,12 @@
 <a class="sourceLine" id="cb2-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co"># Install the tidyverse package from CRAN with: install.packages("tidyverse")</span></a>
 <a class="sourceLine" id="cb2-5" data-line-number="5"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt; -- Attaching packages -------------------------------- tidyverse 1.2.1 --</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt; -- Attaching packages -------------------------------------------- tidyverse 1.2.1 --</span></a>
 <a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt; v ggplot2 2.2.1     v purrr   0.2.4</span></a>
 <a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">#&gt; v tibble  1.4.2     v dplyr   0.7.4</span></a>
 <a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt; v tidyr   0.8.0     v stringr 1.3.0</span></a>
 <a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt; v readr   1.1.1     v forcats 0.3.0</span></a>
-<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">#&gt; -- Conflicts ----------------------------------- tidyverse_conflicts() --</span></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">#&gt; -- Conflicts ----------------------------------------------- tidyverse_conflicts() --</span></a>
 <a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">#&gt; x dplyr::filter() masks stats::filter()</span></a>
 <a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">#&gt; x dplyr::lag()    masks stats::lag()</span></a></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="co"># For reproducible results</span></a>
@@ -500,7 +500,6 @@
 <a class="sourceLine" id="cb22-3" data-line-number="3"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="st">"metric"</span>, <span class="dt">scales =</span> <span class="st">"free_y"</span>) <span class="op">+</span></a>
 <a class="sourceLine" id="cb22-4" data-line-number="4"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_blank</span>(), <span class="dt">legend.position =</span> <span class="st">"top"</span>)</a></code></pre></div>
 <p><img src="tt_test_files/figure-html/unnamed-chunk-20-1.png" width="100%" style="display: block; margin: auto;"></p>
-</div>
 </div>
   </div>
 

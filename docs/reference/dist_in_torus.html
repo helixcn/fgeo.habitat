@@ -25,6 +25,9 @@
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../jquery.sticky-kit.min.js"></script>
 <script src="../pkgdown.js"></script>
+
+
+
 <meta property="og:title" content="A general function to calculate distances in a n-dimensional toroid. — dist_in_torus" />
 
 <meta property="og:description" content="By default (i.e. if the arguments lower and upper are not provided), this
@@ -46,8 +49,6 @@ each dimension." />
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
-
-
 
 
   </head>
@@ -137,13 +138,15 @@ each dimension." />
       
       </header>
 
-      <div class="row">
+<div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>A general function to calculate distances in a n-dimensional toroid.</h1>
-    <small>Source: <a href='https://github.com/forestgeo/fgeo.habitat/blob/master/R/dist_in_torus.R'><code>R/dist_in_torus.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/forestgeo/fgeo.habitat/blob/master/R/dist_in_torus.R'><code>R/dist_in_torus.R</code></a></small>
+    <div class="hidden name"><code>dist_in_torus.Rd</code></div>
     </div>
 
+    <div class="ref-description">
     
     <p>By default (i.e. if the arguments <code>lower</code> and <code>upper</code> are not provided), this
 function returns the distance in the Euclidean space by assuming borders
@@ -155,6 +158,7 @@ coordinates, as in the Euclidean space. The 'external' distance is crossing
 borders, going around. There are only two ways of measuring distance along
 each dimension.</p>
     
+    </div>
 
     <pre class="usage"><span class='fu'>dist_in_torus</span>(<span class='no'>x</span>, <span class='kw'>lower</span> <span class='kw'>=</span> <span class='fu'>rep</span>(-<span class='fl'>Inf</span>, <span class='fu'>ncol</span>(<span class='no'>x</span>)), <span class='kw'>upper</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fl'>Inf</span>, <span class='fu'>ncol</span>(<span class='no'>x</span>)))</pre>
     
