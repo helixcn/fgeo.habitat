@@ -24,7 +24,7 @@ krig_auto_params(geodata, trend = "cte", breaks = krig_breaks(2, 320, 30))
 }
 \value{
 A list of the best fitted variogram parameters. The following
-descriptioin is adapted from \code{\link[geoR:variog]{geoR::variog()}} -- which you should see
+description is adapted from \code{\link[geoR:variog]{geoR::variog()}} -- which you should see
 for more details:
 \itemize{
 \item nugget: value of the nugget parameter. An estimated value if

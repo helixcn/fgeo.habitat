@@ -1,4 +1,4 @@
-#' Convert a matrices to data frames.
+#' Convert matrices to data frames.
 #'
 #' These functions convert a matrix to three-column data frames, where columns
 #' store row names, column names, and values of the original matrix.
@@ -19,14 +19,22 @@
 #' @return
 #' * [mat_enframe()]: A dataframe.
 #' * [mat_enframe_ls()]: A list of dataframes.
-#'
+#' 
+#' @export
 #' @examples
-#' mat <- matrix(1:6, 2, dimnames = list(LETTERS[1:2], letters[1:3]))
-#' mat_enframe_ls(mat)
-#' mat_enframe_ls(mat, "metric", "sp")
-#'
-#' mat <- matrix(1:6, 2)
-#' mat_enframe_ls(mat)
+#'  mat <- matrix(1:6, 2, dimnames = list(LETTERS[1:2], letters[1:3]))
+#'  mat
+#'  
+#'  mat_enframe_ls(mat)
+#'  
+#'  mat_enframe(mat)
+#'  
+#'  mat_enframe(mat, "metric", "sp")
+#'  
+#'  mat <- matrix(1:6, 2)
+#'  mat
+#'  
+#'  mat_enframe(mat)
 mat_enframe <- function(...) {
   Reduce(rbind, mat_enframe_ls(...))
 }

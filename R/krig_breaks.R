@@ -1,7 +1,7 @@
 #' Sequence of n exponentially increasing values.
 #'
-#' @param first,last Numeric; firts and last value of the list.
-#' @param n Lengh of returned value.
+#' @param first,last Numeric; first and last value of the list.
+#' @param n Length of returned value.
 #' 
 #' @return A numeric vector of length `n`.
 #'

@@ -3,7 +3,7 @@
 \name{mat_enframe}
 \alias{mat_enframe}
 \alias{mat_enframe_ls}
-\title{Convert a matrices to data frames.}
+\title{Convert matrices to data frames.}
 \usage{
 mat_enframe(...)
 
@@ -36,12 +36,19 @@ These functions are a matrix implementation of the \code{enframe()} function of
 the \strong{tibble} package.
 }
 \examples{
-mat <- matrix(1:6, 2, dimnames = list(LETTERS[1:2], letters[1:3]))
-mat_enframe_ls(mat)
-mat_enframe_ls(mat, "metric", "sp")
-
-mat <- matrix(1:6, 2)
-mat_enframe_ls(mat)
+ mat <- matrix(1:6, 2, dimnames = list(LETTERS[1:2], letters[1:3]))
+ mat
+ 
+ mat_enframe_ls(mat)
+ 
+ mat_enframe(mat)
+ 
+ mat_enframe(mat, "metric", "sp")
+ 
+ mat <- matrix(1:6, 2)
+ mat
+ 
+ mat_enframe(mat)
 }
 \seealso{
 \code{enframe()} (\strong{tibble} package).

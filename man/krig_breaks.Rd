@@ -7,9 +7,9 @@
 krig_breaks(first, last, n)
 }
 \arguments{
-\item{first, last}{Numeric; firts and last value of the list.}
+\item{first, last}{Numeric; first and last value of the list.}
 
-\item{n}{Lengh of returned value.}
+\item{n}{Length of returned value.}
 }
 \value{
 A numeric vector of length \code{n}.

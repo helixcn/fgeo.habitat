@@ -6,12 +6,14 @@
 #' want to exclude trees of some particular dbh range you need to do it before
 #' using this function.
 #' 
-#' This function is softly deprecated. Better alternavies to count rows by
+#' This function is softly deprecated. Better alternatives to count rows by
 #' groups are available in __dplyr__ and __janitor__(see `group_by()` and
 #' `count()` in __dplyr__ and `tabyl()` in __janitor__). Those alternatives are
 #' better tested and considerably faster.
 #'
-#' @inheritParams ctfs::abundanceperquad
+#' @param censdata A table of plot census data.
+#' @param plotdim The x and y dimensions of the plot.
+#' @param gridsize Side of the square quadrat.
 #'
 #' @return A dataframe where each quadrat-index is a column and each species
 #' is a rowname.

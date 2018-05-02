@@ -261,7 +261,7 @@
 <a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">#&gt;  $ x: num  10 30 50 70 90 110 130 150 170 190 ...</span></a>
 <a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt;  $ y: num  10 10 10 10 10 10 10 10 10 10 ...</span></a>
 <a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt;  $ z: num  950 944 939 933 928 ...</span></a></code></pre></div>
-<p>With custom params (arbitrary but based on automated kriging params).</p>
+<p>With custom parameters (arbitrary but based on automated kriging parameters).</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">params &lt;-<span class="st"> </span><span class="kw">list</span>(</a>
 <a class="sourceLine" id="cb8-2" data-line-number="2">  <span class="dt">model =</span> <span class="st">"circular"</span>, <span class="dt">range =</span> <span class="dv">100</span>, <span class="dt">nugget =</span> <span class="dv">1000</span>, <span class="dt">sill =</span> <span class="dv">46000</span>, <span class="dt">kappa =</span> <span class="fl">0.5</span></a>
 <a class="sourceLine" id="cb8-3" data-line-number="3">)</a>
@@ -364,7 +364,7 @@
 <div id="visualize-multiple-soil-variables" class="section level3">
 <h3 class="hasAnchor">
 <a href="#visualize-multiple-soil-variables" class="anchor"></a>Visualize multiple soil variables</h3>
-<p>Re structure as a long-format dataframe to allow facetting with <strong>gglot2</strong>.</p>
+<p>Re structure as a long-format dataframe to allow faceting with <strong>gglot2</strong>.</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">dfs2 &lt;-<span class="st"> </span><span class="kw">unnest</span>(<span class="kw">enframe</span>(dfs, <span class="dt">name =</span> <span class="st">"soil_var"</span>))</a>
 <a class="sourceLine" id="cb15-2" data-line-number="2">dfs2</a>
 <a class="sourceLine" id="cb15-3" data-line-number="3"><span class="co">#&gt; # A tibble: 3,750 x 4</span></a>

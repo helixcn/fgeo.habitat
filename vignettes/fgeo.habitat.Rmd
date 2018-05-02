@@ -86,7 +86,7 @@ View(auto)
 str(auto$df, give.attr = FALSE)
 ```
 
-With custom params (arbitrary but based on automated kriging params).
+With custom parameters (arbitrary but based on automated kriging parameters).
 
 ```{r}
 params <- list(
@@ -152,7 +152,7 @@ map(dfs, head)
 
 ### Visualize multiple soil variables
 
-Re structure as a long-format dataframe to allow facetting with __gglot2__.
+Re structure as a long-format dataframe to allow faceting with __gglot2__.
 
 ```{r}
 dfs2 <- unnest(enframe(dfs, name = "soil_var"))

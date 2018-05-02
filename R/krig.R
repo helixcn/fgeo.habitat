@@ -220,7 +220,7 @@ GetKrigedSoil <- function(df.soil,
 #' @seealso [geoR::variog].
 #' 
 #' @return A list of the best fitted variogram parameters. The following
-#'   descriptioin is adapted from [geoR::variog()] -- which you should see
+#'   description is adapted from [geoR::variog()] -- which you should see
 #'   for more details:
 #'   * nugget: value of the nugget parameter. An estimated value if 
 #'   `fix.nugget = FALSE` or a fixed value if `fix.nugget = TRUE`.

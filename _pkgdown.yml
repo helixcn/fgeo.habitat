@@ -40,6 +40,7 @@ reference:
   - title: "Soils: Helpers"
     contents:
       - matches("krig_")
+      - summary.krig
   - title: "Torus translation"
     contents:
       - starts_with("tt_")
@@ -51,6 +52,7 @@ reference:
       - abund_index
       - extract_plotdim
       - extract_gridsize
+      - mat_enframe
   - title: "Datasets"
     contents:
       - starts_with("luquillo")
