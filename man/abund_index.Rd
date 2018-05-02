@@ -6,13 +6,6 @@
 \usage{
 abund_index(censdata, plotdim, gridsize)
 }
-\arguments{
-\item{censdata}{A table of plot census data.}
-
-\item{plotdim}{The x and y dimensions of the plot.}
-
-\item{gridsize}{Side of the square quadrate.}
-}
 \value{
 A dataframe where each quadrat-index is a column and each species
 is a rowname.

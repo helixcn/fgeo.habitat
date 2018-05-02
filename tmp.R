@@ -1,7 +1,5 @@
 # TODO
 
-# Fix summary to print names of krig list properly.
-# Show how to lapply on krg_krig
 # Show how summary on elements of the krig() list that have a summary or plot
 #   method
 # update app and push to shiny.io
