@@ -79,8 +79,10 @@ krig <- function(soil,
                  plotdim_y = 500,
                  breaks = krig_breaks(2, 320, 30),
                  use_ksline = TRUE) {
-  quiet_krig <- krig_quietly(GetKrigedSoil)
-  krig <- quiet_krig(
+  # Prints as message to enable muting via suppressMessages()
+  krig_with_message <- krig_quietly(GetKrigedSoil)
+  
+  krig <- krig_with_message(
     df.soil = soil,
     var = var,
     gridSize = gridsize,
@@ -90,21 +92,10 @@ krig <- function(soil,
     breaks = breaks,
     useKsLine = use_ksline
   )
+  
   message(krig$output)
-  structure(krig$result, class = c("krig", "list"))
-}
-
-krig_quietly <- function(krg) {
-  function(...) {
-    output <- capture.output({
-      result <- krg(...)
-    })
-    output <- strsplit(paste0(output, collapse = "\n"), "\n\\$df\n")[[1]][1]
-    list(
-      output = output, 
-      result = result
-    )
-  }
+  # Enable summary.krig()
+  structure(krig$result, class = c("krig", class(krig$result)))
 }
 
 #' @rdname krig
@@ -280,8 +271,6 @@ krig_auto_params <- function(geodata,
   )
 }
 
-
-
 #' Fit a 2D polynomial surface.
 #'
 #' Fit a 2D polynomial surface from the following inputs:
@@ -422,9 +411,18 @@ InvBoxCoxTransformSoil <- function(df, lambda, delta) {
   df
 }
 
-
-
-# Check -------------------------------------------------------------------
+krig_quietly <- function(krg) {
+  function(...) {
+    output <- capture.output({
+      result <- krg(...)
+    })
+    output <- strsplit(paste0(output, collapse = "\n"), "\n\\$df\n")[[1]][1]
+    list(
+      output = output, 
+      result = result
+    )
+  }
+}
 
 check_krig <- function(df.soil,
                        var,
