@@ -15,8 +15,7 @@ Imports:
     geoR,
     MASS,
     rlang,
-    stats,
-    purrr
+    stats
 Suggests: 
     covr,
     dplyr,

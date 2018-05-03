@@ -107,8 +107,6 @@ krig_quietly <- function(krg) {
   }
 }
 
-
-
 #' @rdname krig
 #' @export
 GetKrigedSoil <- function(df.soil,
