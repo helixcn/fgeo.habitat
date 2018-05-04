@@ -2,10 +2,13 @@
 % Please edit documentation in R/tt_test.R
 \name{tt_test_lst}
 \alias{tt_test_lst}
+\alias{tt_test_one}
 \title{Torus Translation Test to determine habitat associations of tree species.}
 \usage{
 tt_test_lst(sp, census, habitat, plotdim = extract_plotdim(habitat),
   gridsize = extract_gridsize(habitat))
+
+tt_test_one(species, hab.index20, allabund20, plotdim, gridsize)
 }
 \arguments{
 \item{sp, species}{Character sting giving species names. \code{tt_test_one()} can

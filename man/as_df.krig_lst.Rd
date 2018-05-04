@@ -7,11 +7,11 @@
 \method{as_df}{krig_lst}(.x, name = "var", item = "df")
 }
 \arguments{
+\item{.x}{The output of \code{\link[=krig_lst]{krig_lst()}}.}
+
 \item{name}{Name for the column to hold soil variable-names.}
 
 \item{item}{Character string; either "df" or "df.poly".}
-
-\item{krig_lst}{The output of \code{\link[=krig_lst]{krig_lst()}}.}
 }
 \value{
 A dataframe.

@@ -31,7 +31,7 @@ library(tidyverse)
 
 ## Habitat-species associations
 
-Torus translation test to determine habitat associations of tree species: `tt_test()`, by Sabrina Russo, Daniel Zuleta, Matteo Detto, and Kyle Harms.
+Torus translation test to determine habitat associations of tree species: `tt_test_lst()`, by Sabrina Russo, Daniel Zuleta, Matteo Detto, and Kyle Harms.
 
 ```{r}
 # Example data
@@ -46,7 +46,7 @@ pick <- filter(pick, n > 50)
 
 species <- unique(pick$sp)
 
-out <- tt_test(species, census, habitat)
+out <- tt_test_lst(species, census, habitat)
 # Try also: View(out)
 head(out)
 tail(out)

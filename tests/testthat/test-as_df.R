@@ -24,3 +24,21 @@ test_that("fails with unknown class", {
 test_that("outputs object of no-longer class krig_lst", {
   expect_false(any("krig_lst" %in% class(as_df(out_lst))))
 })
+
+
+
+# tt ----------------------------------------------------------------------
+
+context("as_df.tt_lst")
+
+cns_luq <- luquillo_top3_sp
+sp_top3_luq <- unique(cns_luq$sp)
+hab_luq <- luquillo_habitat
+sp_top1_luq <- first(sp_top3_luq)
+tt_lst <- tt_test_lst(sp_top1_luq, cns_luq, hab_luq)
+
+test_that("outputs the expected dataframe", {
+  expect_equal(class(tt_lst), c("tt_lst", "list"))
+  out <- expect_silent(as_df(tt_lst))
+  expect_equal(class(out), "data.frame")
+})

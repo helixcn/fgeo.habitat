@@ -147,12 +147,7 @@ check_tt <- function(sp, census, habitat, plotdim, gridsize) {
   }
 }
 
-
-
-
-
-
-#' @rdname tt_test
+#' @rdname tt_test_lst
 #' @export
 tt_test_one <- function(species, hab.index20, allabund20, plotdim, gridsize) {
   plotdimqx <- plotdim[1] / gridsize # Calculates no. of x-axis quadrats of plot. (x is the long axis of plot in the case of Pasoh)

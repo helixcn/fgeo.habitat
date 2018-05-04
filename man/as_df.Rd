@@ -4,10 +4,10 @@
 \alias{as_df}
 \title{Restructure data as a dataframe.}
 \usage{
-as_df(x, ...)
+as_df(.x, ...)
 }
 \arguments{
-\item{x}{A data object of supported class.}
+\item{.x}{An fgeo object of supported class.}
 
 \item{...}{Other arguments passed to methods.}
 }

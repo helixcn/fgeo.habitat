@@ -3,8 +3,8 @@
 #' The goal of this (generic) function (with methods for multiple fgeo classes)
 #' is to produce a dataframe that helps you to work fluently with other general 
 #' purpose tools such as __dplyr__ and __ggplot2__.
-#'
-#' @param x A data object of supported class.
+#' 
+#' @param .x An fgeo object of supported class.
 #' @param ... Other arguments passed to methods.
 #'
 #' @return A dataframe.
@@ -15,7 +15,7 @@
 #' vars <- c("c", "p")
 #' krig_lst <- krig_lst(vars, soil_fake, quiet = TRUE)
 #' as_df(krig_lst)
-as_df <- function(x, ...) {
+as_df <- function(.x, ...) {
   UseMethod("as_df")
 }
 
@@ -23,7 +23,7 @@ as_df <- function(x, ...) {
 
 #' Dataframe the output of `krig_lst()`.
 #'
-#' @param krig_lst The output of [krig_lst()].
+#' @param .x The output of [krig_lst()].
 #' @param name Name for the column to hold soil variable-names.
 #' @param item Character string; either "df" or "df.poly".
 #'
@@ -50,13 +50,35 @@ as_df.default <- function(.x, ...) {
 
 
 
-# TODO add as_df.tt_one
 
+#' Dataframe objects of class tt_*.
+#'
+#' @param .x An object of class tt_*.
+#' @param ... Other arguments passed to [as_df()].
+#'
+#' @return A dataframe.
+#'
+#' @examples
+#' cns <- fgeo.habitat::luquillo_top3_sp
+#' spp <- unique(cns$sp)
+#' hab <- luquillo_habitat
+#' 
+#' tt_lst <- tt_test_lst(spp, cns, hab)
+#' tt_df <- as_df(tt_lst)
+#' head(tt_df)
+#' 
+#' tail(tt_df)
+#' @name as_df_tt
+NULL
+
+#' @rdname  as_df_tt
 #' @export
-as_df.tt_one <- function(x) {
-  mat_enframe(t(x), "metric", "sp", "value")
+as_df.tt_one <- function(.x, ...) {
+  mat_enframe(t(.x), "metric", "sp", "value")
 }
 
+#' @rdname  as_df_tt
+#' @export
 as_df.tt_lst <- function(.x, ...) {
   flip <- t(Reduce(rbind, .x))
   mat_enframe(flip, "metric", "sp", "value")
