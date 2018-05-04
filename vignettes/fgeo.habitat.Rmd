@@ -131,6 +131,31 @@ soil_fake[soil_vars] <- map_df(soil_fake[soil_vars], scale)
 soil_fake
 ```
 
+
+
+
+
+
+
+
+```{r}
+# # Compared to krig(), order of first and second arguments is reversed. This
+# # helps you to first find soil variables and then feed them to krig_lst().
+# vars <- c("c", "p")
+# out_lst <- krig_lst(vars, soil_fake, quiet = TRUE)
+# out_df <- as_df(out_lst)
+# head(out_df)
+# 
+# tail(out_df)
+```
+
+TODO: Replace the manual method below with the chunk just above
+
+
+
+
+
+
 Iterate. Create a function `krig_df()` to run `krig()` quietly and pull the `df` element of the resulting list.
 
 ```{r}

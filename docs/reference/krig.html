@@ -200,6 +200,10 @@ calculate a "best" semivariogram based on default parameters via
 <code>geoR::variogram()</code>]. Use <code>FALSE</code> to base calculation on parameters passed
 to <code>params</code>.</p></td>
     </tr>
+    <tr>
+      <th>quiet</th>
+      <td><p>Use <code>TRUE</code> to sppresses messages.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -228,23 +232,128 @@ fitting is not overly biased by points beyond the effective maximum range.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-<span class='co'># Example data</span>
+    <pre class="examples"><div class='input'><span class='co'># Example data</span>
 <span class='no'>soil</span> <span class='kw'>&lt;-</span> <span class='no'>soil_random</span>
 
 <span class='co'># Krige with automated parameters</span>
-<span class='no'>auto</span> <span class='kw'>&lt;-</span> <span class='fu'>krig</span>(<span class='no'>soil</span>, <span class='kw'>var</span> <span class='kw'>=</span> <span class='st'>"m3al"</span>)
-<span class='co'># For a nice view in RStudio use: View(auto)</span>
-<span class='fu'>summary</span>(<span class='no'>auto</span>)
-
+<span class='no'>auto</span> <span class='kw'>&lt;-</span> <span class='fu'>krig</span>(<span class='no'>soil</span>, <span class='kw'>var</span> <span class='kw'>=</span> <span class='st'>"m3al"</span>)</div><div class='output co'>#&gt; <span class='message'>Using: gridsize = 20</span></div><div class='output co'>#&gt; <span class='message'>Gessing: plotdim = c(1000, 500)</span></div><div class='output co'>#&gt; <span class='message'>variog: computing omnidirectional variogram</span>
+#&gt; <span class='message'>variofit: covariance model used is exponential </span>
+#&gt; <span class='message'>variofit: weights used: npairs </span>
+#&gt; <span class='message'>variofit: minimisation function used: optim </span>
+#&gt; <span class='message'>variofit: covariance model used is circular </span>
+#&gt; <span class='message'>variofit: weights used: npairs </span>
+#&gt; <span class='message'>variofit: minimisation function used: optim </span>
+#&gt; <span class='message'>variofit: covariance model used is cauchy </span>
+#&gt; <span class='message'>variofit: weights used: npairs </span>
+#&gt; <span class='message'>variofit: minimisation function used: optim </span>
+#&gt; <span class='message'>variofit: covariance model used is gaussian </span>
+#&gt; <span class='message'>variofit: weights used: npairs </span>
+#&gt; <span class='message'>variofit: minimisation function used: optim </span>
+#&gt; <span class='message'>ksline: kriging location:  1 out of 1250 </span>
+#&gt; <span class='message'>ksline: kriging location:  101 out of 1250 </span>
+#&gt; <span class='message'>ksline: kriging location:  201 out of 1250 </span>
+#&gt; <span class='message'>ksline: kriging location:  301 out of 1250 </span>
+#&gt; <span class='message'>ksline: kriging location:  401 out of 1250 </span>
+#&gt; <span class='message'>ksline: kriging location:  501 out of 1250 </span>
+#&gt; <span class='message'>ksline: kriging location:  601 out of 1250 </span>
+#&gt; <span class='message'>ksline: kriging location:  701 out of 1250 </span>
+#&gt; <span class='message'>ksline: kriging location:  801 out of 1250 </span>
+#&gt; <span class='message'>ksline: kriging location:  901 out of 1250 </span>
+#&gt; <span class='message'>ksline: kriging location:  1001 out of 1250 </span>
+#&gt; <span class='message'>ksline: kriging location:  1101 out of 1250 </span>
+#&gt; <span class='message'>ksline: kriging location:  1201 out of 1250 </span>
+#&gt; <span class='message'>ksline: kriging location:  1250 out of 1250 </span>
+#&gt; <span class='message'>Kriging performed using global neighbourhood </span></div><div class='input'>
+<span class='co'># For a nice view use: View(auto)</span>
+<span class='fu'>summary</span>(<span class='no'>auto</span>)</div><div class='output co'>#&gt; df
+#&gt; 'data.frame':	1250 obs. of  3 variables:
+#&gt;  $ x: num  10 30 50 70 90 110 130 150 170 190 ...
+#&gt;  $ y: num  10 10 10 10 10 10 10 10 10 10 ...
+#&gt;  $ z: num  950 944 939 933 928 ...
+#&gt; 
+#&gt; df.poly
+#&gt; 'data.frame':	1250 obs. of  3 variables:
+#&gt;  $ gx: num  10 30 50 70 90 110 130 150 170 190 ...
+#&gt;  $ gy: num  10 10 10 10 10 10 10 10 10 10 ...
+#&gt;  $ z : num  949 943 938 933 927 ...
+#&gt; 
+#&gt; lambda
+#&gt; 'numeric'
+#&gt;  num 1
+#&gt; 
+#&gt; vg
+#&gt; 'variogram'
+#&gt; List of 20
+#&gt;  $ u               : num [1:12] 30.3 42.9 51.1 60.9 86.5 ...
+#&gt;  $ v               : num [1:12] 60522 54239 174166 55226 44193 ...
+#&gt;  $ n               : num [1:12] 21 25 5 81 94 57 155 167 247 288 ...
+#&gt;  $ sd              : num [1:12] 96683 58618 214627 60326 52526 ...
+#&gt;  $ bins.lim        : num [1:31] 1.00e-12 2.00 2.38 2.84 3.38 ...
+#&gt;  $ ind.bin         : logi [1:30] FALSE FALSE FALSE FALSE FALSE FALSE ...
+#&gt;  $ var.mark        : num 55039
+#&gt;  $ beta.ols        : num 2.62e-08
+#&gt;  $ output.type     : chr "bin"
+#&gt;  $ max.dist        : num 320
+#&gt;  $ estimator.type  : chr "classical"
+#&gt;  $ n.data          : int 100
+#&gt;  $ lambda          : num 1
+#&gt;  $ trend           : chr "cte"
+#&gt;  $ pairs.min       : num 5
+#&gt;  $ nugget.tolerance: num 1e-12
+#&gt;  $ direction       : chr "omnidirectional"
+#&gt;  $ tolerance       : chr "none"
+#&gt;  $ uvec            : num [1:30] 1 2.19 2.61 3.11 3.7 ...
+#&gt;  $ call            : language variog(geodata = geodata, breaks = breaks, trend = trend, pairs.min = 5)
+#&gt; 
+#&gt; vm
+#&gt; 'variomodel', variofit'
+#&gt; List of 17
+#&gt;  $ nugget               : num 56634
+#&gt;  $ cov.pars             : num [1:2] 87783 2105
+#&gt;  $ cov.model            : chr "gaussian"
+#&gt;  $ kappa                : num 0.5
+#&gt;  $ value                : num 1.49e+11
+#&gt;  $ trend                : chr "cte"
+#&gt;  $ beta.ols             : num 2.62e-08
+#&gt;  $ practicalRange       : num 3644
+#&gt;  $ max.dist             : num 320
+#&gt;  $ minimisation.function: chr "optim"
+#&gt;  $ weights              : chr "npairs"
+#&gt;  $ method               : chr "WLS"
+#&gt;  $ fix.nugget           : logi FALSE
+#&gt;  $ fix.kappa            : logi TRUE
+#&gt;  $ lambda               : num 1
+#&gt;  $ message              : chr "optim convergence code: 0"
+#&gt;  $ call                 : language variofit(vario = vg, ini.cov.pars = c(initialVal, startRange), cov.model = varModels[i],      nugget = initialVal)</div><div class='input'>
 <span class='co'># Custom params (arbitrary but based on automated kriging params)</span>
 <span class='no'>params</span> <span class='kw'>&lt;-</span> <span class='fu'>list</span>(
   <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"circular"</span>, <span class='kw'>range</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>nugget</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>sill</span> <span class='kw'>=</span> <span class='fl'>46000</span>, <span class='kw'>kappa</span> <span class='kw'>=</span> <span class='fl'>0.5</span>
 )
-<span class='no'>custom</span> <span class='kw'>&lt;-</span> <span class='fu'>krig</span>(<span class='no'>soil</span>, <span class='kw'>var</span> <span class='kw'>=</span> <span class='st'>"m3al"</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='no'>params</span>)
-<span class='co'># For a nice view in RStudio use: View(custom)</span>
-<span class='fu'>summary</span>(<span class='no'>custom</span>)
-
+<span class='no'>custom</span> <span class='kw'>&lt;-</span> <span class='fu'>krig</span>(<span class='no'>soil</span>, <span class='kw'>var</span> <span class='kw'>=</span> <span class='st'>"m3al"</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='no'>params</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>summary</span>(<span class='no'>custom</span>)</div><div class='output co'>#&gt; df
+#&gt; 'data.frame':	1250 obs. of  3 variables:
+#&gt;  $ x: num  10 30 50 70 90 110 130 150 170 190 ...
+#&gt;  $ y: num  10 10 10 10 10 10 10 10 10 10 ...
+#&gt;  $ z: num  933 955 984 968 919 ...
+#&gt; 
+#&gt; df.poly
+#&gt; 'data.frame':	1250 obs. of  3 variables:
+#&gt;  $ gx: num  10 30 50 70 90 110 130 150 170 190 ...
+#&gt;  $ gy: num  10 10 10 10 10 10 10 10 10 10 ...
+#&gt;  $ z : num  949 943 938 933 927 ...
+#&gt; 
+#&gt; lambda
+#&gt; 'numeric'
+#&gt;  num 1
+#&gt; 
+#&gt; vg
+#&gt; 'NULL'
+#&gt;  NULL
+#&gt; 
+#&gt; vm
+#&gt; 'NULL'
+#&gt;  NULL</div><div class='input'>
+</div><span class='co'># NOT RUN {</span>
 <span class='co'># Compare</span>
 <span class='kw'>if</span> (!<span class='fu'>requireNamespace</span>(<span class='st'>"ggplot2"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
   <span class='fu'>stop</span>(<span class='st'>"Install ggplot2 for this section to work."</span>, <span class='kw'>call.</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)

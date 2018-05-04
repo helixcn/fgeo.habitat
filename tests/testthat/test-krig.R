@@ -8,17 +8,32 @@ df <- rbind(df_gx, df_gy)
 
 
 
-context("test-guess_plotdim.R")
+context("test-krig_lst.R")
 
+# Keep despite guess_plotdim() is externa. What matters here is not the function
+# but the value it returs. Else, the output of krig and friends will change.
 test_that("plotdimensions are guessed correctly", {
   expect_equal(guess_plotdim(df), c(1000, 500))
 })
 
-result <- krig(df, var = "m3al", quiet = TRUE)
+vars <- c("c", "p")
+out_lst <- krig_lst(vars, soil_fake, quiet = TRUE)
+
+test_that("outputs object of expected structure at the surface of the list", {
+  expect_equal(names(out_lst), vars)
+  classes <- c("krig_lst", "list")
+  expect_equal(class(out_lst), classes)
+})
+
+test_that("outputs object of expected class at depth one", {
+  expect_equal(unique(unlist(lapply(out_lst, class))), c("krig", "list"))
+})
 
 
 
 context("test-krig.R")
+
+result <- krig(df, var = "m3al", quiet = TRUE)
 
 test_that("keeps quiet if asked to", {
   expect_message(krig(df, var = "m3al"))

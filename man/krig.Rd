@@ -2,12 +2,15 @@
 % Please edit documentation in R/krig.R
 \name{krig}
 \alias{krig}
+\alias{krig_lst}
 \alias{GetKrigedSoil}
 \title{Krige soil data following the methodology of the John et al. (2007).}
 \usage{
 krig(soil, var, params = NULL, gridsize = 20,
   plotdim = guess_plotdim(soil), breaks = krig_breaks(2, 320, 30),
   use_ksline = TRUE, quiet = FALSE)
+
+krig_lst(.var, soil, ...)
 
 GetKrigedSoil(df.soil, var, gridSize = 20, krigeParams = NULL,
   xSize = 1000, ySize = 500, breaks = krig_breaks(2, 320, 30),
@@ -16,8 +19,6 @@ GetKrigedSoil(df.soil, var, gridSize = 20, krigeParams = NULL,
 \arguments{
 \item{soil, df.soil}{The data frame with the points, coords specified in the
 columns \code{gx}, \code{gy}.}
-
-\item{var}{A text string giving the variable/column in \code{df.soil} to krige.}
 
 \item{params, krigeParams}{If you want to pass specified kriging parameters;
 see \code{\link[=krig_auto_params]{krig_auto_params()}} for each parameter.}
@@ -39,6 +40,14 @@ only happens if \code{krigeParams = NULL} (default).}
 calculate a "best" semivariogram based on default parameters via
 \code{geoR::variogram()}]. Use \code{FALSE} to base calculation on parameters passed
 to \code{params}.}
+
+\item{quiet}{Use \code{TRUE} to sppresses messages.}
+
+\item{.var, var}{A character verctor giving the name in the soil dataset of
+the \code{var}iable(s) containing soil data to krige. \code{var} is of lenght 1;
+\code{.var} can be of any lenght.}
+
+\item{...}{Arguments passed to \code{\link[=krig]{krig()}}.}
 }
 \value{
 A list with the following items:
@@ -62,6 +71,8 @@ suppress messages.
 \item \code{GetKrigedSoil()} remains to preserve the original interface but it is
 softly deprecated. Its result is the same as \code{krig()} but its interface is
 different and lacks many of \code{krig()}'s features.
+\item \code{krig_lst} allows iterating over multiple soil \code{var}iables and lists the
+result of each iteration.
 }
 }
 \section{Breaks default}{
@@ -72,23 +83,25 @@ fitting is not overly biased by points beyond the effective maximum range.
 }
 
 \examples{
-\dontrun{
 # Example data
 soil <- soil_random
 
+# KRIG A SINGLE SOIL VARIABLE
+
 # Krige with automated parameters
 auto <- krig(soil, var = "m3al")
-# For a nice view in RStudio use: View(auto)
+
+# For a nice view use: View(auto)
 summary(auto)
 
 # Custom params (arbitrary but based on automated kriging params)
 params <- list(
   model = "circular", range = 100, nugget = 1000, sill = 46000, kappa = 0.5
 )
-custom <- krig(soil, var = "m3al", params = params)
-# For a nice view in RStudio use: View(custom)
+custom <- krig(soil, var = "m3al", params = params, quiet = TRUE)
 summary(custom)
 
+\dontrun{
 # Compare
 if (!requireNamespace("ggplot2", quietly = TRUE)) {
   stop("Install ggplot2 for this section to work.", call. = FALSE)
@@ -107,10 +120,25 @@ ggplot(custom$df, aes(x = x, y = y, fill = z)) +
   coord_equal() +
   labs(title = title_custom)
 }
+
+
+
+# KRIG MULTIPLE SOIL VARIABLES
+
+# Compared to krig(), order of first and second arguments is reversed. This
+# helps you to first find soil variables and then feed them to krig_lst().
+vars <- c("c", "p")
+out_lst <- krig_lst(vars, soil_fake, quiet = TRUE)
+out_df <- as_df(out_lst)
+head(out_df)
+
+tail(out_df)
 }
 \seealso{
 \code{\link[geoR:variofit]{geoR::variofit()}}, \code{\link[geoR:variog]{geoR::variog()}}, \code{\link[geoR:as.geodata]{geoR::as.geodata()}},
 \code{\link[geoR:ksline]{geoR::ksline()}}, \code{\link[geoR:krige.conv]{geoR::krige.conv()}}, \code{\link[geoR:krige.control]{geoR::krige.control()}}.
+
+\code{\link[=as_df]{as_df()}}
 }
 \author{
 Graham Zemunik (grah.zem@gmail.com).

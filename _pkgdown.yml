@@ -34,10 +34,10 @@ navbar:
 
 
 reference:
-  - title: "Soils"
+  - title: "Krig"
     contents:
       - krig
-  - title: "Soils: Helpers"
+  - title: "Krig helpers"
     contents:
       - matches("krig_")
       - summary.krig
@@ -46,7 +46,7 @@ reference:
       - starts_with("tt_")
       - -matches("tt_df")
       - dist_in_torus
-  - title: "Torus translation: Helpers"
+  - title: "Torus translation helpers"
     contents:
       - tt_df
       - abund_index

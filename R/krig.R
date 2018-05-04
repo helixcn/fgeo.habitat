@@ -9,12 +9,16 @@
 #' * `GetKrigedSoil()` remains to preserve the original interface but it is
 #' softly deprecated. Its result is the same as `krig()` but its interface is
 #' different and lacks many of `krig()`'s features.
+#' * `krig_lst` allows iterating over multiple soil `var`iables and lists the
+#' result of each iteration.
 #' 
 #' @inheritSection krig_auto_params Breaks default
 #' 
 #' @param soil,df.soil The data frame with the points, coords specified in the
 #'   columns `gx`, `gy`.
-#' @param var A text string giving the variable/column in `df.soil` to krige.
+#' @param .var,var A character verctor giving the name in the soil dataset of
+#'   the `var`iable(s) containing soil data to krige. `var` is of lenght 1; 
+#'   `.var` can be of any lenght.
 #' @param gridsize,gridSize Points are kriged to the center points of a grid of
 #'   this size.
 #' @param params,krigeParams If you want to pass specified kriging parameters;
@@ -30,6 +34,7 @@
 #'   `geoR::variogram()`]. Use `FALSE` to base calculation on parameters passed
 #'   to `params`.
 #' @param quiet Use `TRUE` to sppresses messages.
+#' @param ... Arguments passed to [krig()].
 #' 
 #' @return A list with the following items:
 #'   * `df`: Data frame of kriged values (column z) at each grid point (x, y).
@@ -44,10 +49,13 @@
 #' @author Graham Zemunik (grah.zem@@gmail.com).
 #'
 #' @export
+#' @seealso [as_df()]
 #' 
 #' @examples
 #' # Example data
 #' soil <- soil_random
+#' 
+#' # KRIG A SINGLE SOIL VARIABLE
 #' 
 #' # Krige with automated parameters
 #' auto <- krig(soil, var = "m3al")
@@ -81,6 +89,19 @@
 #'   coord_equal() +
 #'   labs(title = title_custom)
 #' }
+#' 
+#' 
+#' 
+#' # KRIG MULTIPLE SOIL VARIABLES
+#' 
+#' # Compared to krig(), order of first and second arguments is reversed. This
+#' # helps you to first find soil variables and then feed them to krig_lst().
+#' vars <- c("c", "p")
+#' out_lst <- krig_lst(vars, soil_fake, quiet = TRUE)
+#' out_df <- as_df(out_lst)
+#' head(out_df)
+#' 
+#' tail(out_df)
 krig <- function(soil,
                  var,
                  params = NULL,
@@ -90,7 +111,7 @@ krig <- function(soil,
                  use_ksline = TRUE,
                  quiet = FALSE) {
   krig_msg <- function() {
-    message("Using: gridsize = ", gridsize)
+    message("\nvar: ", var, "Using: gridsize = ", gridsize)
     
     krig_with_message <- enable_quiet(GetKrigedSoil)
     krig <- krig_with_message(
@@ -109,6 +130,14 @@ krig <- function(soil,
   }
   
   if (quiet) suppressMessages(krig_msg()) else krig_msg() 
+}
+
+#' @rdname krig
+#' @export
+krig_lst <- function(.var, soil, ...) {
+  out <- lapply(.var, krig, soil = soil, ...)
+  out <- stats::setNames(out, .var)
+  structure(out, class = c("krig_lst", class(out)))
 }
 
 #' @rdname krig
