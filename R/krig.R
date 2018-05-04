@@ -78,7 +78,7 @@ krig <- function(soil,
                  var,
                  params = NULL,
                  gridsize = 20,
-                 plotdim = c(1000, 500),
+                 plotdim = fgeo.base::guess_plotdim(soil),
                  breaks = krig_breaks(2, 320, 30),
                  use_ksline = TRUE) {
   # Prints as message to enable muting via suppressMessages()
