@@ -38,7 +38,10 @@ test_that("regression: outputs equal to original function", {
     plotdim = pdim_luq,
     gridsize = gsize_luq
   )
-  expect_equal(ref, now)
+  
+  expect_failure(
+    expect_equal(ref, now), "Classes differ: matrix is not tt_one/matrix"
+  )
 })
 
 

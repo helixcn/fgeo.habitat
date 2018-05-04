@@ -23,3 +23,5 @@ Ls.Hab.4         57.0000
 Eq.Hab.4         10.0000
 Rep.Agg.Neut.4    1.0000
 Obs.Quantile.4    0.9866
+attr(,"class")
+[1] "tt_one" "matrix"

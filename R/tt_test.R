@@ -107,7 +107,10 @@ tt_test <- function(sp,
     plotdim = plotdim,
     gridsize = gridsize
   )
-  tt_df(tt_mat)
+  # TODO: Output not a df but a list of matrices
+  tt_lst <- tt_df(tt_mat)
+  # tt_lst <- tt_mat
+  structure(tt_lst, class = c("tt_lst", class(tt_lst)))
 }
 
 
@@ -275,7 +278,8 @@ tt_test_one <- function(species, hab.index20, allabund20, plotdim, gridsize) {
     GrLsEq[1, (6 * i)] <- GrLsEq[1, (6 * i) - 4] / (4 * (plotdimqx * plotdimqy)) # quantile in the TT distribtution of relative densities of the true relative density
   }
 
-  return(GrLsEq)
+  # return(GrLsEq)
+  structure(GrLsEq, class = c("tt_one", class(GrLsEq)))
 }
 
 #' Warns that a comparison is invalid. Results from a division `NaN = 0/0`

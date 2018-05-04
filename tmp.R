@@ -1,3 +1,14 @@
+cns <- luquillo_top3_sp
+spp <- unique(cns$sp)[[1]]
+pdim <- c(1000, 500)
+abnd <- abund_index(cns, pdim, 20)
+out <- tt_test_one(spp, luquillo_habitat, abnd, pdim, 20)
+
+as_df(out)
+
+
+
+
 # Add krig_lst to vignettes
 
 # move to fgeo.base name_df_list, mat_enframe?

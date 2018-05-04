@@ -2,6 +2,7 @@
 
 S3method(as_df,default)
 S3method(as_df,krig_lst)
+S3method(as_df,tt_one)
 S3method(summary,krig)
 S3method(tt_df,default)
 S3method(tt_df,list)
