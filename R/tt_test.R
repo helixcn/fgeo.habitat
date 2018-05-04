@@ -7,13 +7,13 @@
 #' abundant species - in a 50-ha plot, a minimum abundance of 50 trees/species
 #' has been used.
 #'
-#' `tt_test()` uses `abundanceperquad()` -- via `abund_index()` -- which is
+#' `tt_test_lst()` uses `abundanceperquad()` -- via `abund_index()` -- which is
 #' slow. You may calculate abundance per quadrat independently, feed it to the
 #' argument `allabund20` of `tt_test_one()`, and reformat the output with
 #' `tt_df()`. See Examples to iterate over multiple species.
 #'
 #' @param sp,species Character sting giving species names. `tt_test_one()` can
-#'   take only one species; `tt_test()` can take any number of species.
+#'   take only one species; `tt_test_lst()` can take any number of species.
 #' @param census A dataframe; a ForestGEO census.
 #' @param habitat,hab.index20 Object giving the habitat designation for each
 #'   plot partition defined by `gridsize`.
@@ -28,7 +28,7 @@
 #' @seealso [tt_df()].
 #'
 #' @return 
-#' * `tt_test()`: A dataframe.
+#' * `tt_test_lst()`: A dataframe.
 #' * `tt_test_one()`: A numeric matrix.
 #'
 #' @export
@@ -52,9 +52,9 @@
 #'
 #'
 #'
-#' # Test with the wrapper tt_test()
+#' # Test with the wrapper tt_test_lst()
 #'
-#' out <- tt_test(species, census, habitat)
+#' out <- tt_test_lst(species, census, habitat)
 #' # Try also: View(out)
 #' head(out)
 #' tail(out)
@@ -90,7 +90,7 @@
 #' out3
 #' # Alternative data structure; try also View(tt_df(out3))
 #' head(tt_df(out3))
-tt_test <- function(sp,
+tt_test_lst <- function(sp,
                     census,
                     habitat,
                     plotdim = extract_plotdim(habitat),
@@ -295,7 +295,7 @@ warn_invalid_comparison <- function(spp, torus) {
 
 #' Gather the output of `tt_test_one()`.
 #'
-#' Dataframe the output of `tt_test_one()`. For examples see [tt_test()].
+#' Dataframe the output of `tt_test_one()`. For examples see [tt_test_lst()].
 #'
 #' @param ttt Output of `tt_test_one()`; Either a single matrix or a list of
 #'   matrices.
