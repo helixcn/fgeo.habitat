@@ -108,8 +108,8 @@ tt_test <- function(sp,
     gridsize = gridsize
   )
   # TODO: Output not a df but a list of matrices
-  tt_lst <- tt_df(tt_mat)
-  # tt_lst <- tt_mat
+  # tt_lst <- tt_df(tt_mat)
+  tt_lst <- tt_mat
   structure(tt_lst, class = c("tt_lst", class(tt_lst)))
 }
 

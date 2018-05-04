@@ -11,12 +11,11 @@ sp_top3_luq <- unique(cns_luq$sp)
 hab_luq <- luquillo_habitat
 sp_top1_luq <- first(sp_top3_luq)
 
-test_that("outputs the expected tibble", {
+test_that("outputs the expected list", {
   out <- expect_silent(tt_test(sp_top1_luq, cns_luq, hab_luq))
-  expect_true(any(grepl("data.frame", class(out))))
-  expect_equal(dim(out), c(24, 3))
-  expect_equal(names(out), c("metric", "sp", "value"))
-  expect_equal(sp_top1_luq, unique(out$sp))
+  expect_equal(class(out), c("tt_lst", "list"))
+  expect_equal(dim(out[[1]]), c(1, 24))
+  expect_equal(sp_top1_luq, rownames(out[[1]]))
 })
 
 pdim_luq <- c(320, 500)
@@ -32,9 +31,13 @@ out_tt_one <- tt_test_one(
 )
 
 test_that("outputs expected values", {
-  out <- tt_test(sp_top1_luq, cns_luq, hab_luq)$value
-  expect_equal(out, as.vector(out_tt_one))
+  out_lst <- tt_test(sp_top1_luq, cns_luq, hab_luq)
+  expect_equal(out_lst[[1]], out_tt_one)
 })
+
+
+
+
 
 test_that("species may be factor or character", {
   expect_true(

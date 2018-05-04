@@ -57,7 +57,7 @@ as_df.tt_one <- function(x) {
   mat_enframe(t(x), "metric", "sp", "value")
 }
 
-as_df.tt <- function(.x, ...) {
+as_df.tt_lst <- function(.x, ...) {
   flip <- t(Reduce(rbind, .x))
   mat_enframe(flip, "metric", "sp", "value")
 }

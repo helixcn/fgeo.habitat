@@ -1,5 +1,7 @@
 context("test-as_df.R")
 
+# krig --------------------------------------------------------------------
+
 vars <- c("c", "p")
 out_lst <- krig_lst(vars, soil_fake, quiet = TRUE)
 out_df <- as_df(out_lst)
