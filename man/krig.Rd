@@ -5,8 +5,8 @@
 \alias{GetKrigedSoil}
 \title{Krige soil data following the methodology of the John et al. (2007).}
 \usage{
-krig(soil, var, gridsize = 20, params = NULL, plotdim_x = 1000,
-  plotdim_y = 500, breaks = krig_breaks(2, 320, 30), use_ksline = TRUE)
+krig(soil, var, params = NULL, gridsize = 20, plotdim = c(1000, 500),
+  breaks = krig_breaks(2, 320, 30), use_ksline = TRUE)
 
 GetKrigedSoil(df.soil, var, gridSize = 20, krigeParams = NULL,
   xSize = 1000, ySize = 500, breaks = krig_breaks(2, 320, 30),
@@ -18,13 +18,18 @@ columns \code{gx}, \code{gy}.}
 
 \item{var}{A text string giving the variable/column in \code{df.soil} to krige.}
 
-\item{gridsize, gridSize}{Points are kriged to the center points of a grid of
-this size.}
-
 \item{params, krigeParams}{If you want to pass specified kriging parameters;
 see \code{\link[=krig_auto_params]{krig_auto_params()}} for each parameter.}
 
-\item{plotdim_x, plotdim_y, xSize, ySize}{X and Y dimensions of the plot.}
+\item{gridsize, gridSize}{Points are kriged to the center points of a grid of
+this size.}
+
+\item{plotdim, xSize, ySize}{Numeric vectors giving x and y dimensions of the
+plot:
+\itemize{
+\item \code{plotdim}: Must be of lenght 2 with the format \code{c(x, y)}.
+\item \code{xSize}, \code{ySize}: Each must be of lenght 1.
+}}
 
 \item{breaks}{Breaks/intervals used to calculate the semivariogram, which
 only happens if \code{krigeParams = NULL} (default).}

@@ -13,7 +13,10 @@
 #'   this size.
 #' @param params,krigeParams If you want to pass specified kriging parameters;
 #'   see [krig_auto_params()] for each parameter.
-#' @param plotdim_x,plotdim_y,xSize,ySize X and Y dimensions of the plot.
+#' @param plotdim,xSize,ySize Numeric vectors giving x and y dimensions of the
+#'   plot: 
+#'   * `plotdim`: Must be of lenght 2 with the format `c(x, y)`.
+#'   * `xSize`, `ySize`: Each must be of lenght 1.
 #' @param breaks Breaks/intervals used to calculate the semivariogram, which
 #'   only happens if `krigeParams = NULL` (default).
 #' @param use_ksline,useKsLine Use the [geoR::ksline()] function? Use `TRUE` to
@@ -73,10 +76,9 @@
 #' }
 krig <- function(soil,
                  var,
-                 gridsize = 20,
                  params = NULL,
-                 plotdim_x = 1000,
-                 plotdim_y = 500,
+                 gridsize = 20,
+                 plotdim = c(1000, 500),
                  breaks = krig_breaks(2, 320, 30),
                  use_ksline = TRUE) {
   # Prints as message to enable muting via suppressMessages()
@@ -87,8 +89,8 @@ krig <- function(soil,
     var = var,
     gridSize = gridsize,
     krigeParams = params,
-    xSize = plotdim_x,
-    ySize = plotdim_y,
+    xSize = plotdim[[1]],
+    ySize = plotdim[[2]],
     breaks = breaks,
     useKsLine = use_ksline
   )
