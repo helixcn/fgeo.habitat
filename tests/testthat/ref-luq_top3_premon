@@ -7,4 +7,4 @@ CASARB      567     1029        4              0       0.354375      15
        Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4
 CASARB      934      661        5              0        0.58375
 attr(,"class")
-[1] "tt_one" "matrix"
+[1] "tt"     "matrix"

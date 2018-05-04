@@ -2,11 +2,11 @@
 % Please edit documentation in R/as_df.R
 \name{as_df_tt}
 \alias{as_df_tt}
-\alias{as_df.tt_one}
+\alias{as_df.tt}
 \alias{as_df.tt_lst}
 \title{Dataframe objects of class tt_*.}
 \usage{
-\method{as_df}{tt_one}(.x, ...)
+\method{as_df}{tt}(.x, ...)
 
 \method{as_df}{tt_lst}(.x, ...)
 }
@@ -22,6 +22,7 @@ A dataframe.
 Dataframe objects of class tt_*.
 }
 \examples{
+# Class tt_lst
 cns <- fgeo.habitat::luquillo_top3_sp
 spp <- unique(cns$sp)
 hab <- luquillo_habitat
@@ -31,4 +32,22 @@ tt_df <- as_df(tt_lst)
 head(tt_df)
 
 tail(tt_df)
+
+# Class tt
+
+pdim <- c(320, 500)
+gsz <- 20
+abnd <- abund_index(cns, pdim, gsz)
+
+tt <- tt_test(
+  species = spp1,
+  hab.index20 = hab_luq,
+  allabund20 = abnd,
+  plotdim = pdim,
+  gridsize = gsz
+)
+
+tt_df <- as_df(tt)
+head(tt_df)  
+tail(tt_df)  
 }

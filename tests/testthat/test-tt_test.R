@@ -22,7 +22,7 @@ pdim_luq <- c(320, 500)
 gsize_luq <- 20
 
 abnd <- abund_index(cns_luq, pdim_luq, gsize_luq)
-out_tt_one <- tt_test_one(
+out_tt <- tt_test(
   species = sp_top1_luq,
   hab.index20 = hab_luq,
   allabund20 = abnd,
@@ -32,7 +32,7 @@ out_tt_one <- tt_test_one(
 
 test_that("outputs expected values", {
   out_lst <- tt_test_lst(sp_top1_luq, cns_luq, hab_luq)
-  expect_equal(out_lst[[1]], out_tt_one)
+  expect_equal(out_lst[[1]], out_tt)
 })
 
 

@@ -31,14 +31,36 @@ test_that("outputs object of no-longer class krig_lst", {
 
 context("as_df.tt_lst")
 
-cns_luq <- luquillo_top3_sp
-sp_top3_luq <- unique(cns_luq$sp)
+cns <- luquillo_top3_sp
+spp1 <- unique(cns$sp)[[1]]
 hab_luq <- luquillo_habitat
-sp_top1_luq <- first(sp_top3_luq)
-tt_lst <- tt_test_lst(sp_top1_luq, cns_luq, hab_luq)
+tt_lst <- tt_test_lst(spp1, cns, hab_luq)
 
 test_that("outputs the expected dataframe", {
   expect_equal(class(tt_lst), c("tt_lst", "list"))
   out <- expect_silent(as_df(tt_lst))
   expect_equal(class(out), "data.frame")
 })
+
+
+
+context("as_df.tt")
+
+pdim <- c(320, 500)
+gsz <- 20
+
+abnd <- abund_index(cns, pdim, gsz)
+tt <- tt_test(
+  species = spp1,
+  hab.index20 = hab_luq,
+  allabund20 = abnd,
+  plotdim = pdim,
+  gridsize = gsz
+)
+
+test_that("outputs the expected dataframe", {
+  expect_equal(class(tt), c("tt", "matrix"))
+  tt_df <- expect_silent(as_df(tt))
+  expect_equal(class(tt_df), "data.frame")
+})
+

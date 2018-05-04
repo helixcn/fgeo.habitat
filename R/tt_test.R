@@ -9,16 +9,16 @@
 #'
 #' `tt_test_lst()` uses `abundanceperquad()` -- via `abund_index()` -- which is
 #' slow. You may calculate abundance per quadrat independently, feed it to the
-#' argument `allabund20` of `tt_test_one()`, and reformat the output with
+#' argument `allabund20` of `tt_test()`, and reformat the output with
 #' `tt_df()`. See Examples to iterate over multiple species.
 #'
-#' @param sp,species Character sting giving species names. `tt_test_one()` can
+#' @param sp,species Character sting giving species names. `tt_test()` can
 #'   take only one species; `tt_test_lst()` can take any number of species.
 #' @param census A dataframe; a ForestGEO census.
 #' @param habitat,hab.index20 Object giving the habitat designation for each
 #'   plot partition defined by `gridsize`.
 #' @param plotdim Plot dimensions.
-#' @param gridsize Grid size. If using `tt_test_one()`, ensure it matches the
+#' @param gridsize Grid size. If using `tt_test()`, ensure it matches the
 #'   gridsize on which the habitats are defined and the abundances were
 #'   calculated.
 #' @param allabund20 The output of `abund_index()`.
@@ -29,7 +29,7 @@
 #'
 #' @return 
 #' * `tt_test_lst()`: A dataframe.
-#' * `tt_test_one()`: A numeric matrix.
+#' * `tt_test()`: A numeric matrix.
 #'
 #' @export
 #' @examples
@@ -61,7 +61,7 @@
 #'
 #'
 #'
-#' # Test without the wrapper, i.e. with tt_test_one()
+#' # Test without the wrapper, i.e. with tt_test()
 #'
 #' # Setup
 #' plotdim <- c(320, 500)
@@ -69,7 +69,7 @@
 #' abundance <- abund_index(pick, plotdim, gridsize)
 #'
 #' # One species
-#' out2 <- tt_test_one(unique(pick$sp)[[2]],
+#' out2 <- tt_test(unique(pick$sp)[[2]],
 #'   hab.index20 = habitat,
 #'   allabund20 = abundance,
 #'   plotdim = plotdim,
@@ -81,7 +81,7 @@
 #'
 #' # Multiple species
 #' out3 <- lapply(
-#'   species, tt_test_one,
+#'   species, tt_test,
 #'   hab.index20 = habitat,
 #'   allabund20 = abundance,
 #'   plotdim = plotdim,
@@ -101,7 +101,7 @@ tt_test_lst <- function(sp,
   abundance <- abund_index(census, plotdim, gridsize)
   tt_mat <- lapply(
     X = sp,
-    FUN = tt_test_one,
+    FUN = tt_test,
     allabund20 = abundance,
     hab.index20 = habitat,
     plotdim = plotdim,
@@ -149,7 +149,7 @@ check_tt <- function(sp, census, habitat, plotdim, gridsize) {
 
 #' @rdname tt_test_lst
 #' @export
-tt_test_one <- function(species, hab.index20, allabund20, plotdim, gridsize) {
+tt_test <- function(species, hab.index20, allabund20, plotdim, gridsize) {
   plotdimqx <- plotdim[1] / gridsize # Calculates no. of x-axis quadrats of plot. (x is the long axis of plot in the case of Pasoh)
   plotdimqy <- plotdim[2] / gridsize # Calculates no. of y-axis quadrats of plot.
   num.habs <- length(unique(hab.index20$habitats)) # Determines tot. no. of habitat types.
@@ -274,7 +274,7 @@ tt_test_one <- function(species, hab.index20, allabund20, plotdim, gridsize) {
   }
 
   # return(GrLsEq)
-  structure(GrLsEq, class = c("tt_one", class(GrLsEq)))
+  structure(GrLsEq, class = c("tt", class(GrLsEq)))
 }
 
 #' Warns that a comparison is invalid. Results from a division `NaN = 0/0`
@@ -288,11 +288,11 @@ warn_invalid_comparison <- function(spp, torus) {
   rlang::warn(paste0(msg, value))
 }
 
-#' Gather the output of `tt_test_one()`.
+#' Gather the output of `tt_test()`.
 #'
-#' Dataframe the output of `tt_test_one()`. For examples see [tt_test_lst()].
+#' Dataframe the output of `tt_test()`. For examples see [tt_test_lst()].
 #'
-#' @param ttt Output of `tt_test_one()`; Either a single matrix or a list of
+#' @param ttt Output of `tt_test()`; Either a single matrix or a list of
 #'   matrices.
 #'
 #' @return A dataframe.

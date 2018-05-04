@@ -1,4 +1,4 @@
-context("tt_test_one.R")
+context("tt_test.R")
 
 # Ensure consistent values accross runs
 set.seed(123)
@@ -31,7 +31,7 @@ test_that("regression: outputs equal to original function", {
     gridsize = gsize_luq
   )
 
-  now <- tt_test_one(
+  now <- tt_test(
     species = sp_top1_luq,
     hab.index20 = hab_luq,
     allabund20 = abundance_sp(1),
@@ -40,7 +40,7 @@ test_that("regression: outputs equal to original function", {
   )
   
   expect_failure(
-    expect_equal(ref, now), "Classes differ: matrix is not tt_one/matrix"
+    expect_equal(ref, now), "Classes differ: matrix is not tt/matrix"
   )
 })
 
@@ -49,7 +49,7 @@ test_that("regression: outputs equal to original function", {
 # Reduce duplication
 expect_silent_with_n <- function(n) {
   expect_silent({
-    tt_test_one(
+    tt_test(
       species = sp_top1_luq,
       hab.index20 = hab_luq,
       allabund20 = abundance_sp(n),
@@ -88,8 +88,8 @@ test_that("regression: outputs equal to known output", {
   all_species <- unique(census_data$sp)
   out_all <- lapply(
     X = all_species,
-    FUN = tt_test_one,
-    # Other arguments passed to tt_test_one
+    FUN = tt_test,
+    # Other arguments passed to tt_test
     hab.index20 = habitat_data,
     allabund20 = abund_index(alive_trees, pdim, gsize),
     plotdim = pdim,
@@ -120,7 +120,7 @@ test_that("tests with Pasoh", {
   hab <- pasoh::pasoh_hab_index20
 
   # REGRESSION
-  out_onesp <- tt_test_one(
+  out_onesp <- tt_test(
     species = this_sp,
     hab.index20 = hab,
     allabund20 = abund_index(cns_tiny, pdim, gsize),
@@ -140,7 +140,7 @@ test_that("tests with Pasoh", {
   cns_1sp <- cns_tiny %>% filter(sp == this_sp)
   expect_error({
     expect_warning(
-      tt_test_one(
+      tt_test(
         species = this_sp,
         hab.index20 = hab,
         allabund20 = abund_index(cns_1sp, pdim, gsize),
@@ -154,7 +154,7 @@ test_that("tests with Pasoh", {
   # PASSES WITH A TWO-SPECIES DATASET
   cns_2sp <- cns_tiny %>% filter(sp %in% sample(cns_tiny$sp, 2))
   expect_silent(
-    tt_test_one(
+    tt_test(
       species = this_sp,
       hab.index20 = hab,
       allabund20 = abund_index(cns_2sp, pdim, gsize),
@@ -187,7 +187,7 @@ test_that("outputs silently with good habitat data from BCI", {
   bci_sp <- unique(bci_cns$sp)[[1]]
 
   expect_silent(
-    tt_test_one(
+    tt_test(
       species = bci_sp,
       hab.index20 = bci_hab,
       allabund20 = abund_index(bci_cns, bci_pdim, bci_gsz),

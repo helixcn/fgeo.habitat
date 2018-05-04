@@ -2,17 +2,17 @@
 % Please edit documentation in R/tt_test.R
 \name{tt_df}
 \alias{tt_df}
-\title{Gather the output of \code{tt_test_one()}.}
+\title{Gather the output of \code{tt_test()}.}
 \usage{
 tt_df(ttt)
 }
 \arguments{
-\item{ttt}{Output of \code{tt_test_one()}; Either a single matrix or a list of
+\item{ttt}{Output of \code{tt_test()}; Either a single matrix or a list of
 matrices.}
 }
 \value{
 A dataframe.
 }
 \description{
-Dataframe the output of \code{tt_test_one()}. For examples see \code{\link[=tt_test_lst]{tt_test_lst()}}.
+Dataframe the output of \code{tt_test()}. For examples see \code{\link[=tt_test_lst]{tt_test_lst()}}.
 }

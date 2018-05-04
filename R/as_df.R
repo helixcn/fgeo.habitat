@@ -59,6 +59,7 @@ as_df.default <- function(.x, ...) {
 #' @return A dataframe.
 #'
 #' @examples
+#' # Class tt_lst
 #' cns <- fgeo.habitat::luquillo_top3_sp
 #' spp <- unique(cns$sp)
 #' hab <- luquillo_habitat
@@ -68,12 +69,30 @@ as_df.default <- function(.x, ...) {
 #' head(tt_df)
 #' 
 #' tail(tt_df)
+#' 
+#' # Class tt
+#' 
+#' pdim <- c(320, 500)
+#' gsz <- 20
+#' abnd <- abund_index(cns, pdim, gsz)
+#' 
+#' tt <- tt_test(
+#'   species = spp1,
+#'   hab.index20 = hab_luq,
+#'   allabund20 = abnd,
+#'   plotdim = pdim,
+#'   gridsize = gsz
+#' )
+#' 
+#' tt_df <- as_df(tt)
+#' head(tt_df)  
+#' tail(tt_df)  
 #' @name as_df_tt
 NULL
 
 #' @rdname  as_df_tt
 #' @export
-as_df.tt_one <- function(.x, ...) {
+as_df.tt <- function(.x, ...) {
   mat_enframe(t(.x), "metric", "sp", "value")
 }
 

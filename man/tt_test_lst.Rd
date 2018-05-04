@@ -2,16 +2,16 @@
 % Please edit documentation in R/tt_test.R
 \name{tt_test_lst}
 \alias{tt_test_lst}
-\alias{tt_test_one}
+\alias{tt_test}
 \title{Torus Translation Test to determine habitat associations of tree species.}
 \usage{
 tt_test_lst(sp, census, habitat, plotdim = extract_plotdim(habitat),
   gridsize = extract_gridsize(habitat))
 
-tt_test_one(species, hab.index20, allabund20, plotdim, gridsize)
+tt_test(species, hab.index20, allabund20, plotdim, gridsize)
 }
 \arguments{
-\item{sp, species}{Character sting giving species names. \code{tt_test_one()} can
+\item{sp, species}{Character sting giving species names. \code{tt_test()} can
 take only one species; \code{tt_test_lst()} can take any number of species.}
 
 \item{census}{A dataframe; a ForestGEO census.}
@@ -21,7 +21,7 @@ plot partition defined by \code{gridsize}.}
 
 \item{plotdim}{Plot dimensions.}
 
-\item{gridsize}{Grid size. If using \code{tt_test_one()}, ensure it matches the
+\item{gridsize}{Grid size. If using \code{tt_test()}, ensure it matches the
 gridsize on which the habitats are defined and the abundances were
 calculated.}
 
@@ -30,7 +30,7 @@ calculated.}
 \value{
 \itemize{
 \item \code{tt_test_lst()}: A dataframe.
-\item \code{tt_test_one()}: A numeric matrix.
+\item \code{tt_test()}: A numeric matrix.
 }
 }
 \description{
@@ -44,7 +44,7 @@ has been used.
 
 \code{tt_test_lst()} uses \code{abundanceperquad()} -- via \code{abund_index()} -- which is
 slow. You may calculate abundance per quadrat independently, feed it to the
-argument \code{allabund20} of \code{tt_test_one()}, and reformat the output with
+argument \code{allabund20} of \code{tt_test()}, and reformat the output with
 \code{tt_df()}. See Examples to iterate over multiple species.
 }
 \examples{
@@ -76,7 +76,7 @@ tail(out)
 
 
 
-# Test without the wrapper, i.e. with tt_test_one()
+# Test without the wrapper, i.e. with tt_test()
 
 # Setup
 plotdim <- c(320, 500)
@@ -84,7 +84,7 @@ gridsize <- 20
 abundance <- abund_index(pick, plotdim, gridsize)
 
 # One species
-out2 <- tt_test_one(unique(pick$sp)[[2]],
+out2 <- tt_test(unique(pick$sp)[[2]],
   hab.index20 = habitat,
   allabund20 = abundance,
   plotdim = plotdim,
@@ -96,7 +96,7 @@ head(tt_df(out2))
 
 # Multiple species
 out3 <- lapply(
-  species, tt_test_one,
+  species, tt_test,
   hab.index20 = habitat,
   allabund20 = abundance,
   plotdim = plotdim,
