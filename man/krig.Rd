@@ -65,6 +65,13 @@ softly deprecated. Its result is the same as \code{krig()} but its interface is
 different and lacks many of \code{krig()}'s features.
 }
 }
+\section{Breaks default}{
+
+The default breaks argument is set to have more points where the exponential
+curve rises the most and fewer at large distances. This means that the curve
+fitting is not overly biased by points beyond the effective maximum range.
+}
+
 \examples{
 \dontrun{
 # Example data

@@ -11,6 +11,8 @@
 #' softly deprecated. Its result is the same as `krig()` but its interface is
 #' different and lacks many of `krig()`'s features.
 #' 
+#' @inheritSection krig_auto_params Breaks default
+#' 
 #' @param soil,df.soil The data frame with the points, coords specified in the
 #'   columns `gx`, `gy`.
 #' @param var A text string giving the variable/column in `df.soil` to krige.
@@ -218,16 +220,15 @@ GetKrigedSoil <- function(df.soil,
 
 #' Find "best" variogram parameters. 
 #' 
-#' Find the "best" variogram parameters for a given geodata object.
+#' Find the "best" variogram parameters for a given geodata object. Several
+#' different models are tested; the one with the lowest least squares error is
+#' chosen.
 #' 
-#' The default breaks argument is set to have more points where the curve rises
-#' the most and exponentially and fewer at large distances. This means that the
-#' curve fitting is not overly biased by points beyond the effective maximum
-#' range. 
+#' @section Breaks default:
+#' The default breaks argument is set to have more points where the exponential
+#' curve rises the most and fewer at large distances. This means that the curve
+#' fitting is not overly biased by points beyond the effective maximum range.
 #' 
-#' Several different models are tested; the one with the lowest least
-#' squares error is chosen.
-#'
 #' @inheritParams geoR::variog
 #' 
 #' @seealso [geoR::variog].

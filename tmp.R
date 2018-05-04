@@ -1,8 +1,5 @@
 # Make krig safer and more consistent with other functions. 
 
-# Evaluate devaults of krig_breaks. Are defaults special for plotdim c(1000,
-# 500) or general?
-
 # Develop generic as_df to format fgeo output as data frame
 # rename tt_df by as_df
 # krig_df() pull only the df component and rearrange arguments to 
