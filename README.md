@@ -83,9 +83,7 @@ str(soil_random, give.attr = FALSE)
 #>  $ gy  : int  110 270 130 290 370 390 90 130 330 190 ...
 #>  $ m3al: num  927 716 809 1115 419 ...
 
-out <- suppressMessages(
-  krig(soil, var = "m3al")
-)
+out <- krig(soil, var = "m3al", quiet = TRUE)
 summary(out)
 #> df
 #> 'data.frame':    1250 obs. of  3 variables:

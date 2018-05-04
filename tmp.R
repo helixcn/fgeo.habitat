@@ -12,3 +12,16 @@
 # release()
 
 # Vectorize() over var?
+
+
+x <- (data.frame(a = 1, b = 2))
+
+data.frame(out = list(x))
+
+dfm <- data.frame(name = "nm")
+dfm$df <- list(x)
+
+View(dfm)
+
+
+list

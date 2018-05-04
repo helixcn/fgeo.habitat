@@ -94,7 +94,7 @@
       <h1>Get started</h1>
                         <h4 class="author">Mauro Lepore</h4>
             
-            <h4 class="date">2018-05-03</h4>
+            <h4 class="date">2018-05-04</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/forestgeo/fgeo.habitat/blob/master/vignettes/fgeo.habitat.Rmd"><code>vignettes/fgeo.habitat.Rmd</code></a></small>
       <div class="hidden name"><code>fgeo.habitat.Rmd</code></div>
@@ -268,9 +268,7 @@
 <a class="sourceLine" id="cb8-2" data-line-number="2">  <span class="dt">model =</span> <span class="st">"circular"</span>, <span class="dt">range =</span> <span class="dv">100</span>, <span class="dt">nugget =</span> <span class="dv">1000</span>, <span class="dt">sill =</span> <span class="dv">46000</span>, <span class="dt">kappa =</span> <span class="fl">0.5</span></a>
 <a class="sourceLine" id="cb8-3" data-line-number="3">)</a>
 <a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co"># Quietly</span></a>
-<a class="sourceLine" id="cb8-5" data-line-number="5">custom &lt;-<span class="st"> </span><span class="kw">suppressMessages</span>(</a>
-<a class="sourceLine" id="cb8-6" data-line-number="6">  <span class="kw"><a href="../reference/krig.html">krig</a></span>(soil, <span class="dt">var =</span> <span class="st">"m3al"</span>, <span class="dt">params =</span> params)</a>
-<a class="sourceLine" id="cb8-7" data-line-number="7">)</a></code></pre></div>
+<a class="sourceLine" id="cb8-5" data-line-number="5">custom &lt;-<span class="st"> </span><span class="kw"><a href="../reference/krig.html">krig</a></span>(soil, <span class="dt">var =</span> <span class="st">"m3al"</span>, <span class="dt">params =</span> params, <span class="dt">quiet =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">str</span>(custom<span class="op">$</span>df, <span class="dt">give.attr =</span> <span class="ot">FALSE</span>)</a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"><span class="co">#&gt; 'data.frame':    1250 obs. of  3 variables:</span></a>
 <a class="sourceLine" id="cb9-3" data-line-number="3"><span class="co">#&gt;  $ x: num  10 30 50 70 90 110 130 150 170 190 ...</span></a>
@@ -329,7 +327,7 @@
 <a class="sourceLine" id="cb12-17" data-line-number="17"><span class="co">#&gt; # ... with 20 more rows</span></a></code></pre></div>
 <p>Iterate. Create a function <code>krig_df()</code> to run <code><a href="../reference/krig.html">krig()</a></code> quietly and pull the <code>df</code> element of the resulting list.</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">krig_df &lt;-<span class="st"> </span><span class="cf">function</span>(var) {</a>
-<a class="sourceLine" id="cb13-2" data-line-number="2">  out &lt;-<span class="st"> </span><span class="kw">suppressMessages</span>(<span class="kw"><a href="../reference/krig.html">krig</a></span>(soil_fake, var))</a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">  out &lt;-<span class="st"> </span><span class="kw"><a href="../reference/krig.html">krig</a></span>(soil_fake, var, <span class="dt">quiet =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb13-3" data-line-number="3">  out<span class="op">$</span>df</a>
 <a class="sourceLine" id="cb13-4" data-line-number="4">}</a></code></pre></div>
 <p>Iterate: Apply <code>krig_df()</code> for each soil variable.</p>

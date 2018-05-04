@@ -1,5 +1,3 @@
-context("test-krig.R")
-
 library(tidyverse)
 
 # Small dataset that still preserves plot dimensions via guess_plotdim()
@@ -8,11 +6,24 @@ df_gx <- tail(arrange(df0, gx))
 df_gy <- tail(arrange(df0, gy))
 df <- rbind(df_gx, df_gy)
 
+
+
+context("test-guess_plotdim.R")
+
 test_that("plotdimensions are guessed correctly", {
   expect_equal(guess_plotdim(df), c(1000, 500))
 })
 
-result <- suppressMessages(krig(df, var = "m3al"))
+result <- krig(df, var = "m3al", quiet = TRUE)
+
+
+
+context("test-krig.R")
+
+test_that("keeps quiet if asked to", {
+  expect_message(krig(df, var = "m3al"))
+  expect_silent(krig(df, var = "m3al", quiet = TRUE))
+})
 
 test_that("krig() passes regression test", {
   expect_equal_to_reference(result, "ref-krig.rds")
@@ -34,20 +45,17 @@ test_that("krig() returns the expected value.", {
   expect_is(result$vm, "variofit")
 })
 
-test_that("print suppressable message", {
-  expect_message(krig(df, var = "m3al"))
-  expect_silent(suppressMessages(krig(df, var = "m3al")))
-})
+
 
 # Checks ------------------------------------------------------------------
 
 test_that("outputs the same with plotdim given directly or via guess_plotdim", {
   expect_equal(
-    suppressMessages(
-      krig(soil_random, "m3al", plotdim = c(1000, 500))
+    krig(
+      soil_random, "m3al", quiet = TRUE, plotdim = c(1000, 500),
     ),
-    suppressMessages(
-      krig(soil_random, "m3al", plotdim = guess_plotdim(soil_random))
+    krig(
+      soil_random, "m3al", quiet = TRUE, plotdim = guess_plotdim(soil_random),
     )
   )
 })

@@ -5,8 +5,7 @@
 #' outputs a list of subclass "krig", which has a `summary()` method (see
 #' examples). `krig()` also tries to guess `plotdim` and informs both the
 #' guessed `plotdim` and the `gridsize` provided. `krig()` allows you to
-#' suppress all messages with `suppressMessages()`. You should carefully read
-#' the messages before you suppress them.
+#' suppress messages.
 #' * `GetKrigedSoil()` remains to preserve the original interface but it is
 #' softly deprecated. Its result is the same as `krig()` but its interface is
 #' different and lacks many of `krig()`'s features.
@@ -30,6 +29,7 @@
 #'   calculate a "best" semivariogram based on default parameters via
 #'   `geoR::variogram()`]. Use `FALSE` to base calculation on parameters passed
 #'   to `params`.
+#' @param quiet Use `TRUE` to sppresses messages.
 #' 
 #' @return A list with the following items:
 #'   * `df`: Data frame of kriged values (column z) at each grid point (x, y).
@@ -46,23 +46,23 @@
 #' @export
 #' 
 #' @examples
-#' \dontrun{
 #' # Example data
 #' soil <- soil_random
 #' 
 #' # Krige with automated parameters
 #' auto <- krig(soil, var = "m3al")
-#' # For a nice view in RStudio use: View(auto)
+#' 
+#' # For a nice view use: View(auto)
 #' summary(auto)
 #' 
 #' # Custom params (arbitrary but based on automated kriging params)
 #' params <- list(
 #'   model = "circular", range = 100, nugget = 1000, sill = 46000, kappa = 0.5
 #' )
-#' custom <- krig(soil, var = "m3al", params = params)
-#' # For a nice view in RStudio use: View(custom)
+#' custom <- krig(soil, var = "m3al", params = params, quiet = TRUE)
 #' summary(custom)
 #' 
+#' \dontrun{
 #' # Compare
 #' if (!requireNamespace("ggplot2", quietly = TRUE)) {
 #'   stop("Install ggplot2 for this section to work.", call. = FALSE)
@@ -87,26 +87,28 @@ krig <- function(soil,
                  gridsize = 20,
                  plotdim = guess_plotdim(soil),
                  breaks = krig_breaks(2, 320, 30),
-                 use_ksline = TRUE) {
-  message("Using: gridsize = ", gridsize)
+                 use_ksline = TRUE,
+                 quiet = FALSE) {
+  krig_msg <- function() {
+    message("Using: gridsize = ", gridsize)
+    
+    krig_with_message <- enable_quiet(GetKrigedSoil)
+    krig <- krig_with_message(
+      df.soil = soil,
+      var = var,
+      gridSize = gridsize,
+      krigeParams = params,
+      xSize = plotdim[[1]],
+      ySize = plotdim[[2]],
+      breaks = breaks,
+      useKsLine = use_ksline
+    )
+    
+    message(krig$output)
+    structure(krig$result, class = c("krig", class(krig$result)))
+  }
   
-  # Prints as message to enable muting via suppressMessages()
-  krig_with_message <- krig_quietly(GetKrigedSoil)
-  
-  krig <- krig_with_message(
-    df.soil = soil,
-    var = var,
-    gridSize = gridsize,
-    krigeParams = params,
-    xSize = plotdim[[1]],
-    ySize = plotdim[[2]],
-    breaks = breaks,
-    useKsLine = use_ksline
-  )
-  
-  message(krig$output)
-  # Enable summary.krig()
-  structure(krig$result, class = c("krig", class(krig$result)))
+  if (quiet) suppressMessages(krig_msg()) else krig_msg() 
 }
 
 #' @rdname krig
@@ -421,7 +423,8 @@ InvBoxCoxTransformSoil <- function(df, lambda, delta) {
   df
 }
 
-krig_quietly <- function(krg) {
+enable_quiet <- function(krg) {
+  force(krg)
   function(...) {
     output <- utils::capture.output({
       result <- krg(...)

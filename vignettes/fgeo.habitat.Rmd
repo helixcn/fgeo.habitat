@@ -93,9 +93,7 @@ params <- list(
   model = "circular", range = 100, nugget = 1000, sill = 46000, kappa = 0.5
 )
 # Quietly
-custom <- suppressMessages(
-  krig(soil, var = "m3al", params = params)
-)
+custom <- krig(soil, var = "m3al", params = params, quiet = TRUE)
 ```
 
 ```{r}
@@ -137,7 +135,7 @@ Iterate. Create a function `krig_df()` to run `krig()` quietly and pull the `df`
 
 ```{r}
 krig_df <- function(var) {
-  out <- suppressMessages(krig(soil_fake, var))
+  out <- krig(soil_fake, var, quiet = TRUE)
   out$df
 }
 ```

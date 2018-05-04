@@ -65,9 +65,7 @@ Krige soil data.
 soil <- soil_random
 str(soil_random, give.attr = FALSE)
 
-out <- suppressMessages(
-  krig(soil, var = "m3al")
-)
+out <- krig(soil, var = "m3al", quiet = TRUE)
 summary(out)
 ```
 

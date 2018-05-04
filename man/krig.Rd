@@ -7,7 +7,7 @@
 \usage{
 krig(soil, var, params = NULL, gridsize = 20,
   plotdim = guess_plotdim(soil), breaks = krig_breaks(2, 320, 30),
-  use_ksline = TRUE)
+  use_ksline = TRUE, quiet = FALSE)
 
 GetKrigedSoil(df.soil, var, gridSize = 20, krigeParams = NULL,
   xSize = 1000, ySize = 500, breaks = krig_breaks(2, 320, 30),
@@ -58,8 +58,7 @@ Krige soil data following the methodology of the John et al. (2007):
 outputs a list of subclass "krig", which has a \code{summary()} method (see
 examples). \code{krig()} also tries to guess \code{plotdim} and informs both the
 guessed \code{plotdim} and the \code{gridsize} provided. \code{krig()} allows you to
-suppress all messages with \code{suppressMessages()}. You should carefully read
-the messages before you suppress them.
+suppress messages.
 \item \code{GetKrigedSoil()} remains to preserve the original interface but it is
 softly deprecated. Its result is the same as \code{krig()} but its interface is
 different and lacks many of \code{krig()}'s features.
