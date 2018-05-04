@@ -1,6 +1,17 @@
 context("test-krig.R")
 
-df <- fgeo.habitat::soil_random[1:10, ]
+library(tidyverse)
+
+# Small dataset that still preserves plot dimensions via guess_plotdim()
+df0 <- fgeo.habitat::soil_random
+df_gx <- tail(arrange(df0, gx))
+df_gy <- tail(arrange(df0, gy))
+df <- rbind(df_gx, df_gy)
+
+test_that("plotdimensions are guessed correctly", {
+  expect_equal(guess_plotdim(df), c(1000, 500))
+})
+
 result <- suppressMessages(krig(df, var = "m3al"))
 
 test_that("krig() passes regression test", {
@@ -29,6 +40,17 @@ test_that("print suppressable message", {
 })
 
 # Checks ------------------------------------------------------------------
+
+test_that("outputs the same with plotdim given directly or via guess_plotdim", {
+  expect_equal(
+    suppressMessages(
+      krig(soil_random, "m3al", plotdim = c(1000, 500))
+    ),
+    suppressMessages(
+      krig(soil_random, "m3al", plotdim = guess_plotdim(soil_random))
+    )
+  )
+})
 
 test_that("check_GetKrigSoil() fails with wrong input", {
   numeric_input <- as.matrix(df)

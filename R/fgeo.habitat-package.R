@@ -14,6 +14,10 @@
 #' @importFrom stats predict
 #' @importFrom stats resid
 #' @importFrom rlang abort warn inform expr eval_tidy expr_label
+#' @importFrom fgeo.base guess_plotdim
 NULL
+
+#' @export
+fgeo.base::guess_plotdim
 
 

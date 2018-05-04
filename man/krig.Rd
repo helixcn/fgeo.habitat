@@ -5,8 +5,9 @@
 \alias{GetKrigedSoil}
 \title{Krige soil data following the methodology of the John et al. (2007).}
 \usage{
-krig(soil, var, params = NULL, gridsize = 20, plotdim = c(1000, 500),
-  breaks = krig_breaks(2, 320, 30), use_ksline = TRUE)
+krig(soil, var, params = NULL, gridsize = 20,
+  plotdim = guess_plotdim(soil), breaks = krig_breaks(2, 320, 30),
+  use_ksline = TRUE)
 
 GetKrigedSoil(df.soil, var, gridSize = 20, krigeParams = NULL,
   xSize = 1000, ySize = 500, breaks = krig_breaks(2, 320, 30),
@@ -51,11 +52,18 @@ data.
 }
 }
 \description{
-Krige soil data following the methodology of the John et al. (2007).
-\code{GetKrigedSoil()} is softly deprecated. Compared to it, \code{krig()} has an
-interface that is more consistent with other functions of ForestGEO, and
-outputs a list of subclass "krig" -- which has a \code{summary()} method (see
-examples).
+Krige soil data following the methodology of the John et al. (2007):
+\itemize{
+\item \code{krig()} has an interface consistent with other functions of ForestGEO. It
+outputs a list of subclass "krig", which has a \code{summary()} method (see
+examples). \code{krig()} also tries to guess \code{plotdim} and informs both the
+guessed \code{plotdim} and the \code{gridsize} provided. \code{krig()} allows you to
+suppress all messages with \code{suppressMessages()}. You should carefully read
+the messages before you suppress them.
+\item \code{GetKrigedSoil()} remains to preserve the original interface but it is
+softly deprecated. Its result is the same as \code{krig()} but its interface is
+different and lacks many of \code{krig()}'s features.
+}
 }
 \examples{
 \dontrun{

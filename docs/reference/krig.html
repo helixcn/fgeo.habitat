@@ -30,11 +30,17 @@
 
 <meta property="og:title" content="Krige soil data following the methodology of the John et al. (2007). — krig" />
 
-<meta property="og:description" content="Krige soil data following the methodology of the John et al. (2007).
-GetKrigedSoil() is softly deprecated. Compared to it, krig() has an
-interface that is more consistent with other functions of ForestGEO, and
-outputs a list of subclass "krig" -- which has a summary() method (see
-examples)." />
+<meta property="og:description" content="Krige soil data following the methodology of the John et al. (2007):
+krig() has an interface consistent with other functions of ForestGEO. It
+outputs a list of subclass "krig", which has a summary() method (see
+examples). krig() also tries to guess plotdim and informs both the
+guessed plotdim and the gridsize provided. krig() allows you to
+suppress all messages with suppressMessages(). You should carefully read
+the messages before you suppress them.
+GetKrigedSoil() remains to preserve the original interface but it is
+softly deprecated. Its result is the same as krig() but its interface is
+different and lacks many of krig()'s features.
+" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -132,16 +138,23 @@ examples)." />
 
     <div class="ref-description">
     
-    <p>Krige soil data following the methodology of the John et al. (2007).
-<code>GetKrigedSoil()</code> is softly deprecated. Compared to it, <code>krig()</code> has an
-interface that is more consistent with other functions of ForestGEO, and
-outputs a list of subclass "krig" -- which has a <code>summary()</code> method (see
-examples).</p>
+    <p>Krige soil data following the methodology of the John et al. (2007):</p><ul>
+<li><p><code>krig()</code> has an interface consistent with other functions of ForestGEO. It
+outputs a list of subclass "krig", which has a <code>summary()</code> method (see
+examples). <code>krig()</code> also tries to guess <code>plotdim</code> and informs both the
+guessed <code>plotdim</code> and the <code>gridsize</code> provided. <code>krig()</code> allows you to
+suppress all messages with <code>suppressMessages()</code>. You should carefully read
+the messages before you suppress them.</p></li>
+<li><p><code>GetKrigedSoil()</code> remains to preserve the original interface but it is
+softly deprecated. Its result is the same as <code>krig()</code> but its interface is
+different and lacks many of <code>krig()</code>'s features.</p></li>
+</ul>
     
     </div>
 
-    <pre class="usage"><span class='fu'>krig</span>(<span class='no'>soil</span>, <span class='no'>var</span>, <span class='kw'>gridsize</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>plotdim_x</span> <span class='kw'>=</span> <span class='fl'>1000</span>,
-  <span class='kw'>plotdim_y</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='krig_breaks.html'>krig_breaks</a></span>(<span class='fl'>2</span>, <span class='fl'>320</span>, <span class='fl'>30</span>), <span class='kw'>use_ksline</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+    <pre class="usage"><span class='fu'>krig</span>(<span class='no'>soil</span>, <span class='no'>var</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>gridsize</span> <span class='kw'>=</span> <span class='fl'>20</span>,
+  <span class='kw'>plotdim</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/fgeo.base/topics/guess_plotdim'>guess_plotdim</a></span>(<span class='no'>soil</span>), <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='krig_breaks.html'>krig_breaks</a></span>(<span class='fl'>2</span>, <span class='fl'>320</span>, <span class='fl'>30</span>),
+  <span class='kw'>use_ksline</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>GetKrigedSoil</span>(<span class='no'>df.soil</span>, <span class='no'>var</span>, <span class='kw'>gridSize</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>krigeParams</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>xSize</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>ySize</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='krig_breaks.html'>krig_breaks</a></span>(<span class='fl'>2</span>, <span class='fl'>320</span>, <span class='fl'>30</span>),
@@ -160,18 +173,22 @@ columns <code>gx</code>, <code>gy</code>.</p></td>
       <td><p>A text string giving the variable/column in <code>df.soil</code> to krige.</p></td>
     </tr>
     <tr>
-      <th>gridsize, gridSize</th>
-      <td><p>Points are kriged to the center points of a grid of
-this size.</p></td>
-    </tr>
-    <tr>
       <th>params, krigeParams</th>
       <td><p>If you want to pass specified kriging parameters;
 see <code><a href='krig_auto_params.html'>krig_auto_params()</a></code> for each parameter.</p></td>
     </tr>
     <tr>
-      <th>plotdim_x, plotdim_y, xSize, ySize</th>
-      <td><p>X and Y dimensions of the plot.</p></td>
+      <th>gridsize, gridSize</th>
+      <td><p>Points are kriged to the center points of a grid of
+this size.</p></td>
+    </tr>
+    <tr>
+      <th>plotdim, xSize, ySize</th>
+      <td><p>Numeric vectors giving x and y dimensions of the
+plot:</p><ul>
+<li><p><code>plotdim</code>: Must be of lenght 2 with the format <code>c(x, y)</code>.</p></li>
+<li><p><code>xSize</code>, <code>ySize</code>: Each must be of lenght 1.</p></li>
+</ul></td>
     </tr>
     <tr>
       <th>breaks</th>

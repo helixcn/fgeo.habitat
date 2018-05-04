@@ -1,10 +1,15 @@
 #' Krige soil data following the methodology of the John et al. (2007).
 #'
-#' Krige soil data following the methodology of the John et al. (2007).
-#' `GetKrigedSoil()` is softly deprecated. Compared to it, `krig()` has an
-#' interface that is more consistent with other functions of ForestGEO, and
-#' outputs a list of subclass "krig" -- which has a `summary()` method (see
-#' examples).
+#' Krige soil data following the methodology of the John et al. (2007):
+#' * `krig()` has an interface consistent with other functions of ForestGEO. It
+#' outputs a list of subclass "krig", which has a `summary()` method (see
+#' examples). `krig()` also tries to guess `plotdim` and informs both the
+#' guessed `plotdim` and the `gridsize` provided. `krig()` allows you to
+#' suppress all messages with `suppressMessages()`. You should carefully read
+#' the messages before you suppress them.
+#' * `GetKrigedSoil()` remains to preserve the original interface but it is
+#' softly deprecated. Its result is the same as `krig()` but its interface is
+#' different and lacks many of `krig()`'s features.
 #' 
 #' @param soil,df.soil The data frame with the points, coords specified in the
 #'   columns `gx`, `gy`.
@@ -78,9 +83,11 @@ krig <- function(soil,
                  var,
                  params = NULL,
                  gridsize = 20,
-                 plotdim = fgeo.base::guess_plotdim(soil),
+                 plotdim = guess_plotdim(soil),
                  breaks = krig_breaks(2, 320, 30),
                  use_ksline = TRUE) {
+  message("Using: gridsize = ", gridsize)
+  
   # Prints as message to enable muting via suppressMessages()
   krig_with_message <- krig_quietly(GetKrigedSoil)
   
@@ -415,7 +422,7 @@ InvBoxCoxTransformSoil <- function(df, lambda, delta) {
 
 krig_quietly <- function(krg) {
   function(...) {
-    output <- capture.output({
+    output <- utils::capture.output({
       result <- krg(...)
     })
     output <- strsplit(paste0(output, collapse = "\n"), "\n\\$df\n")[[1]][1]
