@@ -10,7 +10,7 @@ krig(soil, var, params = NULL, gridsize = 20,
   plotdim = guess_plotdim(soil), breaks = krig_breaks(2, 320, 30),
   use_ksline = TRUE, quiet = FALSE)
 
-krig_lst(.var, soil, ...)
+krig_lst(var, soil, ...)
 
 GetKrigedSoil(df.soil, var, gridSize = 20, krigeParams = NULL,
   xSize = 1000, ySize = 500, breaks = krig_breaks(2, 320, 30),
@@ -43,11 +43,11 @@ to \code{params}.}
 
 \item{quiet}{Use \code{TRUE} to sppresses messages.}
 
+\item{...}{Arguments passed to \code{\link[=krig]{krig()}}.}
+
 \item{.var, var}{A character verctor giving the name in the soil dataset of
 the \code{var}iable(s) containing soil data to krige. \code{var} is of lenght 1;
 \code{.var} can be of any lenght.}
-
-\item{...}{Arguments passed to \code{\link[=krig]{krig()}}.}
 }
 \value{
 A list with the following items:
@@ -61,18 +61,22 @@ data.
 }
 }
 \description{
-Krige soil data following the methodology of the John et al. (2007):
+Functions to krige soil data. The most common usage patterns are
+\code{summary(krig(ONE-SOIL-VARIABLE, ...))} and
+\code{as_df(krig_lst(ANY-NUMBER-OF-SOIL-VARIABLES, ...))}; but you may use other
+options:
 \itemize{
+\item \code{GetKrigedSoil()} is the original function but it is softly deprecated. Its
+result is the same as \code{krig()} but its interface is different and lacks some
+convenient features.
 \item \code{krig()} has an interface consistent with other functions of ForestGEO. It
-outputs a list of subclass "krig", which has a \code{summary()} method (see
+outputs a list of subclass "krig", which has a method for \code{summary()}(see
 examples). \code{krig()} also tries to guess \code{plotdim} and informs both the
-guessed \code{plotdim} and the \code{gridsize} provided. \code{krig()} allows you to
-suppress messages.
-\item \code{GetKrigedSoil()} remains to preserve the original interface but it is
-softly deprecated. Its result is the same as \code{krig()} but its interface is
-different and lacks many of \code{krig()}'s features.
-\item \code{krig_lst} allows iterating over multiple soil \code{var}iables and lists the
-result of each iteration.
+guessed \code{plotdim} and the \code{gridsize} provided. It also allows you to suppress
+messages.
+\item \code{krig_lst} allows iterating over multiple soil \code{var}iables. It lists the
+result of each iteration and adds the subclass "krig_lst" which has a method
+for \code{as_df()} (see examples).
 }
 }
 \section{Breaks default}{
@@ -138,7 +142,7 @@ tail(out_df)
 \code{\link[geoR:variofit]{geoR::variofit()}}, \code{\link[geoR:variog]{geoR::variog()}}, \code{\link[geoR:as.geodata]{geoR::as.geodata()}},
 \code{\link[geoR:ksline]{geoR::ksline()}}, \code{\link[geoR:krige.conv]{geoR::krige.conv()}}, \code{\link[geoR:krige.control]{geoR::krige.control()}}.
 
-\code{\link[=as_df]{as_df()}}
+\code{\link[=as_df.krig_lst]{as_df.krig_lst()}}, \code{\link[=summary.krig]{summary.krig()}}.
 }
 \author{
 Graham Zemunik (grah.zem@gmail.com).
