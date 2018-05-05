@@ -131,61 +131,24 @@ soil_fake[soil_vars] <- map_df(soil_fake[soil_vars], scale)
 soil_fake
 ```
 
-
-
-
-
-
-
-
 ```{r}
-# # Compared to krig(), order of first and second arguments is reversed. This
-# # helps you to first find soil variables and then feed them to krig_lst().
-# vars <- c("c", "p")
-# out_lst <- krig_lst(vars, soil_fake, quiet = TRUE)
-# out_df <- as_df(out_lst)
-# head(out_df)
-# 
-# tail(out_df)
-```
+# Compared to krig(), notice that the order of first and second arguments is
+# reversed. This helps you to first find soil variables and then feed them to
+# krig_lst().
+vars <- c("c", "p")
+out_lst <- krig_lst(vars, soil_fake, quiet = TRUE)
+out_df <- as_df(out_lst, name = "soil_var", item = "df")
+head(out_df)
 
-TODO: Replace the manual method below with the chunk just above
-
-
-
-
-
-
-Iterate. Create a function `krig_df()` to run `krig()` quietly and pull the `df` element of the resulting list.
-
-```{r}
-krig_df <- function(var) {
-  out <- krig(soil_fake, var, quiet = TRUE)
-  out$df
-}
-```
-
-Iterate: Apply `krig_df()` for each soil variable.
-
-```{r}
-dfs <- map(soil_vars, krig_df)
-dfs <-   set_names(dfs, soil_vars)
-map(dfs, head)
+tail(out_df)
 ```
 
 ### Visualize multiple soil variables
 
-Re structure as a long-format dataframe to allow faceting with __gglot2__.
-
-```{r}
-dfs2 <- unnest(enframe(dfs, name = "soil_var"))
-dfs2
-```
-
-Visualize.
+The structure of this dataframe allows faceting with __gglot2__.
 
 ```{r out.width="90%"}
-ggplot(dfs2, aes(x, y, fill = z)) +
+ggplot(out_df, aes(x, y, fill = z)) +
   geom_tile() +
   facet_wrap("soil_var") +
   coord_equal()
