@@ -28,7 +28,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-This article shows how to determine habitat-species associations with the function [`tt_test_one()`](https://forestgeo.github.io/fgeo.habitat/reference/tt_test_one.html), developed by Sabrina Russo, Daniel Zuleta, Matteo Detto, and Kyle Harms. 
+This article shows how to determine habitat-species associations with the function [`tt_test()`](https://forestgeo.github.io/fgeo.habitat/reference/tt_test_one.html), developed by Sabrina Russo, Daniel Zuleta, Matteo Detto, and Kyle Harms. 
 
 To suggest changes to the source code please file a pull request on the GitHub repository of the relevant package. You can search all functions and packages [here](https://forestgeo.github.io/fgeo/articles/fgeo.html#functions). Each function's help file links to its source code.
 
@@ -133,25 +133,25 @@ ggplot(pick, aes(x = gx, y = gy)) +
 
 ## Test
 
-### With `tt_test()` and any number of species
+### With `tt_test_lst()` and any number of species
 
 ```{r}
 all_sp <- unique(pick$sp)
-out <- tt_test(all_sp, census, habitat)
+out <- tt_test_lst(all_sp, census, habitat)
 head(out)
 ```
 
 You can conveniently view the output with `View(out)` or -- to compare species side by side -- you can spread the values across species with `spread()`. 
 
 ```{r}
-spread(out, sp, value)
+spread(as_df(out), sp, value)
 ```
 
-### With `tt_test_one()` and one species
+### With `tt_test()` and one species
 
-Before we used `tt_test()`, which is a wrapper around `tt_test_one()` -- the original function developed by Sabrina Russo, Daniel Zuleta, Matteo Detto, and Kyle Harms. This section shows how you may use `tt_test_one()` directly to test a single species. The following section shows how to extend the test to any number of species.
+Before we used `tt_test_lst()`, which is a wrapper around `tt_test()` -- the original function developed by Sabrina Russo, Daniel Zuleta, Matteo Detto, and Kyle Harms. This section shows how you may use `tt_test()` directly to test a single species. The following section shows how to extend the test to any number of species.
 
-See `?tt_test_one()`; you'll find out that this function needs the name of one species, a census, and habitat data. All of these we already have (above). But `tt_test_one()` also needs plot dimensions, grid size and the abundance (count) of each species per quadrat-index.
+See `?tt_test()`; you'll find out that this function needs the name of one species, a census, and habitat data. All of these we already have (above). But `tt_test()` also needs plot dimensions, grid size and the abundance (count) of each species per quadrat-index.
 
 We should find and store the plot dimensions and gridsize because we'll need them in more than one function and they must be consistent. To understand which values to choose we may inspect the structure of the habitat ([plot details](https://forestgeo.si.edu/sites/north-america/luquillo)).
 
@@ -179,13 +179,13 @@ abundance <- abund_index(pick, plot_dimensions, grid_size)
 str(abundance, list.len = 5)
 ```
 
-Now that we have all we need, we can run `tt_test_one()`.
+Now that we have all we need, we can run `tt_test()`.
 
 ```{r}
 one_species <- unique(pick$sp)[[1]]
 one_species
 
-out_one <- tt_test_one(
+out_one <- tt_test(
   species = one_species,
   hab.index20 = habitat,
   allabund20 = abundance,
@@ -196,13 +196,13 @@ out_one <- tt_test_one(
 out_one
 ```
 
-You may transform the output into a dataframe with `tt_df()`.
+You may transform the output into a dataframe with `as_df()`.
 
 ```{r}
-tt_df(out_one)
+as_df(out_one)
 ```
 
-### With `tt_test_one()` and any number of species
+### With `tt_test()` and any number of species
 
 To iterate over multiple species you may write a for loop, or use a functional such as `lapply()`.
 
@@ -211,7 +211,7 @@ all_species <- unique(pick$sp)
 
 out_all <- lapply(
   all_species,
-  tt_test_one,
+  tt_test,
   hab.index20 = habitat,
   allabund20 = abundance,
   plotdim = plot_dimensions,
@@ -221,22 +221,38 @@ out_all <- lapply(
 out_all
 ```
 
-Again, you may use `tt_df()` in combination with `View()` and `spread()`.
+Getting a useful dataframe now takes a bit more work. Again, you may use `as_df()` to create a dataframe for each element of the list, then you can reduce the list to a single dataframe by `r`ow`bind()`ing each dataframe into a single one with `Reduce()`.
 
 ```{r}
-spread(tt_df(out_all), sp, value)
+df_lst <- lapply(out_all, as_df)
+tt_df <- Reduce(rbind, df_lst)
+head(tt_df)
+```
+
+But this data structure is defined as of class "tt_lst", which `as_df()` understands. Therefore you can achieve all of the above by explicitely assigning that class. 
+
+```{r}
+class(out_all) <- "tt_lst"
+tt_df <- as_df(out_all)
+head(tt_df)
+```
+
+Finally, you can visualize this data with `View()` or `spread()`.
+
+```{r}
+spread(tt_df, sp, value)
 ```
 
 ## Data science workflows
 
-Above we used `tt_test()`, or a combination of `tt_test_one()` and `tt_df()`, to output a dataframe. Compared to a matrix, a dataframe fits better in common workflows for data manipulation and visualization. The dataframe is the most important data structure used in __dplyr__, __ggplot2__, and all other packages in the __tidyverse__. Here are some examples of what you can do with our dataframe output.
+Above we used `tt_test_lst()`, or a combination of `tt_test()` and `as_df()`, to output a dataframe. Compared to a matrix, a dataframe fits better in common workflows for data manipulation and visualization. The dataframe is the most important data structure used in __dplyr__, __ggplot2__, and all other packages in the __tidyverse__. Here are some examples of what you can do with our dataframe output.
 
 The next few code chunks use the pipe operator (`%>%`) to avoid saving intermediary results and to make our code more expressive -- where each line is an imperative statement that communicates our intention (for details see http://style.tidyverse.org/pipes.html).
 
 * Transforming data.
 
 ```{r}
-out %>% 
+tt_df %>% 
   mutate_if(is.character, tolower) %>% 
   mutate_if(is.numeric, round, 2) %>% 
   mutate(metric = str_replace_all(metric, fixed("."), "_")) %>% 
@@ -246,7 +262,7 @@ out %>%
 * Filtering interesting rows and arranging them as required.
 
 ```{r}
-out %>% 
+tt_df %>% 
   filter(sp  %in% c("SLOBER", "PREMON"), grepl("Gr", metric)) %>% 
   arrange(metric, desc(value))
 ```
@@ -254,7 +270,7 @@ out %>%
 * Producing analytic summaries.
 
 ```{r}
-out %>% 
+tt_df %>% 
   group_by(metric) %>% 
   summarise(mean = mean(value), max = max(value), min = min(value))
 ```
@@ -264,7 +280,7 @@ out %>%
 (Unfortunately, __ggplot2__ was developed before the pipe was invented. In ggplot2, we compose functions not with `%>%` but with `+`.)
 
 ```{r, out.width="100%", fig.widh=(6 * 0.9 / 0.7)}
-ggplot(out, aes(sp, value, color = sp)) +
+ggplot(tt_df, aes(sp, value, color = sp)) +
   geom_point() +
   facet_wrap("metric", scales = "free_y") +
   theme(axis.text.x = element_blank(), legend.position = "top")
