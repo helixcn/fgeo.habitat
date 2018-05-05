@@ -1,16 +1,20 @@
 #' Krige soil data following the methodology of the John et al. (2007).
 #'
-#' Krige soil data following the methodology of the John et al. (2007):
+#' Functions to krige soil data. The most common usage patterns are
+#' `summary(krig(ONE-SOIL-VARIABLE, ...))` and
+#' `as_df(krig_lst(ANY-NUMBER-OF-SOIL-VARIABLES, ...))`; but you may use other
+#' options:
+#' * `GetKrigedSoil()` is the original function but it is softly deprecated. Its
+#' result is the same as `krig()` but its interface is different and lacks some
+#' convenient features.
 #' * `krig()` has an interface consistent with other functions of ForestGEO. It
-#' outputs a list of subclass "krig", which has a `summary()` method (see
+#' outputs a list of subclass "krig", which has a method for `summary()`(see
 #' examples). `krig()` also tries to guess `plotdim` and informs both the
-#' guessed `plotdim` and the `gridsize` provided. `krig()` allows you to
-#' suppress messages.
-#' * `GetKrigedSoil()` remains to preserve the original interface but it is
-#' softly deprecated. Its result is the same as `krig()` but its interface is
-#' different and lacks many of `krig()`'s features.
-#' * `krig_lst` allows iterating over multiple soil `var`iables and lists the
-#' result of each iteration.
+#' guessed `plotdim` and the `gridsize` provided. It also allows you to suppress
+#' messages.
+#' * `krig_lst` allows iterating over multiple soil `var`iables. It lists the
+#' result of each iteration and adds the subclass "krig_lst" which has a method
+#' for `as_df()` (see examples).
 #' 
 #' @inheritSection krig_auto_params Breaks default
 #' 
@@ -49,7 +53,7 @@
 #' @author Graham Zemunik (grah.zem@@gmail.com).
 #'
 #' @export
-#' @seealso [as_df()]
+#' @seealso [as_df.krig_lst()], [summary.krig()].
 #' 
 #' @examples
 #' # Example data
@@ -134,9 +138,9 @@ krig <- function(soil,
 
 #' @rdname krig
 #' @export
-krig_lst <- function(.var, soil, ...) {
-  out <- lapply(.var, krig, soil = soil, ...)
-  out <- stats::setNames(out, .var)
+krig_lst <- function(var, soil, ...) {
+  out <- lapply(var, krig, soil = soil, ...)
+  out <- stats::setNames(out, var)
   structure(out, class = c("krig_lst", class(out)))
 }
 

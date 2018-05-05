@@ -65,7 +65,7 @@ head(out)
 #>        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4
 #> CASARB      15      934      661        5              0        0.58375
 #> attr(,"class")
-#> [1] "tt_one" "matrix"
+#> [1] "tt"     "matrix"
 #> 
 #> [[2]]
 #>        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1
@@ -77,7 +77,7 @@ head(out)
 #>        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4
 #> PREMON      44      222     1375        3              0        0.13875
 #> attr(,"class")
-#> [1] "tt_one" "matrix"
+#> [1] "tt"     "matrix"
 #> 
 #> [[3]]
 #>        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1
@@ -89,7 +89,7 @@ head(out)
 #>        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4
 #> SLOBER      17     1151      440        9              0       0.719375
 #> attr(,"class")
-#> [1] "tt_one" "matrix"
+#> [1] "tt"     "matrix"
 tail(out)
 #> [[1]]
 #>        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1
@@ -101,7 +101,7 @@ tail(out)
 #>        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4
 #> CASARB      15      934      661        5              0        0.58375
 #> attr(,"class")
-#> [1] "tt_one" "matrix"
+#> [1] "tt"     "matrix"
 #> 
 #> [[2]]
 #>        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1
@@ -113,7 +113,7 @@ tail(out)
 #>        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4
 #> PREMON      44      222     1375        3              0        0.13875
 #> attr(,"class")
-#> [1] "tt_one" "matrix"
+#> [1] "tt"     "matrix"
 #> 
 #> [[3]]
 #>        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1
@@ -125,7 +125,7 @@ tail(out)
 #>        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4
 #> SLOBER      17     1151      440        9              0       0.719375
 #> attr(,"class")
-#> [1] "tt_one" "matrix"
+#> [1] "tt"     "matrix"
 ```
 
 Krige soil data.

@@ -94,7 +94,7 @@
       <h1>Get started</h1>
                         <h4 class="author">Mauro Lepore</h4>
             
-            <h4 class="date">2018-05-04</h4>
+            <h4 class="date">2018-05-07</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/forestgeo/fgeo.habitat/blob/master/vignettes/fgeo.habitat.Rmd"><code>vignettes/fgeo.habitat.Rmd</code></a></small>
       <div class="hidden name"><code>fgeo.habitat.Rmd</code></div>
@@ -105,18 +105,18 @@
     
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(fgeo.habitat)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co">#&gt; -- Attaching packages ------------------------------------------- tidyverse 1.2.1 --</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co">#&gt; -- Attaching packages ----------------------------------------------------- tidyverse 1.2.1 --</span></a>
 <a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co">#&gt; v ggplot2 2.2.1     v purrr   0.2.4</span></a>
 <a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co">#&gt; v tibble  1.4.2     v dplyr   0.7.4</span></a>
 <a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">#&gt; v tidyr   0.8.0     v stringr 1.3.0</span></a>
 <a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">#&gt; v readr   1.1.1     v forcats 0.3.0</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co">#&gt; -- Conflicts ---------------------------------------------- tidyverse_conflicts() --</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co">#&gt; -- Conflicts -------------------------------------------------------- tidyverse_conflicts() --</span></a>
 <a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co">#&gt; x dplyr::filter() masks stats::filter()</span></a>
 <a class="sourceLine" id="cb1-10" data-line-number="10"><span class="co">#&gt; x dplyr::lag()    masks stats::lag()</span></a></code></pre></div>
 <div id="habitat-species-associations" class="section level2">
 <h2 class="hasAnchor">
 <a href="#habitat-species-associations" class="anchor"></a>Habitat-species associations</h2>
-<p>Torus translation test to determine habitat associations of tree species: <code><a href="../reference/tt_test.html">tt_test()</a></code>, by Sabrina Russo, Daniel Zuleta, Matteo Detto, and Kyle Harms.</p>
+<p>Torus translation test to determine habitat associations of tree species: <code><a href="../reference/tt_test_lst.html">tt_test_lst()</a></code>, by Sabrina Russo, Daniel Zuleta, Matteo Detto, and Kyle Harms.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># Example data</span></a>
 <a class="sourceLine" id="cb2-2" data-line-number="2">habitat &lt;-<span class="st"> </span>luquillo_habitat</a>
 <a class="sourceLine" id="cb2-3" data-line-number="3">census &lt;-<span class="st"> </span>luquillo_top3_sp</a>
@@ -129,24 +129,80 @@
 <a class="sourceLine" id="cb2-10" data-line-number="10"></a>
 <a class="sourceLine" id="cb2-11" data-line-number="11">species &lt;-<span class="st"> </span><span class="kw">unique</span>(pick<span class="op">$</span>sp)</a>
 <a class="sourceLine" id="cb2-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb2-13" data-line-number="13">out &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tt_test.html">tt_test</a></span>(species, census, habitat)</a>
+<a class="sourceLine" id="cb2-13" data-line-number="13">out &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tt_test_lst.html">tt_test_lst</a></span>(species, census, habitat)</a>
 <a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co"># Try also: View(out)</span></a>
 <a class="sourceLine" id="cb2-15" data-line-number="15"><span class="kw">head</span>(out)</a>
-<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt;           metric     sp       value</span></a>
-<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">#&gt; 1        N.Hab.1 CASARB   25.000000</span></a>
-<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="co">#&gt; 2       Gr.Hab.1 CASARB 1489.000000</span></a>
-<a class="sourceLine" id="cb2-19" data-line-number="19"><span class="co">#&gt; 3       Ls.Hab.1 CASARB  109.000000</span></a>
-<a class="sourceLine" id="cb2-20" data-line-number="20"><span class="co">#&gt; 4       Eq.Hab.1 CASARB    2.000000</span></a>
-<a class="sourceLine" id="cb2-21" data-line-number="21"><span class="co">#&gt; 5 Rep.Agg.Neut.1 CASARB    0.000000</span></a>
-<a class="sourceLine" id="cb2-22" data-line-number="22"><span class="co">#&gt; 6 Obs.Quantile.1 CASARB    0.930625</span></a>
-<a class="sourceLine" id="cb2-23" data-line-number="23"><span class="kw">tail</span>(out)</a>
-<a class="sourceLine" id="cb2-24" data-line-number="24"><span class="co">#&gt;            metric     sp       value</span></a>
-<a class="sourceLine" id="cb2-25" data-line-number="25"><span class="co">#&gt; 67        N.Hab.4 SLOBER   17.000000</span></a>
-<a class="sourceLine" id="cb2-26" data-line-number="26"><span class="co">#&gt; 68       Gr.Hab.4 SLOBER 1151.000000</span></a>
-<a class="sourceLine" id="cb2-27" data-line-number="27"><span class="co">#&gt; 69       Ls.Hab.4 SLOBER  440.000000</span></a>
-<a class="sourceLine" id="cb2-28" data-line-number="28"><span class="co">#&gt; 70       Eq.Hab.4 SLOBER    9.000000</span></a>
-<a class="sourceLine" id="cb2-29" data-line-number="29"><span class="co">#&gt; 71 Rep.Agg.Neut.4 SLOBER    0.000000</span></a>
-<a class="sourceLine" id="cb2-30" data-line-number="30"><span class="co">#&gt; 72 Obs.Quantile.4 SLOBER    0.719375</span></a></code></pre></div>
+<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt; [[1]]</span></a>
+<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">#&gt;        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1</span></a>
+<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="co">#&gt; CASARB      25     1489      109        2              0       0.930625</span></a>
+<a class="sourceLine" id="cb2-19" data-line-number="19"><span class="co">#&gt;        N.Hab.2 Gr.Hab.2 Ls.Hab.2 Eq.Hab.2 Rep.Agg.Neut.2 Obs.Quantile.2</span></a>
+<a class="sourceLine" id="cb2-20" data-line-number="20"><span class="co">#&gt; CASARB      12      168     1431        1              0          0.105</span></a>
+<a class="sourceLine" id="cb2-21" data-line-number="21"><span class="co">#&gt;        N.Hab.3 Gr.Hab.3 Ls.Hab.3 Eq.Hab.3 Rep.Agg.Neut.3 Obs.Quantile.3</span></a>
+<a class="sourceLine" id="cb2-22" data-line-number="22"><span class="co">#&gt; CASARB      14      567     1029        4              0       0.354375</span></a>
+<a class="sourceLine" id="cb2-23" data-line-number="23"><span class="co">#&gt;        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4</span></a>
+<a class="sourceLine" id="cb2-24" data-line-number="24"><span class="co">#&gt; CASARB      15      934      661        5              0        0.58375</span></a>
+<a class="sourceLine" id="cb2-25" data-line-number="25"><span class="co">#&gt; attr(,"class")</span></a>
+<a class="sourceLine" id="cb2-26" data-line-number="26"><span class="co">#&gt; [1] "tt"     "matrix"</span></a>
+<a class="sourceLine" id="cb2-27" data-line-number="27"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-28" data-line-number="28"><span class="co">#&gt; [[2]]</span></a>
+<a class="sourceLine" id="cb2-29" data-line-number="29"><span class="co">#&gt;        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1</span></a>
+<a class="sourceLine" id="cb2-30" data-line-number="30"><span class="co">#&gt; PREMON      59      389     1208        3              0       0.243125</span></a>
+<a class="sourceLine" id="cb2-31" data-line-number="31"><span class="co">#&gt;        N.Hab.2 Gr.Hab.2 Ls.Hab.2 Eq.Hab.2 Rep.Agg.Neut.2 Obs.Quantile.2</span></a>
+<a class="sourceLine" id="cb2-32" data-line-number="32"><span class="co">#&gt; PREMON      75     1562       37        1              1        0.97625</span></a>
+<a class="sourceLine" id="cb2-33" data-line-number="33"><span class="co">#&gt;        N.Hab.3 Gr.Hab.3 Ls.Hab.3 Eq.Hab.3 Rep.Agg.Neut.3 Obs.Quantile.3</span></a>
+<a class="sourceLine" id="cb2-34" data-line-number="34"><span class="co">#&gt; PREMON      56      632      963        5              0          0.395</span></a>
+<a class="sourceLine" id="cb2-35" data-line-number="35"><span class="co">#&gt;        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4</span></a>
+<a class="sourceLine" id="cb2-36" data-line-number="36"><span class="co">#&gt; PREMON      44      222     1375        3              0        0.13875</span></a>
+<a class="sourceLine" id="cb2-37" data-line-number="37"><span class="co">#&gt; attr(,"class")</span></a>
+<a class="sourceLine" id="cb2-38" data-line-number="38"><span class="co">#&gt; [1] "tt"     "matrix"</span></a>
+<a class="sourceLine" id="cb2-39" data-line-number="39"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-40" data-line-number="40"><span class="co">#&gt; [[3]]</span></a>
+<a class="sourceLine" id="cb2-41" data-line-number="41"><span class="co">#&gt;        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1</span></a>
+<a class="sourceLine" id="cb2-42" data-line-number="42"><span class="co">#&gt; SLOBER      14      492     1092       16              0         0.3075</span></a>
+<a class="sourceLine" id="cb2-43" data-line-number="43"><span class="co">#&gt;        N.Hab.2 Gr.Hab.2 Ls.Hab.2 Eq.Hab.2 Rep.Agg.Neut.2 Obs.Quantile.2</span></a>
+<a class="sourceLine" id="cb2-44" data-line-number="44"><span class="co">#&gt; SLOBER      16      473     1125        2              0       0.295625</span></a>
+<a class="sourceLine" id="cb2-45" data-line-number="45"><span class="co">#&gt;        N.Hab.3 Gr.Hab.3 Ls.Hab.3 Eq.Hab.3 Rep.Agg.Neut.3 Obs.Quantile.3</span></a>
+<a class="sourceLine" id="cb2-46" data-line-number="46"><span class="co">#&gt; SLOBER      19     1181      415        4              0       0.738125</span></a>
+<a class="sourceLine" id="cb2-47" data-line-number="47"><span class="co">#&gt;        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4</span></a>
+<a class="sourceLine" id="cb2-48" data-line-number="48"><span class="co">#&gt; SLOBER      17     1151      440        9              0       0.719375</span></a>
+<a class="sourceLine" id="cb2-49" data-line-number="49"><span class="co">#&gt; attr(,"class")</span></a>
+<a class="sourceLine" id="cb2-50" data-line-number="50"><span class="co">#&gt; [1] "tt"     "matrix"</span></a>
+<a class="sourceLine" id="cb2-51" data-line-number="51"><span class="kw">tail</span>(out)</a>
+<a class="sourceLine" id="cb2-52" data-line-number="52"><span class="co">#&gt; [[1]]</span></a>
+<a class="sourceLine" id="cb2-53" data-line-number="53"><span class="co">#&gt;        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1</span></a>
+<a class="sourceLine" id="cb2-54" data-line-number="54"><span class="co">#&gt; CASARB      25     1489      109        2              0       0.930625</span></a>
+<a class="sourceLine" id="cb2-55" data-line-number="55"><span class="co">#&gt;        N.Hab.2 Gr.Hab.2 Ls.Hab.2 Eq.Hab.2 Rep.Agg.Neut.2 Obs.Quantile.2</span></a>
+<a class="sourceLine" id="cb2-56" data-line-number="56"><span class="co">#&gt; CASARB      12      168     1431        1              0          0.105</span></a>
+<a class="sourceLine" id="cb2-57" data-line-number="57"><span class="co">#&gt;        N.Hab.3 Gr.Hab.3 Ls.Hab.3 Eq.Hab.3 Rep.Agg.Neut.3 Obs.Quantile.3</span></a>
+<a class="sourceLine" id="cb2-58" data-line-number="58"><span class="co">#&gt; CASARB      14      567     1029        4              0       0.354375</span></a>
+<a class="sourceLine" id="cb2-59" data-line-number="59"><span class="co">#&gt;        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4</span></a>
+<a class="sourceLine" id="cb2-60" data-line-number="60"><span class="co">#&gt; CASARB      15      934      661        5              0        0.58375</span></a>
+<a class="sourceLine" id="cb2-61" data-line-number="61"><span class="co">#&gt; attr(,"class")</span></a>
+<a class="sourceLine" id="cb2-62" data-line-number="62"><span class="co">#&gt; [1] "tt"     "matrix"</span></a>
+<a class="sourceLine" id="cb2-63" data-line-number="63"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-64" data-line-number="64"><span class="co">#&gt; [[2]]</span></a>
+<a class="sourceLine" id="cb2-65" data-line-number="65"><span class="co">#&gt;        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1</span></a>
+<a class="sourceLine" id="cb2-66" data-line-number="66"><span class="co">#&gt; PREMON      59      389     1208        3              0       0.243125</span></a>
+<a class="sourceLine" id="cb2-67" data-line-number="67"><span class="co">#&gt;        N.Hab.2 Gr.Hab.2 Ls.Hab.2 Eq.Hab.2 Rep.Agg.Neut.2 Obs.Quantile.2</span></a>
+<a class="sourceLine" id="cb2-68" data-line-number="68"><span class="co">#&gt; PREMON      75     1562       37        1              1        0.97625</span></a>
+<a class="sourceLine" id="cb2-69" data-line-number="69"><span class="co">#&gt;        N.Hab.3 Gr.Hab.3 Ls.Hab.3 Eq.Hab.3 Rep.Agg.Neut.3 Obs.Quantile.3</span></a>
+<a class="sourceLine" id="cb2-70" data-line-number="70"><span class="co">#&gt; PREMON      56      632      963        5              0          0.395</span></a>
+<a class="sourceLine" id="cb2-71" data-line-number="71"><span class="co">#&gt;        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4</span></a>
+<a class="sourceLine" id="cb2-72" data-line-number="72"><span class="co">#&gt; PREMON      44      222     1375        3              0        0.13875</span></a>
+<a class="sourceLine" id="cb2-73" data-line-number="73"><span class="co">#&gt; attr(,"class")</span></a>
+<a class="sourceLine" id="cb2-74" data-line-number="74"><span class="co">#&gt; [1] "tt"     "matrix"</span></a>
+<a class="sourceLine" id="cb2-75" data-line-number="75"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-76" data-line-number="76"><span class="co">#&gt; [[3]]</span></a>
+<a class="sourceLine" id="cb2-77" data-line-number="77"><span class="co">#&gt;        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1</span></a>
+<a class="sourceLine" id="cb2-78" data-line-number="78"><span class="co">#&gt; SLOBER      14      492     1092       16              0         0.3075</span></a>
+<a class="sourceLine" id="cb2-79" data-line-number="79"><span class="co">#&gt;        N.Hab.2 Gr.Hab.2 Ls.Hab.2 Eq.Hab.2 Rep.Agg.Neut.2 Obs.Quantile.2</span></a>
+<a class="sourceLine" id="cb2-80" data-line-number="80"><span class="co">#&gt; SLOBER      16      473     1125        2              0       0.295625</span></a>
+<a class="sourceLine" id="cb2-81" data-line-number="81"><span class="co">#&gt;        N.Hab.3 Gr.Hab.3 Ls.Hab.3 Eq.Hab.3 Rep.Agg.Neut.3 Obs.Quantile.3</span></a>
+<a class="sourceLine" id="cb2-82" data-line-number="82"><span class="co">#&gt; SLOBER      19     1181      415        4              0       0.738125</span></a>
+<a class="sourceLine" id="cb2-83" data-line-number="83"><span class="co">#&gt;        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4</span></a>
+<a class="sourceLine" id="cb2-84" data-line-number="84"><span class="co">#&gt; SLOBER      17     1151      440        9              0       0.719375</span></a>
+<a class="sourceLine" id="cb2-85" data-line-number="85"><span class="co">#&gt; attr(,"class")</span></a>
+<a class="sourceLine" id="cb2-86" data-line-number="86"><span class="co">#&gt; [1] "tt"     "matrix"</span></a></code></pre></div>
 </div>
 <div id="krige-soil-data" class="section level2">
 <h2 class="hasAnchor">
@@ -164,36 +220,37 @@
 <a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt;  $ m3al: num  927 716 809 1115 419 ...</span></a></code></pre></div>
 <p>Krige with automated parameters.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">auto &lt;-<span class="st"> </span><span class="kw"><a href="../reference/krig.html">krig</a></span>(soil, <span class="dt">var =</span> <span class="st">"m3al"</span>)</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt; Using: gridsize = 20</span></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt; Gessing: plotdim = c(1000, 500)</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt; variog: computing omnidirectional variogram</span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt; variofit: covariance model used is exponential </span></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt; variofit: weights used: npairs </span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; variofit: minimisation function used: optim </span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; variofit: covariance model used is circular </span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt; variofit: weights used: npairs </span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; variofit: minimisation function used: optim </span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; variofit: covariance model used is cauchy </span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; variofit: weights used: npairs </span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; variofit: minimisation function used: optim </span></a>
-<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt; variofit: covariance model used is gaussian </span></a>
-<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; variofit: weights used: npairs </span></a>
-<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt; variofit: minimisation function used: optim </span></a>
-<a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">#&gt; ksline: kriging location:  1 out of 1250 </span></a>
-<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt; ksline: kriging location:  101 out of 1250 </span></a>
-<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">#&gt; ksline: kriging location:  201 out of 1250 </span></a>
-<a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co">#&gt; ksline: kriging location:  301 out of 1250 </span></a>
-<a class="sourceLine" id="cb4-21" data-line-number="21"><span class="co">#&gt; ksline: kriging location:  401 out of 1250 </span></a>
-<a class="sourceLine" id="cb4-22" data-line-number="22"><span class="co">#&gt; ksline: kriging location:  501 out of 1250 </span></a>
-<a class="sourceLine" id="cb4-23" data-line-number="23"><span class="co">#&gt; ksline: kriging location:  601 out of 1250 </span></a>
-<a class="sourceLine" id="cb4-24" data-line-number="24"><span class="co">#&gt; ksline: kriging location:  701 out of 1250 </span></a>
-<a class="sourceLine" id="cb4-25" data-line-number="25"><span class="co">#&gt; ksline: kriging location:  801 out of 1250 </span></a>
-<a class="sourceLine" id="cb4-26" data-line-number="26"><span class="co">#&gt; ksline: kriging location:  901 out of 1250 </span></a>
-<a class="sourceLine" id="cb4-27" data-line-number="27"><span class="co">#&gt; ksline: kriging location:  1001 out of 1250 </span></a>
-<a class="sourceLine" id="cb4-28" data-line-number="28"><span class="co">#&gt; ksline: kriging location:  1101 out of 1250 </span></a>
-<a class="sourceLine" id="cb4-29" data-line-number="29"><span class="co">#&gt; ksline: kriging location:  1201 out of 1250 </span></a>
-<a class="sourceLine" id="cb4-30" data-line-number="30"><span class="co">#&gt; ksline: kriging location:  1250 out of 1250 </span></a>
-<a class="sourceLine" id="cb4-31" data-line-number="31"><span class="co">#&gt; Kriging performed using global neighbourhood</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="co">#&gt; var: m3alUsing: gridsize = 20</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">#&gt; Gessing: plotdim = c(1000, 500)</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt; variog: computing omnidirectional variogram</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt; variofit: covariance model used is exponential </span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; variofit: weights used: npairs </span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; variofit: minimisation function used: optim </span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt; variofit: covariance model used is circular </span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; variofit: weights used: npairs </span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; variofit: minimisation function used: optim </span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; variofit: covariance model used is cauchy </span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; variofit: weights used: npairs </span></a>
+<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt; variofit: minimisation function used: optim </span></a>
+<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; variofit: covariance model used is gaussian </span></a>
+<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt; variofit: weights used: npairs </span></a>
+<a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">#&gt; variofit: minimisation function used: optim </span></a>
+<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt; ksline: kriging location:  1 out of 1250 </span></a>
+<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">#&gt; ksline: kriging location:  101 out of 1250 </span></a>
+<a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co">#&gt; ksline: kriging location:  201 out of 1250 </span></a>
+<a class="sourceLine" id="cb4-21" data-line-number="21"><span class="co">#&gt; ksline: kriging location:  301 out of 1250 </span></a>
+<a class="sourceLine" id="cb4-22" data-line-number="22"><span class="co">#&gt; ksline: kriging location:  401 out of 1250 </span></a>
+<a class="sourceLine" id="cb4-23" data-line-number="23"><span class="co">#&gt; ksline: kriging location:  501 out of 1250 </span></a>
+<a class="sourceLine" id="cb4-24" data-line-number="24"><span class="co">#&gt; ksline: kriging location:  601 out of 1250 </span></a>
+<a class="sourceLine" id="cb4-25" data-line-number="25"><span class="co">#&gt; ksline: kriging location:  701 out of 1250 </span></a>
+<a class="sourceLine" id="cb4-26" data-line-number="26"><span class="co">#&gt; ksline: kriging location:  801 out of 1250 </span></a>
+<a class="sourceLine" id="cb4-27" data-line-number="27"><span class="co">#&gt; ksline: kriging location:  901 out of 1250 </span></a>
+<a class="sourceLine" id="cb4-28" data-line-number="28"><span class="co">#&gt; ksline: kriging location:  1001 out of 1250 </span></a>
+<a class="sourceLine" id="cb4-29" data-line-number="29"><span class="co">#&gt; ksline: kriging location:  1101 out of 1250 </span></a>
+<a class="sourceLine" id="cb4-30" data-line-number="30"><span class="co">#&gt; ksline: kriging location:  1201 out of 1250 </span></a>
+<a class="sourceLine" id="cb4-31" data-line-number="31"><span class="co">#&gt; ksline: kriging location:  1250 out of 1250 </span></a>
+<a class="sourceLine" id="cb4-32" data-line-number="32"><span class="co">#&gt; Kriging performed using global neighbourhood</span></a></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">summary</span>(auto)</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt; df</span></a>
 <a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">#&gt; 'data.frame':    1250 obs. of  3 variables:</span></a>
@@ -325,68 +382,39 @@
 <a class="sourceLine" id="cb12-15" data-line-number="15"><span class="co">#&gt;  9   283   288 -1.35  -2.05   0.977 </span></a>
 <a class="sourceLine" id="cb12-16" data-line-number="16"><span class="co">#&gt; 10   294   181  1.00   1.38   1.71  </span></a>
 <a class="sourceLine" id="cb12-17" data-line-number="17"><span class="co">#&gt; # ... with 20 more rows</span></a></code></pre></div>
-<p>Iterate. Create a function <code>krig_df()</code> to run <code><a href="../reference/krig.html">krig()</a></code> quietly and pull the <code>df</code> element of the resulting list.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">krig_df &lt;-<span class="st"> </span><span class="cf">function</span>(var) {</a>
-<a class="sourceLine" id="cb13-2" data-line-number="2">  out &lt;-<span class="st"> </span><span class="kw"><a href="../reference/krig.html">krig</a></span>(soil_fake, var, <span class="dt">quiet =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb13-3" data-line-number="3">  out<span class="op">$</span>df</a>
-<a class="sourceLine" id="cb13-4" data-line-number="4">}</a></code></pre></div>
-<p>Iterate: Apply <code>krig_df()</code> for each soil variable.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">dfs &lt;-<span class="st"> </span><span class="kw">map</span>(soil_vars, krig_df)</a>
-<a class="sourceLine" id="cb14-2" data-line-number="2">dfs &lt;-<span class="st">   </span><span class="kw">set_names</span>(dfs, soil_vars)</a>
-<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="kw">map</span>(dfs, head)</a>
-<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="co">#&gt; $mg</span></a>
-<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="co">#&gt;     x  y           z</span></a>
-<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="co">#&gt; 1  10 10 -0.31859560</span></a>
-<a class="sourceLine" id="cb14-7" data-line-number="7"><span class="co">#&gt; 2  30 10 -0.22557887</span></a>
-<a class="sourceLine" id="cb14-8" data-line-number="8"><span class="co">#&gt; 3  50 10 -0.13720146</span></a>
-<a class="sourceLine" id="cb14-9" data-line-number="9"><span class="co">#&gt; 4  70 10 -0.05346339</span></a>
-<a class="sourceLine" id="cb14-10" data-line-number="10"><span class="co">#&gt; 5  90 10  0.02563536</span></a>
-<a class="sourceLine" id="cb14-11" data-line-number="11"><span class="co">#&gt; 6 110 10  0.10009478</span></a>
-<a class="sourceLine" id="cb14-12" data-line-number="12"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb14-13" data-line-number="13"><span class="co">#&gt; $c</span></a>
-<a class="sourceLine" id="cb14-14" data-line-number="14"><span class="co">#&gt;     x  y         z</span></a>
-<a class="sourceLine" id="cb14-15" data-line-number="15"><span class="co">#&gt; 1  10 10 0.8365533</span></a>
-<a class="sourceLine" id="cb14-16" data-line-number="16"><span class="co">#&gt; 2  30 10 0.8107645</span></a>
-<a class="sourceLine" id="cb14-17" data-line-number="17"><span class="co">#&gt; 3  50 10 0.7849500</span></a>
-<a class="sourceLine" id="cb14-18" data-line-number="18"><span class="co">#&gt; 4  70 10 0.7591098</span></a>
-<a class="sourceLine" id="cb14-19" data-line-number="19"><span class="co">#&gt; 5  90 10 0.7332437</span></a>
-<a class="sourceLine" id="cb14-20" data-line-number="20"><span class="co">#&gt; 6 110 10 0.7073519</span></a>
-<a class="sourceLine" id="cb14-21" data-line-number="21"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb14-22" data-line-number="22"><span class="co">#&gt; $p</span></a>
-<a class="sourceLine" id="cb14-23" data-line-number="23"><span class="co">#&gt;     x  y         z</span></a>
-<a class="sourceLine" id="cb14-24" data-line-number="24"><span class="co">#&gt; 1  10 10 0.3747616</span></a>
-<a class="sourceLine" id="cb14-25" data-line-number="25"><span class="co">#&gt; 2  30 10 0.3369111</span></a>
-<a class="sourceLine" id="cb14-26" data-line-number="26"><span class="co">#&gt; 3  50 10 0.3006470</span></a>
-<a class="sourceLine" id="cb14-27" data-line-number="27"><span class="co">#&gt; 4  70 10 0.2659691</span></a>
-<a class="sourceLine" id="cb14-28" data-line-number="28"><span class="co">#&gt; 5  90 10 0.2328774</span></a>
-<a class="sourceLine" id="cb14-29" data-line-number="29"><span class="co">#&gt; 6 110 10 0.2013721</span></a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="co"># Compared to krig(), notice that the order of first and second arguments is</span></a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="co"># reversed. This helps you to first find soil variables and then feed them to</span></a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"><span class="co"># krig_lst().</span></a>
+<a class="sourceLine" id="cb13-4" data-line-number="4">vars &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">"c"</span>, <span class="st">"p"</span>)</a>
+<a class="sourceLine" id="cb13-5" data-line-number="5">out_lst &lt;-<span class="st"> </span><span class="kw"><a href="../reference/krig.html">krig_lst</a></span>(vars, soil_fake, <span class="dt">quiet =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb13-6" data-line-number="6">out_df &lt;-<span class="st"> </span><span class="kw"><a href="../reference/as_df.html">as_df</a></span>(out_lst, <span class="dt">name =</span> <span class="st">"soil_var"</span>, <span class="dt">item =</span> <span class="st">"df"</span>)</a>
+<a class="sourceLine" id="cb13-7" data-line-number="7"><span class="kw">head</span>(out_df)</a>
+<a class="sourceLine" id="cb13-8" data-line-number="8"><span class="co">#&gt;   soil_var   x  y         z</span></a>
+<a class="sourceLine" id="cb13-9" data-line-number="9"><span class="co">#&gt; 1        c  10 10 0.8365533</span></a>
+<a class="sourceLine" id="cb13-10" data-line-number="10"><span class="co">#&gt; 2        c  30 10 0.8107645</span></a>
+<a class="sourceLine" id="cb13-11" data-line-number="11"><span class="co">#&gt; 3        c  50 10 0.7849500</span></a>
+<a class="sourceLine" id="cb13-12" data-line-number="12"><span class="co">#&gt; 4        c  70 10 0.7591098</span></a>
+<a class="sourceLine" id="cb13-13" data-line-number="13"><span class="co">#&gt; 5        c  90 10 0.7332437</span></a>
+<a class="sourceLine" id="cb13-14" data-line-number="14"><span class="co">#&gt; 6        c 110 10 0.7073519</span></a>
+<a class="sourceLine" id="cb13-15" data-line-number="15"></a>
+<a class="sourceLine" id="cb13-16" data-line-number="16"><span class="kw">tail</span>(out_df)</a>
+<a class="sourceLine" id="cb13-17" data-line-number="17"><span class="co">#&gt;      soil_var   x   y          z</span></a>
+<a class="sourceLine" id="cb13-18" data-line-number="18"><span class="co">#&gt; 2295        p 890 450 -0.5976629</span></a>
+<a class="sourceLine" id="cb13-19" data-line-number="19"><span class="co">#&gt; 2296        p 910 450 -0.6128642</span></a>
+<a class="sourceLine" id="cb13-20" data-line-number="20"><span class="co">#&gt; 2297        p 930 450 -0.6264792</span></a>
+<a class="sourceLine" id="cb13-21" data-line-number="21"><span class="co">#&gt; 2298        p 950 450 -0.6385080</span></a>
+<a class="sourceLine" id="cb13-22" data-line-number="22"><span class="co">#&gt; 2299        p 970 450 -0.6489505</span></a>
+<a class="sourceLine" id="cb13-23" data-line-number="23"><span class="co">#&gt; 2300        p 990 450 -0.6578067</span></a></code></pre></div>
 </div>
 <div id="visualize-multiple-soil-variables" class="section level3">
 <h3 class="hasAnchor">
 <a href="#visualize-multiple-soil-variables" class="anchor"></a>Visualize multiple soil variables</h3>
-<p>Re structure as a long-format dataframe to allow faceting with <strong>gglot2</strong>.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">dfs2 &lt;-<span class="st"> </span><span class="kw">unnest</span>(<span class="kw">enframe</span>(dfs, <span class="dt">name =</span> <span class="st">"soil_var"</span>))</a>
-<a class="sourceLine" id="cb15-2" data-line-number="2">dfs2</a>
-<a class="sourceLine" id="cb15-3" data-line-number="3"><span class="co">#&gt; # A tibble: 3,450 x 4</span></a>
-<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="co">#&gt;    soil_var     x     y       z</span></a>
-<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="co">#&gt;    &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb15-6" data-line-number="6"><span class="co">#&gt;  1 mg          10    10 -0.319 </span></a>
-<a class="sourceLine" id="cb15-7" data-line-number="7"><span class="co">#&gt;  2 mg          30    10 -0.226 </span></a>
-<a class="sourceLine" id="cb15-8" data-line-number="8"><span class="co">#&gt;  3 mg          50    10 -0.137 </span></a>
-<a class="sourceLine" id="cb15-9" data-line-number="9"><span class="co">#&gt;  4 mg          70    10 -0.0535</span></a>
-<a class="sourceLine" id="cb15-10" data-line-number="10"><span class="co">#&gt;  5 mg          90    10  0.0256</span></a>
-<a class="sourceLine" id="cb15-11" data-line-number="11"><span class="co">#&gt;  6 mg         110    10  0.100 </span></a>
-<a class="sourceLine" id="cb15-12" data-line-number="12"><span class="co">#&gt;  7 mg         130    10  0.170 </span></a>
-<a class="sourceLine" id="cb15-13" data-line-number="13"><span class="co">#&gt;  8 mg         150    10  0.235 </span></a>
-<a class="sourceLine" id="cb15-14" data-line-number="14"><span class="co">#&gt;  9 mg         170    10  0.296 </span></a>
-<a class="sourceLine" id="cb15-15" data-line-number="15"><span class="co">#&gt; 10 mg         190    10  0.352 </span></a>
-<a class="sourceLine" id="cb15-16" data-line-number="16"><span class="co">#&gt; # ... with 3,440 more rows</span></a></code></pre></div>
-<p>Visualize.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">ggplot</span>(dfs2, <span class="kw">aes</span>(x, y, <span class="dt">fill =</span> z)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_tile</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="st">"soil_var"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="st">  </span><span class="kw">coord_equal</span>()</a></code></pre></div>
-<p><img src="fgeo.habitat_files/figure-html/unnamed-chunk-15-1.png" width="90%" style="display: block; margin: auto;"></p>
+<p>The structure of this dataframe allows faceting with <strong>gglot2</strong>.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw">ggplot</span>(out_df, <span class="kw">aes</span>(x, y, <span class="dt">fill =</span> z)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="st">  </span><span class="kw">geom_tile</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="st">"soil_var"</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="st">  </span><span class="kw">coord_equal</span>()</a></code></pre></div>
+<p><img src="fgeo.habitat_files/figure-html/unnamed-chunk-13-1.png" width="90%" style="display: block; margin: auto;"></p>
 </div>
 </div>
   </div>

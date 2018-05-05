@@ -156,7 +156,7 @@ See `?tt_test()`; you'll find out that this function needs the name of one speci
 We should find and store the plot dimensions and gridsize because we'll need them in more than one function and they must be consistent. To understand which values to choose we may inspect the structure of the habitat ([plot details](https://forestgeo.si.edu/sites/north-america/luquillo)).
 
 ```{r}
-lapply(habitat, range)
+map(habitat, range)
 ```
 
 You can find information about each ForestGEO site at https://forestgeo.si.edu/sites-all. Also, consider these functions:
@@ -204,12 +204,12 @@ as_df(out_one)
 
 ### With `tt_test()` and any number of species
 
-To iterate over multiple species you may write a for loop, or use a functional such as `lapply()`.
+To iterate over multiple species you may write a for loop, or use a functional such as `lapply()` or `map()`.
 
 ```{r}
 all_species <- unique(pick$sp)
 
-out_all <- lapply(
+out_all <- map(
   all_species,
   tt_test,
   hab.index20 = habitat,
@@ -221,11 +221,11 @@ out_all <- lapply(
 out_all
 ```
 
-Getting a useful dataframe now takes a bit more work. Again, you may use `as_df()` to create a dataframe for each element of the list, then you can reduce the list to a single dataframe by `r`ow`bind()`ing each dataframe into a single one with `Reduce()`.
+Getting a useful dataframe now takes a bit more work. Again, you may use `as_df()` to create a dataframe for each element of the list, then you can reduce the list to a single dataframe by `r`ow`bind()`ing each dataframe into a single one with `reduce()`.
 
 ```{r}
-df_lst <- lapply(out_all, as_df)
-tt_df <- Reduce(rbind, df_lst)
+df_lst <- map(out_all, as_df)
+tt_df <- reduce(df_lst, rbind)
 head(tt_df)
 ```
 

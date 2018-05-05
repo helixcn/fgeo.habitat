@@ -30,15 +30,21 @@
 
 <meta property="og:title" content="Krige soil data following the methodology of the John et al. (2007). — krig" />
 
-<meta property="og:description" content="Krige soil data following the methodology of the John et al. (2007):
+<meta property="og:description" content="Functions to krige soil data. The most common usage patterns are
+summary(krig(ONE-SOIL-VARIABLE, ...)) and
+as_df(krig_lst(ANY-NUMBER-OF-SOIL-VARIABLES, ...)); but you may use other
+options:
+GetKrigedSoil() is the original function but it is softly deprecated. Its
+result is the same as krig() but its interface is different and lacks some
+convenient features.
 krig() has an interface consistent with other functions of ForestGEO. It
-outputs a list of subclass "krig", which has a summary() method (see
+outputs a list of subclass "krig", which has a method for summary()(see
 examples). krig() also tries to guess plotdim and informs both the
-guessed plotdim and the gridsize provided. krig() allows you to
-suppress messages.
-GetKrigedSoil() remains to preserve the original interface but it is
-softly deprecated. Its result is the same as krig() but its interface is
-different and lacks many of krig()'s features.
+guessed plotdim and the gridsize provided. It also allows you to suppress
+messages.
+krig_lst allows iterating over multiple soil variables. It lists the
+result of each iteration and adds the subclass "krig_lst" which has a method
+for as_df() (see examples).
 " />
 <meta name="twitter:card" content="summary" />
 
@@ -137,15 +143,21 @@ different and lacks many of krig()'s features.
 
     <div class="ref-description">
     
-    <p>Krige soil data following the methodology of the John et al. (2007):</p><ul>
+    <p>Functions to krige soil data. The most common usage patterns are
+<code>summary(krig(ONE-SOIL-VARIABLE, ...))</code> and
+<code><a href='as_df.html'>as_df(krig_lst(ANY-NUMBER-OF-SOIL-VARIABLES, ...))</a></code>; but you may use other
+options:</p><ul>
+<li><p><code>GetKrigedSoil()</code> is the original function but it is softly deprecated. Its
+result is the same as <code>krig()</code> but its interface is different and lacks some
+convenient features.</p></li>
 <li><p><code>krig()</code> has an interface consistent with other functions of ForestGEO. It
-outputs a list of subclass "krig", which has a <code>summary()</code> method (see
+outputs a list of subclass "krig", which has a method for <code>summary()</code>(see
 examples). <code>krig()</code> also tries to guess <code>plotdim</code> and informs both the
-guessed <code>plotdim</code> and the <code>gridsize</code> provided. <code>krig()</code> allows you to
-suppress messages.</p></li>
-<li><p><code>GetKrigedSoil()</code> remains to preserve the original interface but it is
-softly deprecated. Its result is the same as <code>krig()</code> but its interface is
-different and lacks many of <code>krig()</code>'s features.</p></li>
+guessed <code>plotdim</code> and the <code>gridsize</code> provided. It also allows you to suppress
+messages.</p></li>
+<li><p><code>krig_lst</code> allows iterating over multiple soil <code>var</code>iables. It lists the
+result of each iteration and adds the subclass "krig_lst" which has a method
+for <code><a href='as_df.html'>as_df()</a></code> (see examples).</p></li>
 </ul>
     
     </div>
@@ -153,6 +165,8 @@ different and lacks many of <code>krig()</code>'s features.</p></li>
     <pre class="usage"><span class='fu'>krig</span>(<span class='no'>soil</span>, <span class='no'>var</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>gridsize</span> <span class='kw'>=</span> <span class='fl'>20</span>,
   <span class='kw'>plotdim</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/fgeo.base/topics/guess_plotdim'>guess_plotdim</a></span>(<span class='no'>soil</span>), <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='krig_breaks.html'>krig_breaks</a></span>(<span class='fl'>2</span>, <span class='fl'>320</span>, <span class='fl'>30</span>),
   <span class='kw'>use_ksline</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+<span class='fu'>krig_lst</span>(<span class='no'>var</span>, <span class='no'>soil</span>, <span class='no'>...</span>)
 
 <span class='fu'>GetKrigedSoil</span>(<span class='no'>df.soil</span>, <span class='no'>var</span>, <span class='kw'>gridSize</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>krigeParams</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>xSize</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>ySize</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='krig_breaks.html'>krig_breaks</a></span>(<span class='fl'>2</span>, <span class='fl'>320</span>, <span class='fl'>30</span>),
@@ -165,10 +179,6 @@ different and lacks many of <code>krig()</code>'s features.</p></li>
       <th>soil, df.soil</th>
       <td><p>The data frame with the points, coords specified in the
 columns <code>gx</code>, <code>gy</code>.</p></td>
-    </tr>
-    <tr>
-      <th>var</th>
-      <td><p>A text string giving the variable/column in <code>df.soil</code> to krige.</p></td>
     </tr>
     <tr>
       <th>params, krigeParams</th>
@@ -204,6 +214,16 @@ to <code>params</code>.</p></td>
       <th>quiet</th>
       <td><p>Use <code>TRUE</code> to sppresses messages.</p></td>
     </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Arguments passed to <code>krig()</code>.</p></td>
+    </tr>
+    <tr>
+      <th>.var, var</th>
+      <td><p>A character verctor giving the name in the soil dataset of
+the <code>var</code>iable(s) containing soil data to krige. <code>var</code> is of lenght 1;
+<code>.var</code> can be of any lenght.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -228,15 +248,19 @@ fitting is not overly biased by points beyond the effective maximum range.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='http://www.rdocumentation.org/packages/geoR/topics/variofit'>geoR::variofit()</a></code>, <code><a href='http://www.rdocumentation.org/packages/geoR/topics/variog'>geoR::variog()</a></code>, <code><a href='http://www.rdocumentation.org/packages/geoR/topics/as.geodata'>geoR::as.geodata()</a></code>,
-<code><a href='http://www.rdocumentation.org/packages/geoR/topics/ksline'>geoR::ksline()</a></code>, <code><a href='http://www.rdocumentation.org/packages/geoR/topics/krige.conv'>geoR::krige.conv()</a></code>, <code><a href='http://www.rdocumentation.org/packages/geoR/topics/krige.conv'>geoR::krige.control()</a></code>.</p></div>
+<code><a href='http://www.rdocumentation.org/packages/geoR/topics/ksline'>geoR::ksline()</a></code>, <code><a href='http://www.rdocumentation.org/packages/geoR/topics/krige.conv'>geoR::krige.conv()</a></code>, <code><a href='http://www.rdocumentation.org/packages/geoR/topics/krige.conv'>geoR::krige.control()</a></code>.</p>
+<p><code><a href='as_df.krig_lst.html'>as_df.krig_lst()</a></code>, <code><a href='summary.krig.html'>summary.krig()</a></code>.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Example data</span>
 <span class='no'>soil</span> <span class='kw'>&lt;-</span> <span class='no'>soil_random</span>
 
+<span class='co'># KRIG A SINGLE SOIL VARIABLE</span>
+
 <span class='co'># Krige with automated parameters</span>
-<span class='no'>auto</span> <span class='kw'>&lt;-</span> <span class='fu'>krig</span>(<span class='no'>soil</span>, <span class='kw'>var</span> <span class='kw'>=</span> <span class='st'>"m3al"</span>)</div><div class='output co'>#&gt; <span class='message'>Using: gridsize = 20</span></div><div class='output co'>#&gt; <span class='message'>Gessing: plotdim = c(1000, 500)</span></div><div class='output co'>#&gt; <span class='message'>variog: computing omnidirectional variogram</span>
+<span class='no'>auto</span> <span class='kw'>&lt;-</span> <span class='fu'>krig</span>(<span class='no'>soil</span>, <span class='kw'>var</span> <span class='kw'>=</span> <span class='st'>"m3al"</span>)</div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>var: m3alUsing: gridsize = 20</span></div><div class='output co'>#&gt; <span class='message'>Gessing: plotdim = c(1000, 500)</span></div><div class='output co'>#&gt; <span class='message'>variog: computing omnidirectional variogram</span>
 #&gt; <span class='message'>variofit: covariance model used is exponential </span>
 #&gt; <span class='message'>variofit: weights used: npairs </span>
 #&gt; <span class='message'>variofit: minimisation function used: optim </span>
@@ -371,7 +395,30 @@ fitting is not overly biased by points beyond the effective maximum range.</p>
   <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/geom_tile'>geom_tile</a></span>() +
   <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/coord_fixed'>coord_equal</a></span>() +
   <span class='fu'><a href='http://www.rdocumentation.org/packages/ggplot2/topics/labs'>labs</a></span>(<span class='kw'>title</span> <span class='kw'>=</span> <span class='no'>title_custom</span>)
-<span class='co'># }</span></pre>
+<span class='co'># }</span><div class='input'>
+
+
+<span class='co'># KRIG MULTIPLE SOIL VARIABLES</span>
+
+<span class='co'># Compared to krig(), order of first and second arguments is reversed. This</span>
+<span class='co'># helps you to first find soil variables and then feed them to krig_lst().</span>
+<span class='no'>vars</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"c"</span>, <span class='st'>"p"</span>)
+<span class='no'>out_lst</span> <span class='kw'>&lt;-</span> <span class='fu'>krig_lst</span>(<span class='no'>vars</span>, <span class='no'>soil_fake</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>out_df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as_df.html'>as_df</a></span>(<span class='no'>out_lst</span>)
+<span class='fu'>head</span>(<span class='no'>out_df</span>)</div><div class='output co'>#&gt;   var   x  y     z
+#&gt; 1   c  10 10 0.837
+#&gt; 2   c  30 10 0.811
+#&gt; 3   c  50 10 0.785
+#&gt; 4   c  70 10 0.759
+#&gt; 5   c  90 10 0.733
+#&gt; 6   c 110 10 0.707</div><div class='input'>
+<span class='fu'>tail</span>(<span class='no'>out_df</span>)</div><div class='output co'>#&gt;      var   x   y      z
+#&gt; 2295   p 890 450 -0.598
+#&gt; 2296   p 910 450 -0.613
+#&gt; 2297   p 930 450 -0.626
+#&gt; 2298   p 950 450 -0.639
+#&gt; 2299   p 970 450 -0.649
+#&gt; 2300   p 990 450 -0.658</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
