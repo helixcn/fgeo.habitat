@@ -5,79 +5,194 @@ set.seed(123)
 library(dplyr)
 library(fgeo.habitat)
 
+# Luquillo ----------------------------------------------------------------
+
 # Small dataset from Luquillo
 cns_luq <- luquillo_top3_sp
 sp_top3_luq <- unique(cns_luq$sp)
 hab_luq <- luquillo_habitat
-sp_top1_luq <- first(sp_top3_luq)
-
-test_that("outputs the expected list", {
-  out <- expect_silent(tt_test_lst(sp_top1_luq, cns_luq, hab_luq))
-  expect_equal(class(out), c("tt_lst", "list"))
-  expect_equal(dim(out[[1]]), c(1, 24))
-  expect_equal(sp_top1_luq, rownames(out[[1]]))
-})
-
 pdim_luq <- c(320, 500)
 gsize_luq <- 20
+sp_top1_luq <- first(sp_top3_luq)
 
-abnd <- abund_index(cns_luq, pdim_luq, gsize_luq)
-out_tt <- tt_test(
-  species = sp_top1_luq,
-  hab.index20 = hab_luq,
-  allabund20 = abnd,
-  plotdim = pdim_luq,
-  gridsize = gsize_luq
-)
+# Reduce duplication
+abundance_sp <- function(n) {
+  .cns <- filter(cns_luq, status == "A", sp %in% sp_top3_luq[1:n])
+  abund_index(.cns, pdim_luq, gsize_luq)
+}
 
-test_that("outputs expected values", {
-  out_lst <- tt_test_lst(sp_top1_luq, cns_luq, hab_luq)
-  expect_equal(out_lst[[1]], out_tt)
+test_that("regression: outputs equal to original function", {
+  # source("ref-torusonesp.all.R")
+  ref <- torusonesp.all(
+    species = sp_top1_luq,
+    hab.index20 = hab_luq,
+    allabund20 = abundance_sp(1),
+    plotdim = pdim_luq,
+    gridsize = gsize_luq
+  )
+
+  now <- tt_test(
+    sp = sp_top1_luq,
+    habitat = hab_luq,
+    abundance = abundance_sp(1),
+    plotdim = pdim_luq,
+    gridsize = gsize_luq
+  )
+  
+  expect_failure(
+    expect_equal(ref, now), "Classes differ: matrix is not tt/matrix"
+  )
 })
 
 
 
+# Reduce duplication
+expect_silent_with_n <- function(n) {
+  expect_silent({
+    tt_test(
+      sp = sp_top1_luq,
+      habitat = hab_luq,
+      abundance = abundance_sp(n),
+      plotdim = pdim_luq,
+      gridsize = gsize_luq
+    )
+  })
+}
+
+test_that("works with luquillo", {
+  # Use data with 3 species but get torus translation for only one.
+  out <- expect_silent_with_n(3)
+  expect_true(is.numeric(out))
+  expect_true(is.matrix(out))
+})
+
+test_that("outputs silently with a 1- and 2- species dataset from Luquillo", {
+  expect_silent_with_n(1)
+  expect_silent_with_n(2)
+})
+
+test_that("regression: outputs equal to known output", {
+  # One species
+  out_one <- expect_silent_with_n(3)
+  expect_known_output(
+    out_one, "ref-luq_top3_premon",
+    print = TRUE, update = TRUE
+  )
+
+  # Multiple species
+  census_data <- luquillo_top3_sp
+  alive_trees <- census_data[census_data$status == "A", ]
+  habitat_data <- luquillo_habitat
+  pdim <- c(320, 500)
+  gsize <- 20
+  all_species <- unique(census_data$sp)
+  out_all <- lapply(
+    X = all_species,
+    FUN = tt_test,
+    # Other arguments passed to tt_test
+    habitat = habitat_data,
+    abundance = abund_index(alive_trees, pdim, gsize),
+    plotdim = pdim,
+    gridsize = gsize
+  )
+  out_all <- Reduce(rbind, out_all)
+  expect_known_output(out_all, "ref-luq_3sp", print = TRUE, update = TRUE)
+})
 
 
-test_that("species may be factor or character", {
-  expect_true(
-    identical(
-      tt_test_lst(as.factor(sp_top1_luq), cns_luq, hab_luq), 
-      tt_test_lst(sp_top1_luq, cns_luq, hab_luq)
+
+# Pasoh -------------------------------------------------------------------
+
+test_that("tests with Pasoh", {
+  skip_if_not_installed("pasoh")
+  pdim <- c(1000, 500)
+  gsize <- 20
+  this_sp <- "GIROPA"
+  # Dependencies on Pasoh
+  cns <- pasoh::pasoh_3spp
+  cns_tiny <- cns %>%
+    as_tibble() %>%
+    filter(status == "A") %>%
+    group_by(sp) %>%
+    # To run test fast
+    sample_n(50) %>%
+    ungroup()
+  hab <- pasoh::pasoh_hab_index20
+
+  # REGRESSION
+  out_onesp <- tt_test(
+    sp = this_sp,
+    habitat = hab,
+    abundance = abund_index(cns_tiny, pdim, gsize),
+    plotdim = pdim,
+    gridsize = gsize
+  )
+  # Transpose for better display
+  one_sp_pasoh <- t(out_onesp)
+  expect_known_output(
+    one_sp_pasoh, "ref-one_sp_n50_pasoh",
+    print = TRUE, update = TRUE
+  )
+
+  # FAILS WITH A ONE-SPECIES DATASET
+  # If datasets has only one species, the test fails -- this makes sense but
+  # should confirm with Russo et al
+  cns_1sp <- cns_tiny %>% filter(sp == this_sp)
+  expect_error({
+    expect_warning(
+      tt_test(
+        sp = this_sp,
+        habitat = hab,
+        abundance = abund_index(cns_1sp, pdim, gsize),
+        plotdim = pdim,
+        gridsize = gsize
+      ),
+      "Values can't be compared:"
+    )
+  })
+
+  # PASSES WITH A TWO-SPECIES DATASET
+  cns_2sp <- cns_tiny %>% filter(sp %in% sample(cns_tiny$sp, 2))
+  expect_silent(
+    tt_test(
+      sp = this_sp,
+      habitat = hab,
+      abundance = abund_index(cns_2sp, pdim, gsize),
+      plotdim = pdim,
+      gridsize = gsize
     )
   )
 })
 
-test_that("fails with informative message", {
-  expect_error(
-    tt_test_lst(1, cns_luq, hab_luq),
-    "`sp` must be of class character or factor"
-  )
-  expect_error(tt_test_lst("a", cns_luq, hab_luq), "All `sp` must be present")
-  expect_error(
-    tt_test_lst(c("SLOBER", "odd"), cns_luq, hab_luq), 
-    "odd"
-  )
-  expect_error(
-    tt_test_lst(c("SLOBER", "PREMON"), census = 1, hab_luq), 
-    "is not TRUE"
-  )
-  expect_error(tt_test_lst(c("SLOBER", "PREMON"), cns_luq, 1), "is not TRUE")
-  expect_error(tt_test_lst(c("SLOBER"), cns_luq, hab_luq, 1), "is not TRUE")
-  expect_error(
-    tt_test_lst(c("SLOBER"), cns_luq, hab_luq, pdim_luq, "a"), 
-    "is not TRUE"
-  )
-  expect_warning(
-    tt_test_lst(c("SLOBER"), cns_luq, hab_luq, pdim_luq, 12), 
-    "Uncommon `gridsize`"
-  )
-})
 
 
+# BCI ---------------------------------------------------------------------
 
-context("tt_df")
+test_that("outputs silently with good habitat data from BCI", {
+  skip_if_not_installed("bciex")
+  skip_if_not_installed("fgeo.tool")
 
-test_that("Fails with known error", {
-  expect_error(tt_df(character()), "Can't deal with data")
+  bci_elev <- list(
+    col = bciex::bci_elevation,
+    xdim = 1000,
+    ydim = 500
+  )
+  bci_hab <- fgeo.tool::create_habitat(bci_elev, 20, 4)
+  bci_cns <- bciex::bci12t7mini %>%
+    filter(status == "A", dbh >= 10) %>%
+    add_count(sp) %>%
+    filter(n > 50)
+  bci_pdim <- c(1000, 500)
+  bci_gsz <- 20
+  bci_sp <- unique(bci_cns$sp)[[1]]
+
+  expect_silent(
+    tt_test(
+      sp = bci_sp,
+      habitat = bci_hab,
+      abundance = abund_index(bci_cns, bci_pdim, bci_gsz),
+      plotdim = bci_pdim,
+      gridsize = bci_gsz
+    )
+  )
 })

@@ -90,11 +90,16 @@
 #' out3
 #' # Alternative data structure; try also View(tt_df(out3))
 #' head(tt_df(out3))
+#' @name tt_test
+NULL
+
+#' #' @rdname tt_test
+#' @export
 tt_test_lst <- function(sp,
-                    census,
-                    habitat,
-                    plotdim = extract_plotdim(habitat),
-                    gridsize = extract_gridsize(habitat)) {
+                        census,
+                        habitat,
+                        plotdim = extract_plotdim(habitat),
+                        gridsize = extract_gridsize(habitat)) {
   check_tt(sp = sp, census = census, habitat = habitat, plotdim = plotdim, 
     gridsize = gridsize
   )
@@ -102,8 +107,8 @@ tt_test_lst <- function(sp,
   tt_mat <- lapply(
     X = sp,
     FUN = tt_test,
-    allabund20 = abundance,
-    hab.index20 = habitat,
+    abundance = abundance,
+    habitat = habitat,
     plotdim = plotdim,
     gridsize = gridsize
   )
@@ -112,7 +117,6 @@ tt_test_lst <- function(sp,
   tt_lst <- tt_mat
   structure(tt_lst, class = c("tt_lst", class(tt_lst)))
 }
-
 
 check_tt <- function(sp, census, habitat, plotdim, gridsize) {
   stopifnot(
@@ -147,9 +151,26 @@ check_tt <- function(sp, census, habitat, plotdim, gridsize) {
   }
 }
 
-#' @rdname tt_test_lst
+#' @rdname tt_test
 #' @export
-tt_test <- function(species, hab.index20, allabund20, plotdim, gridsize) {
+tt_test <- function(sp,
+                    habitat,
+                    abundance,
+                    plotdim = extract_plotdim(habitat),
+                    gridsize = extract_gridsize(habitat)) {
+  tt <- torusonesp.all(
+    species = sp,
+    hab.index20 = habitat,
+    allabund20 = abundance,
+    plotdim = plotdim,
+    gridsize = gridsize
+  )
+  structure(tt, class = c("tt", class(tt)))
+}
+
+#' @rdname tt_test
+#' @export
+torusonesp.all <- function(species, hab.index20, allabund20, plotdim, gridsize) {
   plotdimqx <- plotdim[1] / gridsize # Calculates no. of x-axis quadrats of plot. (x is the long axis of plot in the case of Pasoh)
   plotdimqy <- plotdim[2] / gridsize # Calculates no. of y-axis quadrats of plot.
   num.habs <- length(unique(hab.index20$habitats)) # Determines tot. no. of habitat types.
@@ -273,9 +294,10 @@ tt_test <- function(species, hab.index20, allabund20, plotdim, gridsize) {
     GrLsEq[1, (6 * i)] <- GrLsEq[1, (6 * i) - 4] / (4 * (plotdimqx * plotdimqy)) # quantile in the TT distribtution of relative densities of the true relative density
   }
 
-  # return(GrLsEq)
-  structure(GrLsEq, class = c("tt", class(GrLsEq)))
+  return(GrLsEq)
 }
+
+
 
 #' Warns that a comparison is invalid. Results from a division `NaN = 0/0`
 #' @noRd

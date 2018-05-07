@@ -51,9 +51,9 @@ gsz <- 20
 
 abnd <- abund_index(cns, pdim, gsz)
 tt <- tt_test(
-  species = spp1,
-  hab.index20 = hab_luq,
-  allabund20 = abnd,
+  sp = spp1,
+  habitat = hab_luq,
+  abundance = abnd,
   plotdim = pdim,
   gridsize = gsz
 )
