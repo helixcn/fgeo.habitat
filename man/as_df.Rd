@@ -22,6 +22,6 @@ purpose tools such as \strong{dplyr} and \strong{ggplot2}.
 \examples{
 # Method for class "krig_lst"
 vars <- c("c", "p")
-krig_lst <- krig_lst(vars, soil_fake, quiet = TRUE)
+krig_lst <- krig_lst(soil_fake, vars, quiet = TRUE)
 as_df(krig_lst)
 }

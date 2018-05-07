@@ -136,7 +136,7 @@ soil_fake
 # reversed. This helps you to first find soil variables and then feed them to
 # krig_lst().
 vars <- c("c", "p")
-out_lst <- krig_lst(vars, soil_fake, quiet = TRUE)
+out_lst <- krig_lst(soil_fake, vars, quiet = TRUE)
 out_df <- as_df(out_lst, name = "soil_var", item = "df")
 head(out_df)
 

@@ -3,7 +3,7 @@ context("test-as_df.R")
 # krig --------------------------------------------------------------------
 
 vars <- c("c", "p")
-out_lst <- krig_lst(vars, soil_fake, quiet = TRUE)
+out_lst <- krig_lst(soil_fake, vars, quiet = TRUE)
 out_df <- as_df(out_lst)
 
 test_that("passes silently with data of correct class", {

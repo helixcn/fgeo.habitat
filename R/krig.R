@@ -98,10 +98,8 @@
 #' 
 #' # KRIG MULTIPLE SOIL VARIABLES
 #' 
-#' # Compared to krig(), order of first and second arguments is reversed. This
-#' # helps you to first find soil variables and then feed them to krig_lst().
 #' vars <- c("c", "p")
-#' out_lst <- krig_lst(vars, soil_fake, quiet = TRUE)
+#' out_lst <- krig_lst(soil_fake, vars, quiet = TRUE)
 #' out_df <- as_df(out_lst)
 #' head(out_df)
 #' 
@@ -114,6 +112,11 @@ krig <- function(soil,
                  breaks = krig_breaks(2, 320, 30),
                  use_ksline = TRUE,
                  quiet = FALSE) {
+  stopifnot(is.data.frame(soil))
+  if (length(var) > 1) {
+    stop("`var` must be of length 1.\nDo you need `krig_lst()`?")
+  }
+  
   krig_msg <- function() {
     message("\nvar: ", var, "Using: gridsize = ", gridsize)
     
@@ -138,7 +141,8 @@ krig <- function(soil,
 
 #' @rdname krig
 #' @export
-krig_lst <- function(var, soil, ...) {
+krig_lst <- function(soil, var, ...) {
+  # TODO force(var)
   out <- lapply(var, krig, soil = soil, ...)
   out <- stats::setNames(out, var)
   structure(out, class = c("krig_lst", class(out)))

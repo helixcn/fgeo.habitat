@@ -17,7 +17,7 @@ test_that("plotdimensions are guessed correctly", {
 })
 
 vars <- c("c", "p")
-out_lst <- krig_lst(vars, soil_fake, quiet = TRUE)
+out_lst <- krig_lst(soil_fake, vars, quiet = TRUE)
 
 test_that("outputs object of expected structure at the surface of the list", {
   expect_equal(names(out_lst), vars)
@@ -34,6 +34,13 @@ test_that("outputs object of expected class at depth one", {
 context("test-krig.R")
 
 result <- krig(df, var = "m3al", quiet = TRUE)
+
+
+test_that("fails if var is of length greater than 1", {
+  too_long <- c("m3al", "something_else")
+  expect_error(krig(df, var = too_long, quiet = TRUE), "must be of length 1")
+})
+
 
 test_that("keeps quiet if asked to", {
   expect_message(krig(df, var = "m3al"))

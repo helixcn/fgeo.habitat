@@ -13,7 +13,7 @@
 #' @examples
 #' # Method for class "krig_lst"
 #' vars <- c("c", "p")
-#' krig_lst <- krig_lst(vars, soil_fake, quiet = TRUE)
+#' krig_lst <- krig_lst(soil_fake, vars, quiet = TRUE)
 #' as_df(krig_lst)
 as_df <- function(.x, ...) {
   UseMethod("as_df")
@@ -32,7 +32,7 @@ as_df <- function(.x, ...) {
 #'
 #' @examples
 #' vars <- c("c", "p")
-#' krig_lst <- krig_lst(vars, soil_fake, quiet = TRUE)
+#' krig_lst <- krig_lst(soil_fake, vars, quiet = TRUE)
 #' as_df(krig_lst)
 as_df.krig_lst <- function(.x, name = "var", item = "df") {
   stopifnot(is.character(name), is.character(item))
@@ -75,19 +75,20 @@ as_df.default <- function(.x, ...) {
 #' pdim <- c(320, 500)
 #' gsz <- 20
 #' abnd <- abund_index(cns, pdim, gsz)
+#' spp1 <- spp[[1]]
 #' 
 #' tt <- tt_test(
 #'   species = spp1,
-#'   hab.index20 = hab_luq,
+#'   hab.index20 = hab,
 #'   allabund20 = abnd,
 #'   plotdim = pdim,
 #'   gridsize = gsz
 #' )
 #' 
 #' tt_df <- as_df(tt)
-#' head(tt_df)  
-#' tail(tt_df)  
-#' @name as_df_tt
+#' head(tt_df)
+#' tail(tt_df)
+#' @name as_df_ttl
 NULL
 
 #' @rdname  as_df_tt

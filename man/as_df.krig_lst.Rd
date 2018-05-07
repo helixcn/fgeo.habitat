@@ -21,6 +21,6 @@ Dataframe the output of \code{krig_lst()}.
 }
 \examples{
 vars <- c("c", "p")
-krig_lst <- krig_lst(vars, soil_fake, quiet = TRUE)
+krig_lst <- krig_lst(soil_fake, vars, quiet = TRUE)
 as_df(krig_lst)
 }

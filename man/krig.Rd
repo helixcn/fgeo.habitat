@@ -10,7 +10,7 @@ krig(soil, var, params = NULL, gridsize = 20,
   plotdim = guess_plotdim(soil), breaks = krig_breaks(2, 320, 30),
   use_ksline = TRUE, quiet = FALSE)
 
-krig_lst(var, soil, ...)
+krig_lst(soil, var, ...)
 
 GetKrigedSoil(df.soil, var, gridSize = 20, krigeParams = NULL,
   xSize = 1000, ySize = 500, breaks = krig_breaks(2, 320, 30),
@@ -129,10 +129,8 @@ ggplot(custom$df, aes(x = x, y = y, fill = z)) +
 
 # KRIG MULTIPLE SOIL VARIABLES
 
-# Compared to krig(), order of first and second arguments is reversed. This
-# helps you to first find soil variables and then feed them to krig_lst().
 vars <- c("c", "p")
-out_lst <- krig_lst(vars, soil_fake, quiet = TRUE)
+out_lst <- krig_lst(soil_fake, vars, quiet = TRUE)
 out_df <- as_df(out_lst)
 head(out_df)
 
