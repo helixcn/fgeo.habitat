@@ -538,14 +538,11 @@ check_crucial_names <- function(x, nms) {
 }
 
 new_krig <- function(x) {
-  stopifnot(
-    is.list(x), length(x) == 5, 
-    all(names(x) %in% c("df", "df.poly", "lambda", "vg", "vm"))
-  )
+  stopifnot(is.list(x))
   structure(x, class = c("krig", class(x)))
 }
 
 new_krig_lst <- function(x) {
-  stopifnot(is.list(x), any(grepl("krig", class(x[[1]]))))
+  stopifnot(is.list(x))
   structure(x, class = c("krig_lst", class(x)))
 }
