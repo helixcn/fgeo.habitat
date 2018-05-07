@@ -20,9 +20,9 @@
 #' 
 #' @param soil,df.soil The data frame with the points, coords specified in the
 #'   columns `gx`, `gy`.
-#' @param .var,var A character verctor giving the name in the soil dataset of
-#'   the `var`iable(s) containing soil data to krige. `var` is of lenght 1; 
-#'   `.var` can be of any lenght.
+#' @param var A character verctor giving the name in the soil dataset of
+#'   the `var`iable(s) containing soil data to krige. `var` must be of lenght 1 
+#'   for `krig()` but can be of lenght greater than one for `krig_lst()`.
 #' @param gridsize,gridSize Points are kriged to the center points of a grid of
 #'   this size.
 #' @param params,krigeParams If you want to pass specified kriging parameters;
@@ -133,7 +133,7 @@ krig <- function(soil,
     )
     
     message(krig$output)
-    structure(krig$result, class = c("krig", class(krig$result)))
+    new_krig(krig$result)
   }
   
   if (quiet) suppressMessages(krig_msg()) else krig_msg() 
@@ -141,11 +141,22 @@ krig <- function(soil,
 
 #' @rdname krig
 #' @export
-krig_lst <- function(soil, var, ...) {
-  # TODO force(var)
-  out <- lapply(var, krig, soil = soil, ...)
+krig_lst <- function(soil,
+                     var,
+                     params = NULL,
+                     gridsize = 20,
+                     plotdim = guess_plotdim(soil),
+                     breaks = krig_breaks(2, 320, 30),
+                     use_ksline = TRUE,
+                     quiet = FALSE) {
+  force(var)
+  out <- lapply(
+    var, 
+    krig, soil = soil, params = params, gridsize = gridsize, plotdim = plotdim,
+    breaks = breaks, use_ksline = use_ksline, quiet = quiet
+  )
   out <- stats::setNames(out, var)
-  structure(out, class = c("krig_lst", class(out)))
+  new_krig_lst(out)
 }
 
 #' @rdname krig
@@ -524,4 +535,17 @@ check_crucial_names <- function(x, nms) {
       call. = FALSE
     )
   }
+}
+
+new_krig <- function(x) {
+  stopifnot(
+    is.list(x), length(x) == 5, 
+    all(names(x) %in% c("df", "df.poly", "lambda", "vg", "vm"))
+  )
+  structure(x, class = c("krig", class(x)))
+}
+
+new_krig_lst <- function(x) {
+  stopifnot(is.list(x), any(grepl("krig", class(x[[1]]))))
+  structure(x, class = c("krig_lst", class(x)))
 }

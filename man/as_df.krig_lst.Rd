@@ -4,7 +4,7 @@
 \alias{as_df.krig_lst}
 \title{Dataframe the output of \code{krig_lst()}.}
 \usage{
-\method{as_df}{krig_lst}(.x, name = "var", item = "df")
+\method{as_df}{krig_lst}(.x, name = "var", item = "df", ...)
 }
 \arguments{
 \item{.x}{The output of \code{\link[=krig_lst]{krig_lst()}}.}
@@ -12,6 +12,11 @@
 \item{name}{Name for the column to hold soil variable-names.}
 
 \item{item}{Character string; either "df" or "df.poly".}
+
+\item{...}{Arguments passed on to \code{as_df}
+\describe{
+  \item{.x}{An fgeo object of supported class.}
+}}
 }
 \value{
 A dataframe.

@@ -2,29 +2,33 @@
 % Please edit documentation in R/tt_test.R
 \name{tt_test}
 \alias{tt_test}
-\alias{tt_test}
+\alias{tt_test_lst}
 \alias{torusonesp.all}
 \title{Torus Translation Test to determine habitat associations of tree species.}
 \usage{
 tt_test(sp, habitat, abundance, plotdim = extract_plotdim(habitat),
   gridsize = extract_gridsize(habitat))
 
+tt_test_lst(census, sp, habitat, plotdim = extract_plotdim(habitat),
+  gridsize = extract_gridsize(habitat))
+
 torusonesp.all(species, hab.index20, allabund20, plotdim, gridsize)
 }
 \arguments{
-\item{sp, species}{Character sting giving species names. \code{tt_test()} can
-take only one species; \code{tt_test_lst()} can take any number of species.}
+\item{sp, species}{Character sting giving species names. \code{tt_test()} and
+\code{torusonesp.all()}can take only one species; \code{tt_test_lst()} can take any
+number of species.}
 
 \item{habitat, hab.index20}{Object giving the habitat designation for each
 plot partition defined by \code{gridsize}.}
+
+\item{abundance, allabund20}{The output of \code{abund_index()}.}
 
 \item{plotdim}{Plot dimensions.}
 
 \item{gridsize}{Grid size. If using \code{tt_test()}, ensure it matches the
 gridsize on which the habitats are defined and the abundances were
 calculated.}
-
-\item{allabund20}{The output of \code{abund_index()}.}
 
 \item{census}{A dataframe; a ForestGEO census.}
 }
@@ -45,8 +49,9 @@ has been used.
 
 \code{tt_test_lst()} uses \code{abundanceperquad()} -- via \code{abund_index()} -- which is
 slow. You may calculate abundance per quadrat independently, feed it to the
-argument \code{allabund20} of \code{tt_test()}, and reformat the output with
-\code{tt_df()}. See Examples to iterate over multiple species.
+argument \code{abundance} of \code{tt_test()}, and reformat the output with \code{as_df()}.
+You can iterate over multiple species with a for loop or a functional such as
+lapply.
 }
 \examples{
 # For easier data wranging
@@ -72,23 +77,25 @@ tt_lst[[1]]
 # Try also: View((as_df(tt_lst)))
 head(as_df(tt_lst))
 
-# Test with original function (outputs a matrix)
+# Iterate over multiple species
 plotdim <- c(320, 500)
 gridsize <- 20
 abundance <- abund_index(pick, plotdim, gridsize)
 
-tt_mat <- torusonesp.all(unique(pick$sp)[[2]],
+tt_lst <- lapply(species, tt_test, habitat, abundance, plotdim, gridsize)
+tt_lst
+
+# Test one species with original function (outputs a matrix)
+tt_mat <- torusonesp.all(species[[1]],
   hab.index20 = habitat,
   allabund20 = abundance,
   plotdim = plotdim,
   gridsize = gridsize
 )
 tt_mat
-
-head(tt_df(tt_mat))
 }
 \seealso{
-\code{\link[=tt_df]{tt_df()}}.
+\code{\link[=as_df]{as_df()}}.
 }
 \author{
 Sabrina Russo, Daniel Zuleta, Matteo Detto, and Kyle Harms.

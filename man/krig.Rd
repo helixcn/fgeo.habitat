@@ -10,7 +10,9 @@ krig(soil, var, params = NULL, gridsize = 20,
   plotdim = guess_plotdim(soil), breaks = krig_breaks(2, 320, 30),
   use_ksline = TRUE, quiet = FALSE)
 
-krig_lst(soil, var, ...)
+krig_lst(soil, var, params = NULL, gridsize = 20,
+  plotdim = guess_plotdim(soil), breaks = krig_breaks(2, 320, 30),
+  use_ksline = TRUE, quiet = FALSE)
 
 GetKrigedSoil(df.soil, var, gridSize = 20, krigeParams = NULL,
   xSize = 1000, ySize = 500, breaks = krig_breaks(2, 320, 30),
@@ -19,6 +21,10 @@ GetKrigedSoil(df.soil, var, gridSize = 20, krigeParams = NULL,
 \arguments{
 \item{soil, df.soil}{The data frame with the points, coords specified in the
 columns \code{gx}, \code{gy}.}
+
+\item{var}{A character verctor giving the name in the soil dataset of
+the \code{var}iable(s) containing soil data to krige. \code{var} must be of lenght 1
+for \code{krig()} but can be of lenght greater than one for \code{krig_lst()}.}
 
 \item{params, krigeParams}{If you want to pass specified kriging parameters;
 see \code{\link[=krig_auto_params]{krig_auto_params()}} for each parameter.}
@@ -44,10 +50,6 @@ to \code{params}.}
 \item{quiet}{Use \code{TRUE} to sppresses messages.}
 
 \item{...}{Arguments passed to \code{\link[=krig]{krig()}}.}
-
-\item{.var, var}{A character verctor giving the name in the soil dataset of
-the \code{var}iable(s) containing soil data to krige. \code{var} is of lenght 1;
-\code{.var} can be of any lenght.}
 }
 \value{
 A list with the following items:

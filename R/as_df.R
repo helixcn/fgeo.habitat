@@ -26,6 +26,7 @@ as_df <- function(.x, ...) {
 #' @param .x The output of [krig_lst()].
 #' @param name Name for the column to hold soil variable-names.
 #' @param item Character string; either "df" or "df.poly".
+#' @inheritDotParams as_df
 #'
 #' @return A dataframe.
 #' @export
@@ -34,12 +35,12 @@ as_df <- function(.x, ...) {
 #' vars <- c("c", "p")
 #' krig_lst <- krig_lst(soil_fake, vars, quiet = TRUE)
 #' as_df(krig_lst)
-as_df.krig_lst <- function(.x, name = "var", item = "df") {
+as_df.krig_lst <- function(.x, name = "var", item = "df", ...) {
   stopifnot(is.character(name), is.character(item))
   stopifnot(length(item) == 1, item == "df" || item == "df.poly")
   
   dfs <- lapply(.x, "[[", item)
-  out <- Reduce(rbind, name_df_lst(dfs, name = name))
+  out <- Reduce(rbind, fgeo.base::name_df_lst(dfs, name = name))
   out[c(name, setdiff(names(out), name))]
 }
 
@@ -88,12 +89,12 @@ NULL
 #' @rdname  as_df_tt
 #' @export
 as_df.tt <- function(.x, ...) {
-  mat_enframe(t(.x), "metric", "sp", "value")
+  fgeo.base::gather_matrix(t(.x), "metric", "sp", "value")
 }
 
 #' @rdname  as_df_tt
 #' @export
 as_df.tt_lst <- function(.x, ...) {
   flip <- t(Reduce(rbind, .x))
-  mat_enframe(flip, "metric", "sp", "value")
+  fgeo.base::gather_matrix(flip, "metric", "sp", "value")
 }

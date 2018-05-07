@@ -9,11 +9,13 @@
 #'
 #' `tt_test_lst()` uses `abundanceperquad()` -- via `abund_index()` -- which is
 #' slow. You may calculate abundance per quadrat independently, feed it to the
-#' argument `allabund20` of `tt_test()`, and reformat the output with
-#' `tt_df()`. See Examples to iterate over multiple species.
+#' argument `abundance` of `tt_test()`, and reformat the output with `as_df()`.
+#' You can iterate over multiple species with a for loop or a functional such as
+#' lapply.
 #'
-#' @param sp,species Character sting giving species names. `tt_test()` can
-#'   take only one species; `tt_test_lst()` can take any number of species.
+#' @param sp,species Character sting giving species names. `tt_test()` and
+#'   `torusonesp.all()`can take only one species; `tt_test_lst()` can take any
+#'   number of species.
 #' @param census A dataframe; a ForestGEO census.
 #' @param habitat,hab.index20 Object giving the habitat designation for each
 #'   plot partition defined by `gridsize`.
@@ -21,11 +23,11 @@
 #' @param gridsize Grid size. If using `tt_test()`, ensure it matches the
 #'   gridsize on which the habitats are defined and the abundances were
 #'   calculated.
-#' @param allabund20 The output of `abund_index()`.
+#' @param abundance,allabund20 The output of `abund_index()`.
 #'
 #' @author Sabrina Russo, Daniel Zuleta, Matteo Detto, and Kyle Harms.
 #'
-#' @seealso [tt_df()].
+#' @seealso [as_df()].
 #'
 #' @return 
 #' * `tt_test_lst()`: A dataframe.
@@ -56,80 +58,22 @@
 #' # Try also: View((as_df(tt_lst)))
 #' head(as_df(tt_lst))
 #' 
-#' # Test with original function (outputs a matrix)
+#' # Iterate over multiple species
 #' plotdim <- c(320, 500)
 #' gridsize <- 20
 #' abundance <- abund_index(pick, plotdim, gridsize)
+#'
+#' tt_lst <- lapply(species, tt_test, habitat, abundance, plotdim, gridsize)
+#' tt_lst
 #' 
-#' tt_mat <- torusonesp.all(unique(pick$sp)[[2]],
+#' # Test one species with original function (outputs a matrix)
+#' tt_mat <- torusonesp.all(species[[1]],
 #'   hab.index20 = habitat,
 #'   allabund20 = abundance,
 #'   plotdim = plotdim,
 #'   gridsize = gridsize
 #' )
 #' tt_mat
-#' 
-#' head(tt_df(tt_mat))
-#' @name tt_test
-NULL
-
-#' #' @rdname tt_test
-#' @export
-tt_test_lst <- function(census,
-                        sp,
-                        habitat,
-                        plotdim = extract_plotdim(habitat),
-                        gridsize = extract_gridsize(habitat)) {
-  check_tt(census = census, sp = sp, habitat = habitat, plotdim = plotdim, 
-    gridsize = gridsize
-  )
-  abundance <- abund_index(census, plotdim, gridsize)
-  tt_lst <- lapply(
-    X = sp,
-    FUN = tt_test,
-    abundance = abundance,
-    habitat = habitat,
-    plotdim = plotdim,
-    gridsize = gridsize
-  )
-  structure(tt_lst, class = c("tt_lst", class(tt_lst)))
-}
-
-check_tt <- function(census, sp, habitat, plotdim, gridsize) {
-  stopifnot(
-    is.data.frame(census),
-    is.data.frame(habitat),
-    is.numeric(plotdim), 
-    length(plotdim) == 2,
-    is.numeric(gridsize), 
-    length(gridsize) == 1
-  )
-  
-  common_gridsize <- gridsize  %in% c(5, 10, 20)
-  if (!common_gridsize) {
-    rlang::warn(paste("Uncommon `gridsize`:", gridsize, "\nIs this expected?"))
-  }
-  
-  if (!any(is.character(sp) || is.factor(sp))) {
-    msg <- paste0(
-      "`sp` must be of class character or factor but is of class ",
-      class(sp), "."
-    )
-    rlang::abort(msg)
-  }
-  
-  valid_sp <- sp %in% unique(census$sp)
-  if (!all(valid_sp)) {
-    msg <- paste0(
-      "All `sp` must be present in `census`.\n",
-      "Odd: ", commas(sp[!valid_sp])
-    )
-    abort(msg)
-  }
-}
-
-#' @rdname tt_test
-#' @export
 tt_test <- function(sp,
                     habitat,
                     abundance,
@@ -142,7 +86,29 @@ tt_test <- function(sp,
     plotdim = plotdim,
     gridsize = gridsize
   )
-  structure(tt, class = c("tt", class(tt)))
+  new_tt(tt)
+}
+
+#' @rdname tt_test
+#' @export
+tt_test_lst <- function(census,
+                        sp,
+                        habitat,
+                        plotdim = extract_plotdim(habitat),
+                        gridsize = extract_gridsize(habitat)) {
+  check_tt(census = census, sp = sp, habitat = habitat, plotdim = plotdim, 
+    gridsize = gridsize
+  )
+  abundance <- abund_index(census, plotdim, gridsize)
+  out <- lapply(
+    X = sp,
+    FUN = tt_test,
+    abundance = abundance,
+    habitat = habitat,
+    plotdim = plotdim,
+    gridsize = gridsize
+  )
+  new_tt_lst(out)
 }
 
 #' @rdname tt_test
@@ -276,6 +242,39 @@ torusonesp.all <- function(species, hab.index20, allabund20, plotdim, gridsize) 
 
 
 
+check_tt <- function(census, sp, habitat, plotdim, gridsize) {
+  stopifnot(
+    is.data.frame(census),
+    is.data.frame(habitat),
+    is.numeric(plotdim), 
+    length(plotdim) == 2,
+    is.numeric(gridsize), 
+    length(gridsize) == 1
+  )
+  
+  common_gridsize <- gridsize  %in% c(5, 10, 20)
+  if (!common_gridsize) {
+    rlang::warn(paste("Uncommon `gridsize`:", gridsize, "\nIs this expected?"))
+  }
+  
+  if (!any(is.character(sp) || is.factor(sp))) {
+    msg <- paste0(
+      "`sp` must be of class character or factor but is of class ",
+      class(sp), "."
+    )
+    rlang::abort(msg)
+  }
+  
+  valid_sp <- sp %in% unique(census$sp)
+  if (!all(valid_sp)) {
+    msg <- paste0(
+      "All `sp` must be present in `census`.\n",
+      "Odd: ", commas(sp[!valid_sp])
+    )
+    abort(msg)
+  }
+}
+
 #' Warns that a comparison is invalid. Results from a division `NaN = 0/0`
 #' @noRd
 warn_invalid_comparison <- function(spp, torus) {
@@ -287,30 +286,13 @@ warn_invalid_comparison <- function(spp, torus) {
   rlang::warn(paste0(msg, value))
 }
 
-#' Gather the output of `tt_test()`.
-#'
-#' Dataframe the output of `tt_test()`. For examples see [tt_test_lst()].
-#'
-#' @param ttt Output of `tt_test()`; Either a single matrix or a list of
-#'   matrices.
-#'
-#' @return A dataframe.
-#' @export
-tt_df <- function(ttt) {
-  UseMethod("tt_df")
+new_tt <- function(x) {
+  stopifnot(is.matrix(x), dim(x)[[2]] == 24)
+  structure(x, class = c("tt", class(x)))
 }
 
-#' @export
-tt_df.list <- function(ttt) {
-  flip <- t(Reduce(rbind, ttt))
-  mat_enframe(flip, "metric", "sp", "value")
+new_tt_lst <- function(x) {
+  stopifnot(is.list(x), any(grepl("tt", class(x[[1]]))))
+  structure(x, class = c("tt_lst", class(x)))
 }
-#' @export
-tt_df.matrix <- function(ttt) {
-  flip <- t(ttt)
-  mat_enframe(flip, "metric", "sp", "value")
-}
-#' @export
-tt_df.default <- function(ttt) {
-  rlang::abort(paste0("Can't deal with data of class ", class(ttt), "."))
-}
+

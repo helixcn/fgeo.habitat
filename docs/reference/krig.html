@@ -166,7 +166,9 @@ for <code><a href='as_df.html'>as_df()</a></code> (see examples).</p></li>
   <span class='kw'>plotdim</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/fgeo.base/topics/guess_plotdim'>guess_plotdim</a></span>(<span class='no'>soil</span>), <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='krig_breaks.html'>krig_breaks</a></span>(<span class='fl'>2</span>, <span class='fl'>320</span>, <span class='fl'>30</span>),
   <span class='kw'>use_ksline</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>krig_lst</span>(<span class='no'>soil</span>, <span class='no'>var</span>, <span class='no'>...</span>)
+<span class='fu'>krig_lst</span>(<span class='no'>soil</span>, <span class='no'>var</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>gridsize</span> <span class='kw'>=</span> <span class='fl'>20</span>,
+  <span class='kw'>plotdim</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/fgeo.base/topics/guess_plotdim'>guess_plotdim</a></span>(<span class='no'>soil</span>), <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='krig_breaks.html'>krig_breaks</a></span>(<span class='fl'>2</span>, <span class='fl'>320</span>, <span class='fl'>30</span>),
+  <span class='kw'>use_ksline</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>GetKrigedSoil</span>(<span class='no'>df.soil</span>, <span class='no'>var</span>, <span class='kw'>gridSize</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>krigeParams</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>xSize</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>ySize</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='krig_breaks.html'>krig_breaks</a></span>(<span class='fl'>2</span>, <span class='fl'>320</span>, <span class='fl'>30</span>),
@@ -215,14 +217,14 @@ to <code>params</code>.</p></td>
       <td><p>Use <code>TRUE</code> to sppresses messages.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Arguments passed to <code>krig()</code>.</p></td>
-    </tr>
-    <tr>
       <th>.var, var</th>
       <td><p>A character verctor giving the name in the soil dataset of
 the <code>var</code>iable(s) containing soil data to krige. <code>var</code> is of lenght 1;
 <code>.var</code> can be of any lenght.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Arguments passed to <code>krig()</code>.</p></td>
     </tr>
     </table>
     

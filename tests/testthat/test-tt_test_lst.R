@@ -73,11 +73,3 @@ test_that("fails with informative message", {
     "Uncommon `gridsize`"
   )
 })
-
-
-
-context("tt_df")
-
-test_that("Fails with known error", {
-  expect_error(tt_df(character()), "Can't deal with data")
-})

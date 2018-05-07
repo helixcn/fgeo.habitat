@@ -41,18 +41,17 @@ reference:
     contents:
       - matches("krig_")
       - summary.krig
+      - matches("as_df.krig")
   - title: "Torus translation"
     contents:
       - starts_with("tt_")
-      - -matches("tt_df")
       - dist_in_torus
   - title: "Torus translation helpers"
     contents:
-      - tt_df
+      - matches("as_df.tt")
       - abund_index
       - extract_plotdim
       - extract_gridsize
-      - mat_enframe
   - title: "Datasets"
     contents:
       - starts_with("luquillo")
