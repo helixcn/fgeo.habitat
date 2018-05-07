@@ -4,7 +4,7 @@
 \alias{tt_test_lst}
 \title{#' @rdname tt_test}
 \usage{
-tt_test_lst(sp, census, habitat, plotdim = extract_plotdim(habitat),
+tt_test_lst(census, sp, habitat, plotdim = extract_plotdim(habitat),
   gridsize = extract_gridsize(habitat))
 }
 \description{

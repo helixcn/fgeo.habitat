@@ -34,7 +34,7 @@ context("as_df.tt_lst")
 cns <- luquillo_top3_sp
 spp1 <- unique(cns$sp)[[1]]
 hab_luq <- luquillo_habitat
-tt_lst <- tt_test_lst(spp1, cns, hab_luq)
+tt_lst <- tt_test_lst(cns, spp1, hab_luq)
 
 test_that("outputs the expected dataframe", {
   expect_equal(class(tt_lst), c("tt_lst", "list"))

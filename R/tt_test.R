@@ -33,78 +33,58 @@
 #'
 #' @export
 #' @examples
-#' # Setup
-#'
 #' # For easier data wranging
 #' library(dplyr)
-#'
-#' # Example data
+#' 
 #' habitat <- luquillo_habitat
 #' census <- luquillo_top3_sp
-#'
+#' 
 #' # Pick alive trees, of 10 mm or more
 #' pick <- filter(census, status == "A", dbh >= 10)
 #' # Pick sufficiently abundant trees
 #' pick <- add_count(pick, sp)
 #' pick <- filter(pick, n > 50)
-#'
+#' 
 #' species <- unique(pick$sp)
-#'
-#'
-#'
-#' # Test with the wrapper tt_test_lst()
-#'
-#' out <- tt_test_lst(species, census, habitat)
-#' # Try also: View(out)
-#' head(out)
-#' tail(out)
-#'
-#'
-#'
-#' # Test without the wrapper, i.e. with tt_test()
-#'
-#' # Setup
+#' 
+#' # Test any number of species (output a list of matrices)
+#' tt_lst <- tt_test_lst(census, species, habitat)
+#' str(tt_lst, give.attr = FALSE)
+#' 
+#' tt_lst[[1]]
+#' 
+#' # Try also: View((as_df(tt_lst)))
+#' head(as_df(tt_lst))
+#' 
+#' # Test with original function (outputs a matrix)
 #' plotdim <- c(320, 500)
 #' gridsize <- 20
 #' abundance <- abund_index(pick, plotdim, gridsize)
-#'
-#' # One species
-#' out2 <- tt_test(unique(pick$sp)[[2]],
+#' 
+#' tt_mat <- torusonesp.all(unique(pick$sp)[[2]],
 #'   hab.index20 = habitat,
 #'   allabund20 = abundance,
 #'   plotdim = plotdim,
 #'   gridsize = gridsize
 #' )
-#' out2
-#' # Alternative data structure; try also View(tt_df(out2))
-#' head(tt_df(out2))
-#'
-#' # Multiple species
-#' out3 <- lapply(
-#'   species, tt_test,
-#'   hab.index20 = habitat,
-#'   allabund20 = abundance,
-#'   plotdim = plotdim,
-#'   gridsize = gridsize
-#' )
-#' out3
-#' # Alternative data structure; try also View(tt_df(out3))
-#' head(tt_df(out3))
+#' tt_mat
+#' 
+#' head(tt_df(tt_mat))
 #' @name tt_test
 NULL
 
 #' #' @rdname tt_test
 #' @export
-tt_test_lst <- function(sp,
-                        census,
+tt_test_lst <- function(census,
+                        sp,
                         habitat,
                         plotdim = extract_plotdim(habitat),
                         gridsize = extract_gridsize(habitat)) {
-  check_tt(sp = sp, census = census, habitat = habitat, plotdim = plotdim, 
+  check_tt(census = census, sp = sp, habitat = habitat, plotdim = plotdim, 
     gridsize = gridsize
   )
   abundance <- abund_index(census, plotdim, gridsize)
-  tt_mat <- lapply(
+  tt_lst <- lapply(
     X = sp,
     FUN = tt_test,
     abundance = abundance,
@@ -112,15 +92,12 @@ tt_test_lst <- function(sp,
     plotdim = plotdim,
     gridsize = gridsize
   )
-  # TODO: Output not a df but a list of matrices
-  # tt_lst <- tt_df(tt_mat)
-  tt_lst <- tt_mat
   structure(tt_lst, class = c("tt_lst", class(tt_lst)))
 }
 
-check_tt <- function(sp, census, habitat, plotdim, gridsize) {
+check_tt <- function(census, sp, habitat, plotdim, gridsize) {
   stopifnot(
-    is.data.frame(census), 
+    is.data.frame(census),
     is.data.frame(habitat),
     is.numeric(plotdim), 
     length(plotdim) == 2,

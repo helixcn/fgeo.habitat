@@ -166,7 +166,7 @@ for <code><a href='as_df.html'>as_df()</a></code> (see examples).</p></li>
   <span class='kw'>plotdim</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/fgeo.base/topics/guess_plotdim'>guess_plotdim</a></span>(<span class='no'>soil</span>), <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='krig_breaks.html'>krig_breaks</a></span>(<span class='fl'>2</span>, <span class='fl'>320</span>, <span class='fl'>30</span>),
   <span class='kw'>use_ksline</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>krig_lst</span>(<span class='no'>var</span>, <span class='no'>soil</span>, <span class='no'>...</span>)
+<span class='fu'>krig_lst</span>(<span class='no'>soil</span>, <span class='no'>var</span>, <span class='no'>...</span>)
 
 <span class='fu'>GetKrigedSoil</span>(<span class='no'>df.soil</span>, <span class='no'>var</span>, <span class='kw'>gridSize</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>krigeParams</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>xSize</span> <span class='kw'>=</span> <span class='fl'>1000</span>, <span class='kw'>ySize</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='krig_breaks.html'>krig_breaks</a></span>(<span class='fl'>2</span>, <span class='fl'>320</span>, <span class='fl'>30</span>),
@@ -400,10 +400,8 @@ fitting is not overly biased by points beyond the effective maximum range.</p>
 
 <span class='co'># KRIG MULTIPLE SOIL VARIABLES</span>
 
-<span class='co'># Compared to krig(), order of first and second arguments is reversed. This</span>
-<span class='co'># helps you to first find soil variables and then feed them to krig_lst().</span>
 <span class='no'>vars</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"c"</span>, <span class='st'>"p"</span>)
-<span class='no'>out_lst</span> <span class='kw'>&lt;-</span> <span class='fu'>krig_lst</span>(<span class='no'>vars</span>, <span class='no'>soil_fake</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>out_lst</span> <span class='kw'>&lt;-</span> <span class='fu'>krig_lst</span>(<span class='no'>soil_fake</span>, <span class='no'>vars</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='no'>out_df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as_df.html'>as_df</a></span>(<span class='no'>out_lst</span>)
 <span class='fu'>head</span>(<span class='no'>out_df</span>)</div><div class='output co'>#&gt;   var   x  y     z
 #&gt; 1   c  10 10 0.837

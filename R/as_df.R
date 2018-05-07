@@ -64,7 +64,7 @@ as_df.default <- function(.x, ...) {
 #' spp <- unique(cns$sp)
 #' hab <- luquillo_habitat
 #' 
-#' tt_lst <- tt_test_lst(spp, cns, hab)
+#' tt_lst <- tt_test_lst(cns, spp, hab)
 #' tt_df <- as_df(tt_lst)
 #' head(tt_df)
 #' 
@@ -77,18 +77,12 @@ as_df.default <- function(.x, ...) {
 #' abnd <- abund_index(cns, pdim, gsz)
 #' spp1 <- spp[[1]]
 #' 
-#' tt <- tt_test(
-#'   species = spp1,
-#'   hab.index20 = hab,
-#'   allabund20 = abnd,
-#'   plotdim = pdim,
-#'   gridsize = gsz
-#' )
-#' 
+#' tt <- tt_test(spp1, hab, abnd, pdim, gsz)
 #' tt_df <- as_df(tt)
 #' head(tt_df)
+#' 
 #' tail(tt_df)
-#' @name as_df_ttl
+#' @name as_df_tt
 NULL
 
 #' @rdname  as_df_tt

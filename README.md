@@ -52,7 +52,7 @@ pick <- filter(pick, n > 50)
 
 species <- unique(pick$sp)
 
-out <- tt_test_lst(species, census, habitat)
+out <- tt_test_lst(census, species, habitat)
 # Try also: View(out)
 head(out)
 #> [[1]]

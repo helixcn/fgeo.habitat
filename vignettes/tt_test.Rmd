@@ -137,7 +137,7 @@ ggplot(pick, aes(x = gx, y = gy)) +
 
 ```{r}
 all_sp <- unique(pick$sp)
-out <- tt_test_lst(all_sp, census, habitat)
+out <- tt_test_lst(census, all_sp, habitat)
 head(out)
 ```
 
@@ -185,14 +185,7 @@ Now that we have all we need, we can run `tt_test()`.
 one_species <- unique(pick$sp)[[1]]
 one_species
 
-out_one <- tt_test(
-  species = one_species,
-  hab.index20 = habitat,
-  allabund20 = abundance,
-  plotdim = plot_dimensions,
-  gridsize = grid_size
-)
-
+out_one <- tt_test(one_species, habitat, abundance, plot_dimensions, grid_size)
 out_one
 ```
 
@@ -210,14 +203,9 @@ To iterate over multiple species you may write a for loop, or use a functional s
 all_species <- unique(pick$sp)
 
 out_all <- map(
-  all_species,
-  tt_test,
-  hab.index20 = habitat,
-  allabund20 = abundance,
-  plotdim = plot_dimensions,
-  gridsize = grid_size
+  all_species, 
+  tt_test, habitat, abundance, plot_dimensions, grid_size
 )
-
 out_all
 ```
 

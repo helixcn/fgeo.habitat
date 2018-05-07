@@ -162,7 +162,7 @@
 <span class='no'>spp</span> <span class='kw'>&lt;-</span> <span class='fu'>unique</span>(<span class='no'>cns</span>$<span class='no'>sp</span>)
 <span class='no'>hab</span> <span class='kw'>&lt;-</span> <span class='no'>luquillo_habitat</span>
 
-<span class='no'>tt_lst</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tt_test_lst.html'>tt_test_lst</a></span>(<span class='no'>spp</span>, <span class='no'>cns</span>, <span class='no'>hab</span>)
+<span class='no'>tt_lst</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tt_test_lst.html'>tt_test_lst</a></span>(<span class='no'>cns</span>, <span class='no'>spp</span>, <span class='no'>hab</span>)
 <span class='no'>tt_df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as_df.html'>as_df</a></span>(<span class='no'>tt_lst</span>)
 <span class='fu'>head</span>(<span class='no'>tt_df</span>)</div><div class='output co'>#&gt;           metric     sp    value
 #&gt; 1        N.Hab.1 CASARB   25.000
@@ -183,27 +183,24 @@
 <span class='no'>pdim</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='fl'>320</span>, <span class='fl'>500</span>)
 <span class='no'>gsz</span> <span class='kw'>&lt;-</span> <span class='fl'>20</span>
 <span class='no'>abnd</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='abund_index.html'>abund_index</a></span>(<span class='no'>cns</span>, <span class='no'>pdim</span>, <span class='no'>gsz</span>)
+<span class='no'>spp1</span> <span class='kw'>&lt;-</span> <span class='no'>spp</span><span class='kw'>[[</span><span class='fl'>1</span>]]
 
-<span class='no'>tt</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tt_test_lst.html'>tt_test</a></span>(
-  <span class='kw'>species</span> <span class='kw'>=</span> <span class='no'>spp1</span>,
-  <span class='kw'>hab.index20</span> <span class='kw'>=</span> <span class='no'>hab_luq</span>,
-  <span class='kw'>allabund20</span> <span class='kw'>=</span> <span class='no'>abnd</span>,
-  <span class='kw'>plotdim</span> <span class='kw'>=</span> <span class='no'>pdim</span>,
-  <span class='kw'>gridsize</span> <span class='kw'>=</span> <span class='no'>gsz</span>
-)</div><div class='output co'>#&gt; <span class='error'>Error in unique(hab.index20$habitats): object 'hab_luq' not found</span></div><div class='input'>
-<span class='no'>tt_df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as_df.html'>as_df</a></span>(<span class='no'>tt</span>)</div><div class='output co'>#&gt; <span class='error'>Error in as_df(tt): object 'tt' not found</span></div><div class='input'><span class='fu'>head</span>(<span class='no'>tt_df</span>)</div><div class='output co'>#&gt;           metric     sp    value
+<span class='no'>tt</span> <span class='kw'>&lt;-</span> <span class='fu'>tt_test</span>(<span class='no'>spp1</span>, <span class='no'>hab</span>, <span class='no'>abnd</span>, <span class='no'>pdim</span>, <span class='no'>gsz</span>)
+<span class='no'>tt_df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as_df.html'>as_df</a></span>(<span class='no'>tt</span>)
+<span class='fu'>head</span>(<span class='no'>tt_df</span>)</div><div class='output co'>#&gt;           metric     sp    value
 #&gt; 1        N.Hab.1 CASARB   25.000
 #&gt; 2       Gr.Hab.1 CASARB 1489.000
 #&gt; 3       Ls.Hab.1 CASARB  109.000
 #&gt; 4       Eq.Hab.1 CASARB    2.000
 #&gt; 5 Rep.Agg.Neut.1 CASARB    0.000
-#&gt; 6 Obs.Quantile.1 CASARB    0.931</div><div class='input'><span class='fu'>tail</span>(<span class='no'>tt_df</span>)</div><div class='output co'>#&gt;            metric     sp    value
-#&gt; 67        N.Hab.4 SLOBER   17.000
-#&gt; 68       Gr.Hab.4 SLOBER 1151.000
-#&gt; 69       Ls.Hab.4 SLOBER  440.000
-#&gt; 70       Eq.Hab.4 SLOBER    9.000
-#&gt; 71 Rep.Agg.Neut.4 SLOBER    0.000
-#&gt; 72 Obs.Quantile.4 SLOBER    0.719</div></pre>
+#&gt; 6 Obs.Quantile.1 CASARB    0.931</div><div class='input'>
+<span class='fu'>tail</span>(<span class='no'>tt_df</span>)</div><div class='output co'>#&gt;            metric     sp   value
+#&gt; 19        N.Hab.4 CASARB  15.000
+#&gt; 20       Gr.Hab.4 CASARB 934.000
+#&gt; 21       Ls.Hab.4 CASARB 661.000
+#&gt; 22       Eq.Hab.4 CASARB   5.000
+#&gt; 23 Rep.Agg.Neut.4 CASARB   0.000
+#&gt; 24 Obs.Quantile.4 CASARB   0.584</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

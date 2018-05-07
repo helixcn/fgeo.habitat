@@ -105,12 +105,12 @@
     
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(fgeo.habitat)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co">#&gt; -- Attaching packages ----------------------------------------------------- tidyverse 1.2.1 --</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co">#&gt; -- Attaching packages ---------------------------------------------- tidyverse 1.2.1 --</span></a>
 <a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co">#&gt; v ggplot2 2.2.1     v purrr   0.2.4</span></a>
 <a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co">#&gt; v tibble  1.4.2     v dplyr   0.7.4</span></a>
 <a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">#&gt; v tidyr   0.8.0     v stringr 1.3.0</span></a>
 <a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co">#&gt; v readr   1.1.1     v forcats 0.3.0</span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co">#&gt; -- Conflicts -------------------------------------------------------- tidyverse_conflicts() --</span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co">#&gt; -- Conflicts ------------------------------------------------- tidyverse_conflicts() --</span></a>
 <a class="sourceLine" id="cb1-9" data-line-number="9"><span class="co">#&gt; x dplyr::filter() masks stats::filter()</span></a>
 <a class="sourceLine" id="cb1-10" data-line-number="10"><span class="co">#&gt; x dplyr::lag()    masks stats::lag()</span></a></code></pre></div>
 <div id="habitat-species-associations" class="section level2">
@@ -129,7 +129,7 @@
 <a class="sourceLine" id="cb2-10" data-line-number="10"></a>
 <a class="sourceLine" id="cb2-11" data-line-number="11">species &lt;-<span class="st"> </span><span class="kw">unique</span>(pick<span class="op">$</span>sp)</a>
 <a class="sourceLine" id="cb2-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb2-13" data-line-number="13">out &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tt_test_lst.html">tt_test_lst</a></span>(species, census, habitat)</a>
+<a class="sourceLine" id="cb2-13" data-line-number="13">out &lt;-<span class="st"> </span><span class="kw"><a href="../reference/tt_test_lst.html">tt_test_lst</a></span>(census, species, habitat)</a>
 <a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co"># Try also: View(out)</span></a>
 <a class="sourceLine" id="cb2-15" data-line-number="15"><span class="kw">head</span>(out)</a>
 <a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt; [[1]]</span></a>
@@ -167,42 +167,43 @@
 <a class="sourceLine" id="cb2-48" data-line-number="48"><span class="co">#&gt; SLOBER      17     1151      440        9              0       0.719375</span></a>
 <a class="sourceLine" id="cb2-49" data-line-number="49"><span class="co">#&gt; attr(,"class")</span></a>
 <a class="sourceLine" id="cb2-50" data-line-number="50"><span class="co">#&gt; [1] "tt"     "matrix"</span></a>
-<a class="sourceLine" id="cb2-51" data-line-number="51"><span class="kw">tail</span>(out)</a>
-<a class="sourceLine" id="cb2-52" data-line-number="52"><span class="co">#&gt; [[1]]</span></a>
-<a class="sourceLine" id="cb2-53" data-line-number="53"><span class="co">#&gt;        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1</span></a>
-<a class="sourceLine" id="cb2-54" data-line-number="54"><span class="co">#&gt; CASARB      25     1489      109        2              0       0.930625</span></a>
-<a class="sourceLine" id="cb2-55" data-line-number="55"><span class="co">#&gt;        N.Hab.2 Gr.Hab.2 Ls.Hab.2 Eq.Hab.2 Rep.Agg.Neut.2 Obs.Quantile.2</span></a>
-<a class="sourceLine" id="cb2-56" data-line-number="56"><span class="co">#&gt; CASARB      12      168     1431        1              0          0.105</span></a>
-<a class="sourceLine" id="cb2-57" data-line-number="57"><span class="co">#&gt;        N.Hab.3 Gr.Hab.3 Ls.Hab.3 Eq.Hab.3 Rep.Agg.Neut.3 Obs.Quantile.3</span></a>
-<a class="sourceLine" id="cb2-58" data-line-number="58"><span class="co">#&gt; CASARB      14      567     1029        4              0       0.354375</span></a>
-<a class="sourceLine" id="cb2-59" data-line-number="59"><span class="co">#&gt;        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4</span></a>
-<a class="sourceLine" id="cb2-60" data-line-number="60"><span class="co">#&gt; CASARB      15      934      661        5              0        0.58375</span></a>
-<a class="sourceLine" id="cb2-61" data-line-number="61"><span class="co">#&gt; attr(,"class")</span></a>
-<a class="sourceLine" id="cb2-62" data-line-number="62"><span class="co">#&gt; [1] "tt"     "matrix"</span></a>
-<a class="sourceLine" id="cb2-63" data-line-number="63"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-64" data-line-number="64"><span class="co">#&gt; [[2]]</span></a>
-<a class="sourceLine" id="cb2-65" data-line-number="65"><span class="co">#&gt;        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1</span></a>
-<a class="sourceLine" id="cb2-66" data-line-number="66"><span class="co">#&gt; PREMON      59      389     1208        3              0       0.243125</span></a>
-<a class="sourceLine" id="cb2-67" data-line-number="67"><span class="co">#&gt;        N.Hab.2 Gr.Hab.2 Ls.Hab.2 Eq.Hab.2 Rep.Agg.Neut.2 Obs.Quantile.2</span></a>
-<a class="sourceLine" id="cb2-68" data-line-number="68"><span class="co">#&gt; PREMON      75     1562       37        1              1        0.97625</span></a>
-<a class="sourceLine" id="cb2-69" data-line-number="69"><span class="co">#&gt;        N.Hab.3 Gr.Hab.3 Ls.Hab.3 Eq.Hab.3 Rep.Agg.Neut.3 Obs.Quantile.3</span></a>
-<a class="sourceLine" id="cb2-70" data-line-number="70"><span class="co">#&gt; PREMON      56      632      963        5              0          0.395</span></a>
-<a class="sourceLine" id="cb2-71" data-line-number="71"><span class="co">#&gt;        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4</span></a>
-<a class="sourceLine" id="cb2-72" data-line-number="72"><span class="co">#&gt; PREMON      44      222     1375        3              0        0.13875</span></a>
-<a class="sourceLine" id="cb2-73" data-line-number="73"><span class="co">#&gt; attr(,"class")</span></a>
-<a class="sourceLine" id="cb2-74" data-line-number="74"><span class="co">#&gt; [1] "tt"     "matrix"</span></a>
-<a class="sourceLine" id="cb2-75" data-line-number="75"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb2-76" data-line-number="76"><span class="co">#&gt; [[3]]</span></a>
-<a class="sourceLine" id="cb2-77" data-line-number="77"><span class="co">#&gt;        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1</span></a>
-<a class="sourceLine" id="cb2-78" data-line-number="78"><span class="co">#&gt; SLOBER      14      492     1092       16              0         0.3075</span></a>
-<a class="sourceLine" id="cb2-79" data-line-number="79"><span class="co">#&gt;        N.Hab.2 Gr.Hab.2 Ls.Hab.2 Eq.Hab.2 Rep.Agg.Neut.2 Obs.Quantile.2</span></a>
-<a class="sourceLine" id="cb2-80" data-line-number="80"><span class="co">#&gt; SLOBER      16      473     1125        2              0       0.295625</span></a>
-<a class="sourceLine" id="cb2-81" data-line-number="81"><span class="co">#&gt;        N.Hab.3 Gr.Hab.3 Ls.Hab.3 Eq.Hab.3 Rep.Agg.Neut.3 Obs.Quantile.3</span></a>
-<a class="sourceLine" id="cb2-82" data-line-number="82"><span class="co">#&gt; SLOBER      19     1181      415        4              0       0.738125</span></a>
-<a class="sourceLine" id="cb2-83" data-line-number="83"><span class="co">#&gt;        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4</span></a>
-<a class="sourceLine" id="cb2-84" data-line-number="84"><span class="co">#&gt; SLOBER      17     1151      440        9              0       0.719375</span></a>
-<a class="sourceLine" id="cb2-85" data-line-number="85"><span class="co">#&gt; attr(,"class")</span></a>
-<a class="sourceLine" id="cb2-86" data-line-number="86"><span class="co">#&gt; [1] "tt"     "matrix"</span></a></code></pre></div>
+<a class="sourceLine" id="cb2-51" data-line-number="51"></a>
+<a class="sourceLine" id="cb2-52" data-line-number="52"><span class="kw">tail</span>(out)</a>
+<a class="sourceLine" id="cb2-53" data-line-number="53"><span class="co">#&gt; [[1]]</span></a>
+<a class="sourceLine" id="cb2-54" data-line-number="54"><span class="co">#&gt;        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1</span></a>
+<a class="sourceLine" id="cb2-55" data-line-number="55"><span class="co">#&gt; CASARB      25     1489      109        2              0       0.930625</span></a>
+<a class="sourceLine" id="cb2-56" data-line-number="56"><span class="co">#&gt;        N.Hab.2 Gr.Hab.2 Ls.Hab.2 Eq.Hab.2 Rep.Agg.Neut.2 Obs.Quantile.2</span></a>
+<a class="sourceLine" id="cb2-57" data-line-number="57"><span class="co">#&gt; CASARB      12      168     1431        1              0          0.105</span></a>
+<a class="sourceLine" id="cb2-58" data-line-number="58"><span class="co">#&gt;        N.Hab.3 Gr.Hab.3 Ls.Hab.3 Eq.Hab.3 Rep.Agg.Neut.3 Obs.Quantile.3</span></a>
+<a class="sourceLine" id="cb2-59" data-line-number="59"><span class="co">#&gt; CASARB      14      567     1029        4              0       0.354375</span></a>
+<a class="sourceLine" id="cb2-60" data-line-number="60"><span class="co">#&gt;        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4</span></a>
+<a class="sourceLine" id="cb2-61" data-line-number="61"><span class="co">#&gt; CASARB      15      934      661        5              0        0.58375</span></a>
+<a class="sourceLine" id="cb2-62" data-line-number="62"><span class="co">#&gt; attr(,"class")</span></a>
+<a class="sourceLine" id="cb2-63" data-line-number="63"><span class="co">#&gt; [1] "tt"     "matrix"</span></a>
+<a class="sourceLine" id="cb2-64" data-line-number="64"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-65" data-line-number="65"><span class="co">#&gt; [[2]]</span></a>
+<a class="sourceLine" id="cb2-66" data-line-number="66"><span class="co">#&gt;        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1</span></a>
+<a class="sourceLine" id="cb2-67" data-line-number="67"><span class="co">#&gt; PREMON      59      389     1208        3              0       0.243125</span></a>
+<a class="sourceLine" id="cb2-68" data-line-number="68"><span class="co">#&gt;        N.Hab.2 Gr.Hab.2 Ls.Hab.2 Eq.Hab.2 Rep.Agg.Neut.2 Obs.Quantile.2</span></a>
+<a class="sourceLine" id="cb2-69" data-line-number="69"><span class="co">#&gt; PREMON      75     1562       37        1              1        0.97625</span></a>
+<a class="sourceLine" id="cb2-70" data-line-number="70"><span class="co">#&gt;        N.Hab.3 Gr.Hab.3 Ls.Hab.3 Eq.Hab.3 Rep.Agg.Neut.3 Obs.Quantile.3</span></a>
+<a class="sourceLine" id="cb2-71" data-line-number="71"><span class="co">#&gt; PREMON      56      632      963        5              0          0.395</span></a>
+<a class="sourceLine" id="cb2-72" data-line-number="72"><span class="co">#&gt;        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4</span></a>
+<a class="sourceLine" id="cb2-73" data-line-number="73"><span class="co">#&gt; PREMON      44      222     1375        3              0        0.13875</span></a>
+<a class="sourceLine" id="cb2-74" data-line-number="74"><span class="co">#&gt; attr(,"class")</span></a>
+<a class="sourceLine" id="cb2-75" data-line-number="75"><span class="co">#&gt; [1] "tt"     "matrix"</span></a>
+<a class="sourceLine" id="cb2-76" data-line-number="76"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-77" data-line-number="77"><span class="co">#&gt; [[3]]</span></a>
+<a class="sourceLine" id="cb2-78" data-line-number="78"><span class="co">#&gt;        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1</span></a>
+<a class="sourceLine" id="cb2-79" data-line-number="79"><span class="co">#&gt; SLOBER      14      492     1092       16              0         0.3075</span></a>
+<a class="sourceLine" id="cb2-80" data-line-number="80"><span class="co">#&gt;        N.Hab.2 Gr.Hab.2 Ls.Hab.2 Eq.Hab.2 Rep.Agg.Neut.2 Obs.Quantile.2</span></a>
+<a class="sourceLine" id="cb2-81" data-line-number="81"><span class="co">#&gt; SLOBER      16      473     1125        2              0       0.295625</span></a>
+<a class="sourceLine" id="cb2-82" data-line-number="82"><span class="co">#&gt;        N.Hab.3 Gr.Hab.3 Ls.Hab.3 Eq.Hab.3 Rep.Agg.Neut.3 Obs.Quantile.3</span></a>
+<a class="sourceLine" id="cb2-83" data-line-number="83"><span class="co">#&gt; SLOBER      19     1181      415        4              0       0.738125</span></a>
+<a class="sourceLine" id="cb2-84" data-line-number="84"><span class="co">#&gt;        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4</span></a>
+<a class="sourceLine" id="cb2-85" data-line-number="85"><span class="co">#&gt; SLOBER      17     1151      440        9              0       0.719375</span></a>
+<a class="sourceLine" id="cb2-86" data-line-number="86"><span class="co">#&gt; attr(,"class")</span></a>
+<a class="sourceLine" id="cb2-87" data-line-number="87"><span class="co">#&gt; [1] "tt"     "matrix"</span></a></code></pre></div>
 </div>
 <div id="krige-soil-data" class="section level2">
 <h2 class="hasAnchor">
@@ -386,7 +387,7 @@
 <a class="sourceLine" id="cb13-2" data-line-number="2"><span class="co"># reversed. This helps you to first find soil variables and then feed them to</span></a>
 <a class="sourceLine" id="cb13-3" data-line-number="3"><span class="co"># krig_lst().</span></a>
 <a class="sourceLine" id="cb13-4" data-line-number="4">vars &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">"c"</span>, <span class="st">"p"</span>)</a>
-<a class="sourceLine" id="cb13-5" data-line-number="5">out_lst &lt;-<span class="st"> </span><span class="kw"><a href="../reference/krig.html">krig_lst</a></span>(vars, soil_fake, <span class="dt">quiet =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb13-5" data-line-number="5">out_lst &lt;-<span class="st"> </span><span class="kw"><a href="../reference/krig.html">krig_lst</a></span>(soil_fake, vars, <span class="dt">quiet =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb13-6" data-line-number="6">out_df &lt;-<span class="st"> </span><span class="kw"><a href="../reference/as_df.html">as_df</a></span>(out_lst, <span class="dt">name =</span> <span class="st">"soil_var"</span>, <span class="dt">item =</span> <span class="st">"df"</span>)</a>
 <a class="sourceLine" id="cb13-7" data-line-number="7"><span class="kw">head</span>(out_df)</a>
 <a class="sourceLine" id="cb13-8" data-line-number="8"><span class="co">#&gt;   soil_var   x  y         z</span></a>

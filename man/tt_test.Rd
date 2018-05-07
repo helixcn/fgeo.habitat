@@ -49,12 +49,9 @@ argument \code{allabund20} of \code{tt_test()}, and reformat the output with
 \code{tt_df()}. See Examples to iterate over multiple species.
 }
 \examples{
-# Setup
-
 # For easier data wranging
 library(dplyr)
 
-# Example data
 habitat <- luquillo_habitat
 census <- luquillo_top3_sp
 
@@ -66,46 +63,29 @@ pick <- filter(pick, n > 50)
 
 species <- unique(pick$sp)
 
+# Test any number of species (output a list of matrices)
+tt_lst <- tt_test_lst(census, species, habitat)
+str(tt_lst, give.attr = FALSE)
 
+tt_lst[[1]]
 
-# Test with the wrapper tt_test_lst()
+# Try also: View((as_df(tt_lst)))
+head(as_df(tt_lst))
 
-out <- tt_test_lst(species, census, habitat)
-# Try also: View(out)
-head(out)
-tail(out)
-
-
-
-# Test without the wrapper, i.e. with tt_test()
-
-# Setup
+# Test with original function (outputs a matrix)
 plotdim <- c(320, 500)
 gridsize <- 20
 abundance <- abund_index(pick, plotdim, gridsize)
 
-# One species
-out2 <- tt_test(unique(pick$sp)[[2]],
+tt_mat <- torusonesp.all(unique(pick$sp)[[2]],
   hab.index20 = habitat,
   allabund20 = abundance,
   plotdim = plotdim,
   gridsize = gridsize
 )
-out2
-# Alternative data structure; try also View(tt_df(out2))
-head(tt_df(out2))
+tt_mat
 
-# Multiple species
-out3 <- lapply(
-  species, tt_test,
-  hab.index20 = habitat,
-  allabund20 = abundance,
-  plotdim = plotdim,
-  gridsize = gridsize
-)
-out3
-# Alternative data structure; try also View(tt_df(out3))
-head(tt_df(out3))
+head(tt_df(tt_mat))
 }
 \seealso{
 \code{\link[=tt_df]{tt_df()}}.
