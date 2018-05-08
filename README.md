@@ -37,7 +37,7 @@ library(dplyr)
 #>     intersect, setdiff, setequal, union
 ```
 
-Habitat-species associations.
+### Habitat-species associations.
 
 ``` r
 # Example data
@@ -52,9 +52,8 @@ pick <- filter(pick, n > 50)
 
 species <- unique(pick$sp)
 
-out <- tt_test_lst(census, species, habitat)
-# Try also: View(out)
-head(out)
+tt <- tt_test_lst(census, species, habitat)
+tt
 #> [[1]]
 #>        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1
 #> CASARB      25     1489      109        2              0       0.930625
@@ -90,68 +89,52 @@ head(out)
 #> SLOBER      17     1151      440        9              0       0.719375
 #> attr(,"class")
 #> [1] "tt"     "matrix"
-tail(out)
-#> [[1]]
-#>        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1
-#> CASARB      25     1489      109        2              0       0.930625
-#>        N.Hab.2 Gr.Hab.2 Ls.Hab.2 Eq.Hab.2 Rep.Agg.Neut.2 Obs.Quantile.2
-#> CASARB      12      168     1431        1              0          0.105
-#>        N.Hab.3 Gr.Hab.3 Ls.Hab.3 Eq.Hab.3 Rep.Agg.Neut.3 Obs.Quantile.3
-#> CASARB      14      567     1029        4              0       0.354375
-#>        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4
-#> CASARB      15      934      661        5              0        0.58375
-#> attr(,"class")
-#> [1] "tt"     "matrix"
 #> 
-#> [[2]]
-#>        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1
-#> PREMON      59      389     1208        3              0       0.243125
-#>        N.Hab.2 Gr.Hab.2 Ls.Hab.2 Eq.Hab.2 Rep.Agg.Neut.2 Obs.Quantile.2
-#> PREMON      75     1562       37        1              1        0.97625
-#>        N.Hab.3 Gr.Hab.3 Ls.Hab.3 Eq.Hab.3 Rep.Agg.Neut.3 Obs.Quantile.3
-#> PREMON      56      632      963        5              0          0.395
-#>        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4
-#> PREMON      44      222     1375        3              0        0.13875
 #> attr(,"class")
-#> [1] "tt"     "matrix"
-#> 
-#> [[3]]
-#>        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1
-#> SLOBER      14      492     1092       16              0         0.3075
-#>        N.Hab.2 Gr.Hab.2 Ls.Hab.2 Eq.Hab.2 Rep.Agg.Neut.2 Obs.Quantile.2
-#> SLOBER      16      473     1125        2              0       0.295625
-#>        N.Hab.3 Gr.Hab.3 Ls.Hab.3 Eq.Hab.3 Rep.Agg.Neut.3 Obs.Quantile.3
-#> SLOBER      19     1181      415        4              0       0.738125
-#>        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4
-#> SLOBER      17     1151      440        9              0       0.719375
-#> attr(,"class")
-#> [1] "tt"     "matrix"
+#> [1] "tt_lst" "list"
 ```
 
-Krige soil data.
+``` r
+tt_df <- as_df(tt)
+# Try also: View(tt_df)
+head(tt_df)
+#>           metric     sp       value
+#> 1        N.Hab.1 CASARB   25.000000
+#> 2       Gr.Hab.1 CASARB 1489.000000
+#> 3       Ls.Hab.1 CASARB  109.000000
+#> 4       Eq.Hab.1 CASARB    2.000000
+#> 5 Rep.Agg.Neut.1 CASARB    0.000000
+#> 6 Obs.Quantile.1 CASARB    0.930625
+
+tail(tt_df)
+#>            metric     sp       value
+#> 67        N.Hab.4 SLOBER   17.000000
+#> 68       Gr.Hab.4 SLOBER 1151.000000
+#> 69       Ls.Hab.4 SLOBER  440.000000
+#> 70       Eq.Hab.4 SLOBER    9.000000
+#> 71 Rep.Agg.Neut.4 SLOBER    0.000000
+#> 72 Obs.Quantile.4 SLOBER    0.719375
+```
+
+### Krige soil data.
 
 ``` r
 # Randomized data -- not for research. See ?soil_random.
-soil <- soil_random
-str(soil_random, give.attr = FALSE)
-#> Classes 'tbl_df', 'tbl' and 'data.frame':    100 obs. of  3 variables:
-#>  $ gx  : int  9 9 29 29 29 49 69 69 69 89 ...
-#>  $ gy  : int  110 270 130 290 370 390 90 130 330 190 ...
-#>  $ m3al: num  927 716 809 1115 419 ...
+soil <- soil_fake
 
-out <- krig(soil, var = "m3al", quiet = TRUE)
-summary(out)
+kg <- krig(soil, var = "c", quiet = TRUE)
+summary(kg)
 #> df
-#> 'data.frame':    1250 obs. of  3 variables:
+#> 'data.frame':    1150 obs. of  3 variables:
 #>  $ x: num  10 30 50 70 90 110 130 150 170 190 ...
 #>  $ y: num  10 10 10 10 10 10 10 10 10 10 ...
-#>  $ z: num  950 944 939 933 928 ...
+#>  $ z: num  2.13 2.12 2.1 2.09 2.07 ...
 #> 
 #> df.poly
-#> 'data.frame':    1250 obs. of  3 variables:
+#> 'data.frame':    1150 obs. of  3 variables:
 #>  $ gx: num  10 30 50 70 90 110 130 150 170 190 ...
 #>  $ gy: num  10 10 10 10 10 10 10 10 10 10 ...
-#>  $ z : num  949 943 938 933 927 ...
+#>  $ z : num  2.13 2.12 2.1 2.09 2.07 ...
 #> 
 #> lambda
 #> 'numeric'
@@ -160,18 +143,18 @@ summary(out)
 #> vg
 #> 'variogram'
 #> List of 20
-#>  $ u               : num [1:12] 30.3 42.9 51.1 60.9 86.5 ...
-#>  $ v               : num [1:12] 60522 54239 174166 55226 44193 ...
-#>  $ n               : num [1:12] 21 25 5 81 94 57 155 167 247 288 ...
-#>  $ sd              : num [1:12] 96683 58618 214627 60326 52526 ...
+#>  $ u               : num [1:9] 60.9 86.5 103 122.7 146.1 ...
+#>  $ v               : num [1:9] 0.284 0.422 0.882 0.543 0.211 ...
+#>  $ n               : num [1:9] 7 9 10 10 18 19 36 34 38
+#>  $ sd              : num [1:9] 0.414 0.48 0.633 0.501 0.405 ...
 #>  $ bins.lim        : num [1:31] 1.00e-12 2.00 2.38 2.84 3.38 ...
 #>  $ ind.bin         : logi [1:30] FALSE FALSE FALSE FALSE FALSE FALSE ...
-#>  $ var.mark        : num 55039
-#>  $ beta.ols        : num 2.62e-08
+#>  $ var.mark        : num 0.317
+#>  $ beta.ols        : num 1.36e-09
 #>  $ output.type     : chr "bin"
 #>  $ max.dist        : num 320
 #>  $ estimator.type  : chr "classical"
-#>  $ n.data          : int 100
+#>  $ n.data          : int 30
 #>  $ lambda          : num 1
 #>  $ trend           : chr "cte"
 #>  $ pairs.min       : num 5
@@ -184,14 +167,14 @@ summary(out)
 #> vm
 #> 'variomodel', variofit'
 #> List of 17
-#>  $ nugget               : num 56634
-#>  $ cov.pars             : num [1:2] 87783 2105
-#>  $ cov.model            : chr "gaussian"
+#>  $ nugget               : num 0.352
+#>  $ cov.pars             : num [1:2] 0 160
+#>  $ cov.model            : chr "exponential"
 #>  $ kappa                : num 0.5
-#>  $ value                : num 1.49e+11
+#>  $ value                : num 4.64
 #>  $ trend                : chr "cte"
-#>  $ beta.ols             : num 2.62e-08
-#>  $ practicalRange       : num 3644
+#>  $ beta.ols             : num 1.36e-09
+#>  $ practicalRange       : num 480
 #>  $ max.dist             : num 320
 #>  $ minimisation.function: chr "optim"
 #>  $ weights              : chr "npairs"
@@ -201,6 +184,27 @@ summary(out)
 #>  $ lambda               : num 1
 #>  $ message              : chr "optim convergence code: 0"
 #>  $ call                 : language variofit(vario = vg, ini.cov.pars = c(initialVal, startRange), cov.model = varModels[i],      nugget = initialVal)
+```
+
+``` r
+kg_lst <- krig_lst(soil, var = c("c", "p"), quiet = TRUE)
+head(as_df(kg_lst))
+#>   var   x  y        z
+#> 1   c  10 10 2.134696
+#> 2   c  30 10 2.119651
+#> 3   c  50 10 2.104591
+#> 4   c  70 10 2.089517
+#> 5   c  90 10 2.074427
+#> 6   c 110 10 2.059322
+
+tail(as_df(kg_lst))
+#>      var   x   y        z
+#> 2295   p 890 450 5.835048
+#> 2296   p 910 450 5.826698
+#> 2297   p 930 450 5.819219
+#> 2298   p 950 450 5.812612
+#> 2299   p 970 450 5.806876
+#> 2300   p 990 450 5.802012
 ```
 
 ## Information

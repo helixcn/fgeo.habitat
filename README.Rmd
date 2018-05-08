@@ -37,7 +37,7 @@ library(fgeo.habitat)
 library(dplyr)
 ```
 
-Habitat-species associations.
+### Habitat-species associations.
 
 ```{r}
 # Example data
@@ -52,24 +52,34 @@ pick <- filter(pick, n > 50)
 
 species <- unique(pick$sp)
 
-out <- tt_test_lst(census, species, habitat)
-# Try also: View(out)
-head(out)
-tail(out)
+tt <- tt_test_lst(census, species, habitat)
+tt
 ```
 
-Krige soil data.
+```{r}
+tt_df <- as_df(tt)
+# Try also: View(tt_df)
+head(tt_df)
+
+tail(tt_df)
+```
+
+### Krige soil data.
 
 ```{r}
 # Randomized data -- not for research. See ?soil_random.
-soil <- soil_random
-str(soil_random, give.attr = FALSE)
+soil <- soil_fake
 
-out <- krig(soil, var = "m3al", quiet = TRUE)
-summary(out)
+kg <- krig(soil, var = "c", quiet = TRUE)
+summary(kg)
 ```
 
+```{r}
+kg_lst <- krig_lst(soil, var = c("c", "p"), quiet = TRUE)
+head(as_df(kg_lst))
 
+tail(as_df(kg_lst))
+```
 
 ## Information
 
