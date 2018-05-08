@@ -3,7 +3,7 @@
 * Add a `summary()` method for class "krig".
 * Add generic `to_df()` for classes "tt", "tt_lst" and "krig_lst".
 * New generic to coerce results of `GetKrigedSoil()` to "krig" and "krig_lst".
-* New generic to coerce results of ``torusonesp.all()`` to "tt" and "tt_lst".
+* New generic to coerce results of `torusonesp.all()` to "tt" and "tt_lst".
 * Split vignette fgeo.habitat.Rmd into tt_test.Rmd and krig.Rmd.
 
 # fgeo.habitat 0.0.0.9003

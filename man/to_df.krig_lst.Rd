@@ -27,5 +27,5 @@ Dataframe the output of \code{krig_lst()}.
 \examples{
 vars <- c("c", "p")
 krig_lst <- krig_lst(soil_fake, vars, quiet = TRUE)
-to_df(krig_lst)
+head(to_df(krig_lst))
 }

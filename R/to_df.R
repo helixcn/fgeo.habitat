@@ -33,7 +33,7 @@ to_df.default <- function(.x, ...) {
 #' @examples
 #' vars <- c("c", "p")
 #' krig_lst <- krig_lst(soil_fake, vars, quiet = TRUE)
-#' to_df(krig_lst)
+#' head(to_df(krig_lst))
 to_df.krig_lst <- function(.x, name = "var", item = "df", ...) {
   stopifnot(is.character(name), is.character(item))
   stopifnot(length(item) == 1, item == "df" || item == "df.poly")

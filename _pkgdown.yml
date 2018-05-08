@@ -37,22 +37,41 @@ reference:
   - title: "Krig"
     contents:
       - krig
-  - title: "Krig helpers"
-    contents:
-      - matches("krig_")
-      - summary.krig
-      - matches("as_df.krig")
+      - krig_lst
+      - GetKrigedSoil
+      
+      - krig_auto_params
+      - krig_breaks
+      
+      - as_krig
+      - as_krig_lst
+      
   - title: "Torus translation"
     contents:
-      - starts_with("tt_")
-      - dist_in_torus
-  - title: "Torus translation helpers"
-    contents:
-      - matches("as_df.tt")
+      - tt_test
+      - tt_test_lst
+      - torusonesp.all
+      
+      - as_tt
+      - as_tt_lst
+      
       - abund_index
       - extract_plotdim
       - extract_gridsize
+      
+      - dist_in_torus
+
+  - title: "Generics"
+    contents:
+      - summary.krig
+      
+      - to_df
+      - to_df.krig_lst
+      - to_df.tt
+      - to_df.tt_lst
+
   - title: "Datasets"
     contents:
       - starts_with("luquillo")
-      - starts_with("soil")
+      - soil_fake
+      - soil_random
