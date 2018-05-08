@@ -53,7 +53,7 @@ has been used.
 slow. You may calculate abundance per quadrat independently, feed it to the
 argument \code{abundance} of \code{tt_test()}, and reformat the output with \code{to_df()}.
 You can iterate over multiple species with a for loop or a functional such as
-lapply.
+\code{lapply()}.
 }
 \examples{
 # For easier data wranging

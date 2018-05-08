@@ -13,7 +13,7 @@
 #' slow. You may calculate abundance per quadrat independently, feed it to the
 #' argument `abundance` of `tt_test()`, and reformat the output with `to_df()`.
 #' You can iterate over multiple species with a for loop or a functional such as
-#' lapply.
+#' `lapply()`.
 #'
 #' @param sp,species Character sting giving species names. `tt_test()` and
 #'   `torusonesp.all()`can take only one species; `tt_test_lst()` can take any
@@ -122,6 +122,7 @@ tt_test_lst <- function(census,
   check_tt(census = census, sp = sp, habitat = habitat, plotdim = plotdim, 
     gridsize = gridsize
   )
+  
   abundance <- abund_index(census, plotdim, gridsize)
   out <- lapply(
     X = sp,
