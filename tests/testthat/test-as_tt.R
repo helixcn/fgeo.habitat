@@ -18,7 +18,7 @@ test_that("adds expected class and behaviour", {
   expect_is(tt_mat, "matrix")
   tt <- as_tt(tt_mat)
   expect_true(any(grepl("tt", class(tt))))
-  expect_is(as_df(tt), "data.frame")
+  expect_is(to_df(tt), "data.frame")
 })
 
 test_that("fails with informative message", {
@@ -37,7 +37,7 @@ test_that("adds expected class and behaviour", {
   expect_is(lst, "list")
   tt_lst <- as_tt_lst(lst)
   expect_true(any(grepl("tt_lst", class(tt_lst))))
-  expect_is(as_df(tt_lst), "data.frame")
+  expect_is(to_df(tt_lst), "data.frame")
 })
 
 test_that("fails with informative message", {

@@ -37,8 +37,8 @@ summary(out)
 summary(as_krig(out))
 
 out_lst <- lapply(c("c", "p"), function(var) GetKrigedSoil(soil_fake, var))
-head(as_df(as_krig_lst(out_lst)))
+head(to_df(as_krig_lst(out_lst)))
 }
 \seealso{
-\code{\link[=summary.krig]{summary.krig()}}, \code{\link[=as_df.krig_lst]{as_df.krig_lst()}}.
+\code{\link[=summary.krig]{summary.krig()}}, \code{\link[=to_df.krig_lst]{to_df.krig_lst()}}.
 }

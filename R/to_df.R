@@ -7,16 +7,16 @@
 #' @param .x An fgeo object of supported class.
 #' @param ... Other arguments passed to methods.
 #' 
-#' @seealso [as_df.krig_lst()], [as_df.tt()].
+#' @seealso [to_df.krig_lst()], [to_df.tt()].
 #'
 #' @return A dataframe.
 #' @export
-as_df <- function(.x, ...) {
-  UseMethod("as_df")
+to_df <- function(.x, ...) {
+  UseMethod("to_df")
 }
 
 #' @export
-as_df.default <- function(.x, ...) {
+to_df.default <- function(.x, ...) {
   rlang::abort(paste0("Can't deal with data of class ", class(.x)))
 }
 
@@ -25,7 +25,7 @@ as_df.default <- function(.x, ...) {
 #' @param .x The output of [krig_lst()].
 #' @param name Name for the column to hold soil variable-names.
 #' @param item Character string; either "df" or "df.poly".
-#' @inheritDotParams as_df
+#' @inheritDotParams to_df
 #'
 #' @return A dataframe.
 #' @export
@@ -33,8 +33,8 @@ as_df.default <- function(.x, ...) {
 #' @examples
 #' vars <- c("c", "p")
 #' krig_lst <- krig_lst(soil_fake, vars, quiet = TRUE)
-#' as_df(krig_lst)
-as_df.krig_lst <- function(.x, name = "var", item = "df", ...) {
+#' to_df(krig_lst)
+to_df.krig_lst <- function(.x, name = "var", item = "df", ...) {
   stopifnot(is.character(name), is.character(item))
   stopifnot(length(item) == 1, item == "df" || item == "df.poly")
   
@@ -46,7 +46,7 @@ as_df.krig_lst <- function(.x, name = "var", item = "df", ...) {
 #' Dataframe objects of class tt_*.
 #'
 #' @param .x An object of class tt_*.
-#' @param ... Other arguments passed to [as_df()].
+#' @param ... Other arguments passed to [to_df()].
 #'
 #' @return A dataframe.
 #'
@@ -58,7 +58,7 @@ as_df.krig_lst <- function(.x, name = "var", item = "df", ...) {
 #' hab <- luquillo_habitat
 #' 
 #' tt_lst <- tt_test_lst(cns, spp, hab)
-#' tt_df <- as_df(tt_lst)
+#' tt_df <- to_df(tt_lst)
 #' head(tt_df)
 #' 
 #' tail(tt_df)
@@ -71,17 +71,17 @@ as_df.krig_lst <- function(.x, name = "var", item = "df", ...) {
 #' spp1 <- spp[[1]]
 #' 
 #' tt <- tt_test(spp1, hab, abnd, pdim, gsz)
-#' tt_df <- as_df(tt)
+#' tt_df <- to_df(tt)
 #' head(tt_df)
 #' 
 #' tail(tt_df)
-as_df.tt <- function(.x, ...) {
+to_df.tt <- function(.x, ...) {
   fgeo.base::gather_matrix(t(.x), "metric", "sp", "value")
 }
 
 #' @export
-#' @rdname as_df.tt
-as_df.tt_lst <- function(.x, ...) {
+#' @rdname to_df.tt
+to_df.tt_lst <- function(.x, ...) {
   flip <- t(Reduce(rbind, .x))
   fgeo.base::gather_matrix(flip, "metric", "sp", "value")
 }

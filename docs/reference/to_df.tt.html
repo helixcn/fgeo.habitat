@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Find "best" variogram parameters. — krig_auto_params • fgeo.habitat</title>
+<title>Dataframe objects of class tt_*. — to_df.tt • fgeo.habitat</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -28,11 +28,9 @@
 
 
 
-<meta property="og:title" content="Find "best" variogram parameters. — krig_auto_params" />
+<meta property="og:title" content="Dataframe objects of class tt_*. — to_df.tt" />
 
-<meta property="og:description" content="Find the "best" variogram parameters for a given geodata object. Several
-different models are tested; the one with the lowest least squares error is
-chosen." />
+<meta property="og:description" content="Dataframe objects of class tt_*." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -123,75 +121,86 @@ chosen." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Find "best" variogram parameters.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/forestgeo/fgeo.habitat/blob/master/R/krig.R'><code>R/krig.R</code></a></small>
-    <div class="hidden name"><code>krig_auto_params.Rd</code></div>
+    <h1>Dataframe objects of class tt_*.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/forestgeo/fgeo.habitat/blob/master/R/to_df.R'><code>R/to_df.R</code></a></small>
+    <div class="hidden name"><code>to_df.tt.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Find the "best" variogram parameters for a given geodata object. Several
-different models are tested; the one with the lowest least squares error is
-chosen.</p>
+    <p>Dataframe objects of class tt_*.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>krig_auto_params</span>(<span class='no'>geodata</span>, <span class='kw'>trend</span> <span class='kw'>=</span> <span class='st'>"cte"</span>, <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='krig_breaks.html'>krig_breaks</a></span>(<span class='fl'>2</span>, <span class='fl'>320</span>, <span class='fl'>30</span>))</pre>
+    <pre class="usage"><span class='co'># S3 method for tt</span>
+<span class='fu'><a href='to_df.html'>to_df</a></span>(<span class='no'>.x</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for tt_lst</span>
+<span class='fu'><a href='to_df.html'>to_df</a></span>(<span class='no'>.x</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>geodata</th>
-      <td><p>a list containing element <code>coords</code>
-    as described next. Typically an object of the class
-    <code>"geodata"</code> - a <span class="pkg">geoR</span> data-set.
-    If not provided the arguments
-    <code>coords</code> must be provided instead.</p></td>
+      <th>.x</th>
+      <td><p>An object of class tt_*.</p></td>
     </tr>
     <tr>
-      <th>trend</th>
-      <td><p>specifies the mean part of the model.
-    See documentation of <code>trend.spatial</code> for further details.
-    Defaults to <code>"cte"</code>.</p></td>
-    </tr>
-    <tr>
-      <th>breaks</th>
-      <td><p>a vector with values to define the variogram binning. Only
-    used when <code>option = "bin"</code>.
-    See <code>DETAILS</code> below for more details on how to specify the bins.</p></td>
+      <th>...</th>
+      <td><p>Other arguments passed to <code><a href='to_df.html'>to_df()</a></code>.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A list of the best fitted variogram parameters. The following
-description is adapted from <code><a href='http://www.rdocumentation.org/packages/geoR/topics/variog'>geoR::variog()</a></code> -- which you should see
-for more details:</p><ul>
-<li><p>nugget: value of the nugget parameter. An estimated value if
-<code>fix.nugget = FALSE</code> or a fixed value if <code>fix.nugget = TRUE</code>.</p></li>
-<li><p>sill and range: First and second elements of cov.pars` -- a two elements
-vector with estimated values of the covariance parameters sigma^2 and phi,
-respectively.</p></li>
-<li><p>kappa: Fixed value of the smoothness parameter.</p></li>
-<li><p>model: Name of the correlation function (see<code>cov.model</code>).</p></li>
-<li><p>minVM: The minimum fit error.</p></li>
-<li><p>vg: The variogram.</p></li>
-</ul>
-
-    
-    <h2 class="hasAnchor" id="breaks-default"><a class="anchor" href="#breaks-default"></a>Breaks default</h2>
-
-    
-    <p>The default breaks argument is set to have more points where the exponential
-curve rises the most and fewer at large distances. This means that the curve
-fitting is not overly biased by points beyond the effective maximum range.</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><a href='http://www.rdocumentation.org/packages/geoR/topics/variog'>geoR::variog</a>.</p></div>
+    <p>A dataframe.</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># Class tt_lst</span>
+<span class='no'>cns</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>fgeo.habitat</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/fgeo.habitat/topics/luquillo_top3_sp'>luquillo_top3_sp</a></span>
+<span class='no'>spp</span> <span class='kw'>&lt;-</span> <span class='fu'>unique</span>(<span class='no'>cns</span>$<span class='no'>sp</span>)
+<span class='no'>hab</span> <span class='kw'>&lt;-</span> <span class='no'>luquillo_habitat</span>
+
+<span class='no'>tt_lst</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tt_test.html'>tt_test_lst</a></span>(<span class='no'>cns</span>, <span class='no'>spp</span>, <span class='no'>hab</span>)
+<span class='no'>tt_df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='to_df.html'>to_df</a></span>(<span class='no'>tt_lst</span>)
+<span class='fu'>head</span>(<span class='no'>tt_df</span>)</div><div class='output co'>#&gt;           metric     sp    value
+#&gt; 1        N.Hab.1 CASARB   25.000
+#&gt; 2       Gr.Hab.1 CASARB 1489.000
+#&gt; 3       Ls.Hab.1 CASARB  109.000
+#&gt; 4       Eq.Hab.1 CASARB    2.000
+#&gt; 5 Rep.Agg.Neut.1 CASARB    0.000
+#&gt; 6 Obs.Quantile.1 CASARB    0.931</div><div class='input'>
+<span class='fu'>tail</span>(<span class='no'>tt_df</span>)</div><div class='output co'>#&gt;            metric     sp    value
+#&gt; 67        N.Hab.4 SLOBER   17.000
+#&gt; 68       Gr.Hab.4 SLOBER 1151.000
+#&gt; 69       Ls.Hab.4 SLOBER  440.000
+#&gt; 70       Eq.Hab.4 SLOBER    9.000
+#&gt; 71 Rep.Agg.Neut.4 SLOBER    0.000
+#&gt; 72 Obs.Quantile.4 SLOBER    0.719</div><div class='input'>
+<span class='co'># Class tt</span>
+
+<span class='no'>pdim</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='fl'>320</span>, <span class='fl'>500</span>)
+<span class='no'>gsz</span> <span class='kw'>&lt;-</span> <span class='fl'>20</span>
+<span class='no'>abnd</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='abund_index.html'>abund_index</a></span>(<span class='no'>cns</span>, <span class='no'>pdim</span>, <span class='no'>gsz</span>)
+<span class='no'>spp1</span> <span class='kw'>&lt;-</span> <span class='no'>spp</span><span class='kw'>[[</span><span class='fl'>1</span>]]
+
+<span class='no'>tt</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tt_test.html'>tt_test</a></span>(<span class='no'>spp1</span>, <span class='no'>hab</span>, <span class='no'>abnd</span>, <span class='no'>pdim</span>, <span class='no'>gsz</span>)
+<span class='no'>tt_df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='to_df.html'>to_df</a></span>(<span class='no'>tt</span>)
+<span class='fu'>head</span>(<span class='no'>tt_df</span>)</div><div class='output co'>#&gt;           metric     sp    value
+#&gt; 1        N.Hab.1 CASARB   25.000
+#&gt; 2       Gr.Hab.1 CASARB 1489.000
+#&gt; 3       Ls.Hab.1 CASARB  109.000
+#&gt; 4       Eq.Hab.1 CASARB    2.000
+#&gt; 5 Rep.Agg.Neut.1 CASARB    0.000
+#&gt; 6 Obs.Quantile.1 CASARB    0.931</div><div class='input'>
+<span class='fu'>tail</span>(<span class='no'>tt_df</span>)</div><div class='output co'>#&gt;            metric     sp   value
+#&gt; 19        N.Hab.4 CASARB  15.000
+#&gt; 20       Gr.Hab.4 CASARB 934.000
+#&gt; 21       Ls.Hab.4 CASARB 661.000
+#&gt; 22       Eq.Hab.4 CASARB   5.000
+#&gt; 23 Rep.Agg.Neut.4 CASARB   0.000
+#&gt; 24 Obs.Quantile.4 CASARB   0.584</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -199,15 +208,9 @@ fitting is not overly biased by points beyond the effective maximum range.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-
-      <li><a href="#breaks-default">Breaks default</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-          </ul>
-
-    <h2>Author</h2>
-    
-Graham Zemunik (grah.zem@gmail.com).
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

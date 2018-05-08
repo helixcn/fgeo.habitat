@@ -7,13 +7,10 @@
     <loc>https://forestgeo.github.io/fgeo.habitat//reference/abund_index.html</loc>
   </url>
   <url>
-    <loc>https://forestgeo.github.io/fgeo.habitat//reference/as_df.krig_lst.html</loc>
+    <loc>https://forestgeo.github.io/fgeo.habitat//reference/as_krig.html</loc>
   </url>
   <url>
-    <loc>https://forestgeo.github.io/fgeo.habitat//reference/as_df.html</loc>
-  </url>
-  <url>
-    <loc>https://forestgeo.github.io/fgeo.habitat//reference/as_df_tt.html</loc>
+    <loc>https://forestgeo.github.io/fgeo.habitat//reference/as_tt.html</loc>
   </url>
   <url>
     <loc>https://forestgeo.github.io/fgeo.habitat//reference/dist_in_torus.html</loc>
@@ -40,9 +37,6 @@
     <loc>https://forestgeo.github.io/fgeo.habitat//reference/luquillo_top3_sp.html</loc>
   </url>
   <url>
-    <loc>https://forestgeo.github.io/fgeo.habitat//reference/mat_enframe.html</loc>
-  </url>
-  <url>
     <loc>https://forestgeo.github.io/fgeo.habitat//reference/reexports.html</loc>
   </url>
   <url>
@@ -55,13 +49,19 @@
     <loc>https://forestgeo.github.io/fgeo.habitat//reference/summary.krig.html</loc>
   </url>
   <url>
+    <loc>https://forestgeo.github.io/fgeo.habitat//reference/to_df.krig_lst.html</loc>
+  </url>
+  <url>
+    <loc>https://forestgeo.github.io/fgeo.habitat//reference/to_df.html</loc>
+  </url>
+  <url>
+    <loc>https://forestgeo.github.io/fgeo.habitat//reference/to_df.tt.html</loc>
+  </url>
+  <url>
     <loc>https://forestgeo.github.io/fgeo.habitat//reference/tt_test.html</loc>
   </url>
   <url>
-    <loc>https://forestgeo.github.io/fgeo.habitat//reference/tt_test_lst.html</loc>
-  </url>
-  <url>
-    <loc>https://forestgeo.github.io/fgeo.habitat//articles/fgeo.habitat.html</loc>
+    <loc>https://forestgeo.github.io/fgeo.habitat//articles/krige.html</loc>
   </url>
   <url>
     <loc>https://forestgeo.github.io/fgeo.habitat//articles/tt_test.html</loc>

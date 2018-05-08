@@ -7,7 +7,7 @@
 #' @param .x Output formatted as that of `krig()`.
 #' @param ... Other arguments passed to methods.
 #' 
-#' @seealso [summary.krig()], [as_df.krig_lst()].
+#' @seealso [summary.krig()], [to_df.krig_lst()].
 #'
 #' @return An object of class krig.
 #' @export
@@ -18,7 +18,7 @@
 #' summary(as_krig(out))
 #' 
 #' out_lst <- lapply(c("c", "p"), function(var) GetKrigedSoil(soil_fake, var))
-#' head(as_df(as_krig_lst(out_lst)))
+#' head(to_df(as_krig_lst(out_lst)))
 as_krig <- function(.x, ...) {
   UseMethod("as_krig")
 }

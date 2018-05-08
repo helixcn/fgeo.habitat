@@ -45,12 +45,12 @@ tt_mat <- torusonesp.all(species[[1]],
   gridsize = gridsize
 )
 
-head(as_df(as_tt(tt_mat)))
+head(to_df(as_tt(tt_mat)))
 
 # Iterate over multiple species
 tt_lst <- lapply(species, tt_test, habitat, abundance, plotdim, gridsize)
-head(as_df(as_tt_lst(tt_lst)))
+head(to_df(as_tt_lst(tt_lst)))
 }
 \seealso{
-\code{\link[=as_df]{as_df()}}.
+\code{\link[=to_df]{to_df()}}.
 }

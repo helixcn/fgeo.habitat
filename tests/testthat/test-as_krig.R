@@ -27,7 +27,7 @@ test_that("adds expected class and behaviour", {
   expect_is(out, "list")
   kg <- as_krig_lst(out)
   expect_true(any(grepl("krig_lst", class(kg))))
-  expect_is(as_df(kg), "data.frame")
+  expect_is(to_df(kg), "data.frame")
 })
 
 test_that("fails with informative message", {

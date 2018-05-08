@@ -141,15 +141,24 @@ out <- tt_test_lst(census, all_sp, habitat)
 head(out)
 ```
 
-You can conveniently view the output with `View(out)` or -- to compare species side by side -- you can spread the values across species with `spread()`. 
+You can gather all results into a single dataframe -- which lets you use a wide range of tools (from the tidyverse and other packages) for data manipulation and visualization.
 
 ```{r}
-spread(as_df(out), sp, value)
+tt_df <- to_df(out)
+head(tt_df)
+
+tail(tt_df)
 ```
 
-### With `tt_test()` and one species
+For example, you can conveniently view and filter the combined dataframe with `View()`; you can also compare species side by side by spreading the values across species with `spread()`. 
 
-Before we used `tt_test_lst()`, which is a wrapper around `tt_test()` -- the original function developed by Sabrina Russo, Daniel Zuleta, Matteo Detto, and Kyle Harms. This section shows how you may use `tt_test()` directly to test a single species. The following section shows how to extend the test to any number of species.
+```{r}
+spread(tt_df, sp, value)
+```
+
+### With `torusonesp.all()` and one species
+
+Before we used `tt_test_lst()`, which is a wrapper around `torusonesp.all()` -- the original function developed by Sabrina Russo, Daniel Zuleta, Matteo Detto, and Kyle Harms. This section shows how you may use `torusonesp.all()` directly to test a single species. The following section shows how to extend the test to any number of species.
 
 See `?tt_test()`; you'll find out that this function needs the name of one species, a census, and habitat data. All of these we already have (above). But `tt_test()` also needs plot dimensions, grid size and the abundance (count) of each species per quadrat-index.
 
@@ -185,17 +194,19 @@ Now that we have all we need, we can run `tt_test()`.
 one_species <- unique(pick$sp)[[1]]
 one_species
 
-out_one <- tt_test(one_species, habitat, abundance, plot_dimensions, grid_size)
+out_one <- torusonesp.all(
+  one_species, habitat, abundance, plot_dimensions, grid_size
+)
 out_one
 ```
 
-You may transform the output into a dataframe with `as_df()`.
+You may transform the output into a dataframe with `to_df()`, but first you need to coerce the result to into an object of class tt.
 
 ```{r}
-as_df(out_one)
+to_df(as_tt(out_one))
 ```
 
-### With `tt_test()` and any number of species
+### With `torusonesp.all()` and any number of species
 
 To iterate over multiple species you may write a for loop, or use a functional such as `lapply()` or `map()`.
 
@@ -209,19 +220,11 @@ out_all <- map(
 out_all
 ```
 
-Getting a useful dataframe now takes a bit more work. Again, you may use `as_df()` to create a dataframe for each element of the list, then you can reduce the list to a single dataframe by `r`ow`bind()`ing each dataframe into a single one with `reduce()`.
+Again, you may use `to_df()` to create a combined dataframe but first you need to coerce the result to an object of the right class, which in this case is "tt_lst".
 
 ```{r}
-df_lst <- map(out_all, as_df)
-tt_df <- reduce(df_lst, rbind)
-head(tt_df)
-```
-
-But this data structure is defined as of class "tt_lst", which `as_df()` understands. Therefore you can achieve all of the above by explicitely assigning that class. 
-
-```{r}
-class(out_all) <- "tt_lst"
-tt_df <- as_df(out_all)
+coerced <- as_tt_lst(out_all)
+tt_df <- to_df(coerced)
 head(tt_df)
 ```
 
@@ -233,7 +236,7 @@ spread(tt_df, sp, value)
 
 ## Data science workflows
 
-Above we used `tt_test_lst()`, or a combination of `tt_test()` and `as_df()`, to output a dataframe. Compared to a matrix, a dataframe fits better in common workflows for data manipulation and visualization. The dataframe is the most important data structure used in __dplyr__, __ggplot2__, and all other packages in the __tidyverse__. Here are some examples of what you can do with our dataframe output.
+This final section shows some examples of how you can benefit from storing your results in a dataframe. Compared to a matrix, a dataframe fits better in common workflows for data manipulation and visualization. The dataframe is the most important data structure used in __dplyr__, __ggplot2__, and all other packages in the __tidyverse__. Here are some examples of what you can do with our dataframe output.
 
 The next few code chunks use the pipe operator (`%>%`) to avoid saving intermediary results and to make our code more expressive -- where each line is an imperative statement that communicates our intention (for details see http://style.tidyverse.org/pipes.html).
 

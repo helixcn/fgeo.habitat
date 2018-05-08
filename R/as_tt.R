@@ -3,7 +3,7 @@
 #' @param .x Output structured as that of [tt_test()] or [tt_test_lst()].
 #' @param ... Other arguments passed to methods.
 #'
-#' @seealso [as_df()].
+#' @seealso [to_df()].
 #'
 #' @return An object of class tt or tt_lst.
 #' @export
@@ -33,11 +33,11 @@
 #'   gridsize = gridsize
 #' )
 #' 
-#' head(as_df(as_tt(tt_mat)))
+#' head(to_df(as_tt(tt_mat)))
 #' 
 #' # Iterate over multiple species
 #' tt_lst <- lapply(species, tt_test, habitat, abundance, plotdim, gridsize)
-#' head(as_df(as_tt_lst(tt_lst)))
+#' head(to_df(as_tt_lst(tt_lst)))
 as_tt <- function(.x, ...) {
   UseMethod("as_tt")
 }

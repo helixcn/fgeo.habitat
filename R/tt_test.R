@@ -1,7 +1,9 @@
 #' Torus Translation Test to determine habitat associations of tree species.
 #'
-#' Torus Translation Test (TT test) to determine habitat associations of tree
-#' species.
+#' Use these functions to determine habitat associations. You most likely need
+#' only `tt_test_lst()`. `tt_test()` and `torusonesp.all` produce the same 
+#' result but work only for a single species. `torusonesp.all` is softly
+#' deprecated -- it is included only to preserve the original code.
 #'
 #' You should only try to determine the habitat association for sufficiently
 #' abundant species - in a 50-ha plot, a minimum abundance of 50 trees/species
@@ -9,7 +11,7 @@
 #'
 #' `tt_test_lst()` uses `abundanceperquad()` -- via `abund_index()` -- which is
 #' slow. You may calculate abundance per quadrat independently, feed it to the
-#' argument `abundance` of `tt_test()`, and reformat the output with `as_df()`.
+#' argument `abundance` of `tt_test()`, and reformat the output with `to_df()`.
 #' You can iterate over multiple species with a for loop or a functional such as
 #' lapply.
 #'
@@ -27,7 +29,7 @@
 #'
 #' @author Sabrina Russo, Daniel Zuleta, Matteo Detto, and Kyle Harms.
 #'
-#' @seealso [as_df()].
+#' @seealso [to_df()].
 #'
 #' @return 
 #' * `tt_test_lst()`: A dataframe.
@@ -55,16 +57,18 @@
 #' 
 #' tt_lst[[1]]
 #' 
-#' # Try also: View((as_df(tt_lst)))
-#' head(as_df(tt_lst))
+#' # Try also: View((to_df(tt_lst)))
+#' head(to_df(tt_lst))
 #' 
 #' # Iterate over multiple species
 #' plotdim <- c(320, 500)
 #' gridsize <- 20
 #' abundance <- abund_index(pick, plotdim, gridsize)
-#'
+#' 
 #' tt_lst <- lapply(species, tt_test, habitat, abundance, plotdim, gridsize)
 #' tt_lst
+#' 
+#' 
 #' 
 #' # Test one species with original function (outputs a matrix)
 #' tt_mat <- torusonesp.all(species[[1]],
@@ -74,6 +78,25 @@
 #'   gridsize = gridsize
 #' )
 #' tt_mat
+#' 
+#' # Coerce to class tt so you can use to_df()
+#' coerced <- to_df(as_tt(tt_mat))
+#' head(coerced)
+#' 
+#' # Test multiple species with original function (outputs a matrix)
+#' tt_mat_lst <- lapply(
+#'   species,
+#'   torusonesp.all,
+#'   hab.index20 = habitat,
+#'   allabund20 = abundance,
+#'   plotdim = plotdim,
+#'   gridsize = gridsize
+#' )
+#' tt_mat_lst
+#' 
+#' # Coerce to class tt so you can use to_df()
+#' coerced2 <- as_tt_lst(tt_mat_lst)
+#' head(to_df(coerced2))
 tt_test <- function(sp,
                     habitat,
                     abundance,

@@ -57,7 +57,7 @@ tt
 ```
 
 ```{r}
-tt_df <- as_df(tt)
+tt_df <- to_df(tt)
 # Try also: View(tt_df)
 head(tt_df)
 
@@ -76,9 +76,9 @@ summary(kg)
 
 ```{r}
 kg_lst <- krig_lst(soil, var = c("c", "p"), quiet = TRUE)
-head(as_df(kg_lst))
+head(to_df(kg_lst))
 
-tail(as_df(kg_lst))
+tail(to_df(kg_lst))
 ```
 
 ## Information

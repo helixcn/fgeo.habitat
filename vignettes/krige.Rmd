@@ -1,10 +1,11 @@
 ---
-title: "Get started"
+title: "Krige soil data"
+subtitle: "Based on code developed by Graham Zemunik"
 author: "Mauro Lepore"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Get started}
+  %\VignetteIndexEntry{Krige soil data}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -24,46 +25,20 @@ knitr::opts_chunk$set(
 )
 ```
 
+This article shows how to krig soil data based on code by Graham Zemunik. Here you'll learn about `krig()` and `krig_lst()`, which wrap the original function `GetKrigedSoil()` and provide the same result plus several convenient features. To learn more about these functions see `?krig()`.
+
 ```{r}
 library(fgeo.habitat)
+# For easier data manipulation and visualization
 library(tidyverse)
 ```
 
-## Habitat-species associations
-
-Torus translation test to determine habitat associations of tree species: `tt_test_lst()`, by Sabrina Russo, Daniel Zuleta, Matteo Detto, and Kyle Harms.
-
 ```{r}
-# Example data
-habitat <- luquillo_habitat
-census <- luquillo_top3_sp
-
-# Pick alive trees, of 10 mm or more
-pick <- filter(census, status == "A", dbh >= 10)
-# Pick sufficiently abundant trees
-pick <- add_count(pick, sp)
-pick <- filter(pick, n > 50)
-
-species <- unique(pick$sp)
-
-out <- tt_test_lst(census, species, habitat)
-# Try also: View(out)
-head(out)
-
-tail(out)
-```
-
-## Krige soil data
-
-Krige soil data with `krig()`, by Graham Zemunik.
-
-### Compare parameters
-
-```{r}
-# Example data
 soil <- soil_random
 str(soil)
 ```
+
+### Compare parameters
 
 Krige with automated parameters.
 
@@ -124,7 +99,7 @@ soil <- soil_fake
 soil
 ```
 
-Scale soil data to make their values fall within the same range. In the following section, this will ease visual comparison.
+Scale soil data to make their values fall within the same range. This is not crucial but will ease visual comparison.
 
 ```{r}
 soil_vars <- c("mg", "c", "p")
@@ -133,16 +108,23 @@ soil_fake
 ```
 
 ```{r}
-# Compared to krig(), notice that the order of first and second arguments is
-# reversed. This helps you to first find soil variables and then feed them to
-# krig_lst().
-vars <- c("c", "p")
-out_lst <- krig_lst(soil_fake, vars, quiet = TRUE)
-out_df <- as_df(out_lst, name = "soil_var", item = "df")
+# krig_lst() -- but not krig() -- can take multiple soil variables.
+out_lst <- krig_lst(soil_fake, soil_vars, quiet = TRUE)
+
+# Overview results of one var
+summary(out_lst$c)
+```
+
+Transform krig results to a dataframe for easier manipulation and visualization.
+
+```{r}
+# This short form would also work: to_df(out_lst)
+out_df <- to_df(out_lst, name = "soil_var", item = "df")
 head(out_df)
 
 tail(out_df)
 ```
+
 
 ### Visualize multiple soil variables
 
@@ -154,4 +136,3 @@ ggplot(out_df, aes(x, y, fill = z)) +
   facet_wrap("soil_var") +
   coord_equal()
 ```
-

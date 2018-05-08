@@ -95,7 +95,7 @@ tt
 ```
 
 ``` r
-tt_df <- as_df(tt)
+tt_df <- to_df(tt)
 # Try also: View(tt_df)
 head(tt_df)
 #>           metric     sp       value
@@ -188,7 +188,7 @@ summary(kg)
 
 ``` r
 kg_lst <- krig_lst(soil, var = c("c", "p"), quiet = TRUE)
-head(as_df(kg_lst))
+head(to_df(kg_lst))
 #>   var   x  y        z
 #> 1   c  10 10 2.134696
 #> 2   c  30 10 2.119651
@@ -197,7 +197,7 @@ head(as_df(kg_lst))
 #> 5   c  90 10 2.074427
 #> 6   c 110 10 2.059322
 
-tail(as_df(kg_lst))
+tail(to_df(kg_lst))
 #>      var   x   y        z
 #> 2295   p 890 450 5.835048
 #> 2296   p 910 450 5.826698

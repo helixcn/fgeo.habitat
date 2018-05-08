@@ -65,7 +65,7 @@ data.
 \description{
 Functions to krige soil data. The most common usage patterns are
 \code{summary(krig(ONE-SOIL-VARIABLE, ...))} and
-\code{as_df(krig_lst(ANY-NUMBER-OF-SOIL-VARIABLES, ...))}; but you may use other
+\code{to_df(krig_lst(ANY-NUMBER-OF-SOIL-VARIABLES, ...))}; but you may use other
 options:
 \itemize{
 \item \code{GetKrigedSoil()} is the original function but it is softly deprecated. Its
@@ -78,7 +78,7 @@ guessed \code{plotdim} and the \code{gridsize} provided. It also allows you to s
 messages.
 \item \code{krig_lst} allows iterating over multiple soil \code{var}iables. It lists the
 result of each iteration and adds the subclass "krig_lst" which has a method
-for \code{as_df()} (see examples).
+for \code{to_df()} (see examples).
 }
 }
 \section{Breaks default}{
@@ -92,57 +92,58 @@ fitting is not overly biased by points beyond the effective maximum range.
 # Example data
 soil <- soil_random
 
-# KRIG A SINGLE SOIL VARIABLE
-
 # Krige with automated parameters
-auto <- krig(soil, var = "m3al")
 
-# For a nice view use: View(auto)
-summary(auto)
+# Original funciton
+auto1 <- GetKrigedSoil(soil, var = "m3al")
+summary(auto1)
 
-# Custom params (arbitrary but based on automated kriging params)
+# Wrappers produce the same output but have some convenient feature
+# Suppress messages
+auto2 <- krig(soil, var = "m3al", quiet = TRUE)
+# More complete summary
+summary(auto1)
+
+# Enable more compleate summary with output of GetKrigedSoil()
+summary(as_krig(auto1))
+
+
+
+# Krige with custom params (arbitrary but based on automated kriging params)
+
 params <- list(
   model = "circular", range = 100, nugget = 1000, sill = 46000, kappa = 0.5
 )
 custom <- krig(soil, var = "m3al", params = params, quiet = TRUE)
 summary(custom)
 
-\dontrun{
-# Compare
-if (!requireNamespace("ggplot2", quietly = TRUE)) {
-  stop("Install ggplot2 for this section to work.", call. = FALSE)
-}
-library(ggplot2)
-
-title_auto <- "Automated parameters"
-ggplot(auto$df, aes(x = x, y = y, fill = z)) +
-  geom_tile() + 
-  coord_equal() +
-  labs(title = title_auto)
-title_custom <- "Custom parameters"
-
-ggplot(custom$df, aes(x = x, y = y, fill = z)) +
-  geom_tile() + 
-  coord_equal() +
-  labs(title = title_custom)
-}
 
 
+# Krig multiple soil variables
 
-# KRIG MULTIPLE SOIL VARIABLES
-
+soil <- soil_fake
 vars <- c("c", "p")
-out_lst <- krig_lst(soil_fake, vars, quiet = TRUE)
-out_df <- as_df(out_lst)
-head(out_df)
+out_lst <- krig_lst(soil, vars, quiet = TRUE)
 
-tail(out_df)
+result <- to_df(out_lst, item = "df")
+head(result)
+
+tail(result)
+
+# Same with original function
+
+result2 <- lapply(vars, function(.vars) GetKrigedSoil(soil, .vars))
+
+# To enable convenient features first coerce the result to a krig_lst object
+result2 <- setNames(result2, vars)
+coerced <- as_krig_lst(result2)
+head(to_df(coerced))
 }
 \seealso{
 \code{\link[geoR:variofit]{geoR::variofit()}}, \code{\link[geoR:variog]{geoR::variog()}}, \code{\link[geoR:as.geodata]{geoR::as.geodata()}},
 \code{\link[geoR:ksline]{geoR::ksline()}}, \code{\link[geoR:krige.conv]{geoR::krige.conv()}}, \code{\link[geoR:krige.control]{geoR::krige.control()}}.
 
-\code{\link[=as_df.krig_lst]{as_df.krig_lst()}}, \code{\link[=summary.krig]{summary.krig()}}.
+\code{\link[=to_df.krig_lst]{to_df.krig_lst()}}, \code{\link[=summary.krig]{summary.krig()}}.
 }
 \author{
 Graham Zemunik (grah.zem@gmail.com).
