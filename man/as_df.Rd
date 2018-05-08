@@ -19,9 +19,6 @@ The goal of this (generic) function (with methods for multiple fgeo classes)
 is to produce a dataframe that helps you to work fluently with other general
 purpose tools such as \strong{dplyr} and \strong{ggplot2}.
 }
-\examples{
-# Method for class "krig_lst"
-vars <- c("c", "p")
-krig_lst <- krig_lst(soil_fake, vars, quiet = TRUE)
-as_df(krig_lst)
+\seealso{
+\code{\link[=as_df.krig_lst]{as_df.krig_lst()}}, \code{\link[=as_df.tt]{as_df.tt()}}.
 }

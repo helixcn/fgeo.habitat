@@ -1,6 +1,4 @@
-context("test-as_df.R")
-
-# krig --------------------------------------------------------------------
+context('as_df.krig_lst')
 
 vars <- c("c", "p")
 out_lst <- krig_lst(soil_fake, vars, quiet = TRUE)
@@ -27,17 +25,16 @@ test_that("outputs object of no-longer class krig_lst", {
 
 
 
-# tt ----------------------------------------------------------------------
-
 context("as_df.tt_lst")
 
 cns <- luquillo_top3_sp
-spp1 <- unique(cns$sp)[[1]]
+spp <- unique(cns$sp)[1]
 hab_luq <- luquillo_habitat
-tt_lst <- tt_test_lst(cns, spp1, hab_luq)
+tt_lst <- tt_test_lst(cns, spp, hab_luq)
 
 test_that("outputs the expected dataframe", {
   expect_equal(class(tt_lst), c("tt_lst", "list"))
+  
   out <- expect_silent(as_df(tt_lst))
   expect_equal(class(out), "data.frame")
 })
@@ -51,7 +48,7 @@ gsz <- 20
 
 abnd <- abund_index(cns, pdim, gsz)
 tt <- tt_test(
-  sp = spp1,
+  sp = spp,
   habitat = hab_luq,
   abundance = abnd,
   plotdim = pdim,

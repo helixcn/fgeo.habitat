@@ -537,12 +537,3 @@ check_crucial_names <- function(x, nms) {
   }
 }
 
-new_krig <- function(x) {
-  stopifnot(is.list(x))
-  structure(x, class = c("krig", class(x)))
-}
-
-new_krig_lst <- function(x) {
-  stopifnot(is.list(x))
-  structure(x, class = c("krig_lst", class(x)))
-}

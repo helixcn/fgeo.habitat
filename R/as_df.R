@@ -6,20 +6,19 @@
 #' 
 #' @param .x An fgeo object of supported class.
 #' @param ... Other arguments passed to methods.
+#' 
+#' @seealso [as_df.krig_lst()], [as_df.tt()].
 #'
 #' @return A dataframe.
 #' @export
-#'
-#' @examples
-#' # Method for class "krig_lst"
-#' vars <- c("c", "p")
-#' krig_lst <- krig_lst(soil_fake, vars, quiet = TRUE)
-#' as_df(krig_lst)
 as_df <- function(.x, ...) {
   UseMethod("as_df")
 }
 
-
+#' @export
+as_df.default <- function(.x, ...) {
+  rlang::abort(paste0("Can't deal with data of class ", class(.x)))
+}
 
 #' Dataframe the output of `krig_lst()`.
 #'
@@ -44,14 +43,6 @@ as_df.krig_lst <- function(.x, name = "var", item = "df", ...) {
   out[c(name, setdiff(names(out), name))]
 }
 
-#' @export
-as_df.default <- function(.x, ...) {
-  rlang::abort(paste0("Can't deal with data of class ", class(.x)))
-}
-
-
-
-
 #' Dataframe objects of class tt_*.
 #'
 #' @param .x An object of class tt_*.
@@ -59,6 +50,7 @@ as_df.default <- function(.x, ...) {
 #'
 #' @return A dataframe.
 #'
+#' @export
 #' @examples
 #' # Class tt_lst
 #' cns <- fgeo.habitat::luquillo_top3_sp
@@ -83,17 +75,12 @@ as_df.default <- function(.x, ...) {
 #' head(tt_df)
 #' 
 #' tail(tt_df)
-#' @name as_df_tt
-NULL
-
-#' @rdname  as_df_tt
-#' @export
 as_df.tt <- function(.x, ...) {
   fgeo.base::gather_matrix(t(.x), "metric", "sp", "value")
 }
 
-#' @rdname  as_df_tt
 #' @export
+#' @rdname as_df.tt
 as_df.tt_lst <- function(.x, ...) {
   flip <- t(Reduce(rbind, .x))
   fgeo.base::gather_matrix(flip, "metric", "sp", "value")

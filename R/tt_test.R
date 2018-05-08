@@ -286,13 +286,3 @@ warn_invalid_comparison <- function(spp, torus) {
   rlang::warn(paste0(msg, value))
 }
 
-new_tt <- function(x) {
-  stopifnot(is.matrix(x))
-  structure(x, class = c("tt", class(x)))
-}
-
-new_tt_lst <- function(x) {
-  stopifnot(is.list(x))
-  structure(x, class = c("tt_lst", class(x)))
-}
-
