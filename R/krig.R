@@ -20,24 +20,24 @@
 #' 
 #' @param soil,df.soil The data frame with the points, coords specified in the
 #'   columns `gx`, `gy`.
-#' @param var A character verctor giving the name in the soil dataset of
-#'   the `var`iable(s) containing soil data to krige. `var` must be of lenght 1 
-#'   for `krig()` but can be of lenght greater than one for `krig_lst()`.
+#' @param var A character vector giving the name in the soil dataset of
+#'   the `var`iable(s) containing soil data to krige. `var` must be of length 1 
+#'   for `krig()` but can be of length greater than one for `krig_lst()`.
 #' @param gridsize,gridSize Points are kriged to the center points of a grid of
 #'   this size.
 #' @param params,krigeParams If you want to pass specified kriging parameters;
 #'   see [krig_auto_params()] for each parameter.
 #' @param plotdim,xSize,ySize Numeric vectors giving x and y dimensions of the
 #'   plot: 
-#'   * `plotdim`: Must be of lenght 2 with the format `c(x, y)`.
-#'   * `xSize`, `ySize`: Each must be of lenght 1.
+#'   * `plotdim`: Must be of length 2 with the format `c(x, y)`.
+#'   * `xSize`, `ySize`: Each must be of length 1.
 #' @param breaks Breaks/intervals used to calculate the semivariogram, which
 #'   only happens if `krigeParams = NULL` (default).
 #' @param use_ksline,useKsLine Use the [geoR::ksline()] function? Use `TRUE` to
 #'   calculate a "best" semivariogram based on default parameters via
 #'   `geoR::variogram()`]. Use `FALSE` to base calculation on parameters passed
 #'   to `params`.
-#' @param quiet Use `TRUE` to sppresses messages.
+#' @param quiet Use `TRUE` to suppresses messages.
 #' @param ... Arguments passed to [krig()].
 #' 
 #' @return A list with the following items:

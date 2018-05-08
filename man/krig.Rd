@@ -22,9 +22,9 @@ GetKrigedSoil(df.soil, var, gridSize = 20, krigeParams = NULL,
 \item{soil, df.soil}{The data frame with the points, coords specified in the
 columns \code{gx}, \code{gy}.}
 
-\item{var}{A character verctor giving the name in the soil dataset of
-the \code{var}iable(s) containing soil data to krige. \code{var} must be of lenght 1
-for \code{krig()} but can be of lenght greater than one for \code{krig_lst()}.}
+\item{var}{A character vector giving the name in the soil dataset of
+the \code{var}iable(s) containing soil data to krige. \code{var} must be of length 1
+for \code{krig()} but can be of length greater than one for \code{krig_lst()}.}
 
 \item{params, krigeParams}{If you want to pass specified kriging parameters;
 see \code{\link[=krig_auto_params]{krig_auto_params()}} for each parameter.}
@@ -35,8 +35,8 @@ this size.}
 \item{plotdim, xSize, ySize}{Numeric vectors giving x and y dimensions of the
 plot:
 \itemize{
-\item \code{plotdim}: Must be of lenght 2 with the format \code{c(x, y)}.
-\item \code{xSize}, \code{ySize}: Each must be of lenght 1.
+\item \code{plotdim}: Must be of length 2 with the format \code{c(x, y)}.
+\item \code{xSize}, \code{ySize}: Each must be of length 1.
 }}
 
 \item{breaks}{Breaks/intervals used to calculate the semivariogram, which
@@ -47,7 +47,7 @@ calculate a "best" semivariogram based on default parameters via
 \code{geoR::variogram()}]. Use \code{FALSE} to base calculation on parameters passed
 to \code{params}.}
 
-\item{quiet}{Use \code{TRUE} to sppresses messages.}
+\item{quiet}{Use \code{TRUE} to suppresses messages.}
 
 \item{...}{Arguments passed to \code{\link[=krig]{krig()}}.}
 }
