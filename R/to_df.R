@@ -62,25 +62,6 @@ to_df.krig_lst <- function(.x, name = "var", item = "df", ...) {
 #' head(tt_df)
 #' 
 #' tail(tt_df)
-#' 
-#' # Class tt
-#' 
-#' pdim <- c(320, 500)
-#' gsz <- 20
-#' abnd <- abund_index(cns, pdim, gsz)
-#' spp1 <- spp[[1]]
-#' 
-#' tt <- tt_test(spp1, hab, abnd, pdim, gsz)
-#' tt_df <- to_df(tt)
-#' head(tt_df)
-#' 
-#' tail(tt_df)
-to_df.tt <- function(.x, ...) {
-  fgeo.base::gather_matrix(t(.x), "metric", "sp", "value")
-}
-
-#' @export
-#' @rdname to_df.tt
 to_df.tt_lst <- function(.x, ...) {
   flip <- t(Reduce(rbind, .x))
   fgeo.base::gather_matrix(flip, "metric", "sp", "value")

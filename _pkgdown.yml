@@ -48,12 +48,8 @@ reference:
       
   - title: "Torus translation"
     contents:
-      - tt_test
       - tt_test_lst
       - torusonesp.all
-      
-      - as_tt
-      - as_tt_lst
       
       - abund_index
       - extract_plotdim
@@ -67,7 +63,6 @@ reference:
       
       - to_df
       - to_df.krig_lst
-      - to_df.tt
       - to_df.tt_lst
 
   - title: "Datasets"

@@ -405,20 +405,20 @@ fitting is not overly biased by points beyond the effective maximum range.</p>
 <span class='no'>out_lst</span> <span class='kw'>&lt;-</span> <span class='fu'>krig_lst</span>(<span class='no'>soil</span>, <span class='no'>vars</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='to_df.html'>to_df</a></span>(<span class='no'>out_lst</span>, <span class='kw'>item</span> <span class='kw'>=</span> <span class='st'>"df"</span>)
-<span class='fu'>head</span>(<span class='no'>result</span>)</div><div class='output co'>#&gt;   var   x  y     z
-#&gt; 1   c  10 10 0.837
-#&gt; 2   c  30 10 0.811
-#&gt; 3   c  50 10 0.785
-#&gt; 4   c  70 10 0.759
-#&gt; 5   c  90 10 0.733
-#&gt; 6   c 110 10 0.707</div><div class='input'>
-<span class='fu'>tail</span>(<span class='no'>result</span>)</div><div class='output co'>#&gt;      var   x   y      z
-#&gt; 2295   p 890 450 -0.598
-#&gt; 2296   p 910 450 -0.613
-#&gt; 2297   p 930 450 -0.626
-#&gt; 2298   p 950 450 -0.639
-#&gt; 2299   p 970 450 -0.649
-#&gt; 2300   p 990 450 -0.658</div><div class='input'>
+<span class='fu'>head</span>(<span class='no'>result</span>)</div><div class='output co'>#&gt;   var   x  y    z
+#&gt; 1   c  10 10 2.13
+#&gt; 2   c  30 10 2.12
+#&gt; 3   c  50 10 2.10
+#&gt; 4   c  70 10 2.09
+#&gt; 5   c  90 10 2.07
+#&gt; 6   c 110 10 2.06</div><div class='input'>
+<span class='fu'>tail</span>(<span class='no'>result</span>)</div><div class='output co'>#&gt;      var   x   y    z
+#&gt; 2295   p 890 450 5.84
+#&gt; 2296   p 910 450 5.83
+#&gt; 2297   p 930 450 5.82
+#&gt; 2298   p 950 450 5.81
+#&gt; 2299   p 970 450 5.81
+#&gt; 2300   p 990 450 5.80</div><div class='input'>
 <span class='co'># Same with original function</span>
 
 <span class='no'>result2</span> <span class='kw'>&lt;-</span> <span class='fu'>lapply</span>(<span class='no'>vars</span>, <span class='kw'>function</span>(<span class='no'>.vars</span>) <span class='fu'>GetKrigedSoil</span>(<span class='no'>soil</span>, <span class='no'>.vars</span>))</div><div class='output co'>#&gt; variog: computing omnidirectional variogram
@@ -480,13 +480,13 @@ fitting is not overly biased by points beyond the effective maximum range.</p>
 <span class='co'># To enable convenient features first coerce the result to a krig_lst object</span>
 <span class='no'>result2</span> <span class='kw'>&lt;-</span> <span class='fu'>setNames</span>(<span class='no'>result2</span>, <span class='no'>vars</span>)
 <span class='no'>coerced</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='as_krig.html'>as_krig_lst</a></span>(<span class='no'>result2</span>)
-<span class='fu'>head</span>(<span class='fu'><a href='to_df.html'>to_df</a></span>(<span class='no'>coerced</span>))</div><div class='output co'>#&gt;   var   x  y     z
-#&gt; 1   c  10 10 0.837
-#&gt; 2   c  30 10 0.811
-#&gt; 3   c  50 10 0.785
-#&gt; 4   c  70 10 0.759
-#&gt; 5   c  90 10 0.733
-#&gt; 6   c 110 10 0.707</div></pre>
+<span class='fu'>head</span>(<span class='fu'><a href='to_df.html'>to_df</a></span>(<span class='no'>coerced</span>))</div><div class='output co'>#&gt;   var   x  y    z
+#&gt; 1   c  10 10 2.13
+#&gt; 2   c  30 10 2.12
+#&gt; 3   c  50 10 2.10
+#&gt; 4   c  70 10 2.09
+#&gt; 5   c  90 10 2.07
+#&gt; 6   c 110 10 2.06</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -208,13 +208,13 @@ or krig_lst.</p>
 #&gt; 'data.frame':	1250 obs. of  3 variables:
 #&gt;  $ x: num  10 30 50 70 90 110 130 150 170 190 ...
 #&gt;  $ y: num  10 10 10 10 10 10 10 10 10 10 ...
-#&gt;  $ z: num  0.837 0.811 0.785 0.759 0.733 ...
+#&gt;  $ z: num  2.13 2.12 2.1 2.09 2.07 ...
 #&gt; 
 #&gt; df.poly
 #&gt; 'data.frame':	1250 obs. of  3 variables:
 #&gt;  $ gx: num  10 30 50 70 90 110 130 150 170 190 ...
 #&gt;  $ gy: num  10 10 10 10 10 10 10 10 10 10 ...
-#&gt;  $ z : num  0.837 0.811 0.785 0.759 0.733 ...
+#&gt;  $ z : num  2.13 2.12 2.1 2.09 2.07 ...
 #&gt; 
 #&gt; lambda
 #&gt; 'numeric'
@@ -224,13 +224,13 @@ or krig_lst.</p>
 #&gt; 'variogram'
 #&gt; List of 20
 #&gt;  $ u               : num [1:9] 60.9 86.5 103 122.7 146.1 ...
-#&gt;  $ v               : num [1:9] 0.834 1.239 2.593 1.597 0.621 ...
+#&gt;  $ v               : num [1:9] 0.284 0.422 0.882 0.543 0.211 ...
 #&gt;  $ n               : num [1:9] 7 9 10 10 18 19 36 34 38
-#&gt;  $ sd              : num [1:9] 1.22 1.41 1.86 1.47 1.19 ...
+#&gt;  $ sd              : num [1:9] 0.414 0.48 0.633 0.501 0.405 ...
 #&gt;  $ bins.lim        : num [1:31] 1.00e-12 2.00 2.38 2.84 3.38 ...
 #&gt;  $ ind.bin         : logi [1:30] FALSE FALSE FALSE FALSE FALSE FALSE ...
-#&gt;  $ var.mark        : num 0.931
-#&gt;  $ beta.ols        : num 1.77e-11
+#&gt;  $ var.mark        : num 0.317
+#&gt;  $ beta.ols        : num 1.36e-09
 #&gt;  $ output.type     : chr "bin"
 #&gt;  $ max.dist        : num 320
 #&gt;  $ estimator.type  : chr "classical"
@@ -247,14 +247,14 @@ or krig_lst.</p>
 #&gt; vm
 #&gt; 'variomodel', variofit'
 #&gt; List of 17
-#&gt;  $ nugget               : num 1.04
-#&gt;  $ cov.pars             : num [1:2] 0 161
+#&gt;  $ nugget               : num 0.352
+#&gt;  $ cov.pars             : num [1:2] 0 160
 #&gt;  $ cov.model            : chr "exponential"
 #&gt;  $ kappa                : num 0.5
-#&gt;  $ value                : num 40.1
+#&gt;  $ value                : num 4.64
 #&gt;  $ trend                : chr "cte"
-#&gt;  $ beta.ols             : num 1.77e-11
-#&gt;  $ practicalRange       : num 481
+#&gt;  $ beta.ols             : num 1.36e-09
+#&gt;  $ practicalRange       : num 480
 #&gt;  $ max.dist             : num 320
 #&gt;  $ minimisation.function: chr "optim"
 #&gt;  $ weights              : chr "npairs"
@@ -319,13 +319,13 @@ or krig_lst.</p>
 #&gt; ksline: kriging location:  1101 out of 1250 
 #&gt; ksline: kriging location:  1201 out of 1250 
 #&gt; ksline: kriging location:  1250 out of 1250 
-#&gt; Kriging performed using global neighbourhood </div><div class='input'><span class='fu'>head</span>(<span class='fu'><a href='to_df.html'>to_df</a></span>(<span class='fu'>as_krig_lst</span>(<span class='no'>out_lst</span>)))</div><div class='output co'>#&gt;   var   x  y     z
-#&gt; 1 df1  10 10 0.837
-#&gt; 2 df1  30 10 0.811
-#&gt; 3 df1  50 10 0.785
-#&gt; 4 df1  70 10 0.759
-#&gt; 5 df1  90 10 0.733
-#&gt; 6 df1 110 10 0.707</div></pre>
+#&gt; Kriging performed using global neighbourhood </div><div class='input'><span class='fu'>head</span>(<span class='fu'><a href='to_df.html'>to_df</a></span>(<span class='fu'>as_krig_lst</span>(<span class='no'>out_lst</span>)))</div><div class='output co'>#&gt;   var   x  y    z
+#&gt; 1 df1  10 10 2.13
+#&gt; 2 df1  30 10 2.12
+#&gt; 3 df1  50 10 2.10
+#&gt; 4 df1  70 10 2.09
+#&gt; 5 df1  90 10 2.07
+#&gt; 6 df1 110 10 2.06</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -1,9 +1,9 @@
 #' Torus Translation Test to determine habitat associations of tree species.
 #'
 #' Use these functions to determine habitat associations. You most likely need
-#' only `tt_test_lst()`. `tt_test()` and `torusonesp.all` produce the same 
-#' result but work only for a single species. `torusonesp.all` is softly
-#' deprecated -- it is included only to preserve the original code.
+#' only `tt_test_lst()`. `torusonesp.all` produces the same result but work only
+#' for a single species;  it is softly deprecated -- it is included only to
+#' preserve the original code.
 #'
 #' You should only try to determine the habitat association for sufficiently
 #' abundant species - in a 50-ha plot, a minimum abundance of 50 trees/species
@@ -11,18 +11,17 @@
 #'
 #' `tt_test_lst()` uses `abundanceperquad()` -- via `abund_index()` -- which is
 #' slow. You may calculate abundance per quadrat independently, feed it to the
-#' argument `abundance` of `tt_test()`, and reformat the output with `to_df()`.
-#' You can iterate over multiple species with a for loop or a functional such as
-#' `lapply()`.
+#' argument `abundance` of `torusonesp.all()`, and reformat the output with
+#' `to_df()`. You can iterate over multiple species with a for loop or a
+#' functional such as `lapply()`.
 #'
-#' @param sp,species Character sting giving species names. `tt_test()` and
-#'   `torusonesp.all()`can take only one species; `tt_test_lst()` can take any
-#'   number of species.
+#' @param sp,species Character sting giving species names. `torusonesp.all()`can
+#'   take only one species; `tt_test_lst()` can take any number of species.
 #' @param census A dataframe; a ForestGEO census.
 #' @param habitat,hab.index20 Object giving the habitat designation for each
 #'   plot partition defined by `gridsize`.
 #' @param plotdim Plot dimensions.
-#' @param gridsize Grid size. If using `tt_test()`, ensure it matches the
+#' @param gridsize Grid size. If using `torusonesp.all()`, ensure it matches the
 #'   gridsize on which the habitats are defined and the abundances were
 #'   calculated.
 #' @param abundance,allabund20 The output of `abund_index()`.
@@ -33,7 +32,7 @@
 #'
 #' @return 
 #' * `tt_test_lst()`: A dataframe.
-#' * `tt_test()`: A numeric matrix.
+#' * `torusonesp.all()`: A numeric matrix.
 #'
 #' @export
 #' @examples
@@ -97,23 +96,6 @@
 #' # Coerce to class tt so you can use to_df()
 #' coerced2 <- as_tt_lst(tt_mat_lst)
 #' head(to_df(coerced2))
-tt_test <- function(sp,
-                    habitat,
-                    abundance,
-                    plotdim = extract_plotdim(habitat),
-                    gridsize = extract_gridsize(habitat)) {
-  tt <- torusonesp.all(
-    species = sp,
-    hab.index20 = habitat,
-    allabund20 = abundance,
-    plotdim = plotdim,
-    gridsize = gridsize
-  )
-  new_tt(tt)
-}
-
-#' @rdname tt_test
-#' @export
 tt_test_lst <- function(census,
                         sp,
                         habitat,
@@ -126,16 +108,16 @@ tt_test_lst <- function(census,
   abundance <- abund_index(census, plotdim, gridsize)
   out <- lapply(
     X = sp,
-    FUN = tt_test,
-    abundance = abundance,
-    habitat = habitat,
+    FUN = torusonesp.all,
+    allabund20 = abundance,
+    hab.index20 = habitat,
     plotdim = plotdim,
     gridsize = gridsize
   )
   new_tt_lst(out)
 }
 
-#' @rdname tt_test
+#' @rdname tt_test_lst
 #' @export
 torusonesp.all <- function(species, hab.index20, allabund20, plotdim, gridsize) {
   plotdimqx <- plotdim[1] / gridsize # Calculates no. of x-axis quadrats of plot. (x is the long axis of plot in the case of Pasoh)
@@ -264,8 +246,6 @@ torusonesp.all <- function(species, hab.index20, allabund20, plotdim, gridsize) 
   return(GrLsEq)
 }
 
-
-
 check_tt <- function(census, sp, habitat, plotdim, gridsize) {
   stopifnot(
     is.data.frame(census),
@@ -310,3 +290,7 @@ warn_invalid_comparison <- function(spp, torus) {
   rlang::warn(paste0(msg, value))
 }
 
+new_tt_lst <- function(.x) {
+  stopifnot(is.list(.x))
+  structure(.x, class = c("tt_lst", class(.x)))
+}

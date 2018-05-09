@@ -1,4 +1,4 @@
-context("tt_test.R")
+context("tt_test_lst.R")
 
 # Ensure consistent values accross runs
 set.seed(123)
@@ -22,22 +22,12 @@ pdim_luq <- c(320, 500)
 gsize_luq <- 20
 
 abnd <- abund_index(cns_luq, pdim_luq, gsize_luq)
-out_tt <- tt_test(
-  sp = sp_top1_luq,
-  habitat = hab_luq,
-  abundance = abnd,
-  plotdim = pdim_luq,
-  gridsize = gsize_luq
-)
+out_tt <- torusonesp.all(sp_top1_luq, hab_luq, abnd, pdim_luq, gsize_luq)
 
 test_that("outputs expected values", {
   out_lst <- tt_test_lst(cns_luq, sp_top1_luq, hab_luq)
-  expect_equal(out_lst[[1]], out_tt)
+  expect_equal(unclass(out_lst[[1]]), unclass(out_tt))
 })
-
-
-
-
 
 test_that("species may be factor or character", {
   expect_true(

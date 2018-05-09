@@ -38,26 +38,3 @@ test_that("outputs the expected dataframe", {
   out <- expect_silent(to_df(tt_lst))
   expect_equal(class(out), "data.frame")
 })
-
-
-
-context("to_df.tt")
-
-pdim <- c(320, 500)
-gsz <- 20
-
-abnd <- abund_index(cns, pdim, gsz)
-tt <- tt_test(
-  sp = spp,
-  habitat = hab_luq,
-  abundance = abnd,
-  plotdim = pdim,
-  gridsize = gsz
-)
-
-test_that("outputs the expected dataframe", {
-  expect_equal(class(tt), c("tt", "matrix"))
-  tt_df <- expect_silent(to_df(tt))
-  expect_equal(class(tt_df), "data.frame")
-})
-

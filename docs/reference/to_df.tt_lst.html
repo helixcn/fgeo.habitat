@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Dataframe the output of <code>krig_lst()</code>. — to_df.krig_lst • fgeo.habitat</title>
+<title>Dataframe objects of class tt_*. — to_df.tt_lst • fgeo.habitat</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -28,9 +28,9 @@
 
 
 
-<meta property="og:title" content="Dataframe the output of <code>krig_lst()</code>. — to_df.krig_lst" />
+<meta property="og:title" content="Dataframe objects of class tt_*. — to_df.tt_lst" />
 
-<meta property="og:description" content="Dataframe the output of krig_lst()." />
+<meta property="og:description" content="Dataframe objects of class tt_*." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -121,40 +121,30 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Dataframe the output of <code>krig_lst()</code>.</h1>
+    <h1>Dataframe objects of class tt_*.</h1>
     <small class="dont-index">Source: <a href='https://github.com/forestgeo/fgeo.habitat/blob/master/R/to_df.R'><code>R/to_df.R</code></a></small>
-    <div class="hidden name"><code>to_df.krig_lst.Rd</code></div>
+    <div class="hidden name"><code>to_df.tt_lst.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Dataframe the output of <code><a href='krig.html'>krig_lst()</a></code>.</p>
+    <p>Dataframe objects of class tt_*.</p>
     
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for krig_lst</span>
-<span class='fu'><a href='to_df.html'>to_df</a></span>(<span class='no'>.x</span>, <span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"var"</span>, <span class='kw'>item</span> <span class='kw'>=</span> <span class='st'>"df"</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='co'># S3 method for tt_lst</span>
+<span class='fu'><a href='to_df.html'>to_df</a></span>(<span class='no'>.x</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>.x</th>
-      <td><p>The output of <code><a href='krig.html'>krig_lst()</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>name</th>
-      <td><p>Name for the column to hold soil variable-names.</p></td>
-    </tr>
-    <tr>
-      <th>item</th>
-      <td><p>Character string; either "df" or "df.poly".</p></td>
+      <td><p>An object of class tt_*.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Arguments passed on to <code>to_df</code></p><dl class='dl-horizontal'>
-  <dt>.x</dt><dd><p>An fgeo object of supported class.</p></dd>
-</dl></td>
+      <td><p>Other arguments passed to <code><a href='to_df.html'>to_df()</a></code>.</p></td>
     </tr>
     </table>
     
@@ -164,15 +154,27 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>vars</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"c"</span>, <span class='st'>"p"</span>)
-<span class='no'>krig_lst</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='krig.html'>krig_lst</a></span>(<span class='no'>soil_fake</span>, <span class='no'>vars</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='fu'>head</span>(<span class='fu'><a href='to_df.html'>to_df</a></span>(<span class='no'>krig_lst</span>))</div><div class='output co'>#&gt;   var   x  y    z
-#&gt; 1   c  10 10 2.13
-#&gt; 2   c  30 10 2.12
-#&gt; 3   c  50 10 2.10
-#&gt; 4   c  70 10 2.09
-#&gt; 5   c  90 10 2.07
-#&gt; 6   c 110 10 2.06</div></pre>
+    <pre class="examples"><div class='input'><span class='co'># Class tt_lst</span>
+<span class='no'>cns</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>fgeo.habitat</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/fgeo.habitat/topics/luquillo_top3_sp'>luquillo_top3_sp</a></span>
+<span class='no'>spp</span> <span class='kw'>&lt;-</span> <span class='fu'>unique</span>(<span class='no'>cns</span>$<span class='no'>sp</span>)
+<span class='no'>hab</span> <span class='kw'>&lt;-</span> <span class='no'>luquillo_habitat</span>
+
+<span class='no'>tt_lst</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tt_test_lst.html'>tt_test_lst</a></span>(<span class='no'>cns</span>, <span class='no'>spp</span>, <span class='no'>hab</span>)
+<span class='no'>tt_df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='to_df.html'>to_df</a></span>(<span class='no'>tt_lst</span>)
+<span class='fu'>head</span>(<span class='no'>tt_df</span>)</div><div class='output co'>#&gt;           metric     sp    value
+#&gt; 1        N.Hab.1 CASARB   25.000
+#&gt; 2       Gr.Hab.1 CASARB 1489.000
+#&gt; 3       Ls.Hab.1 CASARB  109.000
+#&gt; 4       Eq.Hab.1 CASARB    2.000
+#&gt; 5 Rep.Agg.Neut.1 CASARB    0.000
+#&gt; 6 Obs.Quantile.1 CASARB    0.931</div><div class='input'>
+<span class='fu'>tail</span>(<span class='no'>tt_df</span>)</div><div class='output co'>#&gt;            metric     sp    value
+#&gt; 67        N.Hab.4 SLOBER   17.000
+#&gt; 68       Gr.Hab.4 SLOBER 1151.000
+#&gt; 69       Ls.Hab.4 SLOBER  440.000
+#&gt; 70       Eq.Hab.4 SLOBER    9.000
+#&gt; 71 Rep.Agg.Neut.4 SLOBER    0.000
+#&gt; 72 Obs.Quantile.4 SLOBER    0.719</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
