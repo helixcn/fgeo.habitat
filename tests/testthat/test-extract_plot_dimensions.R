@@ -30,3 +30,15 @@ test_that("fails with wrong names", {
     "Ensure your data set has these variables"
   )
 })
+
+test_that("warns if habitat data contains NA", {
+  dfm <- dplyr::tibble(
+    x = c(0, 999, NA), 
+    y = c(0, 499, NA), 
+    habitats = c(1, 2, 3)
+  )
+  expect_silent(extract_plotdim(dfm[1:2, ]))
+  expect_warning(extract_plotdim(dfm), "Detected missing values in: x, y")
+  expect_silent(extract_gridsize(dfm[1:2, ]))
+  expect_warning(extract_gridsize(dfm), "Detected missing values in: x, y")
+})

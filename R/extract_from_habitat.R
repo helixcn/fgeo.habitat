@@ -16,6 +16,7 @@ NULL
 #' @rdname extract_from_habitat
 #' @export
 extract_gridsize <- function(habitats) {
+  fgeo.base::warn_na(habitats)
   fgeo.base::check_crucial_names(habitats, c("x", "y"))
 
   grid_x <- difference_among_grid_steps(habitats$x)
