@@ -1,8 +1,6 @@
 #' @keywords internal
 "_PACKAGE"
 
-
-
 # Suppress R CMD check note
 
 #' @import geoR
@@ -19,5 +17,3 @@ NULL
 
 #' @export
 fgeo.base::guess_plotdim
-
-

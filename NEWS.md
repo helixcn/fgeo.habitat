@@ -1,3 +1,11 @@
+# fgeo.habitat 0.0.0.9005
+
+This release removes non essential components to reduce complexity.
+
+* Remove class tt and krig.
+* Remove krig_lst() and tt_test_lst().
+* Remove as_*().
+
 # fgeo.habitat 0.0.0.9004
 
 * Add a `summary()` method for class "krig".

@@ -3,13 +3,13 @@
 \docType{data}
 \name{soil_fake}
 \alias{soil_fake}
-\title{Fake soil data with multiple elements.}
+\title{Fake soil data with multiple soil variables.}
 \format{An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 30 rows and 5 columns.}
 \usage{
 soil_fake
 }
 \description{
-Fake soil data with multiple elements.
+Fake soil data with multiple soil variables.
 }
 \examples{
 str(soil_fake)

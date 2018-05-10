@@ -20,5 +20,5 @@ is to produce a dataframe that helps you to work fluently with other general
 purpose tools such as \strong{dplyr} and \strong{ggplot2}.
 }
 \seealso{
-\code{\link[=to_df.krig_lst]{to_df.krig_lst()}}, \code{\link[=to_df.tt]{to_df.tt()}}.
+\code{\link[=to_df.krig_lst]{to_df.krig_lst()}}, \code{\link[=to_df.tt_lst]{to_df.tt_lst()}}.
 }

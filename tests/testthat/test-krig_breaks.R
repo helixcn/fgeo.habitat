@@ -1,4 +1,4 @@
-context("test-krig_breaks.R")
+context("krig_breaks")
 
 test_that("outputs the expected values", {
   expect_equal(krig_breaks(1, 2, 2), c(1, 2))

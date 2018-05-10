@@ -16,7 +16,8 @@ NULL
 #' @rdname extract_from_habitat
 #' @export
 extract_gridsize <- function(habitats) {
-  check_crucial_names(habitats, c("x", "y"))
+  fgeo.base::warn_na(habitats)
+  fgeo.base::check_crucial_names(habitats, c("x", "y"))
 
   grid_x <- difference_among_grid_steps(habitats$x)
   grid_y <- difference_among_grid_steps(habitats$y)
@@ -27,7 +28,7 @@ extract_gridsize <- function(habitats) {
 #' @rdname extract_from_habitat
 #' @export
 extract_plotdim <- function(habitats) {
-  check_crucial_names(habitats, c("x", "y"))
+  fgeo.base::check_crucial_names(habitats, c("x", "y"))
 
   gridsize <- extract_gridsize(habitats)
   plotdim <- unlist(

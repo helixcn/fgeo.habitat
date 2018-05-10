@@ -55,7 +55,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fgeo.habitat</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.0.9004</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.0.9005</span>
       </span>
     </div>
 
@@ -138,7 +138,7 @@
       <tr>
         <!--  -->
         <td>
-          <p><code><a href="krig.html">krig()</a></code> <code><a href="krig.html">krig_lst()</a></code> <code><a href="krig.html">GetKrigedSoil()</a></code> </p>
+          <p><code><a href="krig.html">krig()</a></code> <code><a href="krig.html">GetKrigedSoil()</a></code> </p>
         </td>
         <td><p>Krige soil data following the methodology of the John et al. (2007).</p></td>
       </tr><tr>
@@ -156,9 +156,9 @@
       </tr><tr>
         <!--  -->
         <td>
-          <p><code><a href="as_krig.html">as_krig()</a></code> <code><a href="as_krig.html">as_krig_lst()</a></code> </p>
+          <p><code><a href="reexports.html">reexports</a></code> </p>
         </td>
-        <td><p>Coerce to class krig and krig_lst</p></td>
+        <td><p>Objects exported from other packages</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -170,15 +170,9 @@
       <tr>
         <!--  -->
         <td>
-          <p><code><a href="tt_test.html">tt_test()</a></code> <code><a href="tt_test.html">tt_test_lst()</a></code> <code><a href="tt_test.html">torusonesp.all()</a></code> </p>
+          <p><code><a href="tt_test.html">tt_test()</a></code> <code><a href="tt_test.html">torusonesp.all()</a></code> </p>
         </td>
         <td><p>Torus Translation Test to determine habitat associations of tree species.</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
-          <p><code><a href="as_tt.html">as_tt()</a></code> <code><a href="as_tt.html">as_tt_lst()</a></code> </p>
-        </td>
-        <td><p>Coerce to class tt and tt_list.</p></td>
       </tr><tr>
         <!--  -->
         <td>
@@ -208,9 +202,15 @@
       <tr>
         <!--  -->
         <td>
-          <p><code><a href="summary.krig.html">summary(<i>&lt;krig&gt;</i>)</a></code> </p>
+          <p><code><a href="summary.krig_lst.html">summary(<i>&lt;krig_lst&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Summary of <code>krig()</code> results.</p></td>
+        <td><p>Summary results of <code>krig()</code>.</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="to_df.krig_lst.html">to_df(<i>&lt;krig_lst&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Dataframe the output of <code>krig()</code>.</p></td>
       </tr><tr>
         <!--  -->
         <td>
@@ -220,15 +220,9 @@
       </tr><tr>
         <!--  -->
         <td>
-          <p><code><a href="to_df.krig_lst.html">to_df(<i>&lt;krig_lst&gt;</i>)</a></code> </p>
+          <p><code><a href="to_df.tt_lst.html">to_df(<i>&lt;tt_lst&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Dataframe the output of <code>krig_lst()</code>.</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
-          <p><code><a href="to_df.tt.html">to_df(<i>&lt;tt&gt;</i>)</a></code> <code><a href="to_df.tt.html">to_df(<i>&lt;tt_lst&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Dataframe objects of class tt_*.</p></td>
+        <td><p>Dataframe the output of tt_test().</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -254,7 +248,7 @@
         <td>
           <p><code><a href="soil_fake.html">soil_fake</a></code> </p>
         </td>
-        <td><p>Fake soil data with multiple elements.</p></td>
+        <td><p>Fake soil data with multiple soil variables.</p></td>
       </tr><tr>
         <!--  -->
         <td>

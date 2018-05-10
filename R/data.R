@@ -1,5 +1,3 @@
-# Luquillo ----------------------------------------------------------------
-
 #' Datasets from __fgeo.data__.
 #'
 #' @seealso `fgeo.data::luquillo_habitat`, `fgeo.data::luquillo_elevation`,
@@ -22,6 +20,8 @@ NULL
 #' @rdname luquillo
 "luquillo_stem6_random"
 
+
+
 #' A tiny dataset from Luquillo of the three most abundant species.
 #'
 #' @examples
@@ -29,8 +29,6 @@ NULL
 "luquillo_top3_sp"
 
 
-
-# Soil --------------------------------------------------------------------
 
 #' Soil data for examples.
 #'
@@ -45,8 +43,8 @@ NULL
 
 
 
-#' Fake soil data with multiple elements.
-#' 
-#' @examples 
+#' Fake soil data with multiple soil variables.
+#'
+#' @examples
 #' str(soil_fake)
 "soil_fake"

@@ -2593,5 +2593,3 @@ Practical Range with cor=0.05 for asymptotic range: 160
 
 variofit: minimised weighted sum of squares = 0
 
-attr(,"class")
-[1] "krig" "list"

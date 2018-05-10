@@ -1,4 +1,4 @@
-context("data.R")
+context("data")
 
 library(fgeo.habitat)
 library(dplyr)
@@ -15,6 +15,6 @@ test_that("expected datasets", {
       "soil_fake"
     )
   )
-  actual <- sort(get_datasets("fgeo.habitat"))
+  actual <- sort(fgeo.base::find_datasets("fgeo.habitat"))
   expect_equal(expect, actual)
 })

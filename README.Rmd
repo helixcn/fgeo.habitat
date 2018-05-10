@@ -52,7 +52,7 @@ pick <- filter(pick, n > 50)
 
 species <- unique(pick$sp)
 
-tt <- tt_test_lst(census, species, habitat)
+tt <- tt_test(census, species, habitat)
 tt
 ```
 
@@ -67,19 +67,16 @@ tail(tt_df)
 ### Krige soil data.
 
 ```{r}
-# Randomized data -- not for research. See ?soil_random.
-soil <- soil_fake
+result <- krig(soil_fake, var = c("c", "p"), quiet = TRUE)
+head(to_df(result))
 
-kg <- krig(soil, var = "c", quiet = TRUE)
-summary(kg)
+tail(to_df(result))
 ```
 
 ```{r}
-kg_lst <- krig_lst(soil, var = c("c", "p"), quiet = TRUE)
-head(to_df(kg_lst))
-
-tail(to_df(kg_lst))
+summary(result)
 ```
+
 
 ## Information
 

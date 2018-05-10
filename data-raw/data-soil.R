@@ -32,6 +32,6 @@ soil_fake <- tibble(
   mg = sample(seq(0.43, 0.74, 0.01), 30, replace = TRUE),
   c = sample(seq(0.45, 2.47, 0.1), 30, replace = TRUE),
   p = sample(seq(5.1, 7.15, 0.1), 30, replace = TRUE),
-) %>% 
+) %>%
   arrange(gx, gy)
 use_data(soil_fake, overwrite = TRUE)

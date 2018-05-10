@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Krige soil data following the methodology of the John et al. (2007). — krig • fgeo.habitat</title>
+<title>Krige soil data following the methodology of the John et al. (2007). — krig_lst • fgeo.habitat</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -28,17 +28,17 @@
 
 
 
-<meta property="og:title" content="Krige soil data following the methodology of the John et al. (2007). — krig" />
+<meta property="og:title" content="Krige soil data following the methodology of the John et al. (2007). — krig_lst" />
 
 <meta property="og:description" content="Functions to krige soil data:
 GetKrigedSoil() is the original function but it is softly deprecated. Its
-result is the same as krig()[[1]] when run for one soil variable.
-krig() some additional convenient features:
+result is the same as krig_lst()[[1]] when run for one soil variable.
+krig_lst() some additional convenient features:
 An interface consistent with other functions of ForestGEO.
 A a method for summary()(see examples).
 Tries to guess plotdim.
 Informs the guessed plotdim and the gridsize provided.
-Allows to  suppress messages.
+Aallows to  suppress messages.
 Iterating over multiple soil variables.
 Has a method for to_df() (see examples).
 
@@ -136,21 +136,21 @@ Has a method for to_df() (see examples).
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Krige soil data following the methodology of the John et al. (2007).</h1>
-    <small class="dont-index">Source: <a href='https://github.com/forestgeo/fgeo.habitat/blob/master/R/krig.R'><code>R/krig.R</code></a></small>
-    <div class="hidden name"><code>krig.Rd</code></div>
+    <small class="dont-index">Source: <a href='https://github.com/forestgeo/fgeo.habitat/blob/master/R/krig_lst.R'><code>R/krig_lst.R</code></a></small>
+    <div class="hidden name"><code>krig_lst.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
     <p>Functions to krige soil data:</p><ul>
 <li><p><code>GetKrigedSoil()</code> is the original function but it is softly deprecated. Its
-result is the same as <code>krig()[[1]]</code> when run for one soil variable.</p></li>
-<li><p><code>krig()</code> some additional convenient features:</p><ul>
+result is the same as <code>krig_lst()[[1]]</code> when run for one soil variable.</p></li>
+<li><p><code>krig_lst()</code> some additional convenient features:</p><ul>
 <li><p>An interface consistent with other functions of ForestGEO.</p></li>
 <li><p>A a method for <code>summary()</code>(see examples).</p></li>
 <li><p>Tries to guess <code>plotdim</code>.</p></li>
 <li><p>Informs the guessed <code>plotdim</code> and the <code>gridsize</code> provided.</p></li>
-<li><p>Allows to  suppress messages.</p></li>
+<li><p>Aallows to  suppress messages.</p></li>
 <li><p>Iterating over multiple soil variables.</p></li>
 <li><p>Has a method for <code><a href='to_df.html'>to_df()</a></code> (see examples).</p></li>
 </ul></li>
@@ -160,7 +160,7 @@ result is the same as <code>krig()[[1]]</code> when run for one soil variable.</
     
     </div>
 
-    <pre class="usage"><span class='fu'>krig</span>(<span class='no'>soil</span>, <span class='no'>var</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>gridsize</span> <span class='kw'>=</span> <span class='fl'>20</span>,
+    <pre class="usage"><span class='fu'>krig_lst</span>(<span class='no'>soil</span>, <span class='no'>var</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>gridsize</span> <span class='kw'>=</span> <span class='fl'>20</span>,
   <span class='kw'>plotdim</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/fgeo.base/topics/guess_plotdim'>guess_plotdim</a></span>(<span class='no'>soil</span>), <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='krig_breaks.html'>krig_breaks</a></span>(<span class='fl'>2</span>, <span class='fl'>320</span>, <span class='fl'>30</span>),
   <span class='kw'>use_ksline</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
@@ -180,7 +180,7 @@ columns <code>gx</code>, <code>gy</code>.</p></td>
       <th>var</th>
       <td><p>A character vector giving the name in the soil dataset of the
 variable(s) containing soil data to krige. <code>var</code> must be of length 1 for
-<code>GetKrigedSoil()</code> but can be of length greater than one for <code>krig()</code>.</p></td>
+<code>GetKrigedSoil()</code> but can be of length greater than one for <code>krig_lst()</code>.</p></td>
     </tr>
     <tr>
       <th>params, krigeParams</th>
@@ -289,7 +289,7 @@ fitting is not overly biased by points beyond the effective maximum range.</p>
 
 <span class='co'># Also using not one but multiple soil variables</span>
 <span class='no'>vars</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"c"</span>, <span class='st'>"p"</span>)
-<span class='no'>custom</span> <span class='kw'>&lt;-</span> <span class='fu'>krig</span>(<span class='no'>soil_fake</span>, <span class='no'>vars</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='no'>params</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>custom</span> <span class='kw'>&lt;-</span> <span class='fu'>krig_lst</span>(<span class='no'>soil_fake</span>, <span class='no'>vars</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='no'>params</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='fu'>summary</span>(<span class='no'>custom</span>)</div><div class='output co'>#&gt; var: c 
 #&gt; df
 #&gt; 'data.frame':	1150 obs. of  3 variables:

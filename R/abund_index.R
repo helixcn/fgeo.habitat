@@ -5,7 +5,7 @@
 #' abundance (not basal area nor agb) and includes all available rows. If you
 #' want to exclude trees of some particular dbh range you need to do it before
 #' using this function.
-#' 
+#'
 #' This function is softly deprecated. Better alternatives to count rows by
 #' groups are available in __dplyr__ and __janitor__(see `group_by()` and
 #' `count()` in __dplyr__ and `tabyl()` in __janitor__). Those alternatives are
@@ -45,11 +45,11 @@ abund_index <- function(censdata, plotdim, gridsize) {
 #' @keywords internal
 #' @noRd
 abundanceperquad2 <- function(censdata,
-  mindbh = 10,
-  plotdim = c(1000, 500),
-  gridsize = 100,
-  type = "abund",
-  dbhunit = "mm") {
+                              mindbh = 10,
+                              plotdim = c(1000, 500),
+                              gridsize = 100,
+                              type = "abund",
+                              dbhunit = "mm") {
   sp <- censdata$sp
   quadno <- gxgy.to.index(censdata$gx, censdata$gy,
     gridsize = gridsize,
@@ -63,7 +63,7 @@ abundanceperquad2 <- function(censdata,
   maxquad <- floor(plotdim[1] / gridsize) * floor(plotdim[2] / gridsize)
   allquad <- 1:maxquad
   if (dim(result[[type]])[1] < length(allspp) | dim(result[[type]])[2] <
-      length(allquad)) {
+    length(allquad)) {
     result[[type]] <- fill.dimension(result[[type]],
       class1 = allspp,
       class2 = allquad, fill = 0
@@ -77,12 +77,12 @@ abundanceperquad2 <- function(censdata,
 #' @keywords internal
 #' @noRd
 abundance2 <- function(censdata,
-  type = "abund",
-  alivecode = c("A"),
-  mindbh = NULL,
-  dbhunit = "mm",
-  split1 = NULL,
-  split2 = NULL) {
+                       type = "abund",
+                       alivecode = c("A"),
+                       mindbh = NULL,
+                       dbhunit = "mm",
+                       split1 = NULL,
+                       split2 = NULL) {
   if (!type == "abund") {
     stop(
       "`type` must be 'abund'; other types are deprecated.\n",
@@ -90,7 +90,7 @@ abundance2 <- function(censdata,
       call. = FALSE
     )
   }
-  
+
   if (is.null(split1)) {
     split1 <- rep("all", dim(censdata)[1])
   }
@@ -131,7 +131,7 @@ basum <- function(dbh, mindbh = 10, dbhunit = "mm") {
 #' @noRd
 gxgy.to.index <- function(gx, gy, gridsize = 20, plotdim = c(1000, 500)) {
   badgxgy <- (gx < 0 | gy < 0 | gx >= plotdim[1] | gy >= plotdim[2] |
-      is.na(gx) | is.na(gy))
+    is.na(gx) | is.na(gy))
   colno <- 1 + floor(gx / gridsize)
   rowno <- 1 + floor(gy / gridsize)
   if (length(badgxgy[badgxgy > 0])) {
@@ -169,7 +169,7 @@ ba <- function(dbh, dbhunit = "mm") {
 #' @noRd
 rowcol.to.index <- function(rowno, colno, gridsize = 20, plotdim = c(1000, 500)) {
   badrc <- (rowno <= 0 | colno <= 0 | rowno > plotdim[2] / gridsize |
-      colno > plotdim[1] / gridsize)
+    colno > plotdim[1] / gridsize)
   rowno <- rowno - 1
   colno <- colno - 1
   maxrow <- floor(plotdim[2] / gridsize)

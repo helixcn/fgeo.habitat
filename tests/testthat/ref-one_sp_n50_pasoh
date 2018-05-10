@@ -24,4 +24,4 @@ Eq.Hab.4         10.0000
 Rep.Agg.Neut.4    1.0000
 Obs.Quantile.4    0.9866
 attr(,"class")
-[1] "tt"     "matrix"
+[1] "tt"     "tt"     "matrix"

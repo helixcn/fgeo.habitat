@@ -52,7 +52,7 @@ pick <- filter(pick, n > 50)
 
 species <- unique(pick$sp)
 
-tt <- tt_test_lst(census, species, habitat)
+tt <- tt_test(census, species, habitat)
 tt
 #> [[1]]
 #>        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1
@@ -63,8 +63,6 @@ tt
 #> CASARB      14      567     1029        4              0       0.354375
 #>        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4
 #> CASARB      15      934      661        5              0        0.58375
-#> attr(,"class")
-#> [1] "tt"     "matrix"
 #> 
 #> [[2]]
 #>        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1
@@ -75,8 +73,6 @@ tt
 #> PREMON      56      632      963        5              0          0.395
 #>        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4
 #> PREMON      44      222     1375        3              0        0.13875
-#> attr(,"class")
-#> [1] "tt"     "matrix"
 #> 
 #> [[3]]
 #>        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1
@@ -87,8 +83,6 @@ tt
 #> SLOBER      19     1181      415        4              0       0.738125
 #>        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4
 #> SLOBER      17     1151      440        9              0       0.719375
-#> attr(,"class")
-#> [1] "tt"     "matrix"
 #> 
 #> attr(,"class")
 #> [1] "tt_lst" "list"
@@ -119,11 +113,29 @@ tail(tt_df)
 ### Krige soil data.
 
 ``` r
-# Randomized data -- not for research. See ?soil_random.
-soil <- soil_fake
+result <- krig(soil_fake, var = c("c", "p"), quiet = TRUE)
+head(to_df(result))
+#>   var   x  y        z
+#> 1   c  10 10 2.134696
+#> 2   c  30 10 2.119651
+#> 3   c  50 10 2.104591
+#> 4   c  70 10 2.089517
+#> 5   c  90 10 2.074427
+#> 6   c 110 10 2.059322
 
-kg <- krig(soil, var = "c", quiet = TRUE)
-summary(kg)
+tail(to_df(result))
+#>      var   x   y        z
+#> 2295   p 890 450 5.835048
+#> 2296   p 910 450 5.826698
+#> 2297   p 930 450 5.819219
+#> 2298   p 950 450 5.812612
+#> 2299   p 970 450 5.806876
+#> 2300   p 990 450 5.802012
+```
+
+``` r
+summary(result)
+#> var: c 
 #> df
 #> 'data.frame':    1150 obs. of  3 variables:
 #>  $ x: num  10 30 50 70 90 110 130 150 170 190 ...
@@ -184,27 +196,68 @@ summary(kg)
 #>  $ lambda               : num 1
 #>  $ message              : chr "optim convergence code: 0"
 #>  $ call                 : language variofit(vario = vg, ini.cov.pars = c(initialVal, startRange), cov.model = varModels[i],      nugget = initialVal)
-```
-
-``` r
-kg_lst <- krig_lst(soil, var = c("c", "p"), quiet = TRUE)
-head(to_df(kg_lst))
-#>   var   x  y        z
-#> 1   c  10 10 2.134696
-#> 2   c  30 10 2.119651
-#> 3   c  50 10 2.104591
-#> 4   c  70 10 2.089517
-#> 5   c  90 10 2.074427
-#> 6   c 110 10 2.059322
-
-tail(to_df(kg_lst))
-#>      var   x   y        z
-#> 2295   p 890 450 5.835048
-#> 2296   p 910 450 5.826698
-#> 2297   p 930 450 5.819219
-#> 2298   p 950 450 5.812612
-#> 2299   p 970 450 5.806876
-#> 2300   p 990 450 5.802012
+#> 
+#> var: p 
+#> df
+#> 'data.frame':    1150 obs. of  3 variables:
+#>  $ x: num  10 30 50 70 90 110 130 150 170 190 ...
+#>  $ y: num  10 10 10 10 10 10 10 10 10 10 ...
+#>  $ z: num  6.37 6.35 6.33 6.31 6.29 ...
+#> 
+#> df.poly
+#> 'data.frame':    1150 obs. of  3 variables:
+#>  $ gx: num  10 30 50 70 90 110 130 150 170 190 ...
+#>  $ gy: num  10 10 10 10 10 10 10 10 10 10 ...
+#>  $ z : num  6.37 6.35 6.33 6.31 6.29 ...
+#> 
+#> lambda
+#> 'numeric'
+#>  num 1
+#> 
+#> vg
+#> 'variogram'
+#> List of 20
+#>  $ u               : num [1:9] 60.9 86.5 103 122.7 146.1 ...
+#>  $ v               : num [1:9] 0.396 0.4 0.11 0.402 0.385 ...
+#>  $ n               : num [1:9] 7 9 10 10 18 19 36 34 38
+#>  $ sd              : num [1:9] 0.592 0.414 0.133 0.409 0.488 ...
+#>  $ bins.lim        : num [1:31] 1.00e-12 2.00 2.38 2.84 3.38 ...
+#>  $ ind.bin         : logi [1:30] FALSE FALSE FALSE FALSE FALSE FALSE ...
+#>  $ var.mark        : num 0.267
+#>  $ beta.ols        : num -3.14e-09
+#>  $ output.type     : chr "bin"
+#>  $ max.dist        : num 320
+#>  $ estimator.type  : chr "classical"
+#>  $ n.data          : int 30
+#>  $ lambda          : num 1
+#>  $ trend           : chr "cte"
+#>  $ pairs.min       : num 5
+#>  $ nugget.tolerance: num 1e-12
+#>  $ direction       : chr "omnidirectional"
+#>  $ tolerance       : chr "none"
+#>  $ uvec            : num [1:30] 1 2.19 2.61 3.11 3.7 ...
+#>  $ call            : language variog(geodata = geodata, breaks = breaks, trend = trend, pairs.min = 5)
+#> 
+#> vm
+#> 'variomodel', variofit'
+#> List of 17
+#>  $ nugget               : num 0.305
+#>  $ cov.pars             : num [1:2] 0 160
+#>  $ cov.model            : chr "exponential"
+#>  $ kappa                : num 0.5
+#>  $ value                : num 0.818
+#>  $ trend                : chr "cte"
+#>  $ beta.ols             : num -3.14e-09
+#>  $ practicalRange       : num 479
+#>  $ max.dist             : num 320
+#>  $ minimisation.function: chr "optim"
+#>  $ weights              : chr "npairs"
+#>  $ method               : chr "WLS"
+#>  $ fix.nugget           : logi FALSE
+#>  $ fix.kappa            : logi TRUE
+#>  $ lambda               : num 1
+#>  $ message              : chr "optim convergence code: 0"
+#>  $ call                 : language variofit(vario = vg, ini.cov.pars = c(initialVal, startRange), cov.model = varModels[i],      nugget = initialVal)
 ```
 
 ## Information

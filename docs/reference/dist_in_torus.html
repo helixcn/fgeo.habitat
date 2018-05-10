@@ -66,7 +66,7 @@ each dimension." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fgeo.habitat</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.0.9004</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.0.9005</span>
       </span>
     </div>
 
@@ -170,8 +170,8 @@ maximum possible values of the coordinates along each dimension.</p></td>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>numeric_vector</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='fu'>runif</span>(<span class='fl'>10</span>, <span class='kw'>min</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>5</span>), <span class='fu'>runif</span>(<span class='fl'>10</span>, <span class='kw'>min</span> <span class='kw'>=</span> <span class='fl'>13</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>15</span>))
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>matrix</span>(<span class='no'>numeric_vector</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+    <pre class="examples"><div class='input'><span class='no'>numeric_vec</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='fu'>runif</span>(<span class='fl'>10</span>, <span class='kw'>min</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>5</span>), <span class='fu'>runif</span>(<span class='fl'>10</span>, <span class='kw'>min</span> <span class='kw'>=</span> <span class='fl'>13</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>15</span>))
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>matrix</span>(<span class='no'>numeric_vec</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>2</span>)
 
 <span class='co'># Euclidean distances</span>
 <span class='no'>d0</span> <span class='kw'>&lt;-</span> <span class='fu'>dist</span>(<span class='no'>x</span>)
@@ -187,10 +187,10 @@ maximum possible values of the coordinates along each dimension.</p></td>
 <span class='fu'>plot</span>(<span class='fu'>c</span>(<span class='no'>d0</span>), <span class='fu'>c</span>(<span class='fu'>as.dist</span>(<span class='no'>d2</span>)), <span class='kw'>main</span> <span class='kw'>=</span> <span class='st'>"finite toroid"</span>)</div><div class='input'><span class='fu'>abline</span>(<span class='fl'>0</span>, <span class='fl'>1</span>)</div><div class='img'><img src='dist_in_torus-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># `upper` and `lower` must be as long as `ncol(x)`</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'>matrix</span>(<span class='fu'>runif</span>(<span class='fl'>9</span>), <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>3</span>)
-<span class='fu'>dist_in_torus</span>(<span class='no'>x</span>, <span class='kw'>lower</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span>), <span class='kw'>upper</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>))</div><div class='output co'>#&gt;       [,1]  [,2]  [,3]
-#&gt; [1,] 0.000 0.653 0.729
-#&gt; [2,] 0.653 0.000 0.296
-#&gt; [3,] 0.729 0.296 0.000</div></pre>
+<span class='fu'>dist_in_torus</span>(<span class='no'>x</span>, <span class='kw'>lower</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span>), <span class='kw'>upper</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>))</div><div class='output co'>#&gt;           [,1]      [,2]      [,3]
+#&gt; [1,] 0.0000000 0.6531038 0.7289610
+#&gt; [2,] 0.6531038 0.0000000 0.2963088
+#&gt; [3,] 0.7289610 0.2963088 0.0000000</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

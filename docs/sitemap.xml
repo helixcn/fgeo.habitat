@@ -7,12 +7,6 @@
     <loc>https://forestgeo.github.io/fgeo.habitat//reference/abund_index.html</loc>
   </url>
   <url>
-    <loc>https://forestgeo.github.io/fgeo.habitat//reference/as_krig.html</loc>
-  </url>
-  <url>
-    <loc>https://forestgeo.github.io/fgeo.habitat//reference/as_tt.html</loc>
-  </url>
-  <url>
     <loc>https://forestgeo.github.io/fgeo.habitat//reference/dist_in_torus.html</loc>
   </url>
   <url>
@@ -46,7 +40,7 @@
     <loc>https://forestgeo.github.io/fgeo.habitat//reference/soil_random.html</loc>
   </url>
   <url>
-    <loc>https://forestgeo.github.io/fgeo.habitat//reference/summary.krig.html</loc>
+    <loc>https://forestgeo.github.io/fgeo.habitat//reference/summary.krig_lst.html</loc>
   </url>
   <url>
     <loc>https://forestgeo.github.io/fgeo.habitat//reference/to_df.krig_lst.html</loc>
@@ -55,7 +49,7 @@
     <loc>https://forestgeo.github.io/fgeo.habitat//reference/to_df.html</loc>
   </url>
   <url>
-    <loc>https://forestgeo.github.io/fgeo.habitat//reference/to_df.tt.html</loc>
+    <loc>https://forestgeo.github.io/fgeo.habitat//reference/to_df.tt_lst.html</loc>
   </url>
   <url>
     <loc>https://forestgeo.github.io/fgeo.habitat//reference/tt_test.html</loc>

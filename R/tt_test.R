@@ -1,76 +1,70 @@
 #' Torus Translation Test to determine habitat associations of tree species.
 #'
 #' Use these functions to determine habitat associations. You most likely need
-#' only `tt_test_lst()`. `tt_test()` and `torusonesp.all` produce the same 
-#' result but work only for a single species. `torusonesp.all` is softly
-#' deprecated -- it is included only to preserve the original code.
+#' only `tt_test()`. `torusonesp.all` produces the same result but work only
+#' for a single species;  it is softly deprecated -- it is included only to
+#' preserve the original code.
 #'
 #' You should only try to determine the habitat association for sufficiently
 #' abundant species - in a 50-ha plot, a minimum abundance of 50 trees/species
 #' has been used.
 #'
-#' `tt_test_lst()` uses `abundanceperquad()` -- via `abund_index()` -- which is
+#' `tt_test()` uses `abundanceperquad()` -- via `abund_index()` -- which is
 #' slow. You may calculate abundance per quadrat independently, feed it to the
-#' argument `abundance` of `tt_test()`, and reformat the output with `to_df()`.
-#' You can iterate over multiple species with a for loop or a functional such as
-#' `lapply()`.
+#' argument `allabund20` of `torusonesp.all()`, and reformat the output with
+#' `to_df()`. You can iterate over multiple species with a for loop or a
+#' functional such as `lapply()`.
 #'
-#' @param sp,species Character sting giving species names. `tt_test()` and
-#'   `torusonesp.all()`can take only one species; `tt_test_lst()` can take any
-#'   number of species.
+#' @param sp,species Character sting giving species names. `torusonesp.all()`can
+#'   take only one species; `tt_test()` can take any number of species.
 #' @param census A dataframe; a ForestGEO census.
 #' @param habitat,hab.index20 Object giving the habitat designation for each
 #'   plot partition defined by `gridsize`.
 #' @param plotdim Plot dimensions.
-#' @param gridsize Grid size. If using `tt_test()`, ensure it matches the
+#' @param gridsize Grid size. If using `torusonesp.all()`, ensure it matches the
 #'   gridsize on which the habitats are defined and the abundances were
 #'   calculated.
-#' @param abundance,allabund20 The output of `abund_index()`.
+#' @param allabund20 The output of `abund_index()`.
 #'
 #' @author Sabrina Russo, Daniel Zuleta, Matteo Detto, and Kyle Harms.
 #'
 #' @seealso [to_df()].
 #'
-#' @return 
-#' * `tt_test_lst()`: A dataframe.
-#' * `tt_test()`: A numeric matrix.
+#' @return
+#' * `tt_test()`: A dataframe.
+#' * `torusonesp.all()`: A numeric matrix.
 #'
 #' @export
 #' @examples
 #' # For easier data wranging
 #' library(dplyr)
-#' 
+#'
 #' habitat <- luquillo_habitat
 #' census <- luquillo_top3_sp
-#' 
+#'
 #' # Pick alive trees, of 10 mm or more
 #' pick <- filter(census, status == "A", dbh >= 10)
 #' # Pick sufficiently abundant trees
 #' pick <- add_count(pick, sp)
 #' pick <- filter(pick, n > 50)
-#' 
+#'
 #' species <- unique(pick$sp)
-#' 
+#'
 #' # Test any number of species (output a list of matrices)
-#' tt_lst <- tt_test_lst(census, species, habitat)
+#' tt_lst <- tt_test(census, species, habitat)
 #' str(tt_lst, give.attr = FALSE)
-#' 
+#'
 #' tt_lst[[1]]
-#' 
+#'
 #' # Try also: View((to_df(tt_lst)))
 #' head(to_df(tt_lst))
-#' 
-#' # Iterate over multiple species
+#'
+#' # Test one species with original function (outputs a matrix)
+#'
 #' plotdim <- c(320, 500)
 #' gridsize <- 20
 #' abundance <- abund_index(pick, plotdim, gridsize)
-#' 
-#' tt_lst <- lapply(species, tt_test, habitat, abundance, plotdim, gridsize)
-#' tt_lst
-#' 
-#' 
-#' 
-#' # Test one species with original function (outputs a matrix)
+#'
 #' tt_mat <- torusonesp.all(species[[1]],
 #'   hab.index20 = habitat,
 #'   allabund20 = abundance,
@@ -78,11 +72,7 @@
 #'   gridsize = gridsize
 #' )
 #' tt_mat
-#' 
-#' # Coerce to class tt so you can use to_df()
-#' coerced <- to_df(as_tt(tt_mat))
-#' head(coerced)
-#' 
+#'
 #' # Test multiple species with original function (outputs a matrix)
 #' tt_mat_lst <- lapply(
 #'   species,
@@ -93,42 +83,22 @@
 #'   gridsize = gridsize
 #' )
 #' tt_mat_lst
-#' 
-#' # Coerce to class tt so you can use to_df()
-#' coerced2 <- as_tt_lst(tt_mat_lst)
-#' head(to_df(coerced2))
-tt_test <- function(sp,
+tt_test <- function(census,
+                    sp,
                     habitat,
-                    abundance,
                     plotdim = extract_plotdim(habitat),
                     gridsize = extract_gridsize(habitat)) {
-  tt <- torusonesp.all(
-    species = sp,
-    hab.index20 = habitat,
-    allabund20 = abundance,
-    plotdim = plotdim,
+  check_tt(
+    census = census, sp = sp, habitat = habitat, plotdim = plotdim,
     gridsize = gridsize
   )
-  new_tt(tt)
-}
 
-#' @rdname tt_test
-#' @export
-tt_test_lst <- function(census,
-                        sp,
-                        habitat,
-                        plotdim = extract_plotdim(habitat),
-                        gridsize = extract_gridsize(habitat)) {
-  check_tt(census = census, sp = sp, habitat = habitat, plotdim = plotdim, 
-    gridsize = gridsize
-  )
-  
   abundance <- abund_index(census, plotdim, gridsize)
   out <- lapply(
     X = sp,
-    FUN = tt_test,
-    abundance = abundance,
-    habitat = habitat,
+    FUN = torusonesp.all,
+    allabund20 = abundance,
+    hab.index20 = habitat,
     plotdim = plotdim,
     gridsize = gridsize
   )
@@ -264,23 +234,21 @@ torusonesp.all <- function(species, hab.index20, allabund20, plotdim, gridsize) 
   return(GrLsEq)
 }
 
-
-
 check_tt <- function(census, sp, habitat, plotdim, gridsize) {
   stopifnot(
     is.data.frame(census),
     is.data.frame(habitat),
-    is.numeric(plotdim), 
+    is.numeric(plotdim),
     length(plotdim) == 2,
-    is.numeric(gridsize), 
+    is.numeric(gridsize),
     length(gridsize) == 1
   )
-  
-  common_gridsize <- gridsize  %in% c(5, 10, 20)
+
+  common_gridsize <- gridsize %in% c(5, 10, 20)
   if (!common_gridsize) {
     rlang::warn(paste("Uncommon `gridsize`:", gridsize, "\nIs this expected?"))
   }
-  
+
   if (!any(is.character(sp) || is.factor(sp))) {
     msg <- paste0(
       "`sp` must be of class character or factor but is of class ",
@@ -288,7 +256,7 @@ check_tt <- function(census, sp, habitat, plotdim, gridsize) {
     )
     rlang::abort(msg)
   }
-  
+
   valid_sp <- sp %in% unique(census$sp)
   if (!all(valid_sp)) {
     msg <- paste0(
@@ -310,3 +278,7 @@ warn_invalid_comparison <- function(spp, torus) {
   rlang::warn(paste0(msg, value))
 }
 
+new_tt_lst <- function(.x) {
+  stopifnot(is.list(.x))
+  structure(.x, class = c("tt_lst", class(.x)))
+}
