@@ -8,7 +8,7 @@
 #'     * A a method for `summary()`(see examples).
 #'     * Tries to guess `plotdim`.
 #'     * Informs the guessed `plotdim` and the `gridsize` provided.
-#'     * Aallows to  suppress messages.
+#'     * Allows to  suppress messages.
 #'     * Iterating over multiple soil variables.
 #'     * Has a method for `to_df()` (see examples).
 #'

@@ -66,7 +66,7 @@ result is the same as \code{krig()[[1]]} when run for one soil variable.
 \item A a method for \code{summary()}(see examples).
 \item Tries to guess \code{plotdim}.
 \item Informs the guessed \code{plotdim} and the \code{gridsize} provided.
-\item Aallows to  suppress messages.
+\item Allows to  suppress messages.
 \item Iterating over multiple soil variables.
 \item Has a method for \code{to_df()} (see examples).
 }
