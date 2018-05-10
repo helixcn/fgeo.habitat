@@ -1,3 +1,8 @@
+# fgeo.habitat 0.0.0.9005
+
+* Remove class tt and krig.
+* Remove krig() and tt_test.
+
 # fgeo.habitat 0.0.0.9004
 
 * Add a `summary()` method for class "krig".
