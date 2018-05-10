@@ -52,7 +52,6 @@ to_df.krig_lst <- function(.x, name = "var", item = "df", ...) {
 #'
 #' @export
 #' @examples
-#' # Class tt_lst
 #' cns <- fgeo.habitat::luquillo_top3_sp
 #' spp <- unique(cns$sp)
 #' hab <- luquillo_habitat
