@@ -1,4 +1,4 @@
-context("data.R")
+context("data")
 
 library(fgeo.habitat)
 library(dplyr)

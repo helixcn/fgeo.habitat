@@ -20,6 +20,8 @@ NULL
 #' @rdname luquillo
 "luquillo_stem6_random"
 
+
+
 #' A tiny dataset from Luquillo of the three most abundant species.
 #'
 #' @examples
@@ -42,7 +44,7 @@ NULL
 
 
 #' Fake soil data with multiple soil variables.
-#' 
-#' @examples 
+#'
+#' @examples
 #' str(soil_fake)
 "soil_fake"

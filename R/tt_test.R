@@ -30,7 +30,7 @@
 #'
 #' @seealso [to_df()].
 #'
-#' @return 
+#' @return
 #' * `tt_test()`: A dataframe.
 #' * `torusonesp.all()`: A numeric matrix.
 #'
@@ -38,33 +38,33 @@
 #' @examples
 #' # For easier data wranging
 #' library(dplyr)
-#' 
+#'
 #' habitat <- luquillo_habitat
 #' census <- luquillo_top3_sp
-#' 
+#'
 #' # Pick alive trees, of 10 mm or more
 #' pick <- filter(census, status == "A", dbh >= 10)
 #' # Pick sufficiently abundant trees
 #' pick <- add_count(pick, sp)
 #' pick <- filter(pick, n > 50)
-#' 
+#'
 #' species <- unique(pick$sp)
-#' 
+#'
 #' # Test any number of species (output a list of matrices)
 #' tt_lst <- tt_test(census, species, habitat)
 #' str(tt_lst, give.attr = FALSE)
-#' 
+#'
 #' tt_lst[[1]]
-#' 
+#'
 #' # Try also: View((to_df(tt_lst)))
 #' head(to_df(tt_lst))
-#' 
+#'
 #' # Test one species with original function (outputs a matrix)
-#' 
+#'
 #' plotdim <- c(320, 500)
 #' gridsize <- 20
 #' abundance <- abund_index(pick, plotdim, gridsize)
-#' 
+#'
 #' tt_mat <- torusonesp.all(species[[1]],
 #'   hab.index20 = habitat,
 #'   allabund20 = abundance,
@@ -72,7 +72,7 @@
 #'   gridsize = gridsize
 #' )
 #' tt_mat
-#' 
+#'
 #' # Test multiple species with original function (outputs a matrix)
 #' tt_mat_lst <- lapply(
 #'   species,
@@ -84,14 +84,15 @@
 #' )
 #' tt_mat_lst
 tt_test <- function(census,
-                        sp,
-                        habitat,
-                        plotdim = extract_plotdim(habitat),
-                        gridsize = extract_gridsize(habitat)) {
-  check_tt(census = census, sp = sp, habitat = habitat, plotdim = plotdim, 
+                    sp,
+                    habitat,
+                    plotdim = extract_plotdim(habitat),
+                    gridsize = extract_gridsize(habitat)) {
+  check_tt(
+    census = census, sp = sp, habitat = habitat, plotdim = plotdim,
     gridsize = gridsize
   )
-  
+
   abundance <- abund_index(census, plotdim, gridsize)
   out <- lapply(
     X = sp,
@@ -237,17 +238,17 @@ check_tt <- function(census, sp, habitat, plotdim, gridsize) {
   stopifnot(
     is.data.frame(census),
     is.data.frame(habitat),
-    is.numeric(plotdim), 
+    is.numeric(plotdim),
     length(plotdim) == 2,
-    is.numeric(gridsize), 
+    is.numeric(gridsize),
     length(gridsize) == 1
   )
-  
-  common_gridsize <- gridsize  %in% c(5, 10, 20)
+
+  common_gridsize <- gridsize %in% c(5, 10, 20)
   if (!common_gridsize) {
     rlang::warn(paste("Uncommon `gridsize`:", gridsize, "\nIs this expected?"))
   }
-  
+
   if (!any(is.character(sp) || is.factor(sp))) {
     msg <- paste0(
       "`sp` must be of class character or factor but is of class ",
@@ -255,7 +256,7 @@ check_tt <- function(census, sp, habitat, plotdim, gridsize) {
     )
     rlang::abort(msg)
   }
-  
+
   valid_sp <- sp %in% unique(census$sp)
   if (!all(valid_sp)) {
     msg <- paste0(

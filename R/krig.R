@@ -11,9 +11,9 @@
 #'     * Aallows to  suppress messages.
 #'     * Iterating over multiple soil variables.
 #'     * Has a method for `to_df()` (see examples).
-#' 
+#'
 #' @inheritSection krig_auto_params Breaks default
-#' 
+#'
 #' @param soil,df.soil The data frame with the points, coords specified in the
 #'   columns `gx`, `gy`.
 #' @param var A character vector giving the name in the soil dataset of the
@@ -24,7 +24,7 @@
 #' @param params,krigeParams If you want to pass specified kriging parameters;
 #'   see [krig_auto_params()] for each parameter.
 #' @param plotdim,xSize,ySize Numeric vectors giving x and y dimensions of the
-#'   plot: 
+#'   plot:
 #'   * `plotdim`: Must be of length 2 with the format `c(x, y)`.
 #'   * `xSize`, `ySize`: Each must be of length 1.
 #' @param breaks Breaks/intervals used to calculate the semivariogram, which
@@ -34,7 +34,7 @@
 #'   `geoR::variogram()`]. Use `FALSE` to base calculation on parameters passed
 #'   to `params`.
 #' @param quiet Use `TRUE` to suppresses messages.
-#' 
+#'
 #' @return A list with the following items:
 #'   * `df`: Data frame of kriged values (column z) at each grid point (x, y).
 #'   * `df.poly`: Data frame of the polynomial surface fitted to the raw data.
@@ -49,41 +49,42 @@
 #'
 #' @export
 #' @seealso [to_df.krig_lst()], [summary.krig_lst()].
-#' 
+#'
 #' @examples
 #' # Original funciton
 #' # Using automated parameters
 #' auto <- GetKrigedSoil(soil_fake, var = "c")
 #' summary(auto)
-#' 
+#'
 #' # Wrapper produces the same output and add convenient features
-#' 
+#'
 #' # Now using custom parameters (arbitrary but based on automated kriging params)
 #' params <- list(
 #'   model = "circular", range = 100, nugget = 1000, sill = 46000, kappa = 0.5
 #' )
-#' 
+#'
 #' # Also using not one but multiple soil variables
 #' vars <- c("c", "p")
 #' custom <- krig(soil_fake, vars, params = params, quiet = TRUE)
 #' summary(custom)
-#' 
+#'
 #' result <- to_df(custom, item = "df")
 #' head(result)
-#' 
+#'
 #' tail(result)
 krig <- function(soil,
-                     var,
-                     params = NULL,
-                     gridsize = 20,
-                     plotdim = guess_plotdim(soil),
-                     breaks = krig_breaks(2, 320, 30),
-                     use_ksline = TRUE,
-                     quiet = FALSE) {
+                 var,
+                 params = NULL,
+                 gridsize = 20,
+                 plotdim = guess_plotdim(soil),
+                 breaks = krig_breaks(2, 320, 30),
+                 use_ksline = TRUE,
+                 quiet = FALSE) {
   force(var)
   out <- lapply(
-    var, 
-    krig_one, soil = soil, params = params, gridsize = gridsize,
+    var,
+    krig_one,
+    soil = soil, params = params, gridsize = gridsize,
     plotdim = plotdim, breaks = breaks, use_ksline = use_ksline, quiet = quiet
   )
   out <- stats::setNames(out, var)
@@ -199,25 +200,25 @@ GetKrigedSoil <- function(df.soil,
   )
 }
 
-#' Find "best" variogram parameters. 
-#' 
+#' Find "best" variogram parameters.
+#'
 #' Find the "best" variogram parameters for a given geodata object. Several
 #' different models are tested; the one with the lowest least squares error is
 #' chosen.
-#' 
+#'
 #' @section Breaks default:
 #' The default breaks argument is set to have more points where the exponential
 #' curve rises the most and fewer at large distances. This means that the curve
 #' fitting is not overly biased by points beyond the effective maximum range.
-#' 
+#'
 #' @inheritParams geoR::variog
-#' 
+#'
 #' @seealso [geoR::variog].
-#' 
+#'
 #' @return A list of the best fitted variogram parameters. The following
 #'   description is adapted from [geoR::variog()] -- which you should see
 #'   for more details:
-#'   * nugget: value of the nugget parameter. An estimated value if 
+#'   * nugget: value of the nugget parameter. An estimated value if
 #'   `fix.nugget = FALSE` or a fixed value if `fix.nugget = TRUE`.
 #'   * sill and range: First and second elements of cov.pars` -- a two elements
 #'   vector with estimated values of the covariance parameters sigma^2 and phi,
@@ -228,7 +229,7 @@ GetKrigedSoil <- function(df.soil,
 #'   * vg: The variogram.
 #'
 #' @author Graham Zemunik (grah.zem@@gmail.com).
-#' 
+#'
 #' @export
 krig_auto_params <- function(geodata,
                              trend = "cte",
@@ -403,16 +404,16 @@ InvBoxCoxTransformSoil <- function(df, lambda, delta) {
 }
 
 krig_one <- function(soil,
-                 var,
-                 params = NULL,
-                 gridsize = 20,
-                 plotdim = guess_plotdim(soil),
-                 breaks = krig_breaks(2, 320, 30),
-                 use_ksline = TRUE,
-                 quiet = FALSE) {
+                     var,
+                     params = NULL,
+                     gridsize = 20,
+                     plotdim = guess_plotdim(soil),
+                     breaks = krig_breaks(2, 320, 30),
+                     use_ksline = TRUE,
+                     quiet = FALSE) {
   krig_msg <- function() {
     message("\nvar: ", var, "Using: gridsize = ", gridsize)
-    
+
     krig_with_message <- enable_quiet(GetKrigedSoil)
     krig <- krig_with_message(
       df.soil = soil,
@@ -424,12 +425,12 @@ krig_one <- function(soil,
       breaks = breaks,
       useKsLine = use_ksline
     )
-    
+
     message(krig$output)
     krig$result
   }
-  
-  if (quiet) suppressMessages(krig_msg()) else krig_msg() 
+
+  if (quiet) suppressMessages(krig_msg()) else krig_msg()
 }
 
 enable_quiet <- function(krg) {
@@ -440,7 +441,7 @@ enable_quiet <- function(krg) {
     })
     output <- strsplit(paste0(output, collapse = "\n"), "\n\\$df\n")[[1]][1]
     list(
-      output = output, 
+      output = output,
       result = result
     )
   }

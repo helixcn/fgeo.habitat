@@ -22,8 +22,8 @@
 #' @export
 #'
 #' @examples
-#' numeric_vector <- c(runif(10, min = 3, max = 5), runif(10, min = 13, max = 15))
-#' x <- matrix(numeric_vector, ncol = 2)
+#' numeric_vec <- c(runif(10, min = 3, max = 5), runif(10, min = 13, max = 15))
+#' x <- matrix(numeric_vec, ncol = 2)
 #'
 #' # Euclidean distances
 #' d0 <- dist(x)

@@ -8,7 +8,7 @@ df <- rbind(df_gx, df_gy)
 
 
 
-context("krig.R")
+context("krig")
 
 # Keep despite guess_plotdim() is externa. What matters here is not the function
 # but the value it returs. Else, the output of krig and friends will change.
@@ -29,7 +29,7 @@ result <- krig(df, var = "m3al", quiet = TRUE)[[1]]
 
 test_that("fails if var is of length greater than 1", {
   expect_error(
-    krig(df, var = c("m3al", "wrong_name"), quiet = TRUE)[[1]], 
+    krig(df, var = c("m3al", "wrong_name"), quiet = TRUE)[[1]],
     "isn't in your data"
   )
 })
@@ -66,10 +66,12 @@ test_that("returns the expected value.", {
 test_that("outputs the same with plotdim given directly or via guess_plotdim", {
   expect_equal(
     krig(
-      soil_random, "m3al", quiet = TRUE, plotdim = c(1000, 500),
+      soil_random, "m3al",
+      quiet = TRUE, plotdim = c(1000, 500),
     )[[1]],
     krig(
-      soil_random, "m3al", quiet = TRUE, plotdim = guess_plotdim(soil_random),
+      soil_random, "m3al",
+      quiet = TRUE, plotdim = guess_plotdim(soil_random),
     )[[1]]
   )
 })

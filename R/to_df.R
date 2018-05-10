@@ -1,12 +1,12 @@
 #' Restructure data as a dataframe.
-#' 
+#'
 #' The goal of this (generic) function (with methods for multiple fgeo classes)
-#' is to produce a dataframe that helps you to work fluently with other general 
+#' is to produce a dataframe that helps you to work fluently with other general
 #' purpose tools such as __dplyr__ and __ggplot2__.
-#' 
+#'
 #' @param .x An fgeo object of supported class.
 #' @param ... Other arguments passed to methods.
-#' 
+#'
 #' @seealso [to_df.krig_lst()], [to_df.tt_lst()].
 #'
 #' @return A dataframe.
@@ -37,7 +37,7 @@ to_df.default <- function(.x, ...) {
 to_df.krig_lst <- function(.x, name = "var", item = "df", ...) {
   stopifnot(is.character(name), is.character(item))
   stopifnot(length(item) == 1, item == "df" || item == "df.poly")
-  
+
   dfs <- lapply(.x, "[[", item)
   out <- Reduce(rbind, fgeo.base::name_df_lst(dfs, name = name))
   out[c(name, setdiff(names(out), name))]
@@ -55,11 +55,11 @@ to_df.krig_lst <- function(.x, name = "var", item = "df", ...) {
 #' cns <- fgeo.habitat::luquillo_top3_sp
 #' spp <- unique(cns$sp)
 #' hab <- luquillo_habitat
-#' 
+#'
 #' tt_lst <- tt_test(cns, spp, hab)
 #' tt_df <- to_df(tt_lst)
 #' head(tt_df)
-#' 
+#'
 #' tail(tt_df)
 to_df.tt_lst <- function(.x, ...) {
   flip <- t(Reduce(rbind, .x))

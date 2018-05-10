@@ -136,7 +136,7 @@ Has a method for to_df() (see examples).
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Krige soil data following the methodology of the John et al. (2007).</h1>
-    <small class="dont-index">Source: <a href='https://github.com/forestgeo/fgeo.habitat/blob/master/R/krig_lst.R'><code>R/krig_lst.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/forestgeo/fgeo.habitat/blob/master/R/krig.R'><code>R/krig.R</code></a></small>
     <div class="hidden name"><code>krig.Rd</code></div>
     </div>
 
@@ -295,13 +295,13 @@ fitting is not overly biased by points beyond the effective maximum range.</p>
 #&gt; 'data.frame':	1150 obs. of  3 variables:
 #&gt;  $ x: num  10 30 50 70 90 110 130 150 170 190 ...
 #&gt;  $ y: num  10 10 10 10 10 10 10 10 10 10 ...
-#&gt;  $ z: num  1.104 1.13 0.985 0.67 0.251 ...
+#&gt;  $ z: num  2.29 2.31 2.22 2.04 1.79 ...
 #&gt; 
 #&gt; df.poly
 #&gt; 'data.frame':	1150 obs. of  3 variables:
 #&gt;  $ gx: num  10 30 50 70 90 110 130 150 170 190 ...
 #&gt;  $ gy: num  10 10 10 10 10 10 10 10 10 10 ...
-#&gt;  $ z : num  0.837 0.811 0.785 0.759 0.733 ...
+#&gt;  $ z : num  2.13 2.12 2.1 2.09 2.07 ...
 #&gt; 
 #&gt; lambda
 #&gt; 'numeric'
@@ -320,13 +320,13 @@ fitting is not overly biased by points beyond the effective maximum range.</p>
 #&gt; 'data.frame':	1150 obs. of  3 variables:
 #&gt;  $ x: num  10 30 50 70 90 110 130 150 170 190 ...
 #&gt;  $ y: num  10 10 10 10 10 10 10 10 10 10 ...
-#&gt;  $ z: num  0.06 -0.138 -0.276 -0.252 -0.112 ...
+#&gt;  $ z: num  6.2 6.09 6.01 6.03 6.1 ...
 #&gt; 
 #&gt; df.poly
 #&gt; 'data.frame':	1150 obs. of  3 variables:
 #&gt;  $ gx: num  10 30 50 70 90 110 130 150 170 190 ...
 #&gt;  $ gy: num  10 10 10 10 10 10 10 10 10 10 ...
-#&gt;  $ z : num  0.375 0.337 0.301 0.266 0.233 ...
+#&gt;  $ z : num  6.37 6.35 6.33 6.31 6.29 ...
 #&gt; 
 #&gt; lambda
 #&gt; 'numeric'
@@ -341,20 +341,20 @@ fitting is not overly biased by points beyond the effective maximum range.</p>
 #&gt;  NULL
 #&gt; </div><div class='input'>
 <span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='to_df.html'>to_df</a></span>(<span class='no'>custom</span>, <span class='kw'>item</span> <span class='kw'>=</span> <span class='st'>"df"</span>)
-<span class='fu'>head</span>(<span class='no'>result</span>)</div><div class='output co'>#&gt;   var   x  y      z
-#&gt; 1   c  10 10  1.104
-#&gt; 2   c  30 10  1.130
-#&gt; 3   c  50 10  0.985
-#&gt; 4   c  70 10  0.670
-#&gt; 5   c  90 10  0.251
-#&gt; 6   c 110 10 -0.174</div><div class='input'>
-<span class='fu'>tail</span>(<span class='no'>result</span>)</div><div class='output co'>#&gt;      var   x   y      z
-#&gt; 2295   p 890 450 -0.582
-#&gt; 2296   p 910 450 -0.597
-#&gt; 2297   p 930 450 -0.611
-#&gt; 2298   p 950 450 -0.623
-#&gt; 2299   p 970 450 -0.633
-#&gt; 2300   p 990 450 -0.642</div></pre>
+<span class='fu'>head</span>(<span class='no'>result</span>)</div><div class='output co'>#&gt;   var   x  y        z
+#&gt; 1   c  10 10 2.290586
+#&gt; 2   c  30 10 2.306093
+#&gt; 3   c  50 10 2.221311
+#&gt; 4   c  70 10 2.037240
+#&gt; 5   c  90 10 1.793122
+#&gt; 6   c 110 10 1.544911</div><div class='input'>
+<span class='fu'>tail</span>(<span class='no'>result</span>)</div><div class='output co'>#&gt;      var   x   y        z
+#&gt; 2295   p 890 450 5.843585
+#&gt; 2296   p 910 450 5.835235
+#&gt; 2297   p 930 450 5.827757
+#&gt; 2298   p 950 450 5.821150
+#&gt; 2299   p 970 450 5.815414
+#&gt; 2300   p 990 450 5.810549</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

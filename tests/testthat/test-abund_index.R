@@ -1,4 +1,4 @@
-context("test-abund_index.R")
+context("abund_index")
 
 # Old functions -----------------------------------------------------------
 
@@ -15,11 +15,11 @@ context("test-abund_index.R")
 #' @keywords internal
 #' @noRd
 abundanceperquad <- function(censdata,
-  mindbh = 10,
-  plotdim = c(1000, 500),
-  gridsize = 100,
-  type = "abund",
-  dbhunit = "mm") {
+                             mindbh = 10,
+                             plotdim = c(1000, 500),
+                             gridsize = 100,
+                             type = "abund",
+                             dbhunit = "mm") {
   sp <- censdata$sp
   quadno <- gxgy.to.index(censdata$gx, censdata$gy,
     gridsize = gridsize,
@@ -33,7 +33,7 @@ abundanceperquad <- function(censdata,
   maxquad <- floor(plotdim[1] / gridsize) * floor(plotdim[2] / gridsize)
   allquad <- 1:maxquad
   if (dim(result[[type]])[1] < length(allspp) | dim(result[[type]])[2] <
-      length(allquad)) {
+    length(allquad)) {
     result[[type]] <- fill.dimension(result[[type]],
       class1 = allspp,
       class2 = allquad, fill = 0
@@ -46,7 +46,7 @@ abundanceperquad <- function(censdata,
 #' @keywords internal
 #' @noRd
 abundance <- function(censdata, type = "abund", alivecode = c("A"), mindbh = NULL,
-  dbhunit = "mm", split1 = NULL, split2 = NULL) {
+                      dbhunit = "mm", split1 = NULL, split2 = NULL) {
   if (is.null(split1)) {
     split1 <- rep("all", dim(censdata)[1])
   }
@@ -118,7 +118,7 @@ test_that("outputs equal to abundanceperquad()", {
 
 test_that("is faster than abundanceperquad()", {
   skip_if_not_installed("microbenchmark")
-  
+
   new <- microbenchmark::microbenchmark(abund_index(cns, pdm, gsz), times = 3)
   old <- microbenchmark::microbenchmark(
     abundanceperquad(
@@ -130,7 +130,6 @@ test_that("is faster than abundanceperquad()", {
 })
 
 test_that("outputs equal to abundanceperquad()", {
-  
   out1 <- fgeo.habitat:::abundanceperquad2(
     censdata = cns, mindbh = 0, plotdim = pdm, gridsize = gsz
   )$abund

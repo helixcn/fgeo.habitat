@@ -1,7 +1,7 @@
 #' Summary results of `krig()`.
-#' 
+#'
 #' A cleaner version of `str()` for the result of `krig().
-#' 
+#'
 #' @param object The result of `krig()`.
 #' @inheritDotParams base::summary
 #'
@@ -23,27 +23,27 @@ summary.krig_lst <- function(object, ...) {
 
 summarize_krig <- function(object, ...) {
   cat(
-    hdr(object$df, "df"),
+    smry_df(object$df, "df"),
     cat("\n"),
-    hdr(object$df.poly, "df.poly"),
+    smry_df(object$df.poly, "df.poly"),
     cat("\n"),
-    hdr2(object$lambda, "lambda"),
+    smry_other(object$lambda, "lambda"),
     cat("\n"),
-    hdr2(object$vg, "vg"),
+    smry_other(object$vg, "vg"),
     cat("\n"),
-    hdr2(object$vm, "vm"),
+    smry_other(object$vm, "vm"),
     cat("\n")
   )
   invisible(object)
 }
 
-hdr <- function(.data, ...) {
+smry_df <- function(.data, ...) {
   cat(
-    cat(... , "\n", sep = ""),
+    cat(..., "\n", sep = ""),
     cat(utils::str(.data, give.attr = FALSE))
   )
 }
 
-hdr2 <- function(x, nm) {
-  hdr(x, nm, "\n'", commas(class(x), "'"))
+smry_other <- function(x, nm) {
+  smry_df(x, nm, "\n'", commas(class(x), "'"))
 }

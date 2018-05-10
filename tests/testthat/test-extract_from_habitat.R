@@ -1,4 +1,4 @@
-context("extract_plot_dimensions")
+context("extract_from_habitat")
 
 test_that("with habitats = luquillo_habitat gridsize value is 20", {
   expect_equal(extract_gridsize(luquillo_habitat), 20)
@@ -33,8 +33,8 @@ test_that("fails with wrong names", {
 
 test_that("warns if habitat data contains NA", {
   dfm <- dplyr::tibble(
-    x = c(0, 999, NA), 
-    y = c(0, 499, NA), 
+    x = c(0, 999, NA),
+    y = c(0, 499, NA),
     habitats = c(1, 2, 3)
   )
   expect_silent(extract_plotdim(dfm[1:2, ]))

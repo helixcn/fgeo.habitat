@@ -32,7 +32,7 @@ test_that("outputs expected values", {
 test_that("species may be factor or character", {
   expect_true(
     identical(
-      tt_test(cns_luq, as.factor(sp_top1_luq), hab_luq), 
+      tt_test(cns_luq, as.factor(sp_top1_luq), hab_luq),
       tt_test(cns_luq, sp_top1_luq, hab_luq)
     )
   )
@@ -45,21 +45,21 @@ test_that("fails with informative message", {
   )
   expect_error(tt_test(cns_luq, "a", hab_luq), "All `sp` must be present")
   expect_error(
-    tt_test(cns_luq, c("SLOBER", "odd"), hab_luq), 
+    tt_test(cns_luq, c("SLOBER", "odd"), hab_luq),
     "odd"
   )
   expect_error(
-    tt_test(census = 1, c("SLOBER", "PREMON"), hab_luq), 
+    tt_test(census = 1, c("SLOBER", "PREMON"), hab_luq),
     "is not TRUE"
   )
   expect_error(tt_test(cns_luq, c("SLOBER", "PREMON"), 1), "is not TRUE")
   expect_error(tt_test(cns_luq, c("SLOBER"), hab_luq, 1), "is not TRUE")
   expect_error(
-    tt_test(cns_luq, c("SLOBER"), hab_luq, pdim_luq, "a"), 
+    tt_test(cns_luq, c("SLOBER"), hab_luq, pdim_luq, "a"),
     "is not TRUE"
   )
   expect_warning(
-    tt_test(cns_luq, c("SLOBER"), hab_luq, pdim_luq, 12), 
+    tt_test(cns_luq, c("SLOBER"), hab_luq, pdim_luq, 12),
     "Uncommon `gridsize`"
   )
 })
