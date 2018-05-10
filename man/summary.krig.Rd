@@ -2,12 +2,12 @@
 % Please edit documentation in R/summary.krig.R
 \name{summary.krig}
 \alias{summary.krig}
-\title{Summary of \code{krig()} results.}
+\title{Summary of \code{krig_lst()} results.}
 \usage{
 \method{summary}{krig}(object, ...)
 }
 \arguments{
-\item{object}{The result of \code{krig()}.}
+\item{object}{The result of \code{krig_lst()}.}
 
 \item{...}{Arguments passed on to \code{base::summary}
 \describe{
@@ -18,18 +18,12 @@
 Prints a cleaner version of \code{str()} and returns its input invisibly.
 }
 \description{
-A cleaner version of \code{str()} for the result of \code{krig()}.
+A cleaner version of \code{str()} for the result of \code{krig_lst()}.
 }
 \examples{
-# Example dataset
-soil <- soil_fake
+multiple_results <- krig_lst(soil_fake, c("c", "p"), quiet = TRUE)
+summary(multiple_results)
 
-res1 <- GetKrigedSoil(soil, var = "mg")
-
-summary(res1)
-
-res2 <- suppressMessages(krig(soil, var = "mg"))
-summary(res2)
-
-identical(unclass(res1), unclass(res2))
+single_result <- multiple_results[[1]]
+summary(single_result)
 }

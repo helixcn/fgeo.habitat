@@ -70,7 +70,7 @@ tail(tt_df)
 # Randomized data -- not for research. See ?soil_random.
 soil <- soil_fake
 
-kg <- krig(soil, var = "c", quiet = TRUE)
+kg <- krig_lst(soil, var = "c", quiet = TRUE)
 summary(kg)
 ```
 

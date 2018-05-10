@@ -63,8 +63,6 @@ tt
 #> CASARB      14      567     1029        4              0       0.354375
 #>        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4
 #> CASARB      15      934      661        5              0        0.58375
-#> attr(,"class")
-#> [1] "tt"     "matrix"
 #> 
 #> [[2]]
 #>        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1
@@ -75,8 +73,6 @@ tt
 #> PREMON      56      632      963        5              0          0.395
 #>        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4
 #> PREMON      44      222     1375        3              0        0.13875
-#> attr(,"class")
-#> [1] "tt"     "matrix"
 #> 
 #> [[3]]
 #>        N.Hab.1 Gr.Hab.1 Ls.Hab.1 Eq.Hab.1 Rep.Agg.Neut.1 Obs.Quantile.1
@@ -87,8 +83,6 @@ tt
 #> SLOBER      19     1181      415        4              0       0.738125
 #>        N.Hab.4 Gr.Hab.4 Ls.Hab.4 Eq.Hab.4 Rep.Agg.Neut.4 Obs.Quantile.4
 #> SLOBER      17     1151      440        9              0       0.719375
-#> attr(,"class")
-#> [1] "tt"     "matrix"
 #> 
 #> attr(,"class")
 #> [1] "tt_lst" "list"
@@ -122,7 +116,7 @@ tail(tt_df)
 # Randomized data -- not for research. See ?soil_random.
 soil <- soil_fake
 
-kg <- krig(soil, var = "c", quiet = TRUE)
+kg <- krig_lst(soil, var = "c", quiet = TRUE)
 summary(kg)
 #> df
 #> 'data.frame':    1150 obs. of  3 variables:

@@ -6,7 +6,7 @@
 \alias{as_krig_lst.krig_lst}
 \alias{as_krig_lst.list}
 \alias{as_krig_lst.default}
-\title{Coerce to class krig and krig_lst}
+\title{Coerce to class krig_lst}
 \usage{
 as_krig(.x, ...)
 
@@ -19,7 +19,7 @@ as_krig_lst(.x, ...)
 \method{as_krig_lst}{default}(.x, ...)
 }
 \arguments{
-\item{.x}{Output formatted as that of \code{krig()}.}
+\item{.x}{Output formatted as that of \code{krig_lst()}.}
 
 \item{...}{Other arguments passed to methods.}
 }

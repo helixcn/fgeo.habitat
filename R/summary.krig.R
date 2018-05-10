@@ -1,25 +1,19 @@
-#' Summary of `krig()` results.
+#' Summary of `krig_lst()` results.
 #' 
-#' A cleaner version of `str()` for the result of `krig()`.
+#' A cleaner version of `str()` for the result of `krig_lst()`.
 #' 
-#' @param object The result of `krig()`.
+#' @param object The result of `krig_lst()`.
 #' @inheritDotParams base::summary
 #'
 #' @return Prints a cleaner version of `str()` and returns its input invisibly.
 #' @export
 #'
 #' @examples
-#' # Example dataset
-#' soil <- soil_fake
+#' multiple_results <- krig_lst(soil_fake, c("c", "p"), quiet = TRUE)
+#' summary(multiple_results)
 #' 
-#' res1 <- GetKrigedSoil(soil, var = "mg")
-#' 
-#' summary(res1)
-#' 
-#' res2 <- suppressMessages(krig(soil, var = "mg"))
-#' summary(res2)
-#' 
-#' identical(unclass(res1), unclass(res2))
+#' single_result <- multiple_results[[1]]
+#' summary(single_result)
 summary.krig <- function(object, ...) {
   cat(
     hdr(object$df, "df"),
@@ -33,6 +27,14 @@ summary.krig <- function(object, ...) {
     hdr2(object$vm, "vm")
   )
   invisible(object)
+}
+
+#' @export
+summary.krig_lst <- function(object, ...) {
+  nms <- names(object)
+  for (i in nms) {
+    summary.krig(object[[i]])
+  }
 }
 
 hdr <- function(.data, ...) {

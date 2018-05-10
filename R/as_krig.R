@@ -1,10 +1,10 @@
-#' Coerce to class krig and krig_lst
+#' Coerce to class krig_lst
 #' 
 #' Usually you would use this function to coerce the output of `GetKrigedSoil()`
 #' and because you want to use the methods available for objects of class krig
 #' or krig_lst.
 #' 
-#' @param .x Output formatted as that of `krig()`.
+#' @param .x Output formatted as that of `krig_lst()`.
 #' @param ... Other arguments passed to methods.
 #' 
 #' @seealso [summary.krig()], [to_df.krig_lst()].
@@ -19,6 +19,7 @@
 #' 
 #' out_lst <- lapply(c("c", "p"), function(var) GetKrigedSoil(soil_fake, var))
 #' head(to_df(as_krig_lst(out_lst)))
+
 as_krig <- function(.x, ...) {
   UseMethod("as_krig")
 }
@@ -40,10 +41,7 @@ as_krig.default <- function(.x, ...) {
   )
 }
 
-new_krig <- function(.x) {
-  stopifnot(is.list(.x))
-  structure(.x, class = c("krig", class(.x)))
-}
+
 
 validate_krig <- function(.x) {
   if (!length(.x) == 5) {
@@ -89,10 +87,10 @@ as_krig_lst.default <- function(.x, ...) {
   )
 }
 
-new_krig_lst <- function(.x) {
-  stopifnot(is.list(.x))
-  structure(.x, class = c("krig_lst", class(.x)))
-}
+
+
+
+
 
 validate_krig_lst <- function(.x) {
   validate_krig(.x[[1]])
