@@ -4,6 +4,5 @@
 use_data(
   .geoR.cov.models,
   .ksline.aux.1,
-  internal = TRUE,
-  overwrite = TRUE
+  internal = TRUE, overwrite = TRUE
 )

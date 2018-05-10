@@ -41,6 +41,7 @@ reference:
       
       - krig_auto_params
       - krig_breaks
+      - guess_plotdim
 
   - title: "Torus translation"
     contents:

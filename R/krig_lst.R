@@ -471,7 +471,7 @@ check_krig <- function(df.soil,
       call. = FALSE
     )
   }
-  check_crucial_names(df.soil, c("gx", "gy"))
+  fgeo.base::check_crucial_names(df.soil, c("gx", "gy"))
   stopifnot(is.character(var))
   stopifnot(length(var) != 0)
   stopifnot(!missing(var))
