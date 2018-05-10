@@ -1,3 +1,7 @@
+# fgeo.habitat 0.0.0.9006
+
+
+
 # fgeo.habitat 0.0.0.9005
 
 This release removes non essential components to reduce complexity.
