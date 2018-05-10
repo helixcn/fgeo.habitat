@@ -128,7 +128,7 @@
 
     <div class="ref-description">
     
-    <p>Dataframe the output of <code><a href='krig.html'>krig_lst()</a></code>.</p>
+    <p>Dataframe the output of <code><a href='krig_lst.html'>krig_lst()</a></code>.</p>
     
     </div>
 
@@ -140,7 +140,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>.x</th>
-      <td><p>The output of <code><a href='krig.html'>krig_lst()</a></code>.</p></td>
+      <td><p>The output of <code><a href='krig_lst.html'>krig_lst()</a></code>.</p></td>
     </tr>
     <tr>
       <th>name</th>
@@ -165,14 +165,14 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>vars</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"c"</span>, <span class='st'>"p"</span>)
-<span class='no'>krig_lst</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='krig.html'>krig_lst</a></span>(<span class='no'>soil_fake</span>, <span class='no'>vars</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='fu'>head</span>(<span class='fu'><a href='to_df.html'>to_df</a></span>(<span class='no'>krig_lst</span>))</div><div class='output co'>#&gt;   var   x  y    z
-#&gt; 1   c  10 10 2.13
-#&gt; 2   c  30 10 2.12
-#&gt; 3   c  50 10 2.10
-#&gt; 4   c  70 10 2.09
-#&gt; 5   c  90 10 2.07
-#&gt; 6   c 110 10 2.06</div></pre>
+<span class='no'>krig_lst</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='krig_lst.html'>krig_lst</a></span>(<span class='no'>soil_fake</span>, <span class='no'>vars</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>head</span>(<span class='fu'><a href='to_df.html'>to_df</a></span>(<span class='no'>krig_lst</span>))</div><div class='output co'>#&gt;   var   x  y     z
+#&gt; 1   c  10 10 0.837
+#&gt; 2   c  30 10 0.811
+#&gt; 3   c  50 10 0.785
+#&gt; 4   c  70 10 0.759
+#&gt; 5   c  90 10 0.733
+#&gt; 6   c 110 10 0.707</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

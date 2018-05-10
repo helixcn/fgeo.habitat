@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Summary of <code>krig()</code> results. — summary.krig • fgeo.habitat</title>
+<title>Summary of <code>krig_lst()</code> results. — summary.krig • fgeo.habitat</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -28,9 +28,9 @@
 
 
 
-<meta property="og:title" content="Summary of <code>krig()</code> results. — summary.krig" />
+<meta property="og:title" content="Summary of <code>krig_lst()</code> results. — summary.krig" />
 
-<meta property="og:description" content="A cleaner version of str() for the result of krig()." />
+<meta property="og:description" content="A cleaner version of str() for the result of krig_lst()." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -121,14 +121,14 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Summary of <code>krig()</code> results.</h1>
+    <h1>Summary of <code>krig_lst()</code> results.</h1>
     <small class="dont-index">Source: <a href='https://github.com/forestgeo/fgeo.habitat/blob/master/R/summary.krig.R'><code>R/summary.krig.R</code></a></small>
     <div class="hidden name"><code>summary.krig.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>A cleaner version of <code>str()</code> for the result of <code><a href='krig.html'>krig()</a></code>.</p>
+    <p>A cleaner version of <code>str()</code> for the result of <code><a href='krig_lst.html'>krig_lst()</a></code>.</p>
     
     </div>
 
@@ -140,7 +140,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>object</th>
-      <td><p>The result of <code><a href='krig.html'>krig()</a></code>.</p></td>
+      <td><p>The result of <code><a href='krig_lst.html'>krig_lst()</a></code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -156,71 +156,34 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Example dataset</span>
-<span class='no'>soil</span> <span class='kw'>&lt;-</span> <span class='no'>soil_fake</span>
-
-<span class='no'>res1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='krig.html'>GetKrigedSoil</a></span>(<span class='no'>soil</span>, <span class='kw'>var</span> <span class='kw'>=</span> <span class='st'>"mg"</span>)</div><div class='output co'>#&gt; variog: computing omnidirectional variogram
-#&gt; variofit: covariance model used is exponential 
-#&gt; variofit: weights used: npairs 
-#&gt; variofit: minimisation function used: optim 
-#&gt; variofit: covariance model used is circular 
-#&gt; variofit: weights used: npairs 
-#&gt; variofit: minimisation function used: optim 
-#&gt; variofit: covariance model used is cauchy 
-#&gt; variofit: weights used: npairs 
-#&gt; variofit: minimisation function used: optim 
-#&gt; variofit: covariance model used is gaussian 
-#&gt; variofit: weights used: npairs 
-#&gt; variofit: minimisation function used: optim 
-#&gt; ksline: kriging location:  1 out of 1250 
-#&gt; ksline: kriging location:  101 out of 1250 
-#&gt; ksline: kriging location:  201 out of 1250 
-#&gt; ksline: kriging location:  301 out of 1250 
-#&gt; ksline: kriging location:  401 out of 1250 
-#&gt; ksline: kriging location:  501 out of 1250 
-#&gt; ksline: kriging location:  601 out of 1250 
-#&gt; ksline: kriging location:  701 out of 1250 
-#&gt; ksline: kriging location:  801 out of 1250 
-#&gt; ksline: kriging location:  901 out of 1250 
-#&gt; ksline: kriging location:  1001 out of 1250 
-#&gt; ksline: kriging location:  1101 out of 1250 
-#&gt; ksline: kriging location:  1201 out of 1250 
-#&gt; ksline: kriging location:  1250 out of 1250 
-#&gt; Kriging performed using global neighbourhood </div><div class='input'>
-<span class='fu'>summary</span>(<span class='no'>res1</span>)</div><div class='output co'>#&gt;         Length Class      Mode   
-#&gt; df       3     data.frame list   
-#&gt; df.poly  3     data.frame list   
-#&gt; lambda   1     -none-     numeric
-#&gt; vg      20     variogram  list   
-#&gt; vm      17     variomodel list   </div><div class='input'>
-<span class='no'>res2</span> <span class='kw'>&lt;-</span> <span class='fu'>suppressMessages</span>(<span class='fu'><a href='krig.html'>krig</a></span>(<span class='no'>soil</span>, <span class='kw'>var</span> <span class='kw'>=</span> <span class='st'>"mg"</span>))
-<span class='fu'>summary</span>(<span class='no'>res2</span>)</div><div class='output co'>#&gt; df
+    <pre class="examples"><div class='input'><span class='no'>multiple_results</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='krig_lst.html'>krig_lst</a></span>(<span class='no'>soil_fake</span>, <span class='fu'>c</span>(<span class='st'>"c"</span>, <span class='st'>"p"</span>), <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>summary</span>(<span class='no'>multiple_results</span>)</div><div class='output co'>#&gt; df
 #&gt; 'data.frame':	1150 obs. of  3 variables:
 #&gt;  $ x: num  10 30 50 70 90 110 130 150 170 190 ...
 #&gt;  $ y: num  10 10 10 10 10 10 10 10 10 10 ...
-#&gt;  $ z: num  0.56 0.57 0.579 0.587 0.596 ...
+#&gt;  $ z: num  0.837 0.811 0.785 0.759 0.733 ...
 #&gt; 
 #&gt; df.poly
 #&gt; 'data.frame':	1150 obs. of  3 variables:
 #&gt;  $ gx: num  10 30 50 70 90 110 130 150 170 190 ...
 #&gt;  $ gy: num  10 10 10 10 10 10 10 10 10 10 ...
-#&gt;  $ z : num  -0.579 -0.563 -0.547 -0.532 -0.518 ...
+#&gt;  $ z : num  0.837 0.811 0.785 0.759 0.733 ...
 #&gt; 
 #&gt; lambda
 #&gt; 'numeric'
-#&gt;  num 0
+#&gt;  num 1
 #&gt; 
 #&gt; vg
 #&gt; 'variogram'
 #&gt; List of 20
 #&gt;  $ u               : num [1:9] 60.9 86.5 103 122.7 146.1 ...
-#&gt;  $ v               : num [1:9] 0.0283 0.0273 0.0406 0.0283 0.0402 ...
+#&gt;  $ v               : num [1:9] 0.834 1.239 2.593 1.597 0.621 ...
 #&gt;  $ n               : num [1:9] 7 9 10 10 18 19 36 34 38
-#&gt;  $ sd              : num [1:9] 0.0389 0.0319 0.0497 0.0282 0.0326 ...
+#&gt;  $ sd              : num [1:9] 1.22 1.41 1.86 1.47 1.19 ...
 #&gt;  $ bins.lim        : num [1:31] 1.00e-12 2.00 2.38 2.84 3.38 ...
 #&gt;  $ ind.bin         : logi [1:30] FALSE FALSE FALSE FALSE FALSE FALSE ...
-#&gt;  $ var.mark        : num 0.0275
-#&gt;  $ beta.ols        : num 1.25e-10
+#&gt;  $ var.mark        : num 0.931
+#&gt;  $ beta.ols        : num 1.77e-11
 #&gt;  $ output.type     : chr "bin"
 #&gt;  $ max.dist        : num 320
 #&gt;  $ estimator.type  : chr "classical"
@@ -237,14 +200,74 @@
 #&gt; vm
 #&gt; 'variomodel', variofit'
 #&gt; List of 17
-#&gt;  $ nugget               : num 0.0312
-#&gt;  $ cov.pars             : num [1:2] 0 160
+#&gt;  $ nugget               : num 1.04
+#&gt;  $ cov.pars             : num [1:2] 0 161
 #&gt;  $ cov.model            : chr "exponential"
 #&gt;  $ kappa                : num 0.5
-#&gt;  $ value                : num 0.0232
+#&gt;  $ value                : num 40.1
 #&gt;  $ trend                : chr "cte"
-#&gt;  $ beta.ols             : num 1.25e-10
-#&gt;  $ practicalRange       : num 479
+#&gt;  $ beta.ols             : num 1.77e-11
+#&gt;  $ practicalRange       : num 481
+#&gt;  $ max.dist             : num 320
+#&gt;  $ minimisation.function: chr "optim"
+#&gt;  $ weights              : chr "npairs"
+#&gt;  $ method               : chr "WLS"
+#&gt;  $ fix.nugget           : logi FALSE
+#&gt;  $ fix.kappa            : logi TRUE
+#&gt;  $ lambda               : num 1
+#&gt;  $ message              : chr "optim convergence code: 0"
+#&gt;  $ call                 : language variofit(vario = vg, ini.cov.pars = c(initialVal, startRange), cov.model = varModels[i],      nugget = initialVal)
+#&gt; df
+#&gt; 'data.frame':	1150 obs. of  3 variables:
+#&gt;  $ x: num  10 30 50 70 90 110 130 150 170 190 ...
+#&gt;  $ y: num  10 10 10 10 10 10 10 10 10 10 ...
+#&gt;  $ z: num  0.375 0.337 0.301 0.266 0.233 ...
+#&gt; 
+#&gt; df.poly
+#&gt; 'data.frame':	1150 obs. of  3 variables:
+#&gt;  $ gx: num  10 30 50 70 90 110 130 150 170 190 ...
+#&gt;  $ gy: num  10 10 10 10 10 10 10 10 10 10 ...
+#&gt;  $ z : num  0.375 0.337 0.301 0.266 0.233 ...
+#&gt; 
+#&gt; lambda
+#&gt; 'numeric'
+#&gt;  num 1
+#&gt; 
+#&gt; vg
+#&gt; 'variogram'
+#&gt; List of 20
+#&gt;  $ u               : num [1:9] 60.9 86.5 103 122.7 146.1 ...
+#&gt;  $ v               : num [1:9] 1.311 1.325 0.366 1.332 1.275 ...
+#&gt;  $ n               : num [1:9] 7 9 10 10 18 19 36 34 38
+#&gt;  $ sd              : num [1:9] 1.963 1.371 0.441 1.355 1.616 ...
+#&gt;  $ bins.lim        : num [1:31] 1.00e-12 2.00 2.38 2.84 3.38 ...
+#&gt;  $ ind.bin         : logi [1:30] FALSE FALSE FALSE FALSE FALSE FALSE ...
+#&gt;  $ var.mark        : num 0.886
+#&gt;  $ beta.ols        : num -1.19e-09
+#&gt;  $ output.type     : chr "bin"
+#&gt;  $ max.dist        : num 320
+#&gt;  $ estimator.type  : chr "classical"
+#&gt;  $ n.data          : int 30
+#&gt;  $ lambda          : num 1
+#&gt;  $ trend           : chr "cte"
+#&gt;  $ pairs.min       : num 5
+#&gt;  $ nugget.tolerance: num 1e-12
+#&gt;  $ direction       : chr "omnidirectional"
+#&gt;  $ tolerance       : chr "none"
+#&gt;  $ uvec            : num [1:30] 1 2.19 2.61 3.11 3.7 ...
+#&gt;  $ call            : language variog(geodata = geodata, breaks = breaks, trend = trend, pairs.min = 5)
+#&gt; 
+#&gt; vm
+#&gt; 'variomodel', variofit'
+#&gt; List of 17
+#&gt;  $ nugget               : num 1.01
+#&gt;  $ cov.pars             : num [1:2] 0 160
+#&gt;  $ cov.model            : chr "circular"
+#&gt;  $ kappa                : num 0.5
+#&gt;  $ value                : num 8.99
+#&gt;  $ trend                : chr "cte"
+#&gt;  $ beta.ols             : num -1.19e-09
+#&gt;  $ practicalRange       : num 160
 #&gt;  $ max.dist             : num 320
 #&gt;  $ minimisation.function: chr "optim"
 #&gt;  $ weights              : chr "npairs"
@@ -254,7 +277,67 @@
 #&gt;  $ lambda               : num 1
 #&gt;  $ message              : chr "optim convergence code: 0"
 #&gt;  $ call                 : language variofit(vario = vg, ini.cov.pars = c(initialVal, startRange), cov.model = varModels[i],      nugget = initialVal)</div><div class='input'>
-<span class='fu'>identical</span>(<span class='fu'>unclass</span>(<span class='no'>res1</span>), <span class='fu'>unclass</span>(<span class='no'>res2</span>))</div><div class='output co'>#&gt; [1] FALSE</div></pre>
+<span class='no'>single_result</span> <span class='kw'>&lt;-</span> <span class='no'>multiple_results</span><span class='kw'>[[</span><span class='fl'>1</span>]]
+<span class='fu'>summary</span>(<span class='no'>single_result</span>)</div><div class='output co'>#&gt; df
+#&gt; 'data.frame':	1150 obs. of  3 variables:
+#&gt;  $ x: num  10 30 50 70 90 110 130 150 170 190 ...
+#&gt;  $ y: num  10 10 10 10 10 10 10 10 10 10 ...
+#&gt;  $ z: num  0.837 0.811 0.785 0.759 0.733 ...
+#&gt; 
+#&gt; df.poly
+#&gt; 'data.frame':	1150 obs. of  3 variables:
+#&gt;  $ gx: num  10 30 50 70 90 110 130 150 170 190 ...
+#&gt;  $ gy: num  10 10 10 10 10 10 10 10 10 10 ...
+#&gt;  $ z : num  0.837 0.811 0.785 0.759 0.733 ...
+#&gt; 
+#&gt; lambda
+#&gt; 'numeric'
+#&gt;  num 1
+#&gt; 
+#&gt; vg
+#&gt; 'variogram'
+#&gt; List of 20
+#&gt;  $ u               : num [1:9] 60.9 86.5 103 122.7 146.1 ...
+#&gt;  $ v               : num [1:9] 0.834 1.239 2.593 1.597 0.621 ...
+#&gt;  $ n               : num [1:9] 7 9 10 10 18 19 36 34 38
+#&gt;  $ sd              : num [1:9] 1.22 1.41 1.86 1.47 1.19 ...
+#&gt;  $ bins.lim        : num [1:31] 1.00e-12 2.00 2.38 2.84 3.38 ...
+#&gt;  $ ind.bin         : logi [1:30] FALSE FALSE FALSE FALSE FALSE FALSE ...
+#&gt;  $ var.mark        : num 0.931
+#&gt;  $ beta.ols        : num 1.77e-11
+#&gt;  $ output.type     : chr "bin"
+#&gt;  $ max.dist        : num 320
+#&gt;  $ estimator.type  : chr "classical"
+#&gt;  $ n.data          : int 30
+#&gt;  $ lambda          : num 1
+#&gt;  $ trend           : chr "cte"
+#&gt;  $ pairs.min       : num 5
+#&gt;  $ nugget.tolerance: num 1e-12
+#&gt;  $ direction       : chr "omnidirectional"
+#&gt;  $ tolerance       : chr "none"
+#&gt;  $ uvec            : num [1:30] 1 2.19 2.61 3.11 3.7 ...
+#&gt;  $ call            : language variog(geodata = geodata, breaks = breaks, trend = trend, pairs.min = 5)
+#&gt; 
+#&gt; vm
+#&gt; 'variomodel', variofit'
+#&gt; List of 17
+#&gt;  $ nugget               : num 1.04
+#&gt;  $ cov.pars             : num [1:2] 0 161
+#&gt;  $ cov.model            : chr "exponential"
+#&gt;  $ kappa                : num 0.5
+#&gt;  $ value                : num 40.1
+#&gt;  $ trend                : chr "cte"
+#&gt;  $ beta.ols             : num 1.77e-11
+#&gt;  $ practicalRange       : num 481
+#&gt;  $ max.dist             : num 320
+#&gt;  $ minimisation.function: chr "optim"
+#&gt;  $ weights              : chr "npairs"
+#&gt;  $ method               : chr "WLS"
+#&gt;  $ fix.nugget           : logi FALSE
+#&gt;  $ fix.kappa            : logi TRUE
+#&gt;  $ lambda               : num 1
+#&gt;  $ message              : chr "optim convergence code: 0"
+#&gt;  $ call                 : language variofit(vario = vg, ini.cov.pars = c(initialVal, startRange), cov.model = varModels[i],      nugget = initialVal)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

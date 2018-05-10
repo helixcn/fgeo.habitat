@@ -19,13 +19,13 @@
     <loc>https://forestgeo.github.io/fgeo.habitat//reference/fgeo.habitat-package.html</loc>
   </url>
   <url>
-    <loc>https://forestgeo.github.io/fgeo.habitat//reference/krig.html</loc>
-  </url>
-  <url>
     <loc>https://forestgeo.github.io/fgeo.habitat//reference/krig_auto_params.html</loc>
   </url>
   <url>
     <loc>https://forestgeo.github.io/fgeo.habitat//reference/krig_breaks.html</loc>
+  </url>
+  <url>
+    <loc>https://forestgeo.github.io/fgeo.habitat//reference/krig_lst.html</loc>
   </url>
   <url>
     <loc>https://forestgeo.github.io/fgeo.habitat//reference/luquillo.html</loc>

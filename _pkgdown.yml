@@ -41,10 +41,7 @@ reference:
       
       - krig_auto_params
       - krig_breaks
-      
-      - as_krig
-      - as_krig_lst
-      
+
   - title: "Torus translation"
     contents:
       - tt_test_lst

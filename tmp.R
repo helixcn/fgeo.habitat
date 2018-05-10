@@ -5,3 +5,8 @@
 
 # Rename tt_test_lst() to tt_test()?
 # Rename krig_lst() to krig()?
+
+# Run examples
+# Check
+
+# Fix _pkgdown
