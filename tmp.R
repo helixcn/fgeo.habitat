@@ -1,9 +1,13 @@
-# WIP: Move check_crucial_names to fgeo.base.
-#     then same in fgeo.map.
+- krig_lst
+- krig_breaks
+- krig_auto_params
+
+- extract_plotdim
+- extract_gridsize
+
+# WIP: Move check_crucial_names to fgeo.base from fgeo.map.
 
 # Remove useless files
-
-# Add space at the top of summary.krig so the summaries print fine.
 
 # Rename tt_test_lst() to tt_test()?
 # Rename krig_lst() to krig()?

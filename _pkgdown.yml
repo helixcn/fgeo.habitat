@@ -36,11 +36,9 @@ navbar:
 reference:
   - title: "Krig"
     contents:
-      - krig_lst
       - GetKrigedSoil
+      - starts_with("krig")
       
-      - krig_auto_params
-      - krig_breaks
       - guess_plotdim
 
   - title: "Torus translation"
@@ -49,22 +47,17 @@ reference:
       - torusonesp.all
       
       - abund_index
-      - extract_plotdim
-      - extract_gridsize
+      - starts_with("extract")
       
       - dist_in_torus
 
   - title: "Generics"
     contents:
       - summary.krig_lst
-      - summary.krig
-      
-      - to_df
-      - to_df.krig_lst
-      - to_df.tt_lst
+      - starts_with("to_df")
 
   - title: "Datasets"
     contents:
-      - starts_with("luquillo")
-      - soil_fake
-      - soil_random
+      - starts_with("luquillo_")
+      - starts_with("soil_")
+

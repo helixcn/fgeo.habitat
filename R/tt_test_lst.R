@@ -11,7 +11,7 @@
 #'
 #' `tt_test_lst()` uses `abundanceperquad()` -- via `abund_index()` -- which is
 #' slow. You may calculate abundance per quadrat independently, feed it to the
-#' argument `abundance` of `torusonesp.all()`, and reformat the output with
+#' argument `allabund20` of `torusonesp.all()`, and reformat the output with
 #' `to_df()`. You can iterate over multiple species with a for loop or a
 #' functional such as `lapply()`.
 #'
@@ -24,7 +24,7 @@
 #' @param gridsize Grid size. If using `torusonesp.all()`, ensure it matches the
 #'   gridsize on which the habitats are defined and the abundances were
 #'   calculated.
-#' @param abundance,allabund20 The output of `abund_index()`.
+#' @param allabund20 The output of `abund_index()`.
 #'
 #' @author Sabrina Russo, Daniel Zuleta, Matteo Detto, and Kyle Harms.
 #'
@@ -59,17 +59,12 @@
 #' # Try also: View((to_df(tt_lst)))
 #' head(to_df(tt_lst))
 #' 
-#' # Iterate over multiple species
+#' # Test one species with original function (outputs a matrix)
+#' 
 #' plotdim <- c(320, 500)
 #' gridsize <- 20
 #' abundance <- abund_index(pick, plotdim, gridsize)
 #' 
-#' tt_lst <- lapply(species, tt_test, habitat, abundance, plotdim, gridsize)
-#' tt_lst
-#' 
-#' 
-#' 
-#' # Test one species with original function (outputs a matrix)
 #' tt_mat <- torusonesp.all(species[[1]],
 #'   hab.index20 = habitat,
 #'   allabund20 = abundance,
@@ -77,10 +72,6 @@
 #'   gridsize = gridsize
 #' )
 #' tt_mat
-#' 
-#' # Coerce to class tt so you can use to_df()
-#' coerced <- to_df(as_tt(tt_mat))
-#' head(coerced)
 #' 
 #' # Test multiple species with original function (outputs a matrix)
 #' tt_mat_lst <- lapply(
@@ -92,10 +83,6 @@
 #'   gridsize = gridsize
 #' )
 #' tt_mat_lst
-#' 
-#' # Coerce to class tt so you can use to_df()
-#' coerced2 <- as_tt_lst(tt_mat_lst)
-#' head(to_df(coerced2))
 tt_test_lst <- function(census,
                         sp,
                         habitat,

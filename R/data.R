@@ -1,5 +1,3 @@
-# Luquillo ----------------------------------------------------------------
-
 #' Datasets from __fgeo.data__.
 #'
 #' @seealso `fgeo.data::luquillo_habitat`, `fgeo.data::luquillo_elevation`,
@@ -30,8 +28,6 @@ NULL
 
 
 
-# Soil --------------------------------------------------------------------
-
 #' Soil data for examples.
 #'
 #' This data set is based on data from Barro Colorado Island, but the variable
@@ -45,7 +41,7 @@ NULL
 
 
 
-#' Fake soil data with multiple elements.
+#' Fake soil data with multiple soil variables.
 #' 
 #' @examples 
 #' str(soil_fake)

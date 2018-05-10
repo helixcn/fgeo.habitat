@@ -25,38 +25,30 @@ test_that("outputs object of expected structure at the surface of the list", {
   expect_equal(class(out_lst), classes)
 })
 
-test_that("outputs object of expected class at depth one", {
-  expect_equal(unique(unlist(lapply(out_lst, class))), c("krig", "list"))
-})
-
-
-
-context("test-krig.R")
-
-result <- krig(df, var = "m3al", quiet = TRUE)
-
+result <- krig_lst(df, var = "m3al", quiet = TRUE)[[1]]
 
 test_that("fails if var is of length greater than 1", {
-  too_long <- c("m3al", "something_else")
-  expect_error(krig(df, var = too_long, quiet = TRUE), "must be of length 1")
+  expect_error(
+    krig_lst(df, var = c("m3al", "wrong_name"), quiet = TRUE)[[1]], 
+    "isn't in your data"
+  )
 })
 
 
 test_that("keeps quiet if asked to", {
-  expect_message(krig(df, var = "m3al"))
-  expect_silent(krig(df, var = "m3al", quiet = TRUE))
+  expect_message(krig_lst(df, var = "m3al"))
+  expect_silent(krig_lst(df, var = "m3al", quiet = TRUE))
 })
 
-test_that("krig() passes regression test", {
+test_that("passes regression test", {
   expect_equal_to_reference(result, "ref-krig.rds")
   expect_known_output(result, "ref-krig", print = TRUE, update = TRUE)
 })
 
-test_that("krig() returns the expected value.", {
+test_that("returns the expected value.", {
   expect_type(result, "list")
   nms <- c("df", "df.poly", "lambda", "vg", "vm")
   expect_named(result, nms)
-  expect_is(result, "krig")
   expect_is(result, "list")
   expect_is(result$df, "data.frame")
   expect_is(result$df.poly, "data.frame")
@@ -73,45 +65,45 @@ test_that("krig() returns the expected value.", {
 
 test_that("outputs the same with plotdim given directly or via guess_plotdim", {
   expect_equal(
-    krig(
+    krig_lst(
       soil_random, "m3al", quiet = TRUE, plotdim = c(1000, 500),
-    ),
-    krig(
+    )[[1]],
+    krig_lst(
       soil_random, "m3al", quiet = TRUE, plotdim = guess_plotdim(soil_random),
-    )
+    )[[1]]
   )
 })
 
 test_that("check_GetKrigSoil() fails with wrong input", {
   numeric_input <- as.matrix(df)
-  expect_error(krig(numeric_input, var = "m3al"))
+  expect_error(krig_lst(numeric_input, var = "m3al"), "is not TRUE")
 
   rnm <- stats::setNames(df, c("wrong_x", "wrong_gy", "m3al"))
   expect_error(
-    krig(rnm, var = "m3al"),
+    krig_lst(rnm, var = "m3al"),
     "Ensure your data set has these variables:"
   )
   cero_row <- data.frame(gx = numeric(0), gy = numeric(0))
   expect_error(
-    krig(cero_row, var = "m3al"),
+    krig_lst(cero_row, var = "m3al"),
     "Ensure `df.soil` has one or more rows"
   )
   expect_error(
-    krig(df, var = "non-existent-var"),
+    krig_lst(df, var = "non-existent-var"),
     "The variable-name passed to `var` isn't in your data"
   )
-  expect_error(krig(df, var = 888))
+  expect_error(krig_lst(df, var = 888), "is not TRUE")
   expect_error(
-    krig(df),
+    krig_lst(df),
     "argument \"var\" is missing"
   )
-  expect_error(krig(df, var = "m3al", gridSize = "3"))
-  expect_error(krig(df, var = "m3al", xSize = "3"))
-  expect_error(krig(df, var = "m3al", ySize = "3"))
+  expect_error(krig_lst(df, var = "m3al", gridSize = "3"))
+  expect_error(krig_lst(df, var = "m3al", xSize = "3"))
+  expect_error(krig_lst(df, var = "m3al", ySize = "3"))
   wrong_type <- 1
-  expect_error(krig(df, var = "m3al", params = wrong_type))
+  expect_error(krig_lst(df, var = "m3al", params = wrong_type))
   bad_not_a_number <- "a"
-  expect_error(krig(df, var = "m3al", breaks = bad_not_a_number))
+  expect_error(krig_lst(df, var = "m3al", breaks = bad_not_a_number))
   bad_not_logical <- "a"
-  expect_error(krig(df, var = "m3al", useKsLine = bad_not_logical))
+  expect_error(krig_lst(df, var = "m3al", useKsLine = bad_not_logical))
 })

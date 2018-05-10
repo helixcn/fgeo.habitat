@@ -2,12 +2,12 @@
 % Please edit documentation in R/to_df.R
 \name{to_df.tt_lst}
 \alias{to_df.tt_lst}
-\title{Dataframe objects of class tt_*.}
+\title{Dataframe the output of tt_test_lst().}
 \usage{
 \method{to_df}{tt_lst}(.x, ...)
 }
 \arguments{
-\item{.x}{An object of class tt_*.}
+\item{.x}{An object of class tt_lst.}
 
 \item{...}{Other arguments passed to \code{\link[=to_df]{to_df()}}.}
 }
@@ -15,7 +15,7 @@
 A dataframe.
 }
 \description{
-Dataframe objects of class tt_*.
+Dataframe the output of tt_test_lst().
 }
 \examples{
 # Class tt_lst

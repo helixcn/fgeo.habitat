@@ -7,7 +7,7 @@
 #' @param .x An fgeo object of supported class.
 #' @param ... Other arguments passed to methods.
 #' 
-#' @seealso [to_df.krig_lst()], [to_df.tt()].
+#' @seealso [to_df.krig_lst()], [to_df.tt_lst()].
 #'
 #' @return A dataframe.
 #' @export
@@ -43,9 +43,9 @@ to_df.krig_lst <- function(.x, name = "var", item = "df", ...) {
   out[c(name, setdiff(names(out), name))]
 }
 
-#' Dataframe objects of class tt_*.
+#' Dataframe the output of tt_test_lst().
 #'
-#' @param .x An object of class tt_*.
+#' @param .x An object of class tt_lst.
 #' @param ... Other arguments passed to [to_df()].
 #'
 #' @return A dataframe.

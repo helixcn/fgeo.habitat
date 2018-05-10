@@ -241,7 +241,7 @@ fitting is not overly biased by points beyond the effective maximum range.</p>
 
     <div class='dont-index'><p><code><a href='http://www.rdocumentation.org/packages/geoR/topics/variofit'>geoR::variofit()</a></code>, <code><a href='http://www.rdocumentation.org/packages/geoR/topics/variog'>geoR::variog()</a></code>, <code><a href='http://www.rdocumentation.org/packages/geoR/topics/as.geodata'>geoR::as.geodata()</a></code>,
 <code><a href='http://www.rdocumentation.org/packages/geoR/topics/ksline'>geoR::ksline()</a></code>, <code><a href='http://www.rdocumentation.org/packages/geoR/topics/krige.conv'>geoR::krige.conv()</a></code>, <code><a href='http://www.rdocumentation.org/packages/geoR/topics/krige.conv'>geoR::krige.control()</a></code>.</p>
-<p><code><a href='to_df.krig_lst.html'>to_df.krig_lst()</a></code>, <code><a href='summary.krig.html'>summary.krig()</a></code>.</p></div>
+<p><code><a href='to_df.krig_lst.html'>to_df.krig_lst()</a></code>, <code><a href='summary.krig_lst.html'>summary.krig_lst()</a></code>.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -290,7 +290,8 @@ fitting is not overly biased by points beyond the effective maximum range.</p>
 <span class='co'># Also using not one but multiple soil variables</span>
 <span class='no'>vars</span> <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"c"</span>, <span class='st'>"p"</span>)
 <span class='no'>custom</span> <span class='kw'>&lt;-</span> <span class='fu'>krig_lst</span>(<span class='no'>soil_fake</span>, <span class='no'>vars</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='no'>params</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='fu'>summary</span>(<span class='no'>custom</span>)</div><div class='output co'>#&gt; df
+<span class='fu'>summary</span>(<span class='no'>custom</span>)</div><div class='output co'>#&gt; var: c 
+#&gt; df
 #&gt; 'data.frame':	1150 obs. of  3 variables:
 #&gt;  $ x: num  10 30 50 70 90 110 130 150 170 190 ...
 #&gt;  $ y: num  10 10 10 10 10 10 10 10 10 10 ...
@@ -313,6 +314,8 @@ fitting is not overly biased by points beyond the effective maximum range.</p>
 #&gt; vm
 #&gt; 'NULL'
 #&gt;  NULL
+#&gt; 
+#&gt; var: p 
 #&gt; df
 #&gt; 'data.frame':	1150 obs. of  3 variables:
 #&gt;  $ x: num  10 30 50 70 90 110 130 150 170 190 ...
@@ -335,7 +338,8 @@ fitting is not overly biased by points beyond the effective maximum range.</p>
 #&gt; 
 #&gt; vm
 #&gt; 'NULL'
-#&gt;  NULL</div><div class='input'>
+#&gt;  NULL
+#&gt; </div><div class='input'>
 <span class='no'>result</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='to_df.html'>to_df</a></span>(<span class='no'>custom</span>, <span class='kw'>item</span> <span class='kw'>=</span> <span class='st'>"df"</span>)
 <span class='fu'>head</span>(<span class='no'>result</span>)</div><div class='output co'>#&gt;   var   x  y      z
 #&gt; 1   c  10 10  1.104

@@ -118,6 +118,7 @@ soil <- soil_fake
 
 kg <- krig_lst(soil, var = "c", quiet = TRUE)
 summary(kg)
+#> var: c 
 #> df
 #> 'data.frame':    1150 obs. of  3 variables:
 #>  $ x: num  10 30 50 70 90 110 130 150 170 190 ...

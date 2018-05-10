@@ -1,6 +1,6 @@
-#' Summary of `krig_lst()` results.
+#' Summary results of `krig_lst()`.
 #' 
-#' A cleaner version of `str()` for the result of `krig_lst()`.
+#' A cleaner version of `str()` for the result of `krig_lst().
 #' 
 #' @param object The result of `krig_lst()`.
 #' @inheritDotParams base::summary
@@ -9,12 +9,19 @@
 #' @export
 #'
 #' @examples
-#' multiple_results <- krig_lst(soil_fake, c("c", "p"), quiet = TRUE)
-#' summary(multiple_results)
-#' 
-#' single_result <- multiple_results[[1]]
-#' summary(single_result)
-summary.krig <- function(object, ...) {
+#' result <- krig_lst(soil_fake, c("c", "p"), quiet = TRUE)
+#' summary(result)
+#' str(result)
+summary.krig_lst <- function(object, ...) {
+  nms <- names(object)
+  for (i in seq_along(nms)) {
+    cat("var:", nms[[i]], "\n")
+    summarize_krig(object[[i]])
+  }
+  invisible(object)
+}
+
+summarize_krig <- function(object, ...) {
   cat(
     hdr(object$df, "df"),
     cat("\n"),
@@ -24,17 +31,10 @@ summary.krig <- function(object, ...) {
     cat("\n"),
     hdr2(object$vg, "vg"),
     cat("\n"),
-    hdr2(object$vm, "vm")
+    hdr2(object$vm, "vm"),
+    cat("\n")
   )
   invisible(object)
-}
-
-#' @export
-summary.krig_lst <- function(object, ...) {
-  nms <- names(object)
-  for (i in nms) {
-    summary.krig(object[[i]])
-  }
 }
 
 hdr <- function(.data, ...) {

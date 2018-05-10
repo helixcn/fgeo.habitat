@@ -25,7 +25,7 @@ plot partition defined by \code{gridsize}.}
 gridsize on which the habitats are defined and the abundances were
 calculated.}
 
-\item{abundance, allabund20}{The output of \code{abund_index()}.}
+\item{allabund20}{The output of \code{abund_index()}.}
 }
 \value{
 \itemize{
@@ -46,7 +46,7 @@ has been used.
 
 \code{tt_test_lst()} uses \code{abundanceperquad()} -- via \code{abund_index()} -- which is
 slow. You may calculate abundance per quadrat independently, feed it to the
-argument \code{abundance} of \code{torusonesp.all()}, and reformat the output with
+argument \code{allabund20} of \code{torusonesp.all()}, and reformat the output with
 \code{to_df()}. You can iterate over multiple species with a for loop or a
 functional such as \code{lapply()}.
 }
@@ -74,17 +74,12 @@ tt_lst[[1]]
 # Try also: View((to_df(tt_lst)))
 head(to_df(tt_lst))
 
-# Iterate over multiple species
+# Test one species with original function (outputs a matrix)
+
 plotdim <- c(320, 500)
 gridsize <- 20
 abundance <- abund_index(pick, plotdim, gridsize)
 
-tt_lst <- lapply(species, tt_test, habitat, abundance, plotdim, gridsize)
-tt_lst
-
-
-
-# Test one species with original function (outputs a matrix)
 tt_mat <- torusonesp.all(species[[1]],
   hab.index20 = habitat,
   allabund20 = abundance,
@@ -92,10 +87,6 @@ tt_mat <- torusonesp.all(species[[1]],
   gridsize = gridsize
 )
 tt_mat
-
-# Coerce to class tt so you can use to_df()
-coerced <- to_df(as_tt(tt_mat))
-head(coerced)
 
 # Test multiple species with original function (outputs a matrix)
 tt_mat_lst <- lapply(
@@ -107,10 +98,6 @@ tt_mat_lst <- lapply(
   gridsize = gridsize
 )
 tt_mat_lst
-
-# Coerce to class tt so you can use to_df()
-coerced2 <- as_tt_lst(tt_mat_lst)
-head(to_df(coerced2))
 }
 \seealso{
 \code{\link[=to_df]{to_df()}}.

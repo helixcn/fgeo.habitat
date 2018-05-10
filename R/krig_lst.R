@@ -48,7 +48,7 @@
 #' @author Graham Zemunik (grah.zem@@gmail.com).
 #'
 #' @export
-#' @seealso [to_df.krig_lst()], [summary.krig()].
+#' @seealso [to_df.krig_lst()], [summary.krig_lst()].
 #' 
 #' @examples
 #' # Original funciton
@@ -402,9 +402,6 @@ InvBoxCoxTransformSoil <- function(df, lambda, delta) {
   df
 }
 
-#' @export
-#' @keywords internal
-#' @noRd
 krig <- function(soil,
                  var,
                  params = NULL,
@@ -413,11 +410,6 @@ krig <- function(soil,
                  breaks = krig_breaks(2, 320, 30),
                  use_ksline = TRUE,
                  quiet = FALSE) {
-  stopifnot(is.data.frame(soil))
-  if (length(var) > 1) {
-    stop("`var` must be of length 1.\nDo you need `krig_lst()`?")
-  }
-  
   krig_msg <- function() {
     message("\nvar: ", var, "Using: gridsize = ", gridsize)
     
@@ -434,7 +426,7 @@ krig <- function(soil,
     )
     
     message(krig$output)
-    new_krig(krig$result)
+    krig$result
   }
   
   if (quiet) suppressMessages(krig_msg()) else krig_msg() 
@@ -473,7 +465,9 @@ check_krig <- function(df.soil,
   }
   fgeo.base::check_crucial_names(df.soil, c("gx", "gy"))
   stopifnot(is.character(var))
-  stopifnot(length(var) != 0)
+  if (length(var) > 1) {
+    stop("`var` must be of length 1.\nDo you need `krig_lst()`?")
+  }
   stopifnot(!missing(var))
 
   if (!var %in% names(df.soil)) {
@@ -504,11 +498,6 @@ check_crucial_names <- function(x, nms) {
       call. = FALSE
     )
   }
-}
-
-new_krig <- function(.x) {
-  stopifnot(is.list(.x))
-  structure(.x, class = c("krig", class(.x)))
 }
 
 new_krig_lst <- function(.x) {
