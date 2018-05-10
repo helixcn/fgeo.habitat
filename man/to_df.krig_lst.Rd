@@ -2,12 +2,12 @@
 % Please edit documentation in R/to_df.R
 \name{to_df.krig_lst}
 \alias{to_df.krig_lst}
-\title{Dataframe the output of \code{krig_lst()}.}
+\title{Dataframe the output of \code{krig()}.}
 \usage{
 \method{to_df}{krig_lst}(.x, name = "var", item = "df", ...)
 }
 \arguments{
-\item{.x}{The output of \code{\link[=krig_lst]{krig_lst()}}.}
+\item{.x}{The output of \code{\link[=krig]{krig()}}.}
 
 \item{name}{Name for the column to hold soil variable-names.}
 
@@ -22,10 +22,10 @@
 A dataframe.
 }
 \description{
-Dataframe the output of \code{krig_lst()}.
+Dataframe the output of \code{krig()}.
 }
 \examples{
 vars <- c("c", "p")
-krig_lst <- krig_lst(soil_fake, vars, quiet = TRUE)
-head(to_df(krig_lst))
+krig <- krig(soil_fake, vars, quiet = TRUE)
+head(to_df(krig))
 }

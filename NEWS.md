@@ -1,7 +1,7 @@
 # fgeo.habitat 0.0.0.9005
 
 * Remove class tt and krig.
-* Remove krig() and tt_test.
+* Remove krig_lst() and tt_test_lst().
 
 # fgeo.habitat 0.0.0.9004
 

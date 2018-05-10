@@ -43,7 +43,7 @@ reference:
 
   - title: "Torus translation"
     contents:
-      - tt_test_lst
+      - tt_test
       - torusonesp.all
       
       - abund_index

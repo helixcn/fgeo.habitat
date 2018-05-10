@@ -2,8 +2,8 @@
 #'
 #' Functions to krige soil data:
 #' * `GetKrigedSoil()` is the original function but it is softly deprecated. Its
-#' result is the same as `krig_lst()[[1]]` when run for one soil variable.
-#' * `krig_lst()` some additional convenient features:
+#' result is the same as `krig()[[1]]` when run for one soil variable.
+#' * `krig()` some additional convenient features:
 #'     * An interface consistent with other functions of ForestGEO.
 #'     * A a method for `summary()`(see examples).
 #'     * Tries to guess `plotdim`.
@@ -18,7 +18,7 @@
 #'   columns `gx`, `gy`.
 #' @param var A character vector giving the name in the soil dataset of the
 #'   variable(s) containing soil data to krige. `var` must be of length 1 for
-#'   `GetKrigedSoil()` but can be of length greater than one for `krig_lst()`.
+#'   `GetKrigedSoil()` but can be of length greater than one for `krig()`.
 #' @param gridsize,gridSize Points are kriged to the center points of a grid of
 #'   this size.
 #' @param params,krigeParams If you want to pass specified kriging parameters;
@@ -65,14 +65,14 @@
 #' 
 #' # Also using not one but multiple soil variables
 #' vars <- c("c", "p")
-#' custom <- krig_lst(soil_fake, vars, params = params, quiet = TRUE)
+#' custom <- krig(soil_fake, vars, params = params, quiet = TRUE)
 #' summary(custom)
 #' 
 #' result <- to_df(custom, item = "df")
 #' head(result)
 #' 
 #' tail(result)
-krig_lst <- function(soil,
+krig <- function(soil,
                      var,
                      params = NULL,
                      gridsize = 20,
@@ -83,14 +83,14 @@ krig_lst <- function(soil,
   force(var)
   out <- lapply(
     var, 
-    krig, soil = soil, params = params, gridsize = gridsize, plotdim = plotdim,
-    breaks = breaks, use_ksline = use_ksline, quiet = quiet
+    krig_one, soil = soil, params = params, gridsize = gridsize,
+    plotdim = plotdim, breaks = breaks, use_ksline = use_ksline, quiet = quiet
   )
   out <- stats::setNames(out, var)
   new_krig_lst(out)
 }
 
-#' @rdname krig_lst
+#' @rdname krig
 #' @export
 GetKrigedSoil <- function(df.soil,
                           var,
@@ -402,7 +402,7 @@ InvBoxCoxTransformSoil <- function(df, lambda, delta) {
   df
 }
 
-krig <- function(soil,
+krig_one <- function(soil,
                  var,
                  params = NULL,
                  gridsize = 20,
@@ -466,7 +466,7 @@ check_krig <- function(df.soil,
   fgeo.base::check_crucial_names(df.soil, c("gx", "gy"))
   stopifnot(is.character(var))
   if (length(var) > 1) {
-    stop("`var` must be of length 1.\nDo you need `krig_lst()`?")
+    stop("`var` must be of length 1.\nDo you need `krig()`?")
   }
   stopifnot(!missing(var))
 

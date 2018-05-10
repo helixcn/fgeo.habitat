@@ -20,9 +20,9 @@ to_df.default <- function(.x, ...) {
   rlang::abort(paste0("Can't deal with data of class ", class(.x)))
 }
 
-#' Dataframe the output of `krig_lst()`.
+#' Dataframe the output of `krig()`.
 #'
-#' @param .x The output of [krig_lst()].
+#' @param .x The output of [krig()].
 #' @param name Name for the column to hold soil variable-names.
 #' @param item Character string; either "df" or "df.poly".
 #' @inheritDotParams to_df
@@ -32,8 +32,8 @@ to_df.default <- function(.x, ...) {
 #'
 #' @examples
 #' vars <- c("c", "p")
-#' krig_lst <- krig_lst(soil_fake, vars, quiet = TRUE)
-#' head(to_df(krig_lst))
+#' krig <- krig(soil_fake, vars, quiet = TRUE)
+#' head(to_df(krig))
 to_df.krig_lst <- function(.x, name = "var", item = "df", ...) {
   stopifnot(is.character(name), is.character(item))
   stopifnot(length(item) == 1, item == "df" || item == "df.poly")
@@ -43,7 +43,7 @@ to_df.krig_lst <- function(.x, name = "var", item = "df", ...) {
   out[c(name, setdiff(names(out), name))]
 }
 
-#' Dataframe the output of tt_test_lst().
+#' Dataframe the output of tt_test().
 #'
 #' @param .x An object of class tt_lst.
 #' @param ... Other arguments passed to [to_df()].
@@ -56,7 +56,7 @@ to_df.krig_lst <- function(.x, name = "var", item = "df", ...) {
 #' spp <- unique(cns$sp)
 #' hab <- luquillo_habitat
 #' 
-#' tt_lst <- tt_test_lst(cns, spp, hab)
+#' tt_lst <- tt_test(cns, spp, hab)
 #' tt_df <- to_df(tt_lst)
 #' head(tt_df)
 #' 

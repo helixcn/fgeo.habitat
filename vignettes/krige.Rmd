@@ -25,7 +25,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-This article shows how to krig soil data based on code by Graham Zemunik. Here you'll learn about `krig_lst()`, which wrap the original function `GetKrigedSoil()` and provides the same results with several convenient features. To learn more about these functions see `?krig_lst()`.
+This article shows how to krig soil data based on code by Graham Zemunik. Here you'll learn about `krig()`, which wrap the original function `GetKrigedSoil()` and provides the same results with several convenient features. To learn more about these functions see `?krig()`.
 
 ```{r}
 library(fgeo.habitat)
@@ -43,7 +43,7 @@ str(soil)
 Krige with automated parameters.
 
 ```{r}
-auto <- krig_lst(soil, var = "m3al")$m3al
+auto <- krig(soil, var = "m3al")$m3al
 ```
 
 ```{r}
@@ -68,8 +68,7 @@ With custom parameters (arbitrary but based on automated kriging parameters).
 params <- list(
   model = "circular", range = 100, nugget = 1000, sill = 46000, kappa = 0.5
 )
-# Quietly
-custom <- krig_lst(soil, var = "m3al", params = params, quiet = TRUE)$m3al
+custom <- krig(soil, var = "m3al", params = params, quiet = TRUE)$m3al
 ```
 
 ```{r}
@@ -108,8 +107,8 @@ soil_fake
 ```
 
 ```{r}
-# krig_lst() can take multiple soil variables.
-out_lst <- krig_lst(soil_fake, soil_vars, quiet = TRUE)
+# krig() can take multiple soil variables.
+out_lst <- krig(soil_fake, soil_vars, quiet = TRUE)
 
 # Overview results of one var
 summary(out_lst$c)

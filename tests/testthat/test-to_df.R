@@ -1,7 +1,7 @@
 context('to_df.krig_lst')
 
 vars <- c("c", "p")
-out_lst <- krig_lst(soil_fake, vars, quiet = TRUE)
+out_lst <- krig(soil_fake, vars, quiet = TRUE)
 out_df <- to_df(out_lst)
 
 test_that("passes silently with data of correct class", {
@@ -30,7 +30,7 @@ context("to_df.tt_lst")
 cns <- luquillo_top3_sp
 spp <- unique(cns$sp)[1]
 hab_luq <- luquillo_habitat
-tt_lst <- tt_test_lst(cns, spp, hab_luq)
+tt_lst <- tt_test(cns, spp, hab_luq)
 
 test_that("outputs the expected dataframe", {
   expect_equal(class(tt_lst), c("tt_lst", "list"))

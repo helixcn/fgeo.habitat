@@ -28,7 +28,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-This article shows how to determine habitat-species associations with the function [`tt_test_lst()`](https://forestgeo.github.io/fgeo.habitat/reference/tt_test_lst.html), developed by Sabrina Russo, Daniel Zuleta, Matteo Detto, and Kyle Harms. 
+This article shows how to determine habitat-species associations with the function [`tt_test()`](https://forestgeo.github.io/fgeo.habitat/reference/tt_test), developed by Sabrina Russo, Daniel Zuleta, Matteo Detto, and Kyle Harms. 
 
 To suggest changes to the source code please file a pull request on the GitHub repository of the relevant package. You can search all functions and packages [here](https://forestgeo.github.io/fgeo/articles/fgeo.html#functions). Each function's help file links to its source code.
 
@@ -131,11 +131,11 @@ ggplot(pick, aes(x = gx, y = gy)) +
   labs(fill = "Habitat")
 ```
 
-## `tt_test_lst()` and any number of species
+## `tt_test()` and any number of species
 
 ```{r}
 all_sp <- unique(pick$sp)
-out <- tt_test_lst(census, all_sp, habitat)
+out <- tt_test(census, all_sp, habitat)
 head(out)
 ```
 
@@ -199,7 +199,7 @@ ggplot(tt_df, aes(sp, value, color = sp)) +
 
 ## `torusonesp.all()` and one species
 
-Before we used `tt_test_lst()`, a wrapper of `torusonesp.all()`. This section shows how you may use `torusonesp.all()` directly to test a single species. The following section shows how to extend the test to any number of species.
+Before we used `tt_test()`, a wrapper of `torusonesp.all()`. This section shows how you may use `torusonesp.all()` directly to test a single species. The following section shows how to extend the test to any number of species.
 
 See `?torusonesp.all()`; you'll find out that this function needs the name of one species, a census, and habitat data. All of these we already have (above). But this function also needs plot dimensions, grid size and the abundance (count) of each species per quadrat-index.
 

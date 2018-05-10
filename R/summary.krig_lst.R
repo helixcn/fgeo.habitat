@@ -1,15 +1,15 @@
-#' Summary results of `krig_lst()`.
+#' Summary results of `krig()`.
 #' 
-#' A cleaner version of `str()` for the result of `krig_lst().
+#' A cleaner version of `str()` for the result of `krig().
 #' 
-#' @param object The result of `krig_lst()`.
+#' @param object The result of `krig()`.
 #' @inheritDotParams base::summary
 #'
 #' @return Prints a cleaner version of `str()` and returns its input invisibly.
 #' @export
 #'
 #' @examples
-#' result <- krig_lst(soil_fake, c("c", "p"), quiet = TRUE)
+#' result <- krig(soil_fake, c("c", "p"), quiet = TRUE)
 #' summary(result)
 #' str(result)
 summary.krig_lst <- function(object, ...) {

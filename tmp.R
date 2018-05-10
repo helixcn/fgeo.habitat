@@ -1,10 +1,3 @@
-- krig_lst
-- krig_breaks
-- krig_auto_params
-
-- extract_plotdim
-- extract_gridsize
-
 # WIP: Move check_crucial_names to fgeo.base from fgeo.map.
 
 # Remove useless files

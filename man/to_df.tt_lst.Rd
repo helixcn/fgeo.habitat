@@ -2,7 +2,7 @@
 % Please edit documentation in R/to_df.R
 \name{to_df.tt_lst}
 \alias{to_df.tt_lst}
-\title{Dataframe the output of tt_test_lst().}
+\title{Dataframe the output of tt_test().}
 \usage{
 \method{to_df}{tt_lst}(.x, ...)
 }
@@ -15,14 +15,14 @@
 A dataframe.
 }
 \description{
-Dataframe the output of tt_test_lst().
+Dataframe the output of tt_test().
 }
 \examples{
 cns <- fgeo.habitat::luquillo_top3_sp
 spp <- unique(cns$sp)
 hab <- luquillo_habitat
 
-tt_lst <- tt_test_lst(cns, spp, hab)
+tt_lst <- tt_test(cns, spp, hab)
 tt_df <- to_df(tt_lst)
 head(tt_df)
 

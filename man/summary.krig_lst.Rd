@@ -2,12 +2,12 @@
 % Please edit documentation in R/summary.krig_lst.R
 \name{summary.krig_lst}
 \alias{summary.krig_lst}
-\title{Summary results of \code{krig_lst()}.}
+\title{Summary results of \code{krig()}.}
 \usage{
 \method{summary}{krig_lst}(object, ...)
 }
 \arguments{
-\item{object}{The result of \code{krig_lst()}.}
+\item{object}{The result of \code{krig()}.}
 
 \item{...}{Arguments passed on to \code{base::summary}
 \describe{
@@ -18,10 +18,10 @@
 Prints a cleaner version of \code{str()} and returns its input invisibly.
 }
 \description{
-A cleaner version of \code{str()} for the result of `krig_lst().
+A cleaner version of \code{str()} for the result of `krig().
 }
 \examples{
-result <- krig_lst(soil_fake, c("c", "p"), quiet = TRUE)
+result <- krig(soil_fake, c("c", "p"), quiet = TRUE)
 summary(result)
 str(result)
 }

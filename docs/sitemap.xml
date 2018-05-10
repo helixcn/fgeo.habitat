@@ -16,13 +16,13 @@
     <loc>https://forestgeo.github.io/fgeo.habitat//reference/fgeo.habitat-package.html</loc>
   </url>
   <url>
+    <loc>https://forestgeo.github.io/fgeo.habitat//reference/krig.html</loc>
+  </url>
+  <url>
     <loc>https://forestgeo.github.io/fgeo.habitat//reference/krig_auto_params.html</loc>
   </url>
   <url>
     <loc>https://forestgeo.github.io/fgeo.habitat//reference/krig_breaks.html</loc>
-  </url>
-  <url>
-    <loc>https://forestgeo.github.io/fgeo.habitat//reference/krig_lst.html</loc>
   </url>
   <url>
     <loc>https://forestgeo.github.io/fgeo.habitat//reference/luquillo.html</loc>
@@ -52,7 +52,7 @@
     <loc>https://forestgeo.github.io/fgeo.habitat//reference/to_df.tt_lst.html</loc>
   </url>
   <url>
-    <loc>https://forestgeo.github.io/fgeo.habitat//reference/tt_test_lst.html</loc>
+    <loc>https://forestgeo.github.io/fgeo.habitat//reference/tt_test.html</loc>
   </url>
   <url>
     <loc>https://forestgeo.github.io/fgeo.habitat//articles/krige.html</loc>
