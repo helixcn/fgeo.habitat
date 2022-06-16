@@ -15,7 +15,7 @@ status](http://www.r-pkg.org/badges/version/fgeo.habitat)](https://cran.r-projec
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("forestgeo/fgeo.habitat")
+remotes::install_github("helixcn/fgeo.habitat")
 ```
 
 For details on how to install packages from GitHub, see [this
